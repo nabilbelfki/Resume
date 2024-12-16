@@ -1,0 +1,87 @@
+.biography {
+ background-image: url('../../public/images/droplets.png');
+ background-color: #011A49;
+ padding: 20px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+
+.biography .card {
+    background-color: #ECECEC;
+    border-radius: 10px;
+    display: flex;
+    width: 900px;
+    height: 500px;
+}
+
+.biography .profile-name-and-role {
+    background-color: #FFFFFF;
+    width: 40%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.biography .profile {
+    height: 400px;
+}
+
+.biography .profile img {
+    height: 100%;
+    width: auto;
+    border-top-left-radius: 10px;
+}
+
+.biography .name-and-role {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.biography .name {
+    font-weight: 600;
+    font-size: 2rem;
+    color: #2E2E2E;
+}
+
+.biography .role {
+    font-weight: 100;
+    font-size: 1.5rem;
+    color: #2E2E2E;
+}
+
+.biography .title-text-and-socials {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+.biography .title {
+    background-color: #FFFFFF;
+    height: 50px;
+    color: rgba(46, 46, 46, 0.3);
+    border-bottom: solid 3px rgba(46, 46, 46, 0.3);
+    font-size: 2rem;
+    font-weight: 500;
+    border-top-right-radius: 10px;
+    padding-left: 10px;
+}
+
+.biography .text {
+    height: 400px;
+    color: rgba(46, 46, 46, 0.8);
+    font-weight: 100;
+    font-style: italic;
+    font-size: 1.5rem;
+    padding: 20px;
+}
+
+.biography .socials {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 20px;
+    padding-right: 20px;
+}

@@ -1,0 +1,61 @@
+.timeline {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.timeline div{
+    flex: 1;
+}
+
+/* .year {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+} */
+
+.year .indicator {
+    height: 30px;
+    width: 8px;
+    background-color: #2E2E2E;
+}
+
+/* .february,
+.march,
+.may,
+.june,
+.august,
+.september,
+.october,
+.november,
+.december {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2E2E2E;
+    height: 10px;
+    width: 2px;
+} */
+
+.february .indicator,
+.march .indicator,
+.april  .indicator,
+.may .indicator,
+.june .indicator,
+.july  .indicator,
+.august .indicator,
+.september .indicator,
+.november .indicator,
+.december .indicator{
+    background-color: #2E2E2E;
+    height: 10px;
+    width: 2px;
+}
+
+.april  .indicator,
+.july  .indicator,
+.october .indicator {
+    background-color: #2E2E2E;
+    height: 20px;
+    width: 3px;
+}
