@@ -1,0 +1,47 @@
+.contact-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap:10px;
+}
+
+.contact-form-title {
+    font-size: 32px;
+    color: #2E2E2E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+}
+
+.email-first-and-last-name {
+    display: flex;
+    gap: 10px;
+}
+
+.first-name,
+.last-name,
+.email {
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    height: 40px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.message {
+    width: 100%;
+}
+
+.message textarea {
+    height: 300px;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    resize: none; /* Disable the resize handle */
+    overflow: hidden; /* Optionally hide overflow to prevent scrollbars */
+    padding: 5px;
+}
