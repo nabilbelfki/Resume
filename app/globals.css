@@ -34,3 +34,31 @@ body {
   background-color: #FFFFFF;
   height: 1000px;
 }
+
+.contact-and-schedule-meeting {
+  /* height: 400px; */
+  background-color: #F3F3F3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.title-and-calendar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.calendar-title {
+  font-size: 32px;
+  color: #2E2E2E;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+}
