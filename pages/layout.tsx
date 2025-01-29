@@ -1,5 +1,5 @@
-import NavigationBar from "./components/NavigationBar";
-import Footer from "./components/Footer";
+import NavigationBar from "../app/components/NavigationBar";
+import Footer from "../app/components/Footer";
 import "./globals.css";
 
 export default function RootLayout({
@@ -10,7 +10,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className='container'>
+        <div className="container">
           <NavigationBar />
           {children}
           <Footer />
