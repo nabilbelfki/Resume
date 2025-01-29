@@ -1,8 +1,8 @@
 import React from "react";
-import Biography from "./components/Biography";
-import Timeline from "./components/Timeline";
-import ContactForm from "./components/ContactForm";
-import Calendar from "./components/Calendar";
+import Biography from "../app/components/Biography";
+import Timeline from "../app/components/Timeline";
+import ContactForm from "../app/components/ContactForm";
+import Calendar from "../app/components/Calendar";
 
 export default function Home() {
   return (
