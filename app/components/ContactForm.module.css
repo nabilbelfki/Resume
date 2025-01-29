@@ -18,6 +18,7 @@
 .email-first-and-last-name {
     display: flex;
     gap: 10px;
+    width: 100%;
 }
 
 .first-name,
@@ -29,6 +30,15 @@
     height: 40px;
     padding-left: 5px;
     padding-right: 5px;
+}
+
+.first-name,
+.last-name {
+    flex: 1;
+}
+
+.email {
+    flex: 1.5;
 }
 
 .message {
@@ -44,4 +54,5 @@
     resize: none; /* Disable the resize handle */
     overflow: hidden; /* Optionally hide overflow to prevent scrollbars */
     padding: 5px;
+    font-family: 'Inter';
 }

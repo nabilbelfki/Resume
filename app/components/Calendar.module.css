@@ -21,6 +21,11 @@
     gap: 20px
 }
 
+.previous-month,
+.next-month {
+    cursor: pointer;
+}
+
 .current-month {
     color: #79D2FF;
     font-style: italic;
@@ -54,9 +59,14 @@
     flex: 1;
     border-radius: 3px;
     background-color: #FFFFFF;
+    color: rgba(46, 46, 46, 0.8);
     font: 16px;
     font-weight: 600;
     height: 40px;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* Internet Explorer/Edge */
+    user-select: none;         /* Standard syntax */    
 }
 
 .days {
@@ -72,13 +82,20 @@
     flex: 1;
     border-radius: 3px;
     background-color: #FFFFFF;
+    color: rgba(46, 46, 46, 0.8);
     font: 16px;
     font-weight: 600;
     height: 40px;
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* Internet Explorer/Edge */
+    user-select: none;         /* Standard syntax */    
 }
 
 .unselected {
     background-color: rgba(255, 255, 255, 0.4);
+    cursor: default;
 }
 
 .current-day {
