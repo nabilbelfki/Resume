@@ -1,5 +1,33 @@
+.project {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .project img {
     max-width: 100%;
+    width: 100%;
+}
+
+.preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(46, 46, 46, 0.7);
+    color: #FFFFFF;
+    font-size: 32px;
+    height: 50px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.project:hover .preview { 
+    display: flex;
 }
 
 .gif {

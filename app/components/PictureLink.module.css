@@ -1,0 +1,39 @@
+.picture-link {
+    color: #FFFFFF;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    padding: 5px;
+    gap: 5px;
+    text-decoration: none;
+}
+
+.name-and-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.icon {
+    height: 30px;
+    width: 30px;
+}
+
+.icon img {
+    height: 100%;
+    width: 100%;
+}
+
+.link {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    font-size: 9px;
+}
+
+.name {
+    font-size: 18px;
+}

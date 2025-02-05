@@ -1,0 +1,14 @@
+.sleek-blue {
+    width: 100px;
+    height: 40px;
+    color: white;
+    background-color: #113C8D;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.sleek-blue:hover {
+    background-color: #011A49;
+}
