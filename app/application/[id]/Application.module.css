@@ -1,0 +1,99 @@
+.background {
+    background-color: #F3F3F3;
+}
+
+.project-information {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    gap: 10px;
+}
+
+.views-and-duration {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+    height: 100%;
+    max-width: 130px;
+}
+
+.dates-and-links{
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+    height: 100%;
+    width: 100%;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    height: 100%;
+    width: 100%;
+}
+
+.languages {
+    flex: 4;
+}
+
+.client-info-and-contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+}
+
+.client {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+}
+
+.title {
+    font-size: 42px;
+    color: rgba(46,46,46,0.8);
+    font-weight: 600;
+}
+
+.information {
+    height: 440px;
+}
+
+.call-to-action-and-calendar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px
+}
+
+.call-to-action {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    gap:15px;
+}
+
+.text {
+    font-size: 28px;
+    color: rgba(46,46,46,0.8);
+    font-weight: 600;
+}

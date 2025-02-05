@@ -27,8 +27,7 @@
 }
 
 .biography .profile img {
-    height: 100%;
-    width: auto;
+    width: 360px;
     border-top-left-radius: 10px;
 }
 
