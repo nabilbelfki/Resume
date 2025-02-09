@@ -11,7 +11,7 @@ const Project: React.FC<ProjectProps> = ({ name, videoPath }) => {
   return (
     <div className={styles.project}>
       <div className={styles.preview}>{name}</div>
-      <Image src={videoPath} alt="Project Preview GIF" className={styles.gif} />
+      <Image src={videoPath} alt="Project Preview GIF" className={styles.gif} width="200" height="300" />
     </div>
   );
 };

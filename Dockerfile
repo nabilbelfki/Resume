@@ -10,8 +10,7 @@ RUN git clone https://github.com/nabilbelfki/Resume.git .
 
 # Install dependencies and build the project
 RUN npm install
-RUN npm install nodemailer
-RUN npm run build
+# RUN npm run dev
 
 # Stage 2: Serve the application using Nginx
 FROM nginx:alpine

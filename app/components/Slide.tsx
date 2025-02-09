@@ -18,7 +18,7 @@ const Slide: React.FC<SlideProps> = ({ name, color, image, url, width }) => {
       className={styles.slide}
       style={{ backgroundColor: color, minWidth: width }}
     >
-      <Image src={image} alt={name} />
+      <Image src={image} alt={name} width="200" height="300" />
     </a>
   );
 };
