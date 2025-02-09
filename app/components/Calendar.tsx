@@ -8,7 +8,7 @@ import Times from "./Times";
 
 // interface CalendarProps {}
 
-const Calendar: React.FC<{}> = () => {
+const Calendar: React.FC<unknown> = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [showing, setShowing] = useState(false);
