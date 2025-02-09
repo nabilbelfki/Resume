@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import styles from "./Biography.module.css";
 
 interface BiographyProps {
@@ -21,7 +22,7 @@ const Biography: React.FC<BiographyProps> = ({
       <div className={styles.card}>
         <div className={styles["profile-name-and-role"]}>
           <div className={styles.profile}>
-            <img src={imagePath} alt={imageAlt} />
+            <Image src={imagePath} alt={imageAlt} />
           </div>
           <div className={styles["name-and-role"]}>
             <div className={styles.name}>{name}</div>
