@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import styles from "./Slide.module.css";
 
 interface SlideProps {
@@ -17,7 +18,7 @@ const Slide: React.FC<SlideProps> = ({ name, color, image, url, width }) => {
       className={styles.slide}
       style={{ backgroundColor: color, minWidth: width }}
     >
-      <img src={image} alt={name} />
+      <Image src={image} alt={name} />
     </a>
   );
 };

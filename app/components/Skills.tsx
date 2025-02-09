@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./Skills.module.css";
+// import styles from "./Skills.module.css";
 import Skill from "./Skill";
 
-interface SkillsProps {}
+// interface SkillsProps {}
 
 const skillsData = [
   {
@@ -62,7 +62,7 @@ const skillsData = [
   },
 ];
 
-const Skills: React.FC<SkillsProps> = ({}) => {
+const Skills: React.FC<{}> = () => {
   return (
     <div className="skills">
       <div className="frontend">

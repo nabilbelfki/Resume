@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import styles from "./Times.module.css";
 import Time from "./Time";
 
-interface TimesProps {}
+// interface TimesProps {}
 
-const Times: React.FC<TimesProps> = ({}) => {
+const Times: React.FC<{}> = () => {
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
 
   const times = [

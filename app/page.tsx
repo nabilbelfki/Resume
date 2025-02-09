@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 import Biography from "./components/Biography";
 import Timeline from "./components/Timeline";
 import ContactForm from "./components/ContactForm";
@@ -41,7 +42,7 @@ const Home = async () => {
         <div id="skills" className="skills-display">
           <div className="skills-title-and-description">
             <div className="metal">
-              <img src="/images/metal.jpg" alt="" />
+              <Image src="/images/metal.jpg" alt="" />
             </div>
             <div className="skills-title">SKILLS</div>
             <div className="skills-description">

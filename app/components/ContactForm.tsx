@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./ContactForm.module.css";
 
-interface ContactProps {}
+// interface ContactProps {}
 
-const Contact: React.FC<ContactProps> = ({}) => {
+const Contact: React.FC<{}> = () => {
   return (
     <div className={styles["contact-form"]}>
       <div className={styles["contact-form-title"]}>
