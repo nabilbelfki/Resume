@@ -18,7 +18,7 @@ const Calendar: React.FC<CalendarProps> = ({}) => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
-  const [time, setTime] = useState("");
+  // const [time, setTime] = useState("");
 
   const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFirstName(e.target.value);
@@ -32,8 +32,9 @@ const Calendar: React.FC<CalendarProps> = ({}) => {
     setNotes(e.target.value);
 
   const bookMeeting = () => {
-    if (page == "times") setPage("contact");
-    else {
+    if (page === "times") {
+      setPage("contact");
+    } else {
       const templateParams = {
         firstName,
         lastName,
@@ -42,38 +43,24 @@ const Calendar: React.FC<CalendarProps> = ({}) => {
         notes,
       };
 
-      const bookMeeting = () => {
-        if (page === "times") {
-          setPage("contact");
-        } else {
-          const templateParams = {
-            firstName,
-            lastName,
-            email,
-            phone,
-            notes,
-          };
-
-          fetch("/api/email", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(templateParams),
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.success) {
-                console.log("Email sent successfully");
-              } else {
-                console.log("Failed to send email");
-              }
-            })
-            .catch((error) => {
-              console.error("Error:", error);
-            });
-        }
-      };
+      fetch("/api/email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(templateParams),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            console.log("Email sent successfully");
+          } else {
+            console.log("Failed to send email");
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     }
   };
 
