@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import styles from "./Skill.module.css";
 
 interface SkillProps {
@@ -20,7 +21,7 @@ const Skill: React.FC<SkillProps> = ({
     <div style={{ backgroundColor }} className={`${styles.skill} ${className}`}>
       <div className={styles.description}>{description}</div>
       <div className={styles.logo}>
-        <img
+        <Image
           src={logoPath}
           style={{ height: `${height}px`, width: "auto" }}
           alt="Logo"

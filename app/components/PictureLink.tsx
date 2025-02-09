@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import styles from "./PictureLink.module.css";
 
 interface PictureLinkProps {
@@ -24,7 +25,7 @@ const PictureLink: React.FC<PictureLinkProps> = ({
       target="_blank"
     >
       <div className={styles.icon}>
-        <img src={image} alt={name} />
+        <Image src={image} alt={name} />
       </div>
       <div className={styles["name-and-link"]}>
         <div className={styles.link}>{shortLink}</div>

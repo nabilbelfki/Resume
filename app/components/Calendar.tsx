@@ -6,9 +6,9 @@ import Popup from "./Popup";
 import Button from "./Button";
 import Times from "./Times";
 
-interface CalendarProps {}
+// interface CalendarProps {}
 
-const Calendar: React.FC<CalendarProps> = ({}) => {
+const Calendar: React.FC<{}> = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [showing, setShowing] = useState(false);
