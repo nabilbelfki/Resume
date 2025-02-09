@@ -23,7 +23,8 @@ const Skill: React.FC<SkillProps> = ({
       <div className={styles.logo}>
         <Image
           src={logoPath}
-          style={{ height: `${height}px`, width: "auto" }}
+          height={height}
+          width="200"
           alt="Logo"
         />
       </div>

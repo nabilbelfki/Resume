@@ -7,7 +7,7 @@ import ContactForm from "./components/ContactForm";
 import Calendar from "./components/Calendar";
 import Skills from "./components/Skills";
 import Project from "./components/Project";
-import axios from "axios";
+// import axios from "axios";
 
 interface Project {
   _id: string;
@@ -26,8 +26,20 @@ const experiences = [
 ];
 
 const Home = async () => {
-  const res = await axios.get("http://localhost:3000/api/projects");
-  const projects: Project[] = res.data;
+  let projects: Project[] = [];
+
+  try {
+    const res = await fetch("http://localhost:3000/api/projects", {
+      next: { revalidate: 60 }, // Cache the response for 60 seconds
+    });
+    if (res.ok) {
+      projects = await res.json();
+    } else {
+      console.error("Failed to fetch projects:", res.statusText);
+    }
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+  }
   return (
     <div>
       <Biography
@@ -42,7 +54,7 @@ const Home = async () => {
         <div id="skills" className="skills-display">
           <div className="skills-title-and-description">
             <div className="metal">
-              <Image src="/images/metal.jpg" alt="" />
+              <Image src="/images/metal.jpg" alt="" width="200" height="300" />
             </div>
             <div className="skills-title">SKILLS</div>
             <div className="skills-description">

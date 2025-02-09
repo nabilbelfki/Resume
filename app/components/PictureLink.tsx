@@ -25,7 +25,7 @@ const PictureLink: React.FC<PictureLinkProps> = ({
       target="_blank"
     >
       <div className={styles.icon}>
-        <Image src={image} alt={name} />
+        <Image src={image} alt={name} width="200" height="300" />
       </div>
       <div className={styles["name-and-link"]}>
         <div className={styles.link}>{shortLink}</div>

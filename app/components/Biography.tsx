@@ -22,7 +22,7 @@ const Biography: React.FC<BiographyProps> = ({
       <div className={styles.card}>
         <div className={styles["profile-name-and-role"]}>
           <div className={styles.profile}>
-            <Image src={imagePath} alt={imageAlt} />
+            <Image src={imagePath} alt={imageAlt} width="360" height="400" />
           </div>
           <div className={styles["name-and-role"]}>
             <div className={styles.name}>{name}</div>
