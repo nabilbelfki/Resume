@@ -1,14 +1,17 @@
 import React from "react";
+import Image from "next/image";
 import styles from "./Project.module.css";
 
 interface ProjectProps {
-    videoPath: string;
+  name: string;
+  videoPath: string;
 }
 
-const Project: React.FC<ProjectProps> = ({ videoPath }) => {
+const Project: React.FC<ProjectProps> = ({ name, videoPath }) => {
   return (
     <div className={styles.project}>
-      <img src={videoPath} alt="Project Preview GIF" className={styles.gif} />
+      <div className={styles.preview}>{name}</div>
+      <Image src={videoPath} alt="Project Preview GIF" className={styles.gif} />
     </div>
   );
 };

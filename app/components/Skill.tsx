@@ -1,17 +1,31 @@
 import React from "react";
+import Image from "next/image";
 import styles from "./Skill.module.css";
 
 interface SkillProps {
-    backgroundColor: string;
-    logoPath: string;
-    height: number;
+  className: string;
+  backgroundColor: string;
+  height: number;
+  logoPath: string;
+  description: string;
 }
 
-const Skill: React.FC<SkillProps> = ({ backgroundColor, logoPath, height }) => {
+const Skill: React.FC<SkillProps> = ({
+  className,
+  backgroundColor,
+  logoPath,
+  height,
+  description,
+}) => {
   return (
-    <div style={{ backgroundColor }} className={styles.skill}>
+    <div style={{ backgroundColor }} className={`${styles.skill} ${className}`}>
+      <div className={styles.description}>{description}</div>
       <div className={styles.logo}>
-        <img src={logoPath} style={{ height: `${height}px`, width: 'auto'}} alt="Logo" />
+        <Image
+          src={logoPath}
+          style={{ height: `${height}px`, width: "auto" }}
+          alt="Logo"
+        />
       </div>
     </div>
   );

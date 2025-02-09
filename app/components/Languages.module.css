@@ -1,0 +1,52 @@
+.languages {
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    height: 115px;
+}
+
+.languages-title {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.distribution-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.distribution-segment:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.distribution-segment:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+  
+.legend {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px
+}
+
+.indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.indicator-color {
+    height: 7px;
+    width: 7px;
+}

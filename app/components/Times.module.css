@@ -1,0 +1,12 @@
+.times {
+    background-color: #F3F3F3;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Creates 2 equal-width columns */
+    grid-gap: 10px; /* Adjust the gap between grid items as needed */
+    padding: 10px; /* Optional: Add some padding around the grid */
+    width: 470px;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  

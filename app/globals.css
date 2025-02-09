@@ -15,6 +15,10 @@
   }
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
@@ -131,11 +135,11 @@ body {
 .frontend {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Creates 3 equal-width columns */
+  grid-template-rows: auto; /* Adjust rows to fit content */
   grid-gap: 20px; /* Adjust the gap between grid items as needed */
   height: 100%;
   width: 650px;
 }
-
 
 .skills-types {
   display: flex;
@@ -146,7 +150,6 @@ body {
   width: 50px;
   height: 100%;
 }
-
 /********************* PROJECT *********************/
 
 .projects-display {
@@ -255,3 +258,5 @@ body {
   background-color: rgba(255, 255, 255, 0.7);
   box-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.7);
 }
+
+/********************* PROJECT DETAILS *********************/

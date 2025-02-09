@@ -1,0 +1,53 @@
+.time {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    gap:20px;
+    color: #79D2FF;
+    height: 50px;
+    cursor: pointer;
+    border: solid 2px transparent;
+}
+
+.time:not(.occupied):hover {
+    border: solid 2px #0F4ABB;
+}
+
+.occupied {
+    cursor: not-allowed;
+    background-color: #BDBDBD;
+    color: #8DB3C6;
+}
+
+.occupied path {
+    fill: #8DB3C6;
+}
+
+.selected {
+    background-color: #79D2FF;
+    color: #FFFFFF;
+}
+
+.selected path {
+    fill: #FFFFFF;
+}
+
+.icon {
+    width: 30px;
+    height: 100%;
+}
+
+.icon svg {
+    height: 100%;
+    width: 100%;
+}
+
+/* .icon path {
+    fill: #79D2FF;
+} */
+
+.value {
+
+}

@@ -1,13 +1,196 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import styles from "./Calendar.module.css";
+import moreStyles from "./ScheduleMeeting.module.css";
+import Popup from "./Popup";
+import Button from "./Button";
+import Times from "./Times";
 
-interface CalendarProps {}
+// interface CalendarProps {}
 
-const Calendar: React.FC<CalendarProps> = ({}) => {
+const Calendar: React.FC<unknown> = () => {
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [showing, setShowing] = useState(false);
+  const [page, setPage] = useState("times");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [notes, setNotes] = useState("");
+  // const [time, setTime] = useState("");
+
+  const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setFirstName(e.target.value);
+  const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setLastName(e.target.value);
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setEmail(e.target.value);
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setPhone(e.target.value);
+  const handleNotesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
+    setNotes(e.target.value);
+
+  const bookMeeting = () => {
+    if (page === "times") {
+      setPage("contact");
+    } else {
+      const templateParams = {
+        firstName,
+        lastName,
+        email,
+        phone,
+        notes,
+      };
+      console.log(templateParams);
+
+      // fetch("/api/email", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(templateParams),
+      // })
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     if (data.success) {
+      //       console.log("Email sent successfully");
+      //     } else {
+      //       console.log("Failed to send email");
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     console.error("Error:", error);
+      //   });
+    }
+  };
+
+  const backToTimes = () => {
+    setPage("times");
+  };
+
+  const onClose = () => {
+    setShowing(false);
+  };
+
+  const monthAndYear = currentDate.toLocaleDateString("en-US", {
+    month: "long",
+    year: "numeric",
+  });
+
+  const handlePreviousMonth = () => {
+    setCurrentDate(
+      new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1)
+    );
+  };
+
+  const handleNextMonth = () => {
+    setCurrentDate(
+      new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
+    );
+  };
+
+  const getDaysInMonth = (date: Date) => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    return new Date(year, month + 1, 0).getDate();
+  };
+
+  const getFirstDayOfMonth = (date: Date) => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    return new Date(year, month, 1).getDay();
+  };
+
+  const handleDayClick = (day: number) => {
+    setShowing(true);
+    setSelectedDate(
+      new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
+    );
+  };
+
+  const generateDays = () => {
+    const daysInMonth = getDaysInMonth(currentDate);
+    const firstDayOfMonth = getFirstDayOfMonth(currentDate);
+    const days = [];
+
+    // Add unselectable days for the previous month
+    for (let i = 0; i < firstDayOfMonth; i++) {
+      days.push(
+        <div
+          key={`prev-${i}`}
+          className={`${styles["day"]} ${styles["unselected"]}`}
+        >
+          {" "}
+        </div>
+      );
+    }
+
+    // Add days of the current month
+    for (let i = 1; i <= daysInMonth; i++) {
+      days.push(
+        <div
+          key={i}
+          className={styles["day"]}
+          onClick={() => handleDayClick(i)}
+        >
+          {i}
+        </div>
+      );
+    }
+
+    // Add unselectable days for the next month to fill the last week
+    const totalDays = days.length;
+    const remainingDays = 7 - (totalDays % 7);
+    if (remainingDays < 7) {
+      for (let i = 0; i < remainingDays; i++) {
+        days.push(
+          <div
+            key={`next-${i}`}
+            className={`${styles["day"]} ${styles["unselected"]}`}
+          >
+            {" "}
+          </div>
+        );
+      }
+    }
+
+    // Group days into weeks
+    const weeks = [];
+    for (let i = 0; i < days.length; i += 7) {
+      weeks.push(
+        <div key={i} className={styles["days"]}>
+          {days.slice(i, i + 7)}
+        </div>
+      );
+    }
+
+    return weeks;
+  };
+
+  const formatDate = (date: Date | null) => {
+    if (!date) return "";
+    const formattedDate = date.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
+    const day = date.getDate();
+    const daySuffix =
+      day % 10 === 1 && day !== 11
+        ? "st"
+        : day % 10 === 2 && day !== 12
+        ? "nd"
+        : day % 10 === 3 && day !== 13
+        ? "rd"
+        : "th";
+    return formattedDate.replace(/\d+/, `${day}${daySuffix}`);
+  };
+
   return (
     <div className={styles["calendar"]}>
       <div className={styles["calendar-legend"]}>
-        <div className={styles["previous-month"]}>
+        <div className={styles["previous-month"]} onClick={handlePreviousMonth}>
           <svg
             height="15"
             viewBox="0 0 17 4"
@@ -20,8 +203,8 @@ const Calendar: React.FC<CalendarProps> = ({}) => {
             />
           </svg>
         </div>
-        <div className={styles["current-month"]}>December 2024</div>
-        <div className={styles["next-month"]}>
+        <div className={styles["current-month"]}>{monthAndYear}</div>
+        <div className={styles["next-month"]} onClick={handleNextMonth}>
           <svg
             height="15"
             viewBox="0 0 17 4"
@@ -45,52 +228,72 @@ const Calendar: React.FC<CalendarProps> = ({}) => {
           <div className={styles["day-of-the-week"]}>Fri</div>
           <div className={styles["day-of-the-week"]}>Sat</div>
         </div>
-        <div className={styles["days"]}>
-          <div className={styles["day"]}>1</div>
-          <div className={styles["day"]}>2</div>
-          <div className={styles["day"]}>3</div>
-          <div className={styles["day"]}>4</div>
-          <div className={styles["day"]}>5</div>
-          <div className={styles["day"]}>6</div>
-          <div className={styles["day"]}>7</div>
-        </div>
-        <div className={styles["days"]}>
-          <div className={styles["day"]}>8</div>
-          <div className={styles["day"]}>9</div>
-          <div className={styles["day"]}>10</div>
-          <div className={styles["day"]}>11</div>
-          <div className={styles["day"]}>12</div>
-          <div className={styles["day"]}>13</div>
-          <div className={styles["day"]}>14</div>
-        </div>
-        <div className={styles["days"]}>
-          <div className={styles["day"]}>15</div>
-          <div className={styles["day"] + " " + styles["current-day"]}>16</div>
-          <div className={styles["day"]}>17</div>
-          <div className={styles["day"]}>18</div>
-          <div className={styles["day"]}>19</div>
-          <div className={styles["day"]}>20</div>
-          <div className={styles["day"]}>21</div>
-        </div>
-        <div className={styles["days"]}>
-          <div className={styles["day"]}>22</div>
-          <div className={styles["day"]}>23</div>
-          <div className={styles["day"]}>24</div>
-          <div className={styles["day"]}>25</div>
-          <div className={styles["day"]}>26</div>
-          <div className={styles["day"]}>27</div>
-          <div className={styles["day"]}>28</div>
-        </div>
-        <div className={styles["days"]}>
-          <div className={styles["day"]}>29</div>
-          <div className={styles["day"]}>30</div>
-          <div className={styles["day"]}>31</div>
-          <div className={styles["day"] + " " + styles["unselected"]}> </div>
-          <div className={styles["day"] + " " + styles["unselected"]}> </div>
-          <div className={styles["day"] + " " + styles["unselected"]}> </div>
-          <div className={styles["day"] + " " + styles["unselected"]}> </div>
-        </div>
+        {generateDays()}
       </div>
+      <Popup
+        title="Schedule a Meeting"
+        body={
+          <>
+            <div></div>
+            {page == "times" && (
+              <div className={moreStyles.date}>{formatDate(selectedDate)}</div>
+            )}
+            {page == "times" && <Times />}
+            {page == "contact" && (
+              <div className={moreStyles.book}>
+                <div className={moreStyles.name}>
+                  <div className={moreStyles["first-name"]}>
+                    <input
+                      type="text"
+                      placeholder="First Name..."
+                      onChange={handleFirstNameChange}
+                    />
+                  </div>
+                  <div className={moreStyles["last-name"]}>
+                    <input
+                      type="text"
+                      placeholder="Last Name..."
+                      onChange={handleLastNameChange}
+                    />
+                  </div>
+                </div>
+                <div className={moreStyles.contact}>
+                  <div className={moreStyles.email}>
+                    <input
+                      type="text"
+                      placeholder="Email Address..."
+                      onChange={handleEmailChange}
+                    />
+                  </div>
+                  <div className={moreStyles.phone}>
+                    <input
+                      type="text"
+                      placeholder="Phone Number..."
+                      onChange={handlePhoneChange}
+                    />
+                  </div>
+                </div>
+                <div className={moreStyles.notes}>
+                  <textarea
+                    placeholder="Anything that you want to let me know?"
+                    id="#shedule-meeting-notes"
+                    onChange={handleNotesChange}
+                  ></textarea>
+                </div>
+              </div>
+            )}
+          </>
+        }
+        actions={
+          <>
+            <Button text="Book" onClick={bookMeeting} />
+            {page == "contact" && <Button text="Back" onClick={backToTimes} />}
+            {page == "times" && <Button text="Close" onClick={onClose} />}
+          </>
+        }
+        showing={showing}
+        onClose={onClose}
+      />
     </div>
   );
 };
