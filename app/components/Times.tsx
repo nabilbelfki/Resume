@@ -4,7 +4,7 @@ import Time from "./Time";
 
 // interface TimesProps {}
 
-const Times: React.FC<{}> = () => {
+const Times: React.FC<unknown> = () => {
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
 
   const times = [

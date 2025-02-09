@@ -3,7 +3,7 @@ import styles from "./ContactForm.module.css";
 
 // interface ContactProps {}
 
-const Contact: React.FC<{}> = () => {
+const Contact: React.FC<unknown> = () => {
   return (
     <div className={styles["contact-form"]}>
       <div className={styles["contact-form-title"]}>

@@ -62,7 +62,7 @@ const skillsData = [
   },
 ];
 
-const Skills: React.FC<{}> = () => {
+const Skills: React.FC<unknown> = () => {
   return (
     <div className="skills">
       <div className="frontend">

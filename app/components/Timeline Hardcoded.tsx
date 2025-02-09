@@ -3,7 +3,7 @@ import "./Timeline.module.css";
 
 // interface TimelineProps {}
 
-const Timeline: React.FC<{}> = () => {
+const Timeline: React.FC<unknown> = () => {
   return (
     <div className="timeline">
       <div className="year">
