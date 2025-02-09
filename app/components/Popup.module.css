@@ -33,3 +33,10 @@
     font-weight: 600;
     font-size: 32px;
   }
+
+  .popup-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }

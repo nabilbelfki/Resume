@@ -1,146 +1,96 @@
-import React from 'react';
-import styles from './Timeline.module.css';
+"use client";
+import React, { useEffect, useRef, useState } from "react";
+import Experience from "./Experience";
+import styles from "./Timeline.module.css";
 
-interface TimelineProps {}
+interface ExperienceData {
+  startDate: string;
+  endDate: string;
+}
 
-const Timeline: React.FC<TimelineProps> = () => {
-    return (
+interface TimelineProps {
+  experiences: ExperienceData[];
+}
 
-        <div className={styles.timeline}>
-            <div className={ styles.year }>
-                <div className={styles.indicator}></div>
-                <div className='text'>2017</div>
-            </div>
-            <div className={styles.february + ' 2017' }><div className={styles.indicator}></div></div>
-            <div className={styles.march + ' 2017' }><div className={styles.indicator}></div></div>
-            <div className={styles.april + ' 2017' }><div className={styles.indicator}></div></div>
-            <div className={styles.may + ' 2017' }><div className={styles.indicator}></div></div>
-            <div className={styles.june + ' 2017' }><div className={styles.indicator}></div></div>
-            <div className={styles.july + ' 2017' }><div className={styles.indicator}></div></div>
-            <div className={styles.august + ' 2017' }><div className={styles.indicator}></div></div>
-            <div className={styles.september + ' 2017' }><div className={styles.indicator}></div></div>
-            <div className={styles.october + ' 2017' }><div className={styles.indicator}></div></div>
-            <div className={styles.november + ' 2017' }><div className={styles.indicator}></div></div>
-            <div className={styles.december + ' 2017' }><div className={styles.indicator}></div></div>
+const Timeline: React.FC<TimelineProps> = ({ experiences }) => {
+  const [positions, setPositions] = useState<{ [key: string]: number }>({});
+  const timelineRef = useRef<HTMLDivElement>(null);
 
-            <div className={ styles.year }>
-                <div className={styles.indicator}></div>
-                <div className='text'>2018</div>
-            </div>
-            <div className={styles.february + ' 2018' }><div className={styles.indicator}></div></div>
-            <div className={styles.march + ' 2018' }><div className={styles.indicator}></div></div>
-            <div className={styles.april + ' 2018' }><div className={styles.indicator}></div></div>
-            <div className={styles.may + ' 2018' }><div className={styles.indicator}></div></div>
-            <div className={styles.june + ' 2018' }><div className={styles.indicator}></div></div>
-            <div className={styles.july + ' 2018' }><div className={styles.indicator}></div></div>
-            <div className={styles.august + ' 2018' }><div className={styles.indicator}></div></div>
-            <div className={styles.september + ' 2018' }><div className={styles.indicator}></div></div>
-            <div className={styles.october + ' 2018' }><div className={styles.indicator}></div></div>
-            <div className={styles.november + ' 2018' }><div className={styles.indicator}></div></div>
-            <div className={styles.december + ' 2018' }><div className={styles.indicator}></div></div>
+  useEffect(() => {
+    if (timelineRef.current) {
+      const months = timelineRef.current.querySelectorAll(
+        `.${styles.indicator}`
+      );
+      const newPositions: { [key: string]: number } = {};
+      months.forEach((month) => {
+        const parentClass = month.parentElement?.className.split(" ");
+        const monthName = parentClass
+          ? parentClass[parentClass.length - 1]
+          : null;
+        if (monthName) {
+          newPositions[monthName] = month.getBoundingClientRect().left;
+        }
+      });
+      setPositions(newPositions);
+    }
+  }, []);
 
-            <div className={ styles.year }>
-                <div className={styles.indicator}></div>
-                <div className='text'>2019</div>
-            </div>
-            <div className={styles.february + ' 2019' }><div className={styles.indicator}></div></div>
-            <div className={styles.march + ' 2019' }><div className={styles.indicator}></div></div>
-            <div className={styles.april + ' 2019' }><div className={styles.indicator}></div></div>
-            <div className={styles.may + ' 2019' }><div className={styles.indicator}></div></div>
-            <div className={styles.june + ' 2019' }><div className={styles.indicator}></div></div>
-            <div className={styles.july + ' 2019' }><div className={styles.indicator}></div></div>
-            <div className={styles.august + ' 2019' }><div className={styles.indicator}></div></div>
-            <div className={styles.september + ' 2019' }><div className={styles.indicator}></div></div>
-            <div className={styles.october + ' 2019' }><div className={styles.indicator}></div></div>
-            <div className={styles.november + ' 2019' }><div className={styles.indicator}></div></div>
-            <div className={styles.december + ' 2019' }><div className={styles.indicator}></div></div>
+  const generateMonths = () => {
+    const months = [
+      "january",
+      "february",
+      "march",
+      "april",
+      "may",
+      "june",
+      "july",
+      "august",
+      "september",
+      "october",
+      "november",
+      "december",
+    ];
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth();
+    const elements = [];
 
-            <div className={ styles.year }>
-                <div className={styles.indicator}></div>
-                <div className='text'>2020</div>
-            </div>
-            <div className={styles.february + ' 2020' }><div className={styles.indicator}></div></div>
-            <div className={styles.march + ' 2020' }><div className={styles.indicator}></div></div>
-            <div className={styles.april + ' 2020' }><div className={styles.indicator}></div></div>
-            <div className={styles.may + ' 2020' }><div className={styles.indicator}></div></div>
-            <div className={styles.june + ' 2020' }><div className={styles.indicator}></div></div>
-            <div className={styles.july + ' 2020' }><div className={styles.indicator}></div></div>
-            <div className={styles.august + ' 2020' }><div className={styles.indicator}></div></div>
-            <div className={styles.september + ' 2020' }><div className={styles.indicator}></div></div>
-            <div className={styles.october + ' 2020' }><div className={styles.indicator}></div></div>
-            <div className={styles.november + ' 2020' }><div className={styles.indicator}></div></div>
-            <div className={styles.december + ' 2020' }><div className={styles.indicator}></div></div>
-
-            <div className={ styles.year }>
-                <div className={styles.indicator}></div>
-                <div className='text'>2021</div>
-            </div>
-            <div className={styles.february + ' 2021' }><div className={styles.indicator}></div></div>
-            <div className={styles.march + ' 2021' }><div className={styles.indicator}></div></div>
-            <div className={styles.april + ' 2021' }><div className={styles.indicator}></div></div>
-            <div className={styles.may + ' 2021' }><div className={styles.indicator}></div></div>
-            <div className={styles.june + ' 2021' }><div className={styles.indicator}></div></div>
-            <div className={styles.july + ' 2021' }><div className={styles.indicator}></div></div>
-            <div className={styles.august + ' 2021' }><div className={styles.indicator}></div></div>
-            <div className={styles.september + ' 2021' }><div className={styles.indicator}></div></div>
-            <div className={styles.october + ' 2021' }><div className={styles.indicator}></div></div>
-            <div className={styles.november + ' 2021' }><div className={styles.indicator}></div></div>
-            <div className={styles.december + ' 2021' }><div className={styles.indicator}></div></div>
-
-            <div className={ styles.year }>
-                <div className={styles.indicator}></div>
-                <div className='text'>2022</div>
-            </div>
-            <div className={styles.february + ' 2022' }><div className={styles.indicator}></div></div>
-            <div className={styles.march + ' 2022' }><div className={styles.indicator}></div></div>
-            <div className={styles.april + ' 2022' }><div className={styles.indicator}></div></div>
-            <div className={styles.may + ' 2022' }><div className={styles.indicator}></div></div>
-            <div className={styles.june + ' 2022' }><div className={styles.indicator}></div></div>
-            <div className={styles.july + ' 2022' }><div className={styles.indicator}></div></div>
-            <div className={styles.august + ' 2022' }><div className={styles.indicator}></div></div>
-            <div className={styles.september + ' 2022' }><div className={styles.indicator}></div></div>
-            <div className={styles.october + ' 2022' }><div className={styles.indicator}></div></div>
-            <div className={styles.november + ' 2022' }><div className={styles.indicator}></div></div>
-            <div className={styles.december + ' 2022' }><div className={styles.indicator}></div></div>
-
-            <div className={ styles.year }>
-                <div className={styles.indicator}></div>
-                <div className='text'>2023</div>
-            </div>
-            <div className={styles.february + ' 2023' }><div className={styles.indicator}></div></div>
-            <div className={styles.march + ' 2023' }><div className={styles.indicator}></div></div>
-            <div className={styles.april + ' 2023' }><div className={styles.indicator}></div></div>
-            <div className={styles.may + ' 2023' }><div className={styles.indicator}></div></div>
-            <div className={styles.june + ' 2023' }><div className={styles.indicator}></div></div>
-            <div className={styles.july + ' 2023' }><div className={styles.indicator}></div></div>
-            <div className={styles.august + ' 2023' }><div className={styles.indicator}></div></div>
-            <div className={styles.september + ' 2023' }><div className={styles.indicator}></div></div>
-            <div className={styles.october + ' 2023' }><div className={styles.indicator}></div></div>
-            <div className={styles.november + ' 2023' }><div className={styles.indicator}></div></div>
-            <div className={styles.december + ' 2023' }><div className={styles.indicator}></div></div>
-
-            <div className={ styles.year }>
-                <div className={styles.indicator}></div>
-                <div className='text'>2024</div>
-            </div>
-            <div className={styles.february + ' 2024' }><div className={styles.indicator}></div></div>
-            <div className={styles.march + ' 2024' }><div className={styles.indicator}></div></div>
-            <div className={styles.april + ' 2024' }><div className={styles.indicator}></div></div>
-            <div className={styles.may + ' 2024' }><div className={styles.indicator}></div></div>
-            <div className={styles.june + ' 2024' }><div className={styles.indicator}></div></div>
-            <div className={styles.july + ' 2024' }><div className={styles.indicator}></div></div>
-            <div className={styles.august + ' 2024' }><div className={styles.indicator}></div></div>
-            <div className={styles.september + ' 2024' }><div className={styles.indicator}></div></div>
-            <div className={styles.october + ' 2024' }><div className={styles.indicator}></div></div>
-            <div className={styles.november + ' 2024' }><div className={styles.indicator}></div></div>
-            <div className={styles.december + ' 2024' }><div className={styles.indicator}></div></div>
-
-            <div className={ styles.year }>
-                <div className={styles.indicator}></div>
-                <div className='text'>2025</div>
-            </div>
+    for (let year = 2017; year <= currentYear; year++) {
+      elements.push(
+        <div key={year} className={styles.year}>
+          <div className={styles.indicator}></div>
+          <div className="text">{year}</div>
         </div>
-    );
+      );
+
+      for (let month = 0; month < 12; month++) {
+        if (year === currentYear && month > currentMonth) break;
+        elements.push(
+          <div
+            key={`${year}-${months[month]}`}
+            className={`${styles[months[month]]} ${year}-${months[month]}`}
+          >
+            <div className={styles.indicator}></div>
+          </div>
+        );
+      }
+    }
+
+    return elements;
+  };
+
+  return (
+    <div className={styles.timeline} ref={timelineRef}>
+      {experiences.map((experience, index) => (
+        <Experience
+          key={index}
+          startDate={experience.startDate}
+          endDate={experience.endDate}
+          positions={positions}
+        />
+      ))}
+      {generateMonths()}
+    </div>
+  );
 };
 
 export default Timeline;

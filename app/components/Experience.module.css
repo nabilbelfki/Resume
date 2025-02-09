@@ -1,0 +1,9 @@
+.experience {
+  position: absolute;
+  height: 20px;
+}
+
+.line {
+  height: 2px;
+  background-color: black;
+}

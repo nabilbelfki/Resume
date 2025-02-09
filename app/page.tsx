@@ -13,6 +13,16 @@ interface Project {
   name: string;
   slug: string;
 }
+const experiences = [
+  {
+    startDate: "2021-10-31",
+    endDate: "2022-02-28",
+  },
+  {
+    startDate: "2022-04-01",
+    endDate: "2023-11-16",
+  },
+];
 
 const Home = async () => {
   const res = await axios.get("http://localhost:3000/api/projects");
@@ -26,9 +36,9 @@ const Home = async () => {
         imageAlt="Nabil Belfki"
         biography="There is nothing that I can’t do or accomplish. I’m a great asset to a team and company. I’ve transformed countless clients in my career by helping them automate processes and solve their problems. I’m code agnostic haven write projects in many different stacks. I have knowledge in many different sectors from the flight industry to banking and finance to e-commerce."
       />
-      <div className="experience-and-skills">
-        <Timeline />
-        <div className="skills-display">
+      <div id="experiences" className="experience-and-skills">
+        <Timeline experiences={experiences} />
+        <div id="skills" className="skills-display">
           <div className="skills-title-and-description">
             <div className="metal">
               <img src="/images/metal.jpg" alt="" />
@@ -187,7 +197,7 @@ const Home = async () => {
           <Skills />
         </div>
       </div>
-      <div className="projects-display">
+      <div id="projects" className="projects-display">
         <div className="projects">
           {projects.map((project) => (
             <Link key={project._id} href={`/application/${project._id}`}>
@@ -198,30 +208,36 @@ const Home = async () => {
             </Link>
           ))}
         </div>
-        <div className="previous-projects">
-          <svg
-            viewBox="0 0 9 14"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M8 13L2 6.99999L8 1" stroke="#5C5C5C" strokeWidth="2" />
-          </svg>
-        </div>
-        <div className="next-projects">
-          <svg
-            viewBox="0 0 9 14"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M1 13L7 6.99999L1 1" stroke="#5C5C5C" strokeWidth="2" />
-          </svg>
-        </div>
-        <div className="project-pages">
-          <div className="project-page selected-page"></div>
-          <div className="project-page"></div>
-        </div>
+        {projects.length > 4 && (
+          <div className="previous-projects">
+            <svg
+              viewBox="0 0 9 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M8 13L2 6.99999L8 1" stroke="#5C5C5C" strokeWidth="2" />
+            </svg>
+          </div>
+        )}
+        {projects.length > 4 && (
+          <div className="next-projects">
+            <svg
+              viewBox="0 0 9 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M1 13L7 6.99999L1 1" stroke="#5C5C5C" strokeWidth="2" />
+            </svg>
+          </div>
+        )}
+        {projects.length > 4 && (
+          <div className="project-pages">
+            <div className="project-page selected-page"></div>
+            <div className="project-page"></div>
+          </div>
+        )}
       </div>
-      <div className="contact-and-schedule-meeting">
+      <div id="contact" className="contact-and-schedule-meeting">
         <ContactForm />
         <div className="title-and-calendar">
           <div className="calendar-title">Schedule a Meeting</div>

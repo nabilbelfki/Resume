@@ -6,7 +6,7 @@
     grid-gap: 10px; /* Adjust the gap between grid items as needed */
     padding: 10px; /* Optional: Add some padding around the grid */
     width: 470px;
-    max-height: 50vh;
+    max-height: 300px;
     overflow-y: auto;
   }
   

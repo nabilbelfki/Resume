@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./Calendar.module.css";
+import moreStyles from "./ScheduleMeeting.module.css";
 import Popup from "./Popup";
 import Button from "./Button";
 import Times from "./Times";
@@ -11,9 +12,73 @@ const Calendar: React.FC<CalendarProps> = ({}) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [showing, setShowing] = useState(false);
+  const [page, setPage] = useState("times");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [notes, setNotes] = useState("");
+  const [time, setTime] = useState("");
+
+  const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setFirstName(e.target.value);
+  const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setLastName(e.target.value);
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setEmail(e.target.value);
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setPhone(e.target.value);
+  const handleNotesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
+    setNotes(e.target.value);
 
   const bookMeeting = () => {
-    alert("Button clicked!");
+    if (page == "times") setPage("contact");
+    else {
+      const templateParams = {
+        firstName,
+        lastName,
+        email,
+        phone,
+        notes,
+      };
+
+      const bookMeeting = () => {
+        if (page === "times") {
+          setPage("contact");
+        } else {
+          const templateParams = {
+            firstName,
+            lastName,
+            email,
+            phone,
+            notes,
+          };
+
+          fetch("/api/email", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(templateParams),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                console.log("Email sent successfully");
+              } else {
+                console.log("Failed to send email");
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        }
+      };
+    }
+  };
+
+  const backToTimes = () => {
+    setPage("times");
   };
 
   const onClose = () => {
@@ -181,11 +246,63 @@ const Calendar: React.FC<CalendarProps> = ({}) => {
         title="Schedule a Meeting"
         body={
           <>
-            <div className={styles.date}>{formatDate(selectedDate)}</div>
-            <Times />
+            <div></div>
+            {page == "times" && (
+              <div className={moreStyles.date}>{formatDate(selectedDate)}</div>
+            )}
+            {page == "times" && <Times />}
+            {page == "contact" && (
+              <div className={moreStyles.book}>
+                <div className={moreStyles.name}>
+                  <div className={moreStyles["first-name"]}>
+                    <input
+                      type="text"
+                      placeholder="First Name..."
+                      onChange={handleFirstNameChange}
+                    />
+                  </div>
+                  <div className={moreStyles["last-name"]}>
+                    <input
+                      type="text"
+                      placeholder="Last Name..."
+                      onChange={handleLastNameChange}
+                    />
+                  </div>
+                </div>
+                <div className={moreStyles.contact}>
+                  <div className={moreStyles.email}>
+                    <input
+                      type="text"
+                      placeholder="Email Address..."
+                      onChange={handleEmailChange}
+                    />
+                  </div>
+                  <div className={moreStyles.phone}>
+                    <input
+                      type="text"
+                      placeholder="Phone Number..."
+                      onChange={handlePhoneChange}
+                    />
+                  </div>
+                </div>
+                <div className={moreStyles.notes}>
+                  <textarea
+                    placeholder="Anything that you want to let me know?"
+                    id="#shedule-meeting-notes"
+                    onChange={handleNotesChange}
+                  ></textarea>
+                </div>
+              </div>
+            )}
           </>
         }
-        actions={<Button text="Book" onClick={bookMeeting} />}
+        actions={
+          <>
+            <Button text="Book" onClick={bookMeeting} />
+            {page == "contact" && <Button text="Back" onClick={backToTimes} />}
+            {page == "times" && <Button text="Close" onClick={onClose} />}
+          </>
+        }
         showing={showing}
         onClose={onClose}
       />
