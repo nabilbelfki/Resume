@@ -36,6 +36,7 @@
 .footer .copyright {
     display: flex;
     font-weight: 600;
+    color: #FFFFFF;
 }
 
 .footer .socials {

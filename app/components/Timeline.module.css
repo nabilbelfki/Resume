@@ -1,41 +1,19 @@
 .timeline {
     display: flex;
     flex-direction: row-reverse;
+    position: relative;
 }
-
+  
 .timeline div{
     flex: 1;
 }
 
-/* .year {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-} */
 
 .year .indicator {
     height: 30px;
     width: 8px;
     background-color: #2E2E2E;
 }
-
-/* .february,
-.march,
-.may,
-.june,
-.august,
-.september,
-.october,
-.november,
-.december {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #2E2E2E;
-    height: 10px;
-    width: 2px;
-} */
 
 .february .indicator,
 .march .indicator,
@@ -59,3 +37,16 @@
     height: 20px;
     width: 3px;
 }
+
+.january { left: 0%; }
+.february { left: 8.33%; }
+.march { left: 16.66%; }
+.april { left: 25%; }
+.may { left: 33.33%; }
+.june { left: 41.66%; }
+.july { left: 50%; }
+.august { left: 58.33%; }
+.september { left: 66.66%; }
+.october { left: 75%; }
+.november { left: 83.33%; }
+.december { left: 91.66%; }

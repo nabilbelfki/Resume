@@ -87,6 +87,7 @@
     font-weight: 600;
     height: 40px;
     cursor: pointer;
+    transition: transform 0.3s ease; /* Smooth transition */
     -webkit-user-select: none; /* Safari */
     -moz-user-select: none;    /* Firefox */
     -ms-user-select: none;     /* Internet Explorer/Edge */
@@ -101,4 +102,8 @@
 .current-day {
     background-color: #79D2FF;
     color: #FFFFFF;
+}
+
+.day:not(.unselected):hover {
+    transform: scale(1.1);
 }
