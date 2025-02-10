@@ -14,6 +14,14 @@ interface Project {
   name: string;
   slug: string;
 }
+
+interface Skill {
+  backgroundColor: string;
+  height: number;
+  logoPath: string;
+  description: string;
+}
+
 const experiences = [
   {
     startDate: "2021-10-31",
@@ -27,19 +35,33 @@ const experiences = [
 
 const Home = async () => {
   let projects: Project[] = [];
+  let skills: Skill[] = [];
 
   try {
-    const res = await fetch("http://localhost:3000/api/projects", {
-      next: { revalidate: 60 }, // Cache the response for 60 seconds
-    });
-    if (res.ok) {
-      projects = await res.json();
+    const [projectsRes, skillsRes] = await Promise.all([
+      fetch("http://localhost:3000/api/projects", {
+        next: { revalidate: 60 }, // Cache the response for 60 seconds
+      }),
+      fetch("http://localhost:3000/api/skills", {
+        next: { revalidate: 60 }, // Cache the response for 60 seconds
+      }),
+    ]);
+
+    if (projectsRes.ok) {
+      projects = await projectsRes.json();
     } else {
-      console.error("Failed to fetch projects:", res.statusText);
+      console.error("Failed to fetch projects:", projectsRes.statusText);
+    }
+
+    if (skillsRes.ok) {
+      skills = await skillsRes.json();
+    } else {
+      console.error("Failed to fetch skills:", skillsRes.statusText);
     }
   } catch (error) {
-    console.error("Error fetching projects:", error);
+    console.error("Error fetching data:", error);
   }
+
   return (
     <div>
       <Biography
@@ -207,7 +229,7 @@ const Home = async () => {
               </svg>
             </div>
           </div>
-          <Skills />
+          <Skills skills={skills} />
         </div>
       </div>
       <div id="projects" className="projects-display">

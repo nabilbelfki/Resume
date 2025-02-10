@@ -1,81 +1,90 @@
-import React from "react";
-// import styles from "./Skills.module.css";
+"use client";
+import React, { useState } from "react";
 import Skill from "./Skill";
+import styles from "./Skills.module.css";
 
-// interface SkillsProps {}
+interface Skill {
+  backgroundColor: string;
+  height: number;
+  logoPath: string;
+  description: string;
+}
 
-const skillsData = [
-  {
-    backgroundColor: "#FFDF00",
-    height: 100,
-    logoPath: "/images/logos/js.png",
-    description:
-      "I’ve worked on several projects using JavaScript, some most notably on the frontend. I have a solid 5 years of experience in this programming language and it can be seen in some of the projects that I have here.",
-  },
-  {
-    backgroundColor: "#FFFFFF",
-    height: 250,
-    logoPath: "/images/logos/mysql.png",
-    description: "",
-  },
-  {
-    backgroundColor: "#CF1717",
-    height: 130,
-    logoPath: "/images/logos/angular.svg",
-    description: "",
-  },
-  {
-    backgroundColor: "#777BB3",
-    height: 150,
-    logoPath: "/images/logos/php.png",
-    description: "",
-  },
-  {
-    backgroundColor: "#FFFFFF",
-    height: 100,
-    logoPath: "/images/logos/react.png",
-    description: "",
-  },
-  {
-    backgroundColor: "#336791",
-    height: 150,
-    logoPath: "/images/logos/postgresql.png",
-    description: "",
-  },
-  {
-    backgroundColor: "#777BB3",
-    height: 150,
-    logoPath: "/images/logos/php.png",
-    description: "",
-  },
-  {
-    backgroundColor: "#FFFFFF",
-    height: 100,
-    logoPath: "/images/logos/react.png",
-    description: "",
-  },
-  {
-    backgroundColor: "#336791",
-    height: 150,
-    logoPath: "/images/logos/postgresql.png",
-    description: "",
-  },
-];
+interface SkillsProps {
+  skills: Skill[];
+}
 
-const Skills: React.FC<unknown> = () => {
+const Skills: React.FC<SkillsProps> = ({ skills }) => {
+  const [clickedIndex, setClickedIndex] = useState<number | null>(null);
+
   return (
     <div className="skills">
       <div className="frontend">
-        {skillsData.map((skill, index) => (
-          <Skill
-            key={index}
-            className={(index + 1) % 3 == 0 ? "third-child" : ""}
-            backgroundColor={skill.backgroundColor}
-            height={skill.height}
-            logoPath={skill.logoPath}
-            description={skill.description}
-          />
-        ))}
+        {skills.map((skill, index) => {
+          const row = Math.floor(index / 3) + 1;
+          const column = (index % 3) + 1;
+          let gridArea = `${row} / ${column} / ${row + 1} / ${column + 1}`;
+
+          if (clickedIndex !== null) {
+            const clickedRow = Math.floor(clickedIndex / 3) + 1;
+            const clickedColumn = (clickedIndex % 3) + 1;
+
+            if (clickedIndex === index) {
+              if (clickedColumn === 1) {
+                gridArea = `${clickedRow} / 1 / ${clickedRow + 2} / 3`;
+              } else if (clickedColumn === 2) {
+                gridArea = `${clickedRow} / 2 / ${clickedRow + 2} / 4`;
+              } else if (clickedColumn === 3) {
+                gridArea = `${clickedRow} / 2 / ${clickedRow + 2} / 4`;
+              }
+            } else if (row === clickedRow || row > clickedRow) {
+              if (clickedColumn === 1) {
+                if (column === 2) {
+                  gridArea = `${clickedRow} / 3 / ${clickedRow + 1} / 4`;
+                } else if (column === 3) {
+                  gridArea = `${clickedRow + 1} / 3 / ${clickedRow + 2} / 4`;
+                }
+              } else if (clickedColumn === 2) {
+                if (column === 1) {
+                  gridArea = `${clickedRow} / 1 / ${clickedRow + 1} / 2`;
+                } else if (column === 3) {
+                  gridArea = `${clickedRow + 1} / 1 / ${clickedRow + 2} / 2`;
+                }
+              } else if (clickedColumn === 3) {
+                if (column === 1) {
+                  gridArea = `${clickedRow} / 1 / ${clickedRow + 1} / 2`;
+                } else if (column === 2) {
+                  gridArea = `${clickedRow + 1} / 1 / ${clickedRow + 2} / 2`;
+                }
+              }
+
+              // Add +1 to each row under the clicked item
+              if (row > clickedRow) {
+                gridArea = `${row + 1} / ${column} / ${row + 2} / ${
+                  column + 1
+                }`;
+              }
+            }
+          }
+
+          return (
+            <Skill
+              key={index}
+              gridArea={gridArea}
+              backgroundColor={skill.backgroundColor}
+              height={skill.height}
+              logoPath={skill.logoPath}
+              description={skill.description}
+              showDescription={clickedIndex === index}
+              onClick={() =>
+                setClickedIndex(clickedIndex === index ? null : index)
+              }
+              className={`${styles.skill} ${
+                clickedIndex === index ? styles.clicked : ""
+              }`}
+            />
+          );
+        })}
       </div>
       <div className="skills-types">
         <div className="mobile-type">

@@ -1,56 +1,18 @@
-.skill {
-    width: 200px;
-    height: 140px;
-    border-radius: 10px;
-    box-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.25);
-    transition: all 0.3s ease;
-}
-
-.skill:hover {
-    grid-column: span 2;
-    grid-row: span 2;
-    transform: scale(1.0);
-    height: 100%;
-    width: 100%;
-    padding: 20px;
-    z-index: 10; /* Bring the expanded element to the front */
-}
-
-.skill:hover > .description {
-    display: flex;
-}
-
-.skill:hover > .logo {
-    display: flex;
-    height: 10px;
-    justify-content: flex-end;
-    width: 100%;
-    padding: 10px;
-}
-
-.third-child {
-    grid-column: 3;
-}
-
-.third-child:hover {
-    grid-column: 2;
-}
-
 .description {
-    height: 60px;
+    height: 160px;
     width: 100%;
-    height: 70%;
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(255, 255, 255, 0.7);
     border-radius: 10px;
+    z-index: 100;
+    padding: 10px;
 }
 
 .logo {
     height: 60px;
     width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
