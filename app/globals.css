@@ -134,9 +134,11 @@ body {
 
 .frontend {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Creates 3 equal-width columns */
-  grid-template-rows: auto; /* Adjust rows to fit content */
-  grid-gap: 20px; /* Adjust the gap between grid items as needed */
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: min-content;
+  grid-gap: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
   height: 100%;
   width: 650px;
 }
