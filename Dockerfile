@@ -1,5 +1,7 @@
-# Stage 1: Build the application
-FROM node:18-alpine AS builder
+# Use a Node.js base image
+FROM node:18-alpine
+
+# Set the working directory
 WORKDIR /app
 
 # Install git
@@ -8,20 +10,17 @@ RUN apk add --no-cache git
 # Clone the repository
 RUN git clone https://github.com/nabilbelfki/Resume.git .
 
-# Install dependencies and build the project
+# Create .env.local file
+RUN echo "MONGO_URI=mongodb://52.15.107.92:27017/Projects" > .env.local
+
+# Install dependencies
 RUN npm install
+
+# Build the Next.js application
 RUN npm run build
 
-# Stage 2: Serve the application using Nginx
-FROM nginx:alpine
-COPY --from=builder /app/.next /usr/share/nginx/html/.next
-COPY --from=builder /app/public /usr/share/nginx/html/public
-COPY --from=builder /app/package.json /usr/share/nginx/html/package.json
-COPY --from=builder /app/node_modules /usr/share/nginx/html/node_modules
-COPY nginx.conf /etc/nginx/nginx.conf
+# Expose the port the app runs on
+EXPOSE 3000
 
-# Expose port 80
-EXPOSE 80
-
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start the Next.js server
+CMD ["npm", "start"]

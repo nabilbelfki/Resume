@@ -1,0 +1,759 @@
+[{
+  "_id": {
+    "$oid": "67a9636e4910996fdb42df2f"
+  },
+  "type": "frontend",
+  "name": "JavaScript",
+  "backgroundColor": "#FFDF00",
+  "height": 100,
+  "logoPath": "/images/logos/js.png",
+  "description": "I’ve worked on several projects using JavaScript, some most notably on the frontend. I have a solid 5 years of experience in this programming language and it can be seen in many of the projects that I have hosted here."
+},
+{
+  "_id": {
+    "$oid": "67a963b94910996fdb42df30"
+  },
+  "type": "database",
+  "name": "MySQL",
+  "backgroundColor": "#FFFFFF",
+  "height": 250,
+  "logoPath": "/images/logos/mysql.png",
+  "description": "MySQL is a great open source RDBMS that I've used in many of my application stacks. I am also actively part of the MySQL community because I feel that every developer should contribute to at least one open source project."
+},
+{
+  "_id": {
+    "$oid": "67a963dc4910996fdb42df31"
+  },
+  "type": "frontend",
+  "name": "Angular",
+  "backgroundColor": "#CF1717",
+  "height": 130,
+  "logoPath": "/images/logos/angular.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67a963f74910996fdb42df32"
+  },
+  "type": "backend",
+  "name": "PHP",
+  "backgroundColor": "#777BB3",
+  "height": 150,
+  "logoPath": "/images/logos/php.png",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67a964404910996fdb42df33"
+  },
+  "type": "frontend",
+  "name": "React",
+  "backgroundColor": "#FFFFFF",
+  "height": 100,
+  "logoPath": "/images/logos/react.png",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67a964584910996fdb42df34"
+  },
+  "type": "database",
+  "name": "PostgreSQL",
+  "backgroundColor": "#336791",
+  "height": 150,
+  "logoPath": "/images/logos/postgresql.png",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67aa8ca18449de1c4300bd28"
+  },
+  "type": "frontend",
+  "name": "Next.js",
+  "backgroundColor": "#000000",
+  "height": 130,
+  "logoPath": "/images/logos/next.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67aa8cfa8449de1c4300bd2b"
+  },
+  "type": "frontend",
+  "name": "HTML",
+  "backgroundColor": "#E34F26",
+  "height": 130,
+  "logoPath": "/images/logos/html.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67aa8d308449de1c4300bd2e"
+  },
+  "type": "frontend",
+  "name": "CSS",
+  "backgroundColor": "#0089CA",
+  "height": 130,
+  "logoPath": "/images/logos/css.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67aa8e098449de1c4300bd31"
+  },
+  "type": "frontend",
+  "name": "Tailwind CSS",
+  "backgroundColor": "#31585E",
+  "height": 130,
+  "logoPath": "/images/logos/tailwind.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67aa8e628449de1c4300bd32"
+  },
+  "type": "frontend",
+  "name": "Bootstrap",
+  "backgroundColor": "#CFB6F5",
+  "height": 130,
+  "logoPath": "/images/logos/bootstrap.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67aa8fe28449de1c4300bd33"
+  },
+  "type": "frontend",
+  "name": "SASS",
+  "backgroundColor": "#E2BBCF",
+  "height": 130,
+  "logoPath": "/images/logos/sass.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67aa90a68449de1c4300bd34"
+  },
+  "type": "frontend",
+  "name": "jQuery",
+  "backgroundColor": "#FFFFFF",
+  "height": 130,
+  "logoPath": "/images/logos/jquery.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67aa915e8449de1c4300bd37"
+  },
+  "type": "frontend",
+  "name": "Vue",
+  "backgroundColor": "#C5F4DF",
+  "height": 130,
+  "logoPath": "/images/logos/vue.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67aa92148449de1c4300bd38"
+  },
+  "type": "frontend",
+  "name": "TypeScript",
+  "backgroundColor": "#3178C6",
+  "height": 130,
+  "logoPath": "/images/logos/typescript.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67aa933d8449de1c4300bd39"
+  },
+  "type": "frontend",
+  "name": "Figma",
+  "backgroundColor": "#2E2E2E",
+  "height": 130,
+  "logoPath": "/images/logos/figma.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67aa94538449de1c4300bd3d"
+  },
+  "type": "backend",
+  "name": "Node.js",
+  "backgroundColor": "#3B481A",
+  "height": 130,
+  "logoPath": "/images/logos/node.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67aa94938449de1c4300bd3e"
+  },
+  "type": "backend",
+  "name": "Python",
+  "backgroundColor": "#28445B",
+  "height": 130,
+  "logoPath": "/images/logos/python.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67aabd2a8449de1c4300bd42"
+  },
+  "type": "backend",
+  "name": "Django",
+  "backgroundColor": "#0C4B33",
+  "height": 130,
+  "logoPath": "/images/logos/django.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67aabdfb8449de1c4300bd45"
+  },
+  "type": "backend",
+  "name": "Flask",
+  "backgroundColor": "#000000",
+  "height": 130,
+  "logoPath": "/images/logos/flask.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67aabe898449de1c4300bd46"
+  },
+  "type": "backend",
+  "name": "Laravel",
+  "backgroundColor": "#FFFFFF",
+  "height": 130,
+  "logoPath": "/images/logos/laravel.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67aabf368449de1c4300bd47"
+  },
+  "type": "backend",
+  "name": "Express",
+  "backgroundColor": "#FFFFFF",
+  "height": 130,
+  "logoPath": "/images/logos/express.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67aabfca8449de1c4300bd48"
+  },
+  "type": "backend",
+  "name": ".Net",
+  "backgroundColor": "#512BD4",
+  "height": 130,
+  "logoPath": "/images/logos/dotnet.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67aac06e8449de1c4300bd4a"
+  },
+  "type": "backend",
+  "name": "Java",
+  "backgroundColor": "#FFF7D5",
+  "height": 130,
+  "logoPath": "/images/logos/java.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67aac24d8449de1c4300bd4b"
+  },
+  "type": "backend",
+  "name": "Microsoft AL",
+  "backgroundColor": "#80F1D2",
+  "height": 130,
+  "logoPath": "/images/logos/al.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67aac2ca8449de1c4300bd4f"
+  },
+  "type": "backend",
+  "name": "Apache",
+  "backgroundColor": "#FF8EE5",
+  "height": 130,
+  "logoPath": "/images/logos/apache.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67ab7b188449de1c4300bd50"
+  },
+  "type": "backend",
+  "name": "Nginx",
+  "backgroundColor": "#2A4D2A",
+  "height": 130,
+  "logoPath": "/images/logos/nginx.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abac158449de1c4300bd51"
+  },
+  "type": "backend",
+  "name": "IIS",
+  "backgroundColor": "#FFFFFF",
+  "height": 130,
+  "logoPath": "/images/logos/iis.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abacb88449de1c4300bd52"
+  },
+  "type": "backend",
+  "name": "Ruby",
+  "backgroundColor": "#77625F",
+  "height": 130,
+  "logoPath": "/images/logos/ruby.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abade78449de1c4300bd53"
+  },
+  "type": "backend",
+  "name": "GraphQL",
+  "backgroundColor": "#EAD9E4",
+  "height": 130,
+  "logoPath": "/images/logos/graphql.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abafe48449de1c4300bd54"
+  },
+  "type": "backend",
+  "name": "Spring",
+  "backgroundColor": "#2A5A0B",
+  "height": 130,
+  "logoPath": "/images/logos/spring.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abb0478449de1c4300bd55"
+  },
+  "type": "backend",
+  "name": "Hibernate",
+  "backgroundColor": "#8E958A",
+  "height": 130,
+  "logoPath": "/images/logos/hibernate.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abb0848449de1c4300bd56"
+  },
+  "type": "backend",
+  "name": "Ubuntu",
+  "backgroundColor": "#F6D8C4",
+  "height": 130,
+  "logoPath": "/images/logos/ubuntu.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abb1268449de1c4300bd57"
+  },
+  "type": "backend",
+  "name": "Windows Server",
+  "backgroundColor": "#FDFDFD",
+  "height": 130,
+  "logoPath": "/images/logos/windows.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abb9238449de1c4300bd58"
+  },
+  "type": "backend",
+  "name": "Linux",
+  "backgroundColor": "#EAF9FF",
+  "height": 130,
+  "logoPath": "/images/logos/linux.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abb9c88449de1c4300bd5a"
+  },
+  "type": "backend",
+  "name": "Kali Linux",
+  "backgroundColor": "#277BFB",
+  "height": 130,
+  "logoPath": "/images/logos/kali.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abbb928449de1c4300bd5b"
+  },
+  "type": "backend",
+  "name": "CentOS",
+  "backgroundColor": "#FFFFFF",
+  "height": 130,
+  "logoPath": "/images/logos/centos.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abcb258449de1c4300bd5c"
+  },
+  "type": "backend",
+  "name": "Amazon Linux",
+  "backgroundColor": "#FFFFFF",
+  "height": 130,
+  "logoPath": "/images/logos/amazon-linux.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abcb8c8449de1c4300bd5d"
+  },
+  "type": "backend",
+  "name": "BASH",
+  "backgroundColor": "#D2D2D2",
+  "height": 130,
+  "logoPath": "/images/logos/bash.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abcc0c8449de1c4300bd5e"
+  },
+  "type": "database",
+  "name": "MongoDB",
+  "backgroundColor": "#009546",
+  "height": 130,
+  "logoPath": "/images/logos/mongo.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abcc8d8449de1c4300bd5f"
+  },
+  "type": "database",
+  "name": "Redis",
+  "backgroundColor": "#ED9793",
+  "height": 130,
+  "logoPath": "/images/logos/redis.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abcd9a8449de1c4300bd60"
+  },
+  "type": "database",
+  "name": "MariaDB",
+  "backgroundColor": "#DABF66",
+  "height": 130,
+  "logoPath": "/images/logos/mariadb.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abce5e8449de1c4300bd61"
+  },
+  "type": "database",
+  "name": "Firestore",
+  "backgroundColor": "#FFFFFF",
+  "height": 130,
+  "logoPath": "/images/logos/firestore.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abced48449de1c4300bd62"
+  },
+  "type": "database",
+  "name": "SQLite",
+  "backgroundColor": "#BCE6FE",
+  "height": 130,
+  "logoPath": "/images/logos/sqlite.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abcf6f8449de1c4300bd63"
+  },
+  "type": "database",
+  "name": "Microsoft SQL Server",
+  "backgroundColor": "#FFFFFF",
+  "height": 130,
+  "logoPath": "/images/logos/mssql.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abd0448449de1c4300bd64"
+  },
+  "type": "database",
+  "name": "Oracle Database",
+  "backgroundColor": "#393939",
+  "height": 130,
+  "logoPath": "/images/logos/oracledb.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abd1238449de1c4300bd65"
+  },
+  "type": "mobile",
+  "name": "Android",
+  "backgroundColor": "#081604",
+  "height": 130,
+  "logoPath": "/images/logos/android.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abd1a68449de1c4300bd66"
+  },
+  "type": "mobile",
+  "name": "Kotlin",
+  "backgroundColor": "#B7A0F4",
+  "height": 130,
+  "logoPath": "/images/logos/kotlin.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abd2018449de1c4300bd67"
+  },
+  "type": "mobile",
+  "name": "Swift",
+  "backgroundColor": "#FFFFFF",
+  "height": 130,
+  "logoPath": "/images/logos/swift.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abd2708449de1c4300bd68"
+  },
+  "type": "mobile",
+  "name": "iOS",
+  "backgroundColor": "#F6F5F5",
+  "height": 130,
+  "logoPath": "/images/logos/ios.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abd3198449de1c4300bd69"
+  },
+  "type": "mobile",
+  "name": "Ionic",
+  "backgroundColor": "#FFFFFF",
+  "height": 130,
+  "logoPath": "/images/logos/ionic.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abd4108449de1c4300bd6a"
+  },
+  "type": "mobile",
+  "name": "Cordova",
+  "backgroundColor": "#EEEDED",
+  "height": 130,
+  "logoPath": "/images/logos/cordova.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abd4928449de1c4300bd6b"
+  },
+  "type": "mobile",
+  "name": "Flutter",
+  "backgroundColor": "#FFFFFF",
+  "height": 130,
+  "logoPath": "/images/logos/flutter.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abd4fc8449de1c4300bd6c"
+  },
+  "type": "mobile",
+  "name": "Spring Boot",
+  "backgroundColor": "#FFFFFF",
+  "height": 130,
+  "logoPath": "/images/logos/spring-boot.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abd5478449de1c4300bd6d"
+  },
+  "type": "mobile",
+  "name": "React Native",
+  "backgroundColor": "#000000",
+  "height": 130,
+  "logoPath": "/images/logos/react.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abd5e88449de1c4300bd6e"
+  },
+  "type": "cloud",
+  "name": "Amazon Web Services",
+  "backgroundColor": "#FFFFFF",
+  "height": 130,
+  "logoPath": "/images/logos/aws.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abd64e8449de1c4300bd6f"
+  },
+  "type": "cloud",
+  "name": "Azure",
+  "backgroundColor": "#E2F1FF",
+  "height": 130,
+  "logoPath": "/images/logos/azure.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abef638449de1c4300bd70"
+  },
+  "type": "cloud",
+  "name": "Google Cloud Platform",
+  "backgroundColor": "#FFFFFF",
+  "height": 130,
+  "logoPath": "/images/logos/google-cloud-platform.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abf00d8449de1c4300bd71"
+  },
+  "type": "cloud",
+  "name": "Oracle Cloud",
+  "backgroundColor": "#FFFFFF",
+  "height": 130,
+  "logoPath": "/images/logos/oracle-cloud.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abf03a8449de1c4300bd72"
+  },
+  "type": "cloud",
+  "name": "Docker",
+  "backgroundColor": "#127EC0",
+  "height": 130,
+  "logoPath": "/images/docker.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abf0fa8449de1c4300bd73"
+  },
+  "type": "cloud",
+  "name": "Kubernetes",
+  "backgroundColor": "#FFFFFF",
+  "height": 130,
+  "logoPath": "/images/logos/kubernetes.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abf1be8449de1c4300bd74"
+  },
+  "type": "cloud",
+  "name": "Jenkins",
+  "backgroundColor": "#333232",
+  "height": 130,
+  "logoPath": "/images/logos/jenkins.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abf22f8449de1c4300bd75"
+  },
+  "type": "miscellaneous",
+  "name": "GitHub",
+  "backgroundColor": "#2E2E2E",
+  "height": 130,
+  "logoPath": "/images/github-logo.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abf3188449de1c4300bd76"
+  },
+  "type": "miscellaneous",
+  "name": "Hadoop",
+  "backgroundColor": "#9B00DD",
+  "height": 130,
+  "logoPath": "/images/logos/hadoop.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abf4038449de1c4300bd77"
+  },
+  "type": "miscellaneous",
+  "name": "Apache Spark",
+  "backgroundColor": "#C3D037",
+  "height": 130,
+  "logoPath": "/images/logos/spark.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abf47e8449de1c4300bd78"
+  },
+  "type": "miscellaneous",
+  "name": "Git",
+  "backgroundColor": "#FFFFFF",
+  "height": 130,
+  "logoPath": "/images/logos/git.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abf4d58449de1c4300bd79"
+  },
+  "type": "miscellaneous",
+  "name": "GitLab",
+  "backgroundColor": "#FFFFFF",
+  "height": 130,
+  "logoPath": "/images/logos/gitlab.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abf5808449de1c4300bd7a"
+  },
+  "type": "miscellaneous",
+  "name": "Jira",
+  "backgroundColor": "#FFFFFF",
+  "height": 130,
+  "logoPath": "/images/logos/jira.svg",
+  "description": ""
+},
+{
+  "_id": {
+    "$oid": "67abf5b58449de1c4300bd7b"
+  },
+  "type": "miscellaneous",
+  "name": "Pip Modules",
+  "backgroundColor": "#5DA6E2",
+  "height": 130,
+  "logoPath": "/images/logos/pip.svg",
+  "description": ""
+}]
