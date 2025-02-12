@@ -1,7 +1,33 @@
 .skills {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: rgba(255, 223, 0, 0.1);
+    height: 500px;
+    width: 750px;
+}
+
+.mobile, .frontend, .backend, .database, .cloud, .miscellaneous {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    grid-template-rows: min-content;
+    grid-gap: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+    width: 650px;
+}
+
+.skills-types {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+    width: 50px;
+    height: 100%;
 }
 
 .skill {
@@ -16,8 +42,13 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    cursor: pointer;
     padding: 5%;
 }
+
+/* .skill:not(.clicked):hover {
+    transform: scale(1.1);
+} */
 
 .skill.clicked {
     z-index: 10; /* Bring the expanded element to the front */

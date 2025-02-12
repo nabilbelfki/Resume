@@ -20,6 +20,7 @@ interface Skill {
   height: number;
   logoPath: string;
   description: string;
+  type: string;
 }
 
 const experiences = [

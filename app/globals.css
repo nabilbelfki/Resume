@@ -120,38 +120,6 @@ body {
   bottom: 10px;
   right: 10px;
 }
-
-.skills {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  border-radius: 20px;
-  background-color: rgba(255, 223, 0, 0.1);
-  height: 500px;
-  width: 700px;
-}
-
-.frontend {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: min-content;
-  grid-gap: 10px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  height: 100%;
-  width: 650px;
-}
-
-.skills-types {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 40px;
-  width: 50px;
-  height: 100%;
-}
 /********************* PROJECT *********************/
 
 .projects-display {
