@@ -1,12 +1,16 @@
 .biography {
- background-image: url('../../public/images/droplets.png');
- background-color: #011A49;
- padding: 20px;
- display: flex;
- align-items: center;
- justify-content: center;
+    background-image: url('../../public/images/droplets.png');
+    background-color: #011A49;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: 100% auto; /* Adjust width to 100% and height automatically */
+    background-attachment: fixed;
+    background-position: center;
 }
-
+  
+  
 .biography .card {
     background-color: #ECECEC;
     border-radius: 10px;

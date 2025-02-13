@@ -3,12 +3,25 @@ import React, { useState } from "react";
 import Skill from "./Skill";
 import styles from "./Skills.module.css";
 
-interface Skill {
+interface Image {
+  name: string;
+  url: string;
   backgroundColor: string;
   height: number;
-  logoPath: string;
-  description: string;
+  width: number;
+}
+
+interface Description {
+  color: string;
+  text: string;
+  backgroundColor: string;
+}
+
+interface Skill {
+  name: string;
   type: string;
+  image: Image;
+  description: Description;
 }
 
 interface SkillsProps {
@@ -112,9 +125,9 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
         <Skill
           key={index}
           gridArea={gridArea}
-          backgroundColor={skill.backgroundColor}
-          height={skill.height}
-          logoPath={skill.logoPath}
+          backgroundColor={skill.image.backgroundColor}
+          height={skill.image.height}
+          logoPath={skill.image.url + skill.image.name}
           description={skill.description}
           showDescription={clickedIndex === index}
           onClick={() => setClickedIndex(clickedIndex === index ? null : index)}
