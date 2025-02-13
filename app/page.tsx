@@ -15,12 +15,25 @@ interface Project {
   slug: string;
 }
 
-interface Skill {
+interface Image {
+  name: string;
+  url: string;
   backgroundColor: string;
   height: number;
-  logoPath: string;
-  description: string;
+  width: number;
+}
+
+interface Description {
+  color: string;
+  text: string;
+  backgroundColor: string;
+}
+
+interface Skill {
+  name: string;
   type: string;
+  image: Image;
+  description: Description;
 }
 
 const experiences = [
