@@ -17,9 +17,15 @@
 
 .distribution-bar {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     width: 100%;
+}
+
+.distribution-segment {
+    height: 10px;
+    width: 0; /* Start with width 0 */
+    transition: width 1s ease-in-out;
 }
 
 .distribution-segment:first-child {
@@ -31,12 +37,12 @@
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
-  
+
 .legend {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px
+    gap: 10px;
 }
 
 .indicator {

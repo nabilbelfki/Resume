@@ -13,6 +13,7 @@
   position: relative;
   width: 100%;
   gap: 10px;
+  animation: scroll 20s linear infinite;
 }
 
 .paused {
