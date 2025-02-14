@@ -22,17 +22,34 @@ const Slider: React.FC<SliderProps> = ({ slides }) => {
     const slider = sliderRef.current;
     if (!slider) return;
 
+    // Duplicate the slides to create an infinite loop effect
+    const duplicatedSlides = [...slides, ...slides];
+
     let start = 0;
     const slideWidth = slides[0].width; // Use the width of the first slide
-    const totalWidth = slideWidth * slides.length;
-    const animationSpeed = 2; // Adjust this to control the speed
+    const totalWidth = slideWidth * duplicatedSlides.length;
+    const animationSpeed = 1; // Adjust this to control the speed
 
     const animate = () => {
       start -= animationSpeed;
-      if (start <= -slideWidth) {
-        start += slideWidth;
-        slider.appendChild(slider.firstElementChild as Node);
+
+      // When we reach the end of the duplicated slides, reset to the beginning
+      if (start <= -totalWidth / 2) {
+        // Disable transitions temporarily
+        slider.style.transition = "none";
+
+        // Reset the position without a visible jump
+        start = 0;
+        slider.style.transform = `translateX(${start}px)`;
+
+        // Force a reflow to apply the reset without a visible jump
+        void slider.offsetWidth;
+
+        // Re-enable transitions
+        slider.style.transition = "transform 0.5s linear"; // Adjust timing as needed
       }
+
+      // Apply the translation
       slider.style.transform = `translateX(${start}px)`;
       animationRef.current = requestAnimationFrame(animate);
     };
@@ -64,16 +81,15 @@ const Slider: React.FC<SliderProps> = ({ slides }) => {
   return (
     <div className={styles.container}>
       <div className={styles.slider} ref={sliderRef}>
-        {slides.map((slide, index) => (
-          <div className={styles.slide} key={index}>
-            <Slide
-              name={slide.name}
-              color={slide.color}
-              image={slide.imagePath}
-              url={slide.url}
-              width={slide.width}
-            />
-          </div>
+        {slides.concat(slides).map((slide, index) => (
+          <Slide
+            key={index}
+            name={slide.name}
+            color={slide.color}
+            image={slide.imagePath}
+            url={slide.url}
+            width={slide.width}
+          />
         ))}
       </div>
     </div>

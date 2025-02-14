@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Views.module.css";
 
 interface ViewsProps {
@@ -6,7 +6,27 @@ interface ViewsProps {
 }
 
 const Views: React.FC<ViewsProps> = ({ views }) => {
-  const viewText = views == 1 ? "View" : "Views";
+  const [currentViews, setCurrentViews] = useState(0);
+
+  useEffect(() => {
+    let start = 0;
+    const duration = 3000; // 5 seconds
+    const increment = views / (duration / 100); // Increment per 100ms
+
+    const interval = setInterval(() => {
+      start += increment;
+      if (start >= views) {
+        start = views;
+        clearInterval(interval);
+      }
+      setCurrentViews(Math.floor(start));
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, [views]);
+
+  const viewText = currentViews === 1 ? "View" : "Views";
+
   return (
     <div className={styles.views}>
       <div className={styles.icon}>
@@ -29,7 +49,7 @@ const Views: React.FC<ViewsProps> = ({ views }) => {
           />
         </svg>
       </div>
-      <div className={styles.text}>{`${views} ${viewText}`}</div>
+      <div className={styles.text}>{`${currentViews} ${viewText}`}</div>
     </div>
   );
 };

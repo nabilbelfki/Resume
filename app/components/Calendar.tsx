@@ -44,24 +44,24 @@ const Calendar: React.FC<unknown> = () => {
       };
       console.log(templateParams);
 
-      // fetch("/api/email", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(templateParams),
-      // })
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     if (data.success) {
-      //       console.log("Email sent successfully");
-      //     } else {
-      //       console.log("Failed to send email");
-      //     }
-      //   })
-      //   .catch((error) => {
-      //     console.error("Error:", error);
-      //   });
+      fetch("/api/email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(templateParams),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            console.log("Email sent successfully");
+          } else {
+            console.log("Failed to send email");
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     }
   };
 

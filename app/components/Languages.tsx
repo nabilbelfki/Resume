@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Languages.module.css";
 
 interface Language {
@@ -12,6 +12,17 @@ interface LanguagesProps {
 }
 
 const Languages: React.FC<LanguagesProps> = ({ languages }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (activeIndex < languages.length) {
+      const timer = setTimeout(() => {
+        setActiveIndex(activeIndex + 1);
+      }, 1000); // Adjust the duration as needed
+      return () => clearTimeout(timer);
+    }
+  }, [activeIndex, languages.length]);
+
   return (
     <div className={styles.languages}>
       <div className={styles["languages-title"]}>Languages</div>
@@ -22,8 +33,8 @@ const Languages: React.FC<LanguagesProps> = ({ languages }) => {
             className={styles["distribution-segment"]}
             style={{
               backgroundColor: language.color,
-              width: `${language.percentage}%`,
-              height: "10px",
+              width: activeIndex > index ? `${language.percentage}%` : "0",
+              transitionDelay: `${index * 1}s`, // Delay each segment's transition
             }}
           ></div>
         ))}
