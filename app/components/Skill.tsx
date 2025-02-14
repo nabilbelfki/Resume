@@ -2,6 +2,14 @@ import React from "react";
 import Image from "next/image";
 import styles from "./Skill.module.css";
 
+interface Image {
+  name: string;
+  url: string;
+  backgroundColor: string;
+  height: number;
+  width: number;
+}
+
 interface Description {
   color: string;
   text: string;
@@ -11,9 +19,10 @@ interface Description {
 interface SkillProps {
   gridArea: string;
   className: string;
-  backgroundColor: string;
-  height: number;
-  logoPath: string;
+  // backgroundColor: string;
+  // height: number;
+  // logoPath: string;
+  image: Image;
   description: Description;
   onClick: () => void;
   showDescription: boolean;
@@ -22,32 +31,29 @@ interface SkillProps {
 const Skill: React.FC<SkillProps> = ({
   gridArea,
   className,
-  backgroundColor,
-  logoPath,
-  height,
+  // backgroundColor,
+  // logoPath,
+  // height,
+  image,
   description,
   onClick,
   showDescription,
 }) => {
   const skillStyle = {
+    backgroundColor: image.backgroundColor,
     width: showDescription ? "410px" : "200px",
     height: showDescription ? "310px" : "150px",
   };
 
   const logoStyle = {
-    alignItems: showDescription ? "flex-start" : "center",
+    alignItems: "center",
     justifyContent: showDescription ? "flex-end" : "center",
     height: showDescription ? "100px" : "100%",
   };
 
-  const imageStyle = {
-    height: showDescription ? "100px" : "100%",
-    width: "auto",
-  };
-
   return (
     <div
-      style={{ backgroundColor, gridArea, ...skillStyle }}
+      style={{ gridArea, ...skillStyle }}
       className={className}
       onClick={onClick}
     >
@@ -64,11 +70,10 @@ const Skill: React.FC<SkillProps> = ({
       )}
       <div className={styles.logo} style={logoStyle}>
         <Image
-          src={logoPath}
-          height={height}
-          width="200"
+          src={image.url + image.name}
+          height={showDescription ? image.height * 0.7 : image.height}
+          width={showDescription ? image.width * 0.7 : image.width}
           alt="Logo"
-          style={imageStyle}
         />
       </div>
     </div>

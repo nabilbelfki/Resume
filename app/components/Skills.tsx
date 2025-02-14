@@ -125,9 +125,10 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
         <Skill
           key={index}
           gridArea={gridArea}
-          backgroundColor={skill.image.backgroundColor}
-          height={skill.image.height}
-          logoPath={skill.image.url + skill.image.name}
+          // backgroundColor={skill.image.backgroundColor}
+          // height={skill.image.height}
+          // logoPath={skill.image.url + skill.image.name}
+          image={skill.image}
           description={skill.description}
           showDescription={clickedIndex === index}
           onClick={() => setClickedIndex(clickedIndex === index ? null : index)}

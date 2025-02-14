@@ -9,11 +9,11 @@
       "name": "js.png",
       "url": "/images/logos/",
       "backgroundColor": "#FFDF00",
-      "height": 100,
-      "width": 100
+      "height": 129.58,
+      "width": 129.58
     },
     "description": {
-      "color": "#2F6491",
+      "color": "#000000",
       "text": "I’ve worked on several projects using JavaScript, some most notably on the frontend. I have a solid 5 years of experience in this programming language and it can be seen in some of the projects that I have here.",
       "backgroundColor": "rgba(255, 255, 255, 0.7)"
     }
@@ -25,7 +25,7 @@
     "type": "database",
     "name": "MySQL",
     "image": {
-      "name": "mysql.png",
+      "name": "mysql.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FFFFFF",
       "height": 250,
@@ -82,11 +82,11 @@
     "type": "frontend",
     "name": "React",
     "image": {
-      "name": "react.png",
+      "name": "react.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FFFFFF",
-      "height": 100,
-      "width": 100
+      "height": 103.21,
+      "width": 114.67
     },
     "description": {
       "color": "#000000",
@@ -123,8 +123,8 @@
       "name": "next.svg",
       "url": "/images/logos/",
       "backgroundColor": "#000000",
-      "height": 130,
-      "width": 130
+      "height": 150,
+      "width": 150
     },
     "description": {
       "color": "#000000",
@@ -180,12 +180,12 @@
       "name": "tailwind.svg",
       "url": "/images/logos/",
       "backgroundColor": "#31585E",
-      "height": 130,
-      "width": 130
+      "height": 100.73,
+      "width": 170.59
     },
     "description": {
       "color": "rgb(0, 137, 202)",
-      "text": "Tailwind CSS is an open-source utility-first CSS framework for rapidly building custom user interfaces. Unlike traditional CSS frameworks, Tailwind provides low-level utility classes that let you build completely custom designs without leaving your HTML. I've found it particularly useful for its flexibility and ability to create responsive, modern web designs efficiently.",
+      "text": "Tailwind CSS is an open-source utility-first CSS framework for rapidly building custom user interfaces. What I absoluting love with about Tailwind is it makes it very easy to style webpages with barely any code at all, making any developer's life easy.",
       "backgroundColor": "rgba(255,255,255,0.8)"
     }
   },
@@ -218,8 +218,8 @@
       "name": "sass.svg",
       "url": "/images/logos/",
       "backgroundColor": "#E2BBCF",
-      "height": 130,
-      "width": 130
+      "height": 129.58,
+      "width": 172.78
     },
     "description": {
       "color": "#CF649A",
@@ -237,8 +237,8 @@
       "name": "jquery.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FFFFFF",
-      "height": 130,
-      "width": 130
+      "height": 129.58,
+      "width": 146.35
     },
     "description": {
       "color": "#000000",
@@ -256,8 +256,8 @@
       "name": "vue.svg",
       "url": "/images/logos/",
       "backgroundColor": "#C5F4DF",
-      "height": 130,
-      "width": 130
+      "height": 123.09,
+      "width": 136.75
     },
     "description": {
       "color": "#35495E",
@@ -275,8 +275,8 @@
       "name": "typescript.svg",
       "url": "/images/logos/",
       "backgroundColor": "#3178C6",
-      "height": 130,
-      "width": 130
+      "height": 129.58,
+      "width": 134.57
     },
     "description": {
       "color": "#3178C6",
@@ -351,8 +351,8 @@
       "name": "django.svg",
       "url": "/images/logos/",
       "backgroundColor": "#0C4B33",
-      "height": 130,
-      "width": 130
+      "height": 62.15,
+      "width": 179.58
     },
     "description": {
       "color": "rgb(12, 75, 51)",
@@ -408,8 +408,8 @@
       "name": "express.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FFFFFF",
-      "height": 130,
-      "width": 130
+      "height": 40.19,
+      "width": 179.58
     },
     "description": {
       "color": "#F9F9F9",
@@ -446,8 +446,8 @@
       "name": "java.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FFF7D5",
-      "height": 130,
-      "width": 130
+      "height": 129.58,
+      "width": 194.38
     },
     "description": {
       "color": "#FFF7D5",
@@ -484,8 +484,8 @@
       "name": "apache.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FF8EE5",
-      "height": 130,
-      "width": 130
+      "height": 73.19,
+      "width": 179.58
     },
     "description": {
       "color": "rgb(255, 142, 229)",
@@ -503,8 +503,8 @@
       "name": "nginx.svg",
       "url": "/images/logos/",
       "backgroundColor": "#2A4D2A",
-      "height": 130,
-      "width": 130
+      "height": 129.58,
+      "width": 112.88
     },
     "description": {
       "color": "rgb(42, 77, 42)",
@@ -521,8 +521,8 @@
       "name": "iis.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FFFFFF",
-      "height": 130,
-      "width": 130
+      "height": 129.58,
+      "width": 172.78
     },
     "description": {
       "color": "#000000",
@@ -540,8 +540,8 @@
       "name": "ruby.svg",
       "url": "/images/logos/",
       "backgroundColor": "#77625F",
-      "height": 130,
-      "width": 130
+      "height": 103.66,
+      "width": 103.66
     },
     "description": {
       "color": "#77625F",
@@ -559,8 +559,8 @@
       "name": "graphql.svg",
       "url": "/images/logos/",
       "backgroundColor": "#EAD9E4",
-      "height": 130,
-      "width": 130
+      "height": 129.58,
+      "width": 113.39
     },
     "description": {
       "color": "#E10098",
@@ -578,8 +578,8 @@
       "name": "spring.svg",
       "url": "/images/logos/",
       "backgroundColor": "#2A5A0B",
-      "height": 130,
-      "width": 130
+      "height": 116.62,
+      "width": 116.62
     },
     "description": {
       "color": "rgb(42, 90, 11)",
@@ -597,8 +597,8 @@
       "name": "hibernate.svg",
       "url": "/images/logos/",
       "backgroundColor": "#8E958A",
-      "height": 130,
-      "width": 130
+      "height": 103.66,
+      "width": 98.47
     },
     "description": {
       "color": "rgb(89 102 108)",
@@ -635,8 +635,8 @@
       "name": "windows.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FDFDFD",
-      "height": 130,
-      "width": 130
+      "height": 123.09,
+      "width": 218.82
     },
     "description": {
       "color": "#FFFFFF",
@@ -654,8 +654,8 @@
       "name": "linux.svg",
       "url": "/images/logos/",
       "backgroundColor": "#EAF9FF",
-      "height": 130,
-      "width": 130
+      "height": 129.58,
+      "width": 109.95
     },
     "description": {
       "color": "#000000",
@@ -673,8 +673,8 @@
       "name": "kali.svg",
       "url": "/images/logos/",
       "backgroundColor": "#277BFB",
-      "height": 130,
-      "width": 130
+      "height": 129.58,
+      "width": 159.17
     },
     "description": {
       "color": "rgb(39, 123, 251)",
@@ -711,8 +711,8 @@
       "name": "amazon-linux.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FFFFFF",
-      "height": 130,
-      "width": 130
+      "height": 89.79,
+      "width": 179.58
     },
     "description": {
       "color": "#FFFFFF",
@@ -730,12 +730,12 @@
       "name": "bash.svg",
       "url": "/images/logos/",
       "backgroundColor": "#D2D2D2",
-      "height": 130,
-      "width": 130
+      "height": 129.58,
+      "width": 192.27
     },
     "description": {
       "color": "#3E474A",
-      "text": "Amazon Linux a RHEL 6/7 based distro, which will soon move to a Fedora based build is another os that I use primarily when spining up instances in an AWS cluster.",
+      "text": "Bash (Bourne Again SHell) is an open-source Unix shell and command language interpreter. Developed for the GNU Project, it is widely used as the default shell on most Linux distributions. Bash provides a powerful scripting language for automating tasks, managing system operations, and executing commands. I've found it particularly useful for its robust feature set, including command history, job control, and support for complex scripting.",
       "backgroundColor": "rgba(255,255,255,0.8)"
     }
   },
@@ -749,8 +749,8 @@
       "name": "mongo.svg",
       "url": "/images/logos/",
       "backgroundColor": "#009546",
-      "height": 130,
-      "width": 130
+      "height": 53.7,
+      "width": 179.03
     },
     "description": {
       "color": "#484749",
@@ -787,8 +787,8 @@
       "name": "mariadb.svg",
       "url": "/images/logos/",
       "backgroundColor": "#DABF66",
-      "height": 130,
-      "width": 130
+      "height": 170,
+      "width": 170
     },
     "description": {
       "color": "#895D3D",
@@ -806,8 +806,8 @@
       "name": "firestore.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FFFFFF",
-      "height": 130,
-      "width": 130
+      "height": 103.21,
+      "width": 74.74
     },
     "description": {
       "color": "#000000",
@@ -825,8 +825,8 @@
       "name": "sqlite.svg",
       "url": "/images/logos/",
       "backgroundColor": "#BCE6FE",
-      "height": 130,
-      "width": 130
+      "height": 129.03,
+      "width": 199.39
     },
     "description": {
       "color": "#003b57",
@@ -844,8 +844,8 @@
       "name": "mssql.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FFFFFF",
-      "height": 130,
-      "width": 130
+      "height": 129.03,
+      "width": 158.35
     },
     "description": {
       "color": "#000000",
@@ -863,8 +863,8 @@
       "name": "oracledb.svg",
       "url": "/images/logos/",
       "backgroundColor": "#393939",
-      "height": 130,
-      "width": 130
+      "height": 99.91,
+      "width": 179.03
     },
     "description": {
       "color": "rgb(57, 57, 57)",
@@ -901,8 +901,8 @@
       "name": "kotlin.svg",
       "url": "/images/logos/",
       "backgroundColor": "#B7A0F4",
-      "height": 130,
-      "width": 130
+      "height": 39.77,
+      "width": 179.03
     },
     "description": {
       "color": "rgb(90 51 192)",
@@ -920,8 +920,8 @@
       "name": "swift.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FFFFFF",
-      "height": 130,
-      "width": 130
+      "height": 90.31,
+      "width": 99.34
     },
     "description": {
       "color": "#474747",
@@ -958,8 +958,8 @@
       "name": "ionic.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FFFFFF",
-      "height": 130,
-      "width": 130
+      "height": 90.31,
+      "width": 90.31
     },
     "description": {
       "color": "#000000",
@@ -977,8 +977,8 @@
       "name": "cordova.svg",
       "url": "/images/logos/",
       "backgroundColor": "#EEEDED",
-      "height": 130,
-      "width": 130
+      "height": 103.21,
+      "width": 103.21
     },
     "description": {
       "color": "#303e4b",
@@ -996,12 +996,12 @@
       "name": "flutter.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FFFFFF",
-      "height": 130,
-      "width": 130
+      "height": 129.03,
+      "width": 158.04
     },
     "description": {
       "color": "#064171",
-      "text": "Flutter is an open-source UI software development toolkit created by Google. It allows developers to build natively compiled applications for mobile, web, and desktop from a single codebase. I've found it particularly useful for its hot reload feature, which significantly speeds up the development process and enhances productivity.",
+      "text": "Flutter is another open-source UI software development toolkit to build natively compiled applications for mobile, web, and desktop from a single codebase. I enjoy it for its hot reload feature, which significantly speeds up the development process and enhances productivity.",
       "backgroundColor": "rgb(88, 198, 248, 0.7)"
     }
   },
@@ -1034,8 +1034,8 @@
       "name": "react.svg",
       "url": "/images/logos/",
       "backgroundColor": "#000000",
-      "height": 130,
-      "width": 130
+      "height": 103.21,
+      "width": 114.67
     },
     "description": {
       "color": "#000000",
@@ -1053,8 +1053,8 @@
       "name": "aws.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FFFFFF",
-      "height": 130,
-      "width": 130
+      "height": 76.08,
+      "width": 125.31
     },
     "description": {
       "color": "#252f3e",
@@ -1072,8 +1072,8 @@
       "name": "azure.svg",
       "url": "/images/logos/",
       "backgroundColor": "#E2F1FF",
-      "height": 130,
-      "width": 130
+      "height": 89.5,
+      "width": 161.11
     },
     "description": {
       "color": "#000000",
@@ -1091,8 +1091,8 @@
       "name": "google-cloud-platform.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FFFFFF",
-      "height": 130,
-      "width": 130
+      "height": 103.21,
+      "width": 114.67
     },
     "description": {
       "color": "#474747",
@@ -1110,8 +1110,8 @@
       "name": "oracle-cloud.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FFFFFF",
-      "height": 130,
-      "width": 130
+      "height": 92.81,
+      "width": 179
     },
     "description": {
       "color": "#000000",
@@ -1127,10 +1127,10 @@
     "name": "Docker",
     "image": {
       "name": "docker.svg",
-      "url": "/images/logos/",
+      "url": "/images/",
       "backgroundColor": "#127EC0",
-      "height": 130,
-      "width": 130
+      "height": 90.3,
+      "width": 126.41
     },
     "description": {
       "color": "#127EC0",
@@ -1148,8 +1148,8 @@
       "name": "kubernetes.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FFFFFF",
-      "height": 130,
-      "width": 130
+      "height": 103.19,
+      "width": 103.19
     },
     "description": {
       "color": "#000000",
@@ -1167,8 +1167,8 @@
       "name": "jenkins.svg",
       "url": "/images/logos/",
       "backgroundColor": "#333232",
-      "height": 130,
-      "width": 130
+      "height": 129,
+      "width": 93.44
     },
     "description": {
       "color": "#333232",
@@ -1184,7 +1184,7 @@
     "name": "GitHub",
     "image": {
       "name": "github-logo.svg",
-      "url": "/images/logos/",
+      "url": "/images/",
       "backgroundColor": "#2E2E2E",
       "height": 130,
       "width": 130
@@ -1205,8 +1205,8 @@
       "name": "hadoop.svg",
       "url": "/images/logos/",
       "backgroundColor": "#9B00DD",
-      "height": 130,
-      "width": 130
+      "height": 129,
+      "width": 174.14
     },
     "description": {
       "color": "#9B00DD",
@@ -1243,8 +1243,8 @@
       "name": "git.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FFFFFF",
-      "height": 130,
-      "width": 130
+      "height": 150,
+      "width": 150
     },
     "description": {
       "color": "#000000",
@@ -1262,8 +1262,8 @@
       "name": "gitlab.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FFFFFF",
-      "height": 130,
-      "width": 130
+      "height": 90.3,
+      "width": 100.91
     },
     "description": {
       "color": "#000000",
@@ -1281,8 +1281,8 @@
       "name": "jira.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FFFFFF",
-      "height": 130,
-      "width": 130
+      "height": 101.59,
+      "width": 179
     },
     "description": {
       "color": "#000000",
@@ -1300,8 +1300,8 @@
       "name": "pip.svg",
       "url": "/images/logos/",
       "backgroundColor": "#5DA6E2",
-      "height": 130,
-      "width": 130
+      "height": 103.19,
+      "width": 117.08
     },
     "description": {
       "color": "#2F6491",
@@ -1319,8 +1319,8 @@
       "name": "maven.svg",
       "url": "/images/logos/",
       "backgroundColor": "#FFFFFF",
-      "height": 130,
-      "width": 130
+      "height": 129,
+      "width": 169.73
     },
     "description": {
       "color": "#FFFFFF",
@@ -1338,8 +1338,8 @@
       "name": "gradle.svg",
       "url": "/images/logos/",
       "backgroundColor": "#22DA27",
-      "height": 130,
-      "width": 130
+      "height": 90.3,
+      "width": 120.39
     },
     "description": {
       "color": "#02303a",
