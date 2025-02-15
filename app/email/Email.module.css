@@ -1,0 +1,40 @@
+.background {
+    background-color: #FFFFFF;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px;
+    padding-top: 0;
+    gap: 30px;
+}
+
+.add-calendar-and-cancel-meeting {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap:30px
+}
+
+.project-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(
+        to bottom,
+        #011A49 0%,
+        #113C8D 44%,
+        #113C8D 60%,
+        #011A49 85%
+    );
+    padding: 20px;
+    border-radius: 20px;
+    height: 388px;
+}
+
+.project-preview img {
+    width: 500px;
+}

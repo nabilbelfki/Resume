@@ -43,7 +43,7 @@ const Calendar: React.FC<unknown> = () => {
         notes,
       };
       console.log(templateParams);
-
+  
       fetch("/api/email", {
         method: "POST",
         headers: {
@@ -55,6 +55,9 @@ const Calendar: React.FC<unknown> = () => {
         .then((data) => {
           if (data.success) {
             console.log("Email sent successfully");
+            // Redirect to the specified page after successful email sending
+            const redirectUrl = `/email?firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(lastName)}&date=${encodeURIComponent("2025-10-12T01:00:00")}`;
+            window.location.href = redirectUrl;
           } else {
             console.log("Failed to send email");
           }
@@ -63,7 +66,7 @@ const Calendar: React.FC<unknown> = () => {
           console.error("Error:", error);
         });
     }
-  };
+  };  
 
   const backToTimes = () => {
     setPage("times");
