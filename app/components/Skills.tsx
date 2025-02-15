@@ -30,6 +30,9 @@ interface SkillsProps {
 
 const Skills: React.FC<SkillsProps> = ({ skills }) => {
   const [type, setType] = useState("backend");
+  const [backgroundColor, setbackgroundColor] = useState(
+    "rgba(96, 96, 96, 0.1)"
+  );
   const [clickedMobileIndex, setMobileClickedIndex] = useState<number | null>(
     null
   );
@@ -70,6 +73,21 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
       miscellaneous.push(skill);
     }
   });
+
+  function hexToRgba(hex: string, alpha: number) {
+    // Remove the hash at the start if it's there
+    if (hex == "#FFFFFF") return `rgba(96, 96, 96, 0.1)`;
+    if (hex == "#EAF9FF") return `rgba(47, 129, 255, 0.3)`;
+    hex = hex.replace(/^#/, "");
+
+    // Parse the r, g, b values
+    let r = parseInt(hex.substring(0, 2), 16);
+    let g = parseInt(hex.substring(2, 4), 16);
+    let b = parseInt(hex.substring(4, 6), 16);
+
+    // Return the RGBA color
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
 
   const renderSkills = (
     skills: Skill[],
@@ -131,7 +149,10 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
           image={skill.image}
           description={skill.description}
           showDescription={clickedIndex === index}
-          onClick={() => setClickedIndex(clickedIndex === index ? null : index)}
+          onClick={() => {
+            setClickedIndex(clickedIndex === index ? null : index);
+            setbackgroundColor(hexToRgba(skill.image.backgroundColor, 0.3));
+          }}
           className={`${styles.skill} ${
             clickedIndex === index ? styles.clicked : ""
           }`}
@@ -141,7 +162,7 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
   };
 
   return (
-    <div className={styles.skills}>
+    <div className={styles.skills} style={{ backgroundColor: backgroundColor }}>
       {type == "mobile" && (
         <div className={styles.mobile}>
           {renderSkills(mobile, clickedMobileIndex, setMobileClickedIndex)}
