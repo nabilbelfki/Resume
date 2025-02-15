@@ -19,9 +19,6 @@ interface Description {
 interface SkillProps {
   gridArea: string;
   className: string;
-  // backgroundColor: string;
-  // height: number;
-  // logoPath: string;
   image: Image;
   description: Description;
   onClick: () => void;
@@ -31,9 +28,6 @@ interface SkillProps {
 const Skill: React.FC<SkillProps> = ({
   gridArea,
   className,
-  // backgroundColor,
-  // logoPath,
-  // height,
   image,
   description,
   onClick,
