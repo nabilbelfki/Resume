@@ -72,11 +72,11 @@ function emailBody(name, date, time) {
                   style="flex: 3; display: flex; justify-content: center; align-items: flex-start; flex-direction: column; height: 250px; gap: 10px;">
                   <h1 style="font-size: 50px; margin: 0;">Thanks for reaching out!</h1>
                   <h3 style="font-size: 25px; line-height: 1.4; margin: 0;">
-                      <i>I look forward to speaking with you ${name} at </i>
+                      <i style="font-weight:300;">I look forward to speaking with you ${name} at </i>
                       <b>${time}</b>
-                      <i> on </i>
+                      <i style="font-weight:300;"> on </i>
                       <b>${date}</b>
-                      <i>. I will give you a call then. If you need to contact me beforehand don’t hesitate to send me an
+                      <i style="font-weight:300;">. I will give you a call then. If you need to contact me beforehand don’t hesitate to send me an
                           email.</i>
                   </h3>
               </div>
