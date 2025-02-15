@@ -8,6 +8,7 @@ interface CancelMeetingProps {
 }
 
 const CancelMeeting: React.FC<CancelMeetingProps> = ({ meetingID }) => {
+  console.log(meetingID)
   return (
     <div className={styles["cancel-meeting"]} >
       <div className={styles.title}>

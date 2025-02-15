@@ -1,5 +1,5 @@
-"use client"
-import React from "react";
+"use client";
+import React, { Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import AddCalendar from "../components/AddCalendar";
@@ -8,7 +8,7 @@ import Project from "../components/Project";
 import CancelMeeting from "../components/CancelMeeting";
 import styles from "./Email.module.css";
 
-const Email: React.FC = () => {
+const EmailContent: React.FC = () => {
   const searchParams = useSearchParams();
 
   // Check if searchParams is null
@@ -34,6 +34,14 @@ const Email: React.FC = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const Email: React.FC = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <EmailContent />
+    </Suspense>
   );
 };
 

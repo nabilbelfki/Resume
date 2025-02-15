@@ -9,18 +9,18 @@ interface AddCalendarProps {
 
 const AddCalendar: React.FC<AddCalendarProps> = ({ dateTime }) => {
   
-    const time = dateTime.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "numeric",
-        hour12: true,
-    });
+    // const time = dateTime.toLocaleTimeString("en-US", {
+    //     hour: "numeric",
+    //     minute: "numeric",
+    //     hour12: true,
+    // });
 
-    const date = dateTime.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    });
-
+    // const date = dateTime.toLocaleDateString("en-US", {
+    //     year: "numeric",
+    //     month: "long",
+    //     day: "numeric",
+    // });
+  console.log(dateTime)
   return (
     <div className={styles["add-calendar"]} >
         <Image src="/images/calendar-binding.svg" alt="Calendar Binding" width="94" height="108" />
