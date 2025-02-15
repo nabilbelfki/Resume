@@ -1,8 +1,9 @@
 import nodemailer from "nodemailer";
 
-export default async (req, res) => {
+export default async function handler(req, res) {
   const { firstName, lastName, email, phone, notes } = req.body;
-
+  console.log(phone);
+  console.log(notes);
   // Create a transporter object using the default SMTP transport
   const transporter = nodemailer.createTransport({
     service: "gmail", // Use your email service
@@ -31,7 +32,7 @@ export default async (req, res) => {
     console.error("Error sending email:", error);
     res.status(500).json({ success: false });
   }
-};
+}
 
 
 function emailBody(name, date, time) {
@@ -99,14 +100,14 @@ function emailBody(name, date, time) {
                           button below.
                       </div>
                       <button
-                          style="padding: 10px 20px; background-color: #ff4d4d; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                          style="width: 100px; height: 40px; color: white; background-color: #113C8D; outline: none; border: none; cursor: pointer; border-radius: 5px;">
                           CANCEL
                       </button>
                   </div>
               </div>
               <div
                   style="display: flex;justify-content: center;align-items: center;background: linear-gradient( to bottom,#011A49 0%, #113C8D 44%, #113C8D 60%, #011A49 85% );padding: 20px;border-radius: 20px;height: 388px;">
-                  <a href="/application/67a2432855f8ecd625cc5ea5" style="text-decoration: none; color: inherit;">
+                  <a href="https://www.nabilbelfki.com/application/67a2432855f8ecd625cc5ea5" style="text-decoration: none; color: inherit;">
                       <div style="position: relative; display: flex; justify-content: center; align-items: center;">
                           <div
                               style="position: absolute; top: 0; left: 0; width: 100%; display: none; justify-content: center; align-items: center; background-color: rgba(46, 46, 46, 0.7); color: #FFFFFF; font-size: 32px; height: 50px; border-top-right-radius: 10px; border-top-left-radius: 10px;">
