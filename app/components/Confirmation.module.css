@@ -1,0 +1,39 @@
+.confirmation {
+    display: flex;
+    padding: 50px;
+    color: #3D3D3D;
+    gap: 40px;
+}
+
+.icon {
+    flex: 1;
+}
+
+.icon img {
+    border-radius: 50%;
+}
+
+.message {
+    flex: 3;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    height: 250px;
+    gap: 10px;
+}
+
+.title {
+    font-size: 50px;
+    margin: 0;
+}
+
+.text {
+    font-size: 25px;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.text i {
+    font-weight: 300;
+}

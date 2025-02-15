@@ -1,0 +1,40 @@
+"use client"
+import React from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import AddCalendar from "../components/AddCalendar";
+import Confirmation from "../components/Confirmation";
+import Project from "../components/Project";
+import CancelMeeting from "../components/CancelMeeting";
+import styles from "./Email.module.css";
+
+const Email: React.FC = () => {
+  const searchParams = useSearchParams();
+
+  // Check if searchParams is null
+  const firstName = searchParams?.get("firstName") || "";
+  const lastName = searchParams?.get("lastName") || "";
+  const date = searchParams?.get("date") || "";
+
+  return (
+    <div className={styles.background}>
+      <Confirmation firstName={firstName} lastName={lastName} dateTime={new Date(date)} />
+      <div className={styles.content}>
+        <div className={styles["add-calendar-and-cancel-meeting"]}>
+          <AddCalendar dateTime={new Date(date)} />
+          <CancelMeeting meetingID="1"/>
+        </div>
+        <div className={styles["project-preview"]}>
+          <Link key="67a2432855f8ecd625cc5ea5" href={`/application/67a2432855f8ecd625cc5ea5`}>
+            <Project
+              name="Personal Website"
+              videoPath={`/videos/personal.gif`}
+            />
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Email;
