@@ -43,10 +43,11 @@
 
 .message {
     width: 100%;
+    position: relative
 }
 
 .message textarea {
-    height: 300px;
+    height: 340px;
     width: 100%;
     outline: none;
     border: none;

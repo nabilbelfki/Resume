@@ -2,17 +2,34 @@
     display: flex;
     flex-direction: row-reverse;
     position: relative;
+    height: 500px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
   
-.timeline div{
+.timeline > div{
     flex: 1;
 }
 
+.year {
+    position: relative;
+    margin-right: 5px;
+}
 
 .year .indicator {
     height: 30px;
     width: 8px;
-    background-color: #2E2E2E;
+    background-color: #021C4D;
+}
+
+.year .text {
+    transform: rotate(90deg);
+    bottom: 0px;
+    position: absolute;
+    left: -27px;
+    font-size: 25px;
+    font-weight: 600;
+    color: #021C4D;
 }
 
 .february .indicator,
@@ -25,7 +42,7 @@
 .september .indicator,
 .november .indicator,
 .december .indicator{
-    background-color: #2E2E2E;
+    background-color: #021C4D;
     height: 10px;
     width: 2px;
 }
@@ -33,20 +50,21 @@
 .april  .indicator,
 .july  .indicator,
 .october .indicator {
-    background-color: #2E2E2E;
+    background-color: #021C4D;
     height: 20px;
     width: 3px;
 }
 
-.january { left: 0%; }
-.february { left: 8.33%; }
-.march { left: 16.66%; }
-.april { left: 25%; }
-.may { left: 33.33%; }
-.june { left: 41.66%; }
-.july { left: 50%; }
-.august { left: 58.33%; }
-.september { left: 66.66%; }
-.october { left: 75%; }
-.november { left: 83.33%; }
-.december { left: 91.66%; }
+.year { margin-top: 400px }
+.january { margin-top: 400px }
+.february { margin-top: 400px }
+.march { margin-top: 400px }
+.april { margin-top: 400px }
+.may { margin-top: 400px }
+.june { margin-top: 400px }
+.july { margin-top: 400px }
+.august { margin-top: 400px }
+.september { margin-top: 400px }
+.october { margin-top: 400px }
+.november { margin-top: 400px }
+.december { margin-top: 400px }

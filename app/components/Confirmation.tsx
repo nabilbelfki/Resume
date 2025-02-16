@@ -30,7 +30,7 @@ const Confirmation: React.FC<ConfirmationProps> = ({ firstName, lastName, dateTi
       </div>
       <div className={styles.message}>
         <h1 className={styles.title}>Thanks for reaching out!</h1>
-        <h3 className={styles.text}><i>I look forward to speaking with you {`${firstName} ${lastName}`} at </i><b>{time}</b><i> on </i><b>{date}</b><i>. I will give you a call then. If you need to contact me beforehand don’t hesitate to send me an email.</i></h3>
+        <h3 className={styles.text}><i>I look forward to speaking with you {`${firstName} ${lastName}`} at </i><b>{time + " ET"}</b><i> on </i><b>{date}</b><i>. I will give you a call then. If you need to contact me beforehand don’t hesitate to send me an email.</i></h3>
       </div>
     </div>
   );

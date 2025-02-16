@@ -14,7 +14,7 @@ const CancelMeeting: React.FC<CancelMeetingProps> = ({ meetingID }) => {
       <div className={styles.title}>
         Something unexpected came up and you need to cancel? No worries, I understand just click the button below.
       </div>
-      <Button text="CANCEL" onClick={()=> {}} />
+      <Button text="CANCEL MEETING" style={{width: 150, fontWeight: 600}} onClick={()=> {}} />
     </div>
   );
 };

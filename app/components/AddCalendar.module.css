@@ -2,8 +2,9 @@
     display: flex;
     position: relative;
     width: min-content;
-    box-shadow: 0 0 4px 1 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
+    cursor: pointer;
 }
 
 .add-calendar img {
