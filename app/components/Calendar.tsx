@@ -6,11 +6,15 @@ import Popup from "./Popup";
 import Button from "./Button";
 import Times from "./Times";
 
-// interface CalendarProps {}
+interface Bookings {
+  dateTime: string; 
+}
 
 const Calendar: React.FC<unknown> = () => {
+  const [meetings, setMeetings] = useState<Bookings[]>([]);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [showing, setShowing] = useState(false);
   const [page, setPage] = useState("times");
   const [firstName, setFirstName] = useState("");
@@ -18,7 +22,6 @@ const Calendar: React.FC<unknown> = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
-  // const [time, setTime] = useState("");
 
   const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFirstName(e.target.value);
@@ -31,40 +34,105 @@ const Calendar: React.FC<unknown> = () => {
   const handleNotesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
     setNotes(e.target.value);
 
-  const bookMeeting = () => {
+  const bookMeeting = async () => {
     if (page === "times") {
       setPage("contact");
     } else {
-      const templateParams = {
-        firstName,
-        lastName,
-        email,
-        phone,
-        notes,
-      };
-      console.log(templateParams);
+      let dateTime: Date | null = null;
+      let dateString = "";
+      const time = selectedTime;
+      const date = formatDate(selectedDate);
   
-      fetch("/api/email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(templateParams),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success) {
-            console.log("Email sent successfully");
-            // Redirect to the specified page after successful email sending
-            const redirectUrl = `/email?firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(lastName)}&date=${encodeURIComponent("2025-10-12T01:00:00")}`;
-            window.location.href = redirectUrl;
-          } else {
-            console.log("Failed to send email");
+      if (selectedDate && time) {
+        const timeMatch = time.match(/(\d{1,2}:\d{2})([AP]M)/);
+        if (timeMatch) {
+          const [hoursAndMinutes, period] = timeMatch.slice(1, 3);
+          let [hourString, minuteString] = hoursAndMinutes.split(":");
+          let hour = parseInt(hourString, 10);
+          let minute = parseInt(minuteString, 10);
+  
+          // Handle AM/PM conversion
+          if (period === "PM" && hour !== 12) {
+            hour += 12;
+          } else if (period === "AM" && hour === 12) {
+            hour = 0;
           }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
+  
+          // Combine date and time in ET
+          const combinedDateTime = new Date(selectedDate);
+          combinedDateTime.setHours(hour, minute, 0, 0);
+  
+          // Convert the combined date and time to UTC by subtracting the ET offset (5 hours during standard time, 4 hours during daylight saving time)
+          const isDaylightSaving = combinedDateTime.getTimezoneOffset() === -240;
+          const offset = isDaylightSaving ? 4 * 60 * 60 * 1000 : 5 * 60 * 60 * 1000; 
+          dateTime = new Date(combinedDateTime.getTime() + offset);
+  
+          // Convert to ISO string for redirect URL
+          dateString = combinedDateTime.toISOString();
+        } else {
+          console.error("Time format is incorrect");
+        }
+      }
+  
+      const meetingData = {
+        dateTimeString: dateString,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        phone: phone,
+        notes: notes,
+      };
+  
+      try {
+        const response = await fetch('/api/meetings', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(meetingData),
         });
+  
+        const data = await response.json();
+        
+        if (data.success) {
+          console.log("Meeting saved successfully");
+  
+          const templateParams = {
+            firstName,
+            lastName,
+            email,
+            phone,
+            notes,
+            date,
+            time,
+          };
+  
+          fetch("/api/email", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(templateParams),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                console.log("Email sent successfully");
+                const redirectUrl = `/email?firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(lastName)}&date=${encodeURIComponent(dateString)}`;
+                window.location.href = redirectUrl;
+              } else {
+                console.log("Failed to send email");
+              }
+            })
+            .catch((error) => {
+              console.error("Error sending email:", error);
+            });
+        } else {
+          console.log("Failed to save meeting");
+        }
+      } catch (error) {
+        console.error('Error saving meeting:', error);
+      }
     }
   };  
 
@@ -105,18 +173,34 @@ const Calendar: React.FC<unknown> = () => {
     return new Date(year, month, 1).getDay();
   };
 
-  const handleDayClick = (day: number) => {
-    setShowing(true);
-    setSelectedDate(
-      new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
-    );
+  const handleDayClick = async (day: number) => {
+    const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+    setSelectedDate(selectedDate);
+    
+    // Format the selected date as YYYY-MM-DD
+    const formattedDate = selectedDate.toISOString().split('T')[0];
+    
+    try {
+      const response = await fetch(`/api/meetings?date=${formattedDate}`);
+      const data = await response.json();
+      
+      if (data.success) {
+        setMeetings(data.meetings);
+        setShowing(true);
+      } else {
+        console.error("Failed to fetch meetings:", data.error);
+      }
+    } catch (error) {
+      console.error("Error fetching meetings:", error);
+    }
   };
+  
 
   const generateDays = () => {
     const daysInMonth = getDaysInMonth(currentDate);
     const firstDayOfMonth = getFirstDayOfMonth(currentDate);
     const days = [];
-
+  
     // Add unselectable days for the previous month
     for (let i = 0; i < firstDayOfMonth; i++) {
       days.push(
@@ -128,7 +212,7 @@ const Calendar: React.FC<unknown> = () => {
         </div>
       );
     }
-
+  
     // Add days of the current month
     for (let i = 1; i <= daysInMonth; i++) {
       days.push(
@@ -141,7 +225,7 @@ const Calendar: React.FC<unknown> = () => {
         </div>
       );
     }
-
+  
     // Add unselectable days for the next month to fill the last week
     const totalDays = days.length;
     const remainingDays = 7 - (totalDays % 7);
@@ -157,7 +241,19 @@ const Calendar: React.FC<unknown> = () => {
         );
       }
     }
-
+  
+    // Ensure there are always 6 weeks (42 days)
+    while (days.length < 42) {
+      days.push(
+        <div
+          key={`extra-${days.length}`}
+          className={`${styles["day"]} ${styles["unselected"]}`}
+        >
+          {" "}
+        </div>
+      );
+    }
+  
     // Group days into weeks
     const weeks = [];
     for (let i = 0; i < days.length; i += 7) {
@@ -167,9 +263,9 @@ const Calendar: React.FC<unknown> = () => {
         </div>
       );
     }
-
+  
     return weeks;
-  };
+  };  
 
   const formatDate = (date: Date | null) => {
     if (!date) return "";
@@ -237,11 +333,10 @@ const Calendar: React.FC<unknown> = () => {
         title="Schedule a Meeting"
         body={
           <>
-            <div></div>
             {page == "times" && (
               <div className={moreStyles.date}>{formatDate(selectedDate)}</div>
             )}
-            {page == "times" && <Times />}
+            {page == "times" && <Times booked={meetings} selectedTime={selectedTime} setSelectedTime={setSelectedTime} />}
             {page == "contact" && (
               <div className={moreStyles.book}>
                 <div className={moreStyles.name}>

@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 
 export default async function handler(req, res) {
-  const { firstName, lastName, email, phone, notes } = req.body;
+  const { firstName, lastName, email, phone, notes, date, time } = req.body;
   console.log(phone);
   console.log(notes);
   // Create a transporter object using the default SMTP transport
@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   });
 
   const fullName = firstName + ' ' + lastName;
-  const body= emailBody(fullName, "February 12th, 2024", "2:00PM");
+  const body= emailBody(fullName, date, time);
 
   // Set up email data
   const mailOptions = {
@@ -75,8 +75,7 @@ function emailBody(name, date, time) {
                       <i style="font-weight:300;">I look forward to speaking with you ${name} at </i>
                       <b>${time}</b>
                       <i style="font-weight:300;"> on </i>
-                      <b>${date}</b>
-                      <i style="font-weight:300;">. I will give you a call then. If you need to contact me beforehand don’t hesitate to send me an
+                      <b>${date.trim()}</b><i style="font-weight:300;">. I will give you a call then. If you need to contact me beforehand don’t hesitate to send me an
                           email.</i>
                   </h3>
               </div>
@@ -100,8 +99,8 @@ function emailBody(name, date, time) {
                           button below.
                       </div>
                       <button
-                          style="width: 100px; height: 40px; color: white; background-color: #113C8D; outline: none; border: none; cursor: pointer; border-radius: 5px;">
-                          CANCEL
+                          style="width: 150px; height: 40px; color: white; background-color: #113C8D; outline: none; border: none; cursor: pointer; border-radius: 5px;">
+                          CANCEL MEETING
                       </button>
                   </div>
               </div>

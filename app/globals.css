@@ -8,20 +8,20 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 * {
   box-sizing: border-box;
 }
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  /* background: var(--background); */
+  background: linear-gradient(
+    to bottom,
+    #011A49 0%,
+    #113C8D 44%,
+    #113C8D 60%,
+    #011A49 85%
+  );
   font-family: 'Inter', sans-serif;
   display: flex;
   justify-content: center;
@@ -36,7 +36,7 @@ body {
 
 .experience-and-skills {
   background-color: #FFFFFF;
-  height: 1000px;
+  height: 1200px;
 }
 
 
@@ -46,6 +46,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 40px;
+  margin-top: 60px;
   padding: 40px;
 }
 .metal img{

@@ -2,11 +2,28 @@ import React, { useState } from "react";
 import styles from "./Times.module.css";
 import Time from "./Time";
 
-// interface TimesProps {}
+interface Bookings {
+  dateTime: string; 
+}
 
-const Times: React.FC<unknown> = () => {
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+interface TimesProps {
+  booked: Bookings[];
+  selectedTime: string | null;
+  setSelectedTime: React.Dispatch<React.SetStateAction<string | null>>;
+}
 
+// Helper function to convert UTC to ET
+const convertUtcToEt = (utcDateStr: string): string => {
+  const utcDate = new Date(utcDateStr);
+  return new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    hour12: true,
+    hour: 'numeric',
+    minute: 'numeric',
+  }).format(utcDate).replace(' ', '');
+};
+
+const Times: React.FC<TimesProps> = ({ booked, selectedTime, setSelectedTime }) => {
   const times = [
     "11:00AM ET",
     "11:30AM ET",
@@ -24,6 +41,14 @@ const Times: React.FC<unknown> = () => {
     "5:30PM ET",
   ];
 
+  console.log(booked);
+  // Extract booked times and convert them to ET
+  const bookedTimes = booked.reduce((acc, booking) => {
+    const etTime = convertUtcToEt(booking.dateTime);
+    acc[etTime] = true;
+    return acc;
+  }, {} as { [key: string]: boolean });
+
   const handleTimeClick = (time: string, occupied: boolean) => {
     if (occupied) return; // Do nothing if the time is occupied
     setSelectedTime((prevSelectedTime) =>
@@ -33,13 +58,13 @@ const Times: React.FC<unknown> = () => {
 
   return (
     <div className={styles.times}>
-      {times.map((time, index) => (
+      {times.map((time) => (
         <Time
-          key={index}
+          key={time}
           time={time}
-          occupied={index < 5}
+          occupied={bookedTimes[time.replace(" ET","")] || false}
           selected={time === selectedTime}
-          onClick={() => handleTimeClick(time, index < 5)}
+          onClick={() => handleTimeClick(time, bookedTimes[time] || false)}
         />
       ))}
     </div>

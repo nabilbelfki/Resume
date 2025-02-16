@@ -4,6 +4,145 @@
 }
 
 .line {
-  height: 2px;
-  background-color: black;
+  height: 7px;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-cole {
+  0% {
+    transform: translateX(calc(-50% - 70px)) translateY(0);
+  }
+  50% {
+    transform: translateX(calc(-50% - 70px)) translateY(-5px);
+  }
+  100% {
+    transform: translateX(calc(-50% - 70px)) translateY(0);
+  }
+}
+
+@keyframes float-njit {
+  0% {
+    transform: translateX(calc(-50% + 100px)) translateY(0);
+  }
+  50% {
+    transform: translateX(calc(-50% + 100px)) translateY(-5px);
+  }
+  100% {
+    transform: translateX(calc(-50% + 100px)) translateY(0);
+  }
+}
+
+.information {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  box-shadow: 0 0 4px 0 rgba(0,0,0,0.25);
+  left: 50%;
+  border-radius: 15px;
+  padding: 20px;
+  max-width: 550px;
+  gap: 5px;
+}
+
+.floating {
+  animation: float 2s ease-in-out infinite;
+}
+
+.floating-cole {
+  animation: float-cole 2s ease-in-out infinite;
+}
+
+.floating-njit {
+  animation: float-njit 2s ease-in-out infinite;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.name-location-and-date {
+  display: flex;
+  /* width: 425px; */
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: start;
+  min-width: 400px;
+  width: max-content;
+}
+
+.location-and-date {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 20px;
+}
+
+.location, .date {
+  font-weight: 300;
+  font-style: italic;
+}
+
+.details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 10px;
+  padding: 12px;
+  gap: 5px;
+}
+
+.subheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  width: 100%;
+}
+
+.title, .type {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.subtitle {
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 300;
+}
+
+/* .title, .subtitle, .type {
+  flex: 1
+} */
+
+.description {
+  display: flex;
+  border-radius: 10px;
+  font-weight: 600;
+  justify-content: center;
+  align-items: center;
+  padding: 7px;
 }
