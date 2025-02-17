@@ -7,6 +7,7 @@ import ContactForm from "./components/ContactForm";
 import Calendar from "./components/Calendar";
 import Skills from "./components/Skills";
 import Project from "./components/Project";
+import { Experiences } from './components/types';
 
 interface Project {
   _id: string;
@@ -35,182 +36,20 @@ interface Skill {
   description: Description;
 }
 
-const experiences = [
-  {
-    level: 1,
-    zIndex: 1,
-    name: "American College of Thessaloniki",
-    location: "Thessaloniki, Greece",
-    type: "Education",
-    logo: {
-      opened: {
-        name: "act.svg",
-        width: 75,
-        height: 75
-      },
-      closed: {
-        name: "act.svg",
-        width: 130,
-        height: 130
-      }
-    },
-    title: "Bachelors of Science",
-    subtitle: "Business and Computing",
-    period: {
-      title: "June 2021",
-      start: "2017-01-01",
-      end: "2021-06-16"
-    },
-    color: {
-      line: "#870404",
-      name: "#2E2E2E",
-      title: "#FFFFFF",
-      subtitle: "#FFFFFF",
-      type: "#FFFFFF",
-      date: "#870404",
-      location: "rgba(46,46,46,0.7)",
-      background: "#FFFFFF",
-      details: "#870404",
-      description: {
-        text: "#FFFFFF",
-        background: "rgba(255,255,255,0.3)"
-      }
-    },
-    description: "I began my education aboard after having moved from United States to Greece. Here is where I fell in love with technology and began sharpening my skills. I broadened my understanding of various areas of Business and Computing during my Bachelors of Science Degree here."
-  },
-  {
-    level: 1,
-    zIndex: 2,
-    name: "theCoderSchool",
-    location: "Belle Mead, NJ",
-    type: "Work",
-    logo: {
-      opened: {
-        name: "the-coder-school.png",
-        width: 75,
-        height: 75
-      },
-      closed: {
-        name: "the-coder-school.png",
-        width: 130,
-        height: 130
-      }
-    },
-    title: "Programming Instructor",
-    period: {
-      title: "March - August 2022",
-      start: "2021-07-01",
-      end: "2022-08-01"
-    },
-    color: {
-      line: "#10C810",
-      name: "#2E2E2E",
-      title: "#10C810",
-      type: "#10C810",
-      date: "#FFFFFF",
-      location: "rgba(46,46,46,0.7)",
-      background: "#10C810",
-      details: "#FFFFFF",
-      description: {
-        text: "#2E2E2E",
-        background: "rgba(0,0,0,0.1)"
-      }
-    },
-    description: "Helping K-12 learn to code solidified my understanding further. Seeing their learning process was insightful. Here I learned the importance of projects compared to just teaching them to code. Building a project makes you realize the potential and why we code in the first place."
-  },
-  {
-    level: 2,
-    zIndex: 3,
-    name: "New Jersey Institute of Technology",
-    location: "Newark, NJ",
-    type: "Education",
-    logo: {
-      opened: {
-        name: "njit.png",
-        width: 75,
-        height: 75
-      },
-      closed: {
-        name: "njit.png",
-        width: 130,
-        height: 130
-      }
-    },
-    title: "Masters of Science",
-    subtitle: "Computer Science",
-    period: {
-      title: "September 2022-Present",
-      start: "2022-09-01",
-    },
-    color: {
-      line: "#C30000",
-      name: "#2E2E2E",
-      title: "#C30000",
-      subtitle: "#C30000",
-      type: "#C30000",
-      date: "#FFFFFF",
-      location: "rgba(46,46,46,0.7)",
-      background: "#C30000",
-      details: "#FFFFFF",
-      description: {
-        text: "#2E2E2E",
-        background: "rgba(0,0,0,0.1)"
-      }
-    },
-    description: "Helping K-12 learn to code solidified my understanding further. Seeing their learning process was insightful. Here I learned the importance of projects compared to just teaching them to code. Building a project makes you realize the potential and why we code in the first place."
-  },
-  {
-    level: 1,
-    zIndex: 4,
-    name: "Cole Solutions LLC",
-    location: "Piscataway, NJ",
-    type: "Work",
-    logo: {
-      opened: {
-        name: "cole-solutions-2.svg",
-        width: 75,
-        height: 75
-      },
-      closed: {
-        name: "cole-solutions-1.svg",
-        width: 130,
-        height: 130
-      }
-    },
-    title: "Software Developer",
-    period: {
-      title: "September 2022-Present",
-      start: "2022-09-01",
-      // end: "2024-09-01"
-    },
-    color: {
-      line: "#0898DA",
-      name: "#223E60",
-      title: "#FFFFFF",
-      type: "#FFFFFF",
-      date: "#0898DA",
-      location: "#223E60",
-      background: "#FFFFFF",
-      details: "#0898DA",
-      description: {
-        text: "#FFFFFF",
-        background: "rgba(255,255,255,0.3)"
-      }
-    },
-    description: "Helping K-12 learn to code solidified my understanding further. Seeing their learning process was insightful. Here I learned the importance of projects compared to just teaching them to code. Building a project makes you realize the potential and why we code in the first place."
-  },
-];
-
 const Home = async () => {
   let projects: Project[] = [];
   let skills: Skill[] = [];
+  let experiences: Experiences[] = [];
 
   try {
-    const [projectsRes, skillsRes] = await Promise.all([
+    const [projectsRes, skillsRes, experiencesRes] = await Promise.all([
       fetch("http://localhost:3000/api/projects", {
         next: { revalidate: 60 }, // Cache the response for 60 seconds
       }),
       fetch("http://localhost:3000/api/skills", {
+        next: { revalidate: 60 }, // Cache the response for 60 seconds
+      }),
+      fetch("http://localhost:3000/api/experiences", {
         next: { revalidate: 60 }, // Cache the response for 60 seconds
       }),
     ]);
@@ -225,6 +64,12 @@ const Home = async () => {
       skills = await skillsRes.json();
     } else {
       console.error("Failed to fetch skills:", skillsRes.statusText);
+    }
+
+    if (experiencesRes.ok) {
+      experiences = await experiencesRes.json();
+    } else {
+      console.error("Failed to fetch experiences:", experiencesRes.statusText);
     }
   } catch (error) {
     console.error("Error fetching data:", error);

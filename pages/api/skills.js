@@ -1,4 +1,4 @@
-// /pages/api/projects.js
+// /pages/api/skills.js
 import dbConnect from "../../lib/dbConnect";
 import Skill from "../../models/Skill";
 

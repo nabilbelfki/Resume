@@ -15,8 +15,53 @@
     background-color: #F3F3F3;
     padding:10px;
     gap:10px;
+    width: 500px;
 }
 
+.book input{
+    width: 100%;
+}
+
+
+.book input::placeholder {
+    width: 100%;
+    color: grey;
+}
+
+@keyframes jiggle {
+    0% {
+      transform: rotate(0deg) 
+    }
+    12.5% {
+      transform: rotate(1deg) 
+    }
+    25% {
+      transform: rotate(-1deg) 
+    }
+    37.5% {
+      transform: rotate(1deg)
+    }
+    50% {
+      transform: rotate(-1deg) 
+    }
+    62.5% {
+      transform: rotate(1deg) 
+    }
+    75% {
+      transform: rotate(-1deg) 
+    }
+    87.5% {
+      transform: rotate(1deg) 
+    }
+    100% {
+      transform: rotate(0deg)
+    }
+  }
+  
+  .book .invalid {
+    animation: jiggle 2s ease;
+  }
+  
 .name {
     display: flex;
     justify-content: center;
