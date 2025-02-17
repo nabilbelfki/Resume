@@ -23,12 +23,30 @@ const Calendar: React.FC<unknown> = () => {
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
 
-  const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const [firstNamePlaceHolder, setFirstNamePlaceHolder] = useState("First Name...");
+  const [lastNamePlaceHolder, setLastNamePlaceHolder] = useState("Last Name...");
+  const [emailPlaceHolder, setEmailPlaceHolder] = useState("Email Address...");
+
+  const [firstNameStyles, setFirstNameStyles] = useState({border: "none"});
+  const [lastNameStyles, setLastNameStyles] = useState({border: "none"});
+  const [emailStyles, setEmailStyles] = useState({border: "none"});
+  
+
+  const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(e.target.value);
-  const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setFirstNamePlaceHolder("First Name...");
+    setFirstNameStyles({border: "none"});
+  }
+  const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLastName(e.target.value);
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setLastNamePlaceHolder("Last Name...");
+    setLastNameStyles({border: "none"});
+  }
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
+    setEmailPlaceHolder("Email Address...");
+    setEmailStyles({border: "none"});
+  }
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setPhone(e.target.value);
   const handleNotesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
@@ -38,100 +56,114 @@ const Calendar: React.FC<unknown> = () => {
     if (page === "times") {
       setPage("contact");
     } else {
-      let dateTime: Date | null = null;
-      let dateString = "";
-      const time = selectedTime;
-      const date = formatDate(selectedDate);
-  
-      if (selectedDate && time) {
-        const timeMatch = time.match(/(\d{1,2}:\d{2})([AP]M)/);
-        if (timeMatch) {
-          const [hoursAndMinutes, period] = timeMatch.slice(1, 3);
-          let [hourString, minuteString] = hoursAndMinutes.split(":");
-          let hour = parseInt(hourString, 10);
-          let minute = parseInt(minuteString, 10);
-  
-          // Handle AM/PM conversion
-          if (period === "PM" && hour !== 12) {
-            hour += 12;
-          } else if (period === "AM" && hour === 12) {
-            hour = 0;
+      if (firstName != "" && lastName != "" && email != "") {
+        let dateString = "";
+        const time = selectedTime;
+        const date = formatDate(selectedDate);
+    
+        if (selectedDate && time) {
+          const timeMatch = time.match(/(\d{1,2}:\d{2})([AP]M)/);
+          if (timeMatch) {
+            const [hoursAndMinutes, period] = timeMatch.slice(1, 3);
+            const [hourString, minuteString] = hoursAndMinutes.split(":");
+            let hour = parseInt(hourString, 10);
+            const minute = parseInt(minuteString, 10);
+    
+            // Handle AM/PM conversion
+            if (period === "PM" && hour !== 12) {
+              hour += 12;
+            } else if (period === "AM" && hour === 12) {
+              hour = 0;
+            }
+    
+            // Combine date and time in ET
+            const combinedDateTime = new Date(selectedDate);
+            combinedDateTime.setHours(hour, minute, 0, 0);
+    
+            // Convert to ISO string for redirect URL
+            dateString = combinedDateTime.toISOString();
+          } else {
+            console.error("Time format is incorrect");
           }
-  
-          // Combine date and time in ET
-          const combinedDateTime = new Date(selectedDate);
-          combinedDateTime.setHours(hour, minute, 0, 0);
-  
-          // Convert the combined date and time to UTC by subtracting the ET offset (5 hours during standard time, 4 hours during daylight saving time)
-          const isDaylightSaving = combinedDateTime.getTimezoneOffset() === -240;
-          const offset = isDaylightSaving ? 4 * 60 * 60 * 1000 : 5 * 60 * 60 * 1000; 
-          dateTime = new Date(combinedDateTime.getTime() + offset);
-  
-          // Convert to ISO string for redirect URL
-          dateString = combinedDateTime.toISOString();
-        } else {
-          console.error("Time format is incorrect");
         }
-      }
-  
-      const meetingData = {
-        dateTimeString: dateString,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        phone: phone,
-        notes: notes,
-      };
-  
-      try {
-        const response = await fetch('/api/meetings', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(meetingData),
-        });
-  
-        const data = await response.json();
-        
-        if (data.success) {
-          console.log("Meeting saved successfully");
-  
-          const templateParams = {
-            firstName,
-            lastName,
-            email,
-            phone,
-            notes,
-            date,
-            time,
-          };
-  
-          fetch("/api/email", {
-            method: "POST",
+    
+        const meetingData = {
+          dateTimeString: dateString,
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          phone: phone,
+          notes: notes,
+        };
+    
+        try {
+          const response = await fetch('/api/meetings', {
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
             },
-            body: JSON.stringify(templateParams),
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.success) {
-                console.log("Email sent successfully");
-                const redirectUrl = `/email?firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(lastName)}&date=${encodeURIComponent(dateString)}`;
-                window.location.href = redirectUrl;
-              } else {
-                console.log("Failed to send email");
-              }
+            body: JSON.stringify(meetingData),
+          });
+    
+          const data = await response.json();
+          
+          if (data.success) {
+            console.log("Meeting saved successfully");
+    
+            const templateParams = {
+              firstName,
+              lastName,
+              email,
+              phone,
+              notes,
+              date,
+              time,
+              dateString
+            };
+    
+            fetch("/api/email", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(templateParams),
             })
-            .catch((error) => {
-              console.error("Error sending email:", error);
-            });
-        } else {
-          console.log("Failed to save meeting");
+              .then((response) => response.json())
+              .then((data) => {
+                if (data.success) {
+                  console.log("Email sent successfully");
+                  const redirectUrl = `/email?firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(lastName)}&date=${encodeURIComponent(dateString)}`;
+                  window.location.href = redirectUrl;
+                } else {
+                  console.log("Failed to send email");
+                }
+              })
+              .catch((error) => {
+                console.error("Error sending email:", error);
+              });
+          } else {
+            console.log("Failed to save meeting");
+          }
+        } catch (error) {
+          console.error('Error saving meeting:', error);
         }
-      } catch (error) {
-        console.error('Error saving meeting:', error);
+      } else {
+        console.log("Here");
+        if (firstName == "") {
+          console.log("Fist");
+          setFirstNamePlaceHolder("Must Enter a First Name...");
+          setFirstNameStyles({border: "solid 1px red"});
+        }
+        if (lastName == "") {
+          console.log("Last");
+          setLastNamePlaceHolder("Must Enter a Last Name...");
+          setLastNameStyles({border: "solid 1px red"});
+        }
+        if (email == "") {
+          console.log("Email");
+          setEmailPlaceHolder("Must Enter an Email...");
+          setEmailStyles({border: "solid 1px red"});
+        }
       }
     }
   };  
@@ -331,6 +363,7 @@ const Calendar: React.FC<unknown> = () => {
       </div>
       <Popup
         title="Schedule a Meeting"
+        style={{width:600}}
         body={
           <>
             {page == "times" && (
@@ -342,15 +375,19 @@ const Calendar: React.FC<unknown> = () => {
                 <div className={moreStyles.name}>
                   <div className={moreStyles["first-name"]}>
                     <input
+                      className={firstNamePlaceHolder == "Must Enter a First Name..." ? moreStyles.invalid : ""}
                       type="text"
-                      placeholder="First Name..."
+                      style={firstNameStyles}
+                      placeholder={firstNamePlaceHolder}
                       onChange={handleFirstNameChange}
                     />
                   </div>
                   <div className={moreStyles["last-name"]}>
                     <input
+                      className={lastNamePlaceHolder == "Must Enter a Last Name..." ? moreStyles.invalid : ""}
                       type="text"
-                      placeholder="Last Name..."
+                      style={lastNameStyles}
+                      placeholder={lastNamePlaceHolder}
                       onChange={handleLastNameChange}
                     />
                   </div>
@@ -358,8 +395,10 @@ const Calendar: React.FC<unknown> = () => {
                 <div className={moreStyles.contact}>
                   <div className={moreStyles.email}>
                     <input
+                      className={emailPlaceHolder == "Must Enter an Email..." ? moreStyles.invalid : ""}
                       type="text"
-                      placeholder="Email Address..."
+                      style={emailStyles}
+                      placeholder={emailPlaceHolder}
                       onChange={handleEmailChange}
                     />
                   </div>

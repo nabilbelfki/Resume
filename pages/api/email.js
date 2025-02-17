@@ -1,27 +1,43 @@
-import nodemailer from "nodemailer";
+import nodemailer from 'nodemailer';
 
 export default async function handler(req, res) {
-  const { firstName, lastName, email, phone, notes, date, time } = req.body;
+  const { firstName, lastName, email, phone, notes, date, time, dateString } = req.body;
   console.log(phone);
   console.log(notes);
-  // Create a transporter object using the default SMTP transport
+
   const transporter = nodemailer.createTransport({
-    service: "gmail", // Use your email service
+    host: 'smtp.mail.us-east-1.awsapps.com', // Replace 'us-east-1' with your AWS region if different
+    port: 465,
+    secure: true, // Use SSL
     auth: {
-      user: process.env.EMAIL_USER, // Replace with your email
-      pass: process.env.EMAIL_PASS, // Replace with your email password
+      user: process.env.EMAIL_USER, // Your Amazon WorkMail email
+      pass: process.env.MAIL_PERSONAL_ACCESS_TOKEN, // Use the token value here
     },
   });
 
   const fullName = firstName + ' ' + lastName;
-  const body= emailBody(fullName, date, time);
+  const body = emailBody(fullName, date, time);
 
-  // Set up email data
+  // Generate the ICS content
+  const icsContent = generateICSFile(
+    new Date(dateString),
+    "Meeting with Nabil Belfki",
+    "This is a free consultation with me to get to know you and your business. You can tell me anything that you like and hopefully I can help you achieve your goals and build something truly amazing",
+    "Online"
+  );
+
+  // Set up email data with attachment
   const mailOptions = {
-    from: "nabilbelfki@gmail.com", // Sender address
+    from: process.env.EMAIL_USER, // Sender address
     to: email, // List of recipients
     subject: "New Meeting Request", // Subject line
-    html: body
+    html: body,
+    alternatives: [
+        {
+            contentType: 'text/calendar',
+            content: icsContent
+        }
+    ]
   };
 
   try {
@@ -34,7 +50,6 @@ export default async function handler(req, res) {
   }
 }
 
-
 function emailBody(name, date, time) {
   return `<!DOCTYPE html>
   <html lang="en">
@@ -45,21 +60,21 @@ function emailBody(name, date, time) {
       <title>Confirmation Email</title>
   </head>
 
-  <body style="font-family: Arial, sans-serif;">
-      <nav style="background-color: #011A49; padding: 1rem; height: 90px;">
+  <body style="box-sizing: border-box; font-family: Arial, sans-serif; display:flex; align-items: center; justify-content: center; flex-direction: column; background: linear-gradient( to bottom,#011A49 0%, #113C8D 44%, #113C8D 60%, #011A49 85% );">
+      <nav style="background-color: #011A49; height: 90px; width:1200px;">
           <ul
               style="list-style: none; display: flex; height: 100%; justify-content: center; align-items: center; gap: 6rem;">
               <li><a href="https://www.nabilbelfki.com/#biography"
-                      style="color: white; text-decoration: none; font-size: 1.2rem; font-weight: 600;">Biography</a></li>
+                      style="color: white; text-decoration: none; font-size: 1.6rem; font-weight: 600;">Biography</a></li>
               <li><a href="https://www.nabilbelfki.com/#experiences"
-                      style="color: white; text-decoration: none; font-size: 1.2rem; font-weight: 600;">Experience</a>
+                      style="color: white; text-decoration: none; font-size: 1.6rem; font-weight: 600;">Experience</a>
               </li>
               <li><a href="https://www.nabilbelfki.com/#skills"
-                      style="color: white; text-decoration: none; font-size: 1.2rem; font-weight: 600;">Skills</a></li>
+                      style="color: white; text-decoration: none; font-size: 1.6rem; font-weight: 600;">Skills</a></li>
               <li><a href="https://www.nabilbelfki.com/#projects"
-                      style="color: white; text-decoration: none; font-size: 1.2rem; font-weight: 600;">Projects</a></li>
+                      style="color: white; text-decoration: none; font-size: 1.6rem; font-weight: 600;">Projects</a></li>
               <li><a href="https://www.nabilbelfki.com/#contact"
-                      style="color: white; text-decoration: none; font-size: 1.2rem; font-weight: 600;">Contact</a></li>
+                      style="color: white; text-decoration: none; font-size: 1.6rem; font-weight: 600;">Contact</a></li>
           </ul>
       </nav>
       <div style="width:1200px;background-color: #FFFFFF;">
@@ -84,16 +99,61 @@ function emailBody(name, date, time) {
               style="display: flex; justify-content: center; align-items: center; padding: 60px; padding-top: 0; gap: 30px;">
               <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; gap:30px">
                   <div
-                      style="display: flex; position: relative; width: min-content; box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.25); border-radius: 20px;">
-                      <img src="https://nabilbelfki.com/images/calendar-binding.svg" alt="Calendar Binding" width="94" height="108"
-                          style="position: absolute; top: 0; left: -20px;">
+                      style="display: flex; position: relative; width: 440px; box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.25); border-radius: 20px;">
+                            <svg width="94" height="108" viewBox="0 0 28 31" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute; top: 0; left: -20px;">
+                            <path d="M6 5C6 2.23858 8.23858 0 11 0H28V31H11C8.23858 31 6 28.7614 6 26V5Z" fill="#EF0000"/>
+                            <circle cx="14" cy="24" r="3" fill="#535353"/>
+                            <circle cx="14" cy="15" r="3" fill="#535353"/>
+                            <circle cx="14" cy="6" r="3" fill="#535353"/>
+                            <g filter="url(#filter0_d_266_87)">
+                            <rect x="4" y="4" width="10" height="4" rx="1" fill="#B8B8B8"/>
+                            </g>
+                            <g filter="url(#filter1_d_266_87)">
+                            <rect x="4" y="13" width="10" height="4" rx="1" fill="#B8B8B8"/>
+                            </g>
+                            <g filter="url(#filter2_d_266_87)">
+                            <rect x="4" y="22" width="10" height="4" rx="1" fill="#B8B8B8"/>
+                            </g>
+                            <defs>
+                            <filter id="filter0_d_266_87" x="0" y="0" width="18" height="12" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                            <feOffset/>
+                            <feGaussianBlur stdDeviation="2"/>
+                            <feComposite in2="hardAlpha" operator="out"/>
+                            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_266_87"/>
+                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_266_87" result="shape"/>
+                            </filter>
+                            <filter id="filter1_d_266_87" x="0" y="9" width="18" height="12" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                            <feOffset/>
+                            <feGaussianBlur stdDeviation="2"/>
+                            <feComposite in2="hardAlpha" operator="out"/>
+                            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_266_87"/>
+                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_266_87" result="shape"/>
+                            </filter>
+                            <filter id="filter2_d_266_87" x="0" y="18" width="18" height="12" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                            <feOffset/>
+                            <feGaussianBlur stdDeviation="2"/>
+                            <feComposite in2="hardAlpha" operator="out"/>
+                            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_266_87"/>
+                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_266_87" result="shape"/>
+                            </filter>
+                            </defs>
+                            </svg>
                       <div
-                          style="display: flex; justify-content: center; align-items: center; padding: 5px; font-size: 30px; font-weight: 600; color: #3D3D3D; width: 500px; height: 108px; padding-left: 120px;">
+                          style="display: flex; justify-content: center; align-items: center; font-size: 28px; font-weight: 600; color: #3D3D3D; width: 500px; height: 108px; padding-left: 100px;">
                           Add this Event to your Calendar Application
                       </div>
                   </div>
                   <div
-                      style="width: 500px; height: 250px; box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.25); border-radius: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 40px; gap: 20px;">
+                      style="width: 400px; height: 290px; box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.25); border-radius: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 20px; gap: 20px;">
                       <div style="font-style: italic; font-size: 20px; font-weight: 300; text-align: center;">
                           Something unexpected came up and you need to cancel? No worries, I understand just click the
                           button below.
@@ -105,7 +165,7 @@ function emailBody(name, date, time) {
                   </div>
               </div>
               <div
-                  style="display: flex;justify-content: center;align-items: center;background: linear-gradient( to bottom,#011A49 0%, #113C8D 44%, #113C8D 60%, #011A49 85% );padding: 20px;border-radius: 20px;height: 388px;">
+                  style="width: 700px; display: flex;justify-content: center;align-items: center;background: linear-gradient( to bottom,#011A49 0%, #113C8D 44%, #113C8D 60%, #011A49 85% );padding: 20px;border-radius: 20px;height: 428px;">
                   <a href="https://www.nabilbelfki.com/application/67a2432855f8ecd625cc5ea5" style="text-decoration: none; color: inherit;">
                       <div style="position: relative; display: flex; justify-content: center; align-items: center;">
                           <div
@@ -113,27 +173,27 @@ function emailBody(name, date, time) {
                               Personal Website
                           </div>
                           <img src="https://nabilbelfki.com/videos/personal.gif" alt="Project Preview GIF"
-                              style="max-width: 100%; width: 100%; height: auto; border-radius: 10px;">
+                              style="width: 660px; height: auto; border-radius: 10px;">
                       </div>
                   </a>
               </div>
           </div>
       </div>
       <footer
-          style="background-color: #011A49; padding: 0.5rem; height: 130px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+          style="background-color: #011A49; padding: 0.5rem; height: 130px; display: flex; justify-content: center; align-items: center; flex-direction: column; width:1200px;">
           <ul
               style="list-style: none; display: flex; height: 70%; justify-content: center; align-items: center; gap: 6rem;">
               <li><a href="https://www.nabilbelfki.com/#biography"
-                      style="color: white; text-decoration: none; font-size: 1.2rem; font-weight: 600;">Biography</a></li>
+                      style="color: white; text-decoration: none; font-size: 1.6rem; font-weight: 600;">Biography</a></li>
               <li><a href="https://www.nabilbelfki.com/#experiences"
-                      style="color: white; text-decoration: none; font-size: 1.2rem; font-weight: 600;">Experience</a>
+                      style="color: white; text-decoration: none; font-size: 1.6rem; font-weight: 600;">Experience</a>
               </li>
               <li><a href="https://www.nabilbelfki.com/#skills"
-                      style="color: white; text-decoration: none; font-size: 1.2rem; font-weight: 600;">Skills</a></li>
+                      style="color: white; text-decoration: none; font-size: 1.6rem; font-weight: 600;">Skills</a></li>
               <li><a href="https://www.nabilbelfki.com/#projects"
-                      style="color: white; text-decoration: none; font-size: 1.2rem; font-weight: 600;">Projects</a></li>
+                      style="color: white; text-decoration: none; font-size: 1.6rem; font-weight: 600;">Projects</a></li>
               <li><a href="https://www.nabilbelfki.com/#contact"
-                      style="color: white; text-decoration: none; font-size: 1.2rem; font-weight: 600;">Contact</a></li>
+                      style="color: white; text-decoration: none; font-size: 1.6rem; font-weight: 600;">Contact</a></li>
           </ul>
           <div style="display: flex; width: 100%;">
               <div style="font-weight: 600; color: #FFFFFF;">
@@ -177,3 +237,24 @@ function emailBody(name, date, time) {
 
 </html>`
 }
+
+const generateICSFile = (dateTime, summary = 'Event', description = '', location = '') => {
+    const startDate = dateTime.toISOString().replace(/-|:|\.\d\d\d/g, '').slice(0, -1); // Format: YYYYMMDDTHHMMSSZ
+    const endDate = new Date(dateTime.getTime() + 30 * 60 * 1000).toISOString().replace(/-|:|\.\d\d\d/g, '').slice(0, -1); // 30 minutes later
+
+return `
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Your Organization//NONSGML v1.0//EN
+BEGIN:VEVENT
+UID:${Math.random().toString(36).substr(2, 9)}@nabilbelfki.com
+DTSTAMP:${startDate}Z
+DTSTART:${startDate}Z
+DTEND:${endDate}Z
+SUMMARY:${summary}
+DESCRIPTION:${description}
+LOCATION:${location}
+END:VEVENT
+END:VCALENDAR
+`.trim();
+};

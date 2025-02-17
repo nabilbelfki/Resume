@@ -1,52 +1,10 @@
 import React from "react";
 import Image from 'next/image';
 import styles from "./Experience.module.css";
-
-interface Experience {
-  level: number;
-  zIndex: number;
-  name: string;
-  location: string;
-  type: string;
-  logo: {
-    opened: {
-      name: string;
-      width: number;
-      height: number;
-    },
-    closed: {
-      name: string;
-      width: number;
-      height: number;
-    }
-  },
-  title: string;
-  subtitle?: string;
-  period: {
-    title: string;
-    start: string;
-    end?: string;
-  },
-  color: {
-    line: string;
-    name: string;
-    title: string;
-    subtitle?: string;
-    type: string;
-    date: string;
-    location: string;
-    background: string;
-    details: string;
-    description: {
-      text: string;
-      background: string;
-    }
-  },
-  description: string;
-}
+import { Experiences } from './types';
 
 interface ExperienceProps {
-  experience: Experience;
+  experience: Experiences;
   positions: { [key: string]: number };
   index: number;
   hoveredIndex: number | null;
@@ -82,13 +40,13 @@ const Experience: React.FC<ExperienceProps> = ({
   const endYearMonth = endYear + "-" + months[(parseInt(endMonth) - 1)];
   const startX = positions[startYearMonth];
   const endX = positions[endYearMonth];
-  let duration = Math.abs(startX - endX);
+  const duration = Math.abs(startX - endX);
   console.log(`Experience - Start: ${startX}, End: ${endX}, Duration: ${duration}`); // Debug log
   const top = experience.level == 1 ? 393 : 353;
-  let zIndex = hoveredIndex == index ? 10 : experience.zIndex;
-  let informationTop = hoveredIndex == index ? (experience.name == "Cole Solutions LLC" ? -360 : -320) : (experience.name == "Cole Solutions LLC" ? -240 : -200);
-  let translateX = experience.name == "Cole Solutions LLC" ? "translateX(calc(-50% - 70px))" : (experience.name == "New Jersey Institute of Technology" ? "translateX(calc(-50% + 100px))" : "translateX(-50%)");
-  let animationClass = experience.name == "Cole Solutions LLC" ? "floating-cole" : (experience.name == "New Jersey Institute of Technology" ? "floating-njit" : "floating");
+  const zIndex = hoveredIndex == index ? 10 : experience.zIndex;
+  const informationTop = hoveredIndex == index ? (experience.name == "Cole Solutions LLC" ? -360 : -320) : (experience.name == "Cole Solutions LLC" ? -240 : -200);
+  const translateX = experience.name == "Cole Solutions LLC" ? "translateX(calc(-50% - 70px))" : (experience.name == "New Jersey Institute of Technology" ? "translateX(calc(-50% + 100px))" : "translateX(-50%)");
+  const animationClass = experience.name == "Cole Solutions LLC" ? "floating-cole" : (experience.name == "New Jersey Institute of Technology" ? "floating-njit" : "floating");
   return (
     <div
       className={styles.experience}

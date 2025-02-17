@@ -5,6 +5,7 @@ import styles from "./Popup.module.css";
 interface PopupProps {
   title: string;
   body: React.ReactNode;
+  style?: React.CSSProperties;
   actions: React.ReactNode;
   showing: boolean;
   onClose: () => void;
@@ -12,6 +13,7 @@ interface PopupProps {
 const Popup: React.FC<PopupProps> = ({
   title,
   body,
+  style,
   actions,
   showing,
   onClose,
@@ -20,7 +22,7 @@ const Popup: React.FC<PopupProps> = ({
 
   return (
     <div className={styles.overlay} onClick={onClose}>
-      <div className={styles.popup} onClick={(e) => e.stopPropagation()}>
+      <div style={style} className={styles.popup} onClick={(e) => e.stopPropagation()}>
         <div className={styles["popup-title"]}>{title}</div>
         <div className={styles["popup-body"]}>{body}</div>
         <div className={styles["popup-actions"]}>{actions}</div>
