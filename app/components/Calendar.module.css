@@ -26,6 +26,14 @@
     cursor: pointer;
 }
 
+.toggle-month-disabled {
+    cursor: default;
+}
+
+.toggle-month-disabled path {
+    fill-opacity: 0.2;
+}
+
 .current-month {
     color: #79D2FF;
     font-style: italic;
@@ -104,6 +112,10 @@
     color: #FFFFFF;
 }
 
-.day:not(.unselected):hover {
+.past {
+    cursor: default;
+}
+
+.day:not(.unselected):not(.past):hover {
     transform: scale(1.1);
 }
