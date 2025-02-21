@@ -7,10 +7,11 @@ import Button from "./Button";
 import Times from "./Times";
 
 interface Bookings {
-  dateTime: string; 
+  dateTime: string;
 }
 
 const Calendar: React.FC<unknown> = () => {
+  const today = new Date();
   const [meetings, setMeetings] = useState<Bookings[]>([]);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -22,31 +23,33 @@ const Calendar: React.FC<unknown> = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
+  const [disablePreviousMonth, setDisablePreviousMonth] = useState(true);
 
-  const [firstNamePlaceHolder, setFirstNamePlaceHolder] = useState("First Name...");
-  const [lastNamePlaceHolder, setLastNamePlaceHolder] = useState("Last Name...");
+  const [firstNamePlaceHolder, setFirstNamePlaceHolder] =
+    useState("First Name...");
+  const [lastNamePlaceHolder, setLastNamePlaceHolder] =
+    useState("Last Name...");
   const [emailPlaceHolder, setEmailPlaceHolder] = useState("Email Address...");
 
-  const [firstNameStyles, setFirstNameStyles] = useState({border: "none"});
-  const [lastNameStyles, setLastNameStyles] = useState({border: "none"});
-  const [emailStyles, setEmailStyles] = useState({border: "none"});
-  
+  const [firstNameStyles, setFirstNameStyles] = useState({ border: "none" });
+  const [lastNameStyles, setLastNameStyles] = useState({ border: "none" });
+  const [emailStyles, setEmailStyles] = useState({ border: "none" });
 
   const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(e.target.value);
     setFirstNamePlaceHolder("First Name...");
-    setFirstNameStyles({border: "none"});
-  }
+    setFirstNameStyles({ border: "none" });
+  };
   const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLastName(e.target.value);
     setLastNamePlaceHolder("Last Name...");
-    setLastNameStyles({border: "none"});
-  }
+    setLastNameStyles({ border: "none" });
+  };
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
     setEmailPlaceHolder("Email Address...");
-    setEmailStyles({border: "none"});
-  }
+    setEmailStyles({ border: "none" });
+  };
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setPhone(e.target.value);
   const handleNotesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
@@ -60,7 +63,7 @@ const Calendar: React.FC<unknown> = () => {
         let dateString = "";
         const time = selectedTime;
         const date = formatDate(selectedDate);
-    
+
         if (selectedDate && time) {
           const timeMatch = time.match(/(\d{1,2}:\d{2})([AP]M)/);
           if (timeMatch) {
@@ -68,25 +71,25 @@ const Calendar: React.FC<unknown> = () => {
             const [hourString, minuteString] = hoursAndMinutes.split(":");
             let hour = parseInt(hourString, 10);
             const minute = parseInt(minuteString, 10);
-    
+
             // Handle AM/PM conversion
             if (period === "PM" && hour !== 12) {
               hour += 12;
             } else if (period === "AM" && hour === 12) {
               hour = 0;
             }
-    
+
             // Combine date and time in ET
             const combinedDateTime = new Date(selectedDate);
             combinedDateTime.setHours(hour, minute, 0, 0);
-    
+
             // Convert to ISO string for redirect URL
             dateString = combinedDateTime.toISOString();
           } else {
             console.error("Time format is incorrect");
           }
         }
-    
+
         const meetingData = {
           dateTimeString: dateString,
           firstName: firstName,
@@ -95,21 +98,21 @@ const Calendar: React.FC<unknown> = () => {
           phone: phone,
           notes: notes,
         };
-    
+
         try {
-          const response = await fetch('/api/meetings', {
-            method: 'POST',
+          const response = await fetch("/api/meetings", {
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
             body: JSON.stringify(meetingData),
           });
-    
+
           const data = await response.json();
-          
+
           if (data.success) {
             console.log("Meeting saved successfully");
-    
+
             const templateParams = {
               firstName,
               lastName,
@@ -118,9 +121,9 @@ const Calendar: React.FC<unknown> = () => {
               notes,
               date,
               time,
-              dateString
+              dateString,
             };
-    
+
             fetch("/api/email", {
               method: "POST",
               headers: {
@@ -132,7 +135,11 @@ const Calendar: React.FC<unknown> = () => {
               .then((data) => {
                 if (data.success) {
                   console.log("Email sent successfully");
-                  const redirectUrl = `/email?firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(lastName)}&date=${encodeURIComponent(dateString)}`;
+                  const redirectUrl = `/email?firstName=${encodeURIComponent(
+                    firstName
+                  )}&lastName=${encodeURIComponent(
+                    lastName
+                  )}&date=${encodeURIComponent(dateString)}`;
                   window.location.href = redirectUrl;
                 } else {
                   console.log("Failed to send email");
@@ -145,28 +152,28 @@ const Calendar: React.FC<unknown> = () => {
             console.log("Failed to save meeting");
           }
         } catch (error) {
-          console.error('Error saving meeting:', error);
+          console.error("Error saving meeting:", error);
         }
       } else {
         console.log("Here");
         if (firstName == "") {
           console.log("Fist");
           setFirstNamePlaceHolder("Must Enter a First Name...");
-          setFirstNameStyles({border: "solid 1px red"});
+          setFirstNameStyles({ border: "solid 1px red" });
         }
         if (lastName == "") {
           console.log("Last");
           setLastNamePlaceHolder("Must Enter a Last Name...");
-          setLastNameStyles({border: "solid 1px red"});
+          setLastNameStyles({ border: "solid 1px red" });
         }
         if (email == "") {
           console.log("Email");
           setEmailPlaceHolder("Must Enter an Email...");
-          setEmailStyles({border: "solid 1px red"});
+          setEmailStyles({ border: "solid 1px red" });
         }
       }
     }
-  };  
+  };
 
   const backToTimes = () => {
     setPage("times");
@@ -182,9 +189,28 @@ const Calendar: React.FC<unknown> = () => {
   });
 
   const handlePreviousMonth = () => {
-    setCurrentDate(
-      new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1)
+    const newDate = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() - 1,
+      1
     );
+
+    const today = new Date();
+    const isCurrentMonth =
+      newDate.getFullYear() === today.getFullYear() &&
+      newDate.getMonth() === today.getMonth();
+
+    // Disable the previous month button if the new date is the current month
+    setDisablePreviousMonth(isCurrentMonth);
+
+    // Allow navigation to any month except those before the current month
+    if (
+      newDate.getFullYear() > today.getFullYear() ||
+      (newDate.getFullYear() === today.getFullYear() &&
+        newDate.getMonth() >= today.getMonth())
+    ) {
+      setCurrentDate(newDate);
+    }
   };
 
   const handleNextMonth = () => {
@@ -206,33 +232,47 @@ const Calendar: React.FC<unknown> = () => {
   };
 
   const handleDayClick = async (day: number) => {
-    const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-    setSelectedDate(selectedDate);
-    
-    // Format the selected date as YYYY-MM-DD
-    const formattedDate = selectedDate.toISOString().split('T')[0];
-    
-    try {
-      const response = await fetch(`/api/meetings?date=${formattedDate}`);
-      const data = await response.json();
-      
-      if (data.success) {
-        setMeetings(data.meetings);
-        setShowing(true);
-      } else {
-        console.error("Failed to fetch meetings:", data.error);
+    const today = new Date();
+    const selectedDate = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      day
+    );
+
+    // Set the time to midnight for both dates to ensure accurate comparison
+    const todayMidnight = new Date(today.setHours(0, 0, 0, 0)).getTime();
+    const selectedDateMidnight = new Date(
+      selectedDate.setHours(0, 0, 0, 0)
+    ).getTime();
+
+    // Check if the selected date is greater than or equal to today
+    if (selectedDateMidnight >= todayMidnight) {
+      setSelectedDate(selectedDate);
+
+      // Format the selected date as YYYY-MM-DD
+      const formattedDate = selectedDate.toISOString().split("T")[0];
+
+      try {
+        const response = await fetch(`/api/meetings?date=${formattedDate}`);
+        const data = await response.json();
+
+        if (data.success) {
+          setMeetings(data.meetings);
+          setShowing(true);
+        } else {
+          console.error("Failed to fetch meetings:", data.error);
+        }
+      } catch (error) {
+        console.error("Error fetching meetings:", error);
       }
-    } catch (error) {
-      console.error("Error fetching meetings:", error);
     }
   };
-  
 
   const generateDays = () => {
     const daysInMonth = getDaysInMonth(currentDate);
     const firstDayOfMonth = getFirstDayOfMonth(currentDate);
     const days = [];
-  
+
     // Add unselectable days for the previous month
     for (let i = 0; i < firstDayOfMonth; i++) {
       days.push(
@@ -244,20 +284,29 @@ const Calendar: React.FC<unknown> = () => {
         </div>
       );
     }
-  
+
     // Add days of the current month
     for (let i = 1; i <= daysInMonth; i++) {
+      const isToday =
+        today.getDate() === i &&
+        today.getMonth() === currentDate.getMonth() &&
+        today.getFullYear() === currentDate.getFullYear();
+
+      const isPast =
+        today.getMonth() === currentDate.getMonth() && today.getDate() > i;
       days.push(
         <div
           key={i}
-          className={styles["day"]}
+          className={`${styles["day"]} ${
+            isToday ? styles["current-day"] : ""
+          } ${isPast ? styles["past"] : ""}`}
           onClick={() => handleDayClick(i)}
         >
           {i}
         </div>
       );
     }
-  
+
     // Add unselectable days for the next month to fill the last week
     const totalDays = days.length;
     const remainingDays = 7 - (totalDays % 7);
@@ -273,7 +322,7 @@ const Calendar: React.FC<unknown> = () => {
         );
       }
     }
-  
+
     // Ensure there are always 6 weeks (42 days)
     while (days.length < 42) {
       days.push(
@@ -285,7 +334,7 @@ const Calendar: React.FC<unknown> = () => {
         </div>
       );
     }
-  
+
     // Group days into weeks
     const weeks = [];
     for (let i = 0; i < days.length; i += 7) {
@@ -295,9 +344,9 @@ const Calendar: React.FC<unknown> = () => {
         </div>
       );
     }
-  
+
     return weeks;
-  };  
+  };
 
   const formatDate = (date: Date | null) => {
     if (!date) return "";
@@ -321,7 +370,12 @@ const Calendar: React.FC<unknown> = () => {
   return (
     <div className={styles["calendar"]}>
       <div className={styles["calendar-legend"]}>
-        <div className={styles["previous-month"]} onClick={handlePreviousMonth}>
+        <div
+          className={`${styles["previous-month"]} ${
+            disablePreviousMonth ? styles["toggle-month-disabled"] : ""
+          }`}
+          onClick={handlePreviousMonth}
+        >
           <svg
             height="15"
             viewBox="0 0 17 4"
@@ -363,19 +417,29 @@ const Calendar: React.FC<unknown> = () => {
       </div>
       <Popup
         title="Schedule a Meeting"
-        style={{width:600}}
+        style={{ width: 600 }}
         body={
           <>
             {page == "times" && (
               <div className={moreStyles.date}>{formatDate(selectedDate)}</div>
             )}
-            {page == "times" && <Times booked={meetings} selectedTime={selectedTime} setSelectedTime={setSelectedTime} />}
+            {page == "times" && (
+              <Times
+                booked={meetings}
+                selectedTime={selectedTime}
+                setSelectedTime={setSelectedTime}
+              />
+            )}
             {page == "contact" && (
               <div className={moreStyles.book}>
                 <div className={moreStyles.name}>
                   <div className={moreStyles["first-name"]}>
                     <input
-                      className={firstNamePlaceHolder == "Must Enter a First Name..." ? moreStyles.invalid : ""}
+                      className={
+                        firstNamePlaceHolder == "Must Enter a First Name..."
+                          ? moreStyles.invalid
+                          : ""
+                      }
                       type="text"
                       style={firstNameStyles}
                       placeholder={firstNamePlaceHolder}
@@ -384,7 +448,11 @@ const Calendar: React.FC<unknown> = () => {
                   </div>
                   <div className={moreStyles["last-name"]}>
                     <input
-                      className={lastNamePlaceHolder == "Must Enter a Last Name..." ? moreStyles.invalid : ""}
+                      className={
+                        lastNamePlaceHolder == "Must Enter a Last Name..."
+                          ? moreStyles.invalid
+                          : ""
+                      }
                       type="text"
                       style={lastNameStyles}
                       placeholder={lastNamePlaceHolder}
@@ -395,7 +463,11 @@ const Calendar: React.FC<unknown> = () => {
                 <div className={moreStyles.contact}>
                   <div className={moreStyles.email}>
                     <input
-                      className={emailPlaceHolder == "Must Enter an Email..." ? moreStyles.invalid : ""}
+                      className={
+                        emailPlaceHolder == "Must Enter an Email..."
+                          ? moreStyles.invalid
+                          : ""
+                      }
                       type="text"
                       style={emailStyles}
                       placeholder={emailPlaceHolder}
