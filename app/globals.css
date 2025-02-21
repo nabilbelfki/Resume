@@ -36,7 +36,6 @@ body {
 
 .experience-and-skills {
   background-color: #FFFFFF;
-  height: 1200px;
 }
 
 
@@ -230,4 +229,16 @@ body {
   box-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.7);
 }
 
-/********************* PROJECT DETAILS *********************/
+/********************* MEDIA QUERIES *********************/
+@media (max-width: 1200px) {
+  /* Your CSS styles here */
+  .skills-display {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 1000px) {
+  .projects {
+    grid-template-columns: 1fr;
+  }
+}
