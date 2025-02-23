@@ -59,6 +59,30 @@ const ProjectSchema = new mongoose.Schema({
   },
   description: { type: String, required: true },
   slug: { type: String, required: true },
+  client: {
+    title: {
+      name: { type: String, required: true },
+      fontSize: { type: Number, required: true },
+    },
+    logo: {
+      width: { type: Number, required: true },
+      height: { type: Number, required: true },
+      path: { type: String, required: true },
+      fileName: { type: String, required: true },
+    },
+    description: { type: String, required: true },
+    slides: [
+      {
+        name: { type: String, required: true },
+        image: {
+          width: { type: Number, required: true },
+          height: { type: Number, required: true },
+          src: { type: String, required: true },
+          alt: { type: String, required: true },
+        },
+      },
+    ],
+  },
 });
 
 export default mongoose.models.Project ||

@@ -2,62 +2,35 @@ import React from "react";
 import Image from "next/image";
 import Slideshow from "./Slideshow";
 import styles from "./Client.module.css";
-import { Slide } from './types';
+import { Slide, Client as ClientType } from "./types";
 
-const slides = [
-  {
-    name: "Transformers",
-    image: {
-      width: 324,
-      height: 200,
-      src: "/images/transformers.png",
-      alt: "Optimus Prime Artwork",
-    }
-  },
-  {
-    name: "Transformers",
-    image: {
-      width: 324,
-      height: 200,
-      src: "/images/transformers.png",
-      alt: "Optimus Prime Artwork",
-    }
-  },
-  {
-    name: "Transformers",
-    image: {
-      width: 324,
-      height: 200,
-      src: "/images/transformers.png",
-      alt: "Optimus Prime Artwork",
-    }
-  }
-]
+interface ClientProps {
+  client: ClientType;
+}
 
-const Client = () => {
+const Client: React.FC<ClientProps> = ({ client }) => {
+  console.log("Client", client);
   return (
     <div className={styles.overlay}>
       <div className={styles["about-client"]}>
         <div className={styles["client-title"]}>
           <div className={styles["client-title-icon"]}>
             <Image
-              src="/images/logos/hasbro.png"
-              alt="Hasbro Inc. Logo"
-              width={40}
-              height={40}
+              src={`${client.logo.path}${client.logo.fileName}`}
+              alt={`${client.title.name} Logo`}
+              width={client.logo.width}
+              height={client.logo.height}
             />
           </div>
-          <div className={styles["client-title-text"]}>Hasbro Inc.</div>
+          <div
+            className={styles["client-title-text"]}
+            style={{ fontSize: client.title.fontSize }}
+          >
+            {client.title.name}
+          </div>
         </div>
-        <div className={styles["client-description"]}>
-          Hasbro, Inc. is a leading global play and entertainment company
-          committed to creating the world’s best play experiences. Founded in
-          1923 and headquartered in Pawtucket, Rhode Island, Hasbro designs and
-          produces a wide range of toys, games, and entertainment products. The
-          company’s portfolio includes iconic brands such as NERF, My Little
-          Pony, Transformers, Play-Doh, Monopoly, and Magic: The Gathering.
-        </div>
-        <Slideshow slides={slides}/>
+        <div className={styles["client-description"]}>{client.description}</div>
+        <Slideshow slides={client.slides} />
       </div>
     </div>
   );

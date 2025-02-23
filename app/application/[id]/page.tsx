@@ -15,55 +15,14 @@ import Client from "../../components/Client";
 import styles from "./Application.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-interface Container {
-  type: string;
-  url: string;
-  shortUrl: string;
-}
-
-interface Repository {
-  type: string;
-  url: string;
-  shortUrl: string;
-}
-
-interface Slide {
-  name: string;
-  color: string;
-  imagePath: string;
-  url: string;
-  width: number;
-}
-
-interface Language {
-  name: string;
-  color: string;
-  percentage: number;
-}
-
-interface Project {
-  _id: string;
-  name: string;
-  slug: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  duration: string;
-  views: number;
-  url: string;
-  languages: Language[];
-  repository: Repository;
-  container: Container;
-  tools: Slide[];
-}
+import { Project as ProjectType } from "../../components/types";
 
 interface ApplicationProps {
   params: Promise<{ id: string }>;
 }
 
 const Application: React.FC<ApplicationProps> = ({ params }) => {
-  const [project, setProject] = useState<Project | null>(null);
+  const [project, setProject] = useState<ProjectType | null>(null);
   const [id, setId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -135,7 +94,7 @@ const Application: React.FC<ApplicationProps> = ({ params }) => {
         <Slider slides={project.tools} />
         <div className={styles["client-info-and-contact"]}>
           <div className={styles.client}>
-            <Client />
+            <Client client={project.client} />
             <Map />
           </div>
           <div className={styles["call-to-action-and-calendar"]}>

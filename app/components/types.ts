@@ -42,6 +42,33 @@ export interface Experiences {
     description: string;
   }
   
+  
+  interface Container {
+    type: string;
+    url: string;
+    shortUrl: string;
+  }
+  
+  interface Repository {
+    type: string;
+    url: string;
+    shortUrl: string;
+  }
+  
+  interface Tool {
+    name: string;
+    color: string;
+    imagePath: string;
+    url: string;
+    width: number;
+  }
+  
+  interface Language {
+    name: string;
+    color: string;
+    percentage: number;
+  }
+  
   export interface Slide {
     name: string;
     image: {
@@ -50,4 +77,35 @@ export interface Experiences {
       src: string;
       alt: string;
     }
+  }
+
+  export interface Client {
+    title: {
+      name: string;
+      fontSize: number;
+    }
+    logo: {
+      width: number;
+      height: number;
+      path: string;
+      fileName: string;
+    },
+    description: string;
+    slides: Slide[];
+  }
+  
+  export interface Project {
+    _id: string;
+    name: string;
+    slug: string;
+    description: string;
+    startDate: string;
+    endDate: string;
+    duration: string;
+    views: number;
+    url: string;
+    languages: Language[];
+    repository: Repository;
+    container: Container;
+    tools: Tool[];
   }
