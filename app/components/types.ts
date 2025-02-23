@@ -79,6 +79,11 @@ export interface Experiences {
     }
   }
 
+  export interface Location {
+    latitude: number;
+    longitude: number;
+  }
+
   export interface Client {
     title: {
       name: string;
@@ -90,6 +95,10 @@ export interface Experiences {
       path: string;
       fileName: string;
     },
+    location: {
+      latitude: number;
+      longitude: number;
+    }
     description: string;
     slides: Slide[];
   }

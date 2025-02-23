@@ -1,15 +1,11 @@
-import React from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import React from "react";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { Location } from "./types";
 
 const containerStyle = {
-  width: '100%',
-  height: '550px',
-  borderRadius: '10px',
-};
-
-const initialCenter = {
-  lat: 41.88355,
-  lng: -71.35301,
+  width: "100%",
+  height: "550px",
+  borderRadius: "10px",
 };
 
 const options = {
@@ -22,7 +18,8 @@ const options = {
 
 // Custom SVG Marker
 const svgMarker = {
-  url: 'data:image/svg+xml;charset=UTF-8,' +
+  url:
+    "data:image/svg+xml;charset=UTF-8," +
     encodeURIComponent(`<svg width="16" height="19" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_d_381_34)">
 <path d="M7.50916 4.02341C6.62326 4.14166 5.80615 4.5545 5.17247 5.20385C4.53254 5.8618 4.1365 6.70896 4.0281 7.64643C3.97182 8.13882 3.99892 8.57746 4.11982 9.0978C4.47626 10.6201 5.63731 12.5123 7.39868 14.441C7.85309 14.9376 7.9198 15 8.00109 15C8.0803 15 8.20328 14.8817 8.68688 14.3442C10.6275 12.1854 11.7698 10.1815 11.9699 8.58606C12.1221 7.37121 11.6906 6.10047 10.8235 5.20385C10.2273 4.5889 9.49565 4.19972 8.63477 4.04491C8.37004 3.99545 7.79264 3.9847 7.50916 4.02341ZM8.44717 6.28753C9.12462 6.47889 9.60196 6.97558 9.78331 7.68084C9.83959 7.9023 9.8375 8.35169 9.77705 8.58176C9.65407 9.04834 9.37892 9.44827 9.00789 9.69554C7.81974 10.489 6.26265 9.68264 6.17093 8.22913C6.13758 7.69589 6.33144 7.17555 6.70664 6.78637C6.98179 6.5047 7.29446 6.33268 7.67591 6.25743C7.87185 6.21872 8.2554 6.23378 8.44717 6.28753Z" fill="#011A49"/>
@@ -42,20 +39,30 @@ const svgMarker = {
 </defs>
 </svg>
 `),
+};
+
+interface MapProps {
+  location: Location;
 }
 
-const Map = () => {
-  const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string;
+const Map: React.FC<MapProps> = ({ location }) => {
+  const initialCenter = {
+    lat: location.latitude,
+    lng: location.longitude,
+  };
+
+  const googleMapsApiKey = process.env
+    .NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string;
 
   if (!googleMapsApiKey) {
-    throw new Error('Google Maps API key is not defined');
+    throw new Error("Google Maps API key is not defined");
   }
 
   // Manually adjust the center by a small longitude offset
   const longitudeOffset = 0.265; // Adjust this value as needed
   const adjustedCenter = {
-    lat: initialCenter.lat,
-    lng: initialCenter.lng - longitudeOffset,
+    lat: location.latitude,
+    lng: location.longitude - longitudeOffset,
   };
 
   // Function to handle the Marker load
@@ -63,7 +70,7 @@ const Map = () => {
     // Now that the map is loaded, update the scaledSize of the SVG marker
     marker.setIcon({
       ...svgMarker,
-      scaledSize: new window.google.maps.Size(64, 76)
+      scaledSize: new window.google.maps.Size(64, 76),
     });
   };
 
@@ -75,7 +82,11 @@ const Map = () => {
         zoom={10}
         options={options}
       >
-        <Marker position={initialCenter} icon={svgMarker} onLoad={handleMarkerLoad} />
+        <Marker
+          position={initialCenter}
+          icon={svgMarker}
+          onLoad={handleMarkerLoad}
+        />
       </GoogleMap>
     </LoadScript>
   );

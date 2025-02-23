@@ -70,6 +70,10 @@ const ProjectSchema = new mongoose.Schema({
       path: { type: String, required: true },
       fileName: { type: String, required: true },
     },
+    location: {
+      latitude: { type: Number, required: true },
+      longitude: { type: Number, required: true },
+    },
     description: { type: String, required: true },
     slides: [
       {
