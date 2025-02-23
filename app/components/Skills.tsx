@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Skill from "./Skill";
 import Scrubber from "./Scrubber";
 import styles from "./Skills.module.css";
@@ -96,41 +96,70 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
     clickedIndex: number | null,
     setClickedIndex: React.Dispatch<React.SetStateAction<number | null>>
   ) => {
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+    useEffect(() => {
+      const handleResize = () => {
+        setIsMobile(window.innerWidth <= 768);
+      };
+
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    const columns = isMobile ? 2 : 3;
+
     return skills.map((skill, index) => {
-      const row = Math.floor(index / 3) + 1;
-      const column = (index % 3) + 1;
+      const row = Math.floor(index / columns) + 1;
+      const column = (index % columns) + 1;
       let gridArea = `${row} / ${column} / ${row + 1} / ${column + 1}`;
 
       if (clickedIndex !== null) {
-        const clickedRow = Math.floor(clickedIndex / 3) + 1;
-        const clickedColumn = (clickedIndex % 3) + 1;
+        const clickedRow = Math.floor(clickedIndex / columns) + 1;
+        const clickedColumn = (clickedIndex % columns) + 1;
 
         if (clickedIndex === index) {
-          if (clickedColumn === 1) {
-            gridArea = `${clickedRow} / 1 / ${clickedRow + 2} / 3`;
-          } else if (clickedColumn === 2) {
-            gridArea = `${clickedRow} / 2 / ${clickedRow + 2} / 4`;
-          } else if (clickedColumn === 3) {
-            gridArea = `${clickedRow} / 2 / ${clickedRow + 2} / 4`;
+          if (isMobile) {
+            if (clickedColumn === 1) {
+              gridArea = `${clickedRow} / 1 / ${clickedRow + 1} / 3`;
+            } else if (clickedColumn === 2) {
+              gridArea = `${clickedRow} / 1 / ${clickedRow + 1} / 3`;
+            }
+          } else {
+            if (clickedColumn === 1) {
+              gridArea = `${clickedRow} / 1 / ${clickedRow + 2} / 3`;
+            } else if (clickedColumn === 2) {
+              gridArea = `${clickedRow} / 2 / ${clickedRow + 2} / 4`;
+            } else if (clickedColumn === 3) {
+              gridArea = `${clickedRow} / 2 / ${clickedRow + 2} / 4`;
+            }
           }
         } else if (row === clickedRow || row > clickedRow) {
-          if (clickedColumn === 1) {
-            if (column === 2) {
-              gridArea = `${clickedRow} / 3 / ${clickedRow + 1} / 4`;
-            } else if (column === 3) {
-              gridArea = `${clickedRow + 1} / 3 / ${clickedRow + 2} / 4`;
-            }
-          } else if (clickedColumn === 2) {
-            if (column === 1) {
-              gridArea = `${clickedRow} / 1 / ${clickedRow + 1} / 2`;
-            } else if (column === 3) {
+          if (isMobile) {
+            if (clickedColumn === 1 && column === 2) {
               gridArea = `${clickedRow + 1} / 1 / ${clickedRow + 2} / 2`;
-            }
-          } else if (clickedColumn === 3) {
-            if (column === 1) {
+            } else if (clickedColumn === 2 && column === 1) {
               gridArea = `${clickedRow} / 1 / ${clickedRow + 1} / 2`;
-            } else if (column === 2) {
-              gridArea = `${clickedRow + 1} / 1 / ${clickedRow + 2} / 2`;
+            }
+          } else {
+            if (clickedColumn === 1) {
+              if (column === 2) {
+                gridArea = `${clickedRow} / 3 / ${clickedRow + 1} / 4`;
+              } else if (column === 3) {
+                gridArea = `${clickedRow + 1} / 3 / ${clickedRow + 2} / 4`;
+              }
+            } else if (clickedColumn === 2) {
+              if (column === 1) {
+                gridArea = `${clickedRow} / 1 / ${clickedRow + 1} / 2`;
+              } else if (column === 3) {
+                gridArea = `${clickedRow + 1} / 1 / ${clickedRow + 2} / 2`;
+              }
+            } else if (clickedColumn === 3) {
+              if (column === 1) {
+                gridArea = `${clickedRow} / 1 / ${clickedRow + 1} / 2`;
+              } else if (column === 2) {
+                gridArea = `${clickedRow + 1} / 1 / ${clickedRow + 2} / 2`;
+              }
             }
           }
 
@@ -145,9 +174,7 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
         <Skill
           key={index}
           gridArea={gridArea}
-          // backgroundColor={skill.image.backgroundColor}
-          // height={skill.image.height}
-          // logoPath={skill.image.url + skill.image.name}
+          isMobile={isMobile}
           image={skill.image}
           description={skill.description}
           showDescription={clickedIndex === index}

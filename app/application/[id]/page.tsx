@@ -10,6 +10,8 @@ import Description from "../../components/Description";
 import Calendar from "../../components/Calendar";
 import Button from "../../components/Button";
 import Project from "../../components/Project";
+import Map from "../../components/Map";
+import Client from "../../components/Client";
 import styles from "./Application.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -133,8 +135,8 @@ const Application: React.FC<ApplicationProps> = ({ params }) => {
         <Slider slides={project.tools} />
         <div className={styles["client-info-and-contact"]}>
           <div className={styles.client}>
-            <div className={styles.title}>About the Client</div>
-            <div className={styles.information}></div>
+            <Client />
+            <Map />
           </div>
           <div className={styles["call-to-action-and-calendar"]}>
             <div className={styles["call-to-action"]}>
