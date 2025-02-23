@@ -95,7 +95,7 @@ const Application: React.FC<ApplicationProps> = ({ params }) => {
         <div className={styles["client-info-and-contact"]}>
           <div className={styles.client}>
             <Client client={project.client} />
-            <Map />
+            <Map location={project.client.location} />
           </div>
           <div className={styles["call-to-action-and-calendar"]}>
             <div className={styles["call-to-action"]}>
