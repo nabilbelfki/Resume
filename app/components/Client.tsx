@@ -2,6 +2,37 @@ import React from "react";
 import Image from "next/image";
 import Slideshow from "./Slideshow";
 import styles from "./Client.module.css";
+import { Slide } from './types';
+
+const slides = [
+  {
+    name: "Transformers",
+    image: {
+      width: 324,
+      height: 200,
+      src: "/images/transformers.png",
+      alt: "Optimus Prime Artwork",
+    }
+  },
+  {
+    name: "Transformers",
+    image: {
+      width: 324,
+      height: 200,
+      src: "/images/transformers.png",
+      alt: "Optimus Prime Artwork",
+    }
+  },
+  {
+    name: "Transformers",
+    image: {
+      width: 324,
+      height: 200,
+      src: "/images/transformers.png",
+      alt: "Optimus Prime Artwork",
+    }
+  }
+]
 
 const Client = () => {
   return (
@@ -26,7 +57,7 @@ const Client = () => {
           company’s portfolio includes iconic brands such as NERF, My Little
           Pony, Transformers, Play-Doh, Monopoly, and Magic: The Gathering.
         </div>
-        <Slideshow />
+        <Slideshow slides={slides}/>
       </div>
     </div>
   );
