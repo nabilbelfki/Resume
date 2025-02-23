@@ -42,3 +42,12 @@ export interface Experiences {
     description: string;
   }
   
+  export interface Slide {
+    name: string;
+    image: {
+      width: number;
+      height: number;
+      src: string;
+      alt: string;
+    }
+  }
