@@ -20,6 +20,7 @@ interface SkillProps {
   gridArea: string;
   className: string;
   image: Image;
+  isMobile: boolean;
   description: Description;
   onClick: () => void;
   showDescription: boolean;
@@ -29,6 +30,7 @@ const Skill: React.FC<SkillProps> = ({
   gridArea,
   className,
   image,
+  isMobile,
   description,
   onClick,
   showDescription,
@@ -65,8 +67,12 @@ const Skill: React.FC<SkillProps> = ({
       <div className={styles.logo} style={logoStyle}>
         <Image
           src={image.url + image.name}
-          height={showDescription ? image.height * 0.7 : image.height}
-          width={showDescription ? image.width * 0.7 : image.width}
+          height={
+            showDescription ? image.height * 0.7 : isMobile ? 50 : image.height
+          }
+          width={
+            showDescription ? image.width * 0.7 : isMobile ? 50 : image.width
+          }
           alt="Logo"
         />
       </div>

@@ -55,3 +55,14 @@
     z-index: 10; /* Bring the expanded element to the front */
     max-height: unset;
 }
+
+@media (max-width: 768px) {
+    .skills {
+        width: 500px;
+    }
+
+    .mobile, .frontend, .backend, .database, .cloud, .miscellaneous {
+        grid-template-columns: repeat(2, 1fr);
+        width: 450px;
+    }
+  }

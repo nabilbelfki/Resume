@@ -57,3 +57,17 @@
     padding: 5px;
     font-family: 'Inter';
 }
+
+@media (max-width: 1000px) {
+    .email-first-and-last-name  {
+      flex-wrap: wrap;
+    }
+    
+    .email {
+        flex-basis: 100%;
+    }
+
+    .contact-form-title {
+        font-size: 22px;
+    }
+  }
