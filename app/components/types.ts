@@ -1,4 +1,25 @@
 // /path/to/shared/types.ts
+interface Image {
+  name: string;
+  url: string;
+  backgroundColor: string;
+  height: number;
+  width: number;
+}
+
+interface Description {
+  color: string;
+  text: string;
+  backgroundColor: string;
+}
+
+export interface Skill {
+  name: string;
+  type: string;
+  image: Image;
+  description: Description;
+}
+
 export interface Experiences {
     level: number;
     zIndex: number;
@@ -42,7 +63,6 @@ export interface Experiences {
     description: string;
   }
   
-  
   interface Container {
     type: string;
     url: string;
@@ -62,6 +82,14 @@ export interface Experiences {
     url: string;
     width: number;
   }
+
+  export interface Thumbnail {
+    path: string;
+    fileName: string;
+    width: number;
+    height: number;
+    backgroundColor: string;
+  }
   
   interface Language {
     name: string;
@@ -76,6 +104,7 @@ export interface Experiences {
       height: number;
       src: string;
       alt: string;
+      backgroundColor: string;
     }
   }
 
@@ -113,8 +142,10 @@ export interface Experiences {
     duration: string;
     views: number;
     url: string;
+    thumbnail: Thumbnail;
     languages: Language[];
     repository: Repository;
     container: Container;
     tools: Tool[];
+    client: Client;
   }

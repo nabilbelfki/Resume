@@ -1,15 +1,16 @@
 "use client";
 import React, { useState } from "react";
+import { useReCaptcha } from "next-recaptcha-v3";
 import Button from "./Button";
 import styles from "./ContactForm.module.css";
 
-// interface ContactProps {}
-
 const Contact: React.FC<unknown> = () => {
+  const { executeRecaptcha } = useReCaptcha();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
 
   const [firstNameStyles, setFirstNameStyles] = useState({ border: "none" });
   const [lastNameStyles, setLastNameStyles] = useState({ border: "none" });
@@ -33,13 +34,23 @@ const Contact: React.FC<unknown> = () => {
     setMessageStyles({ border: "none" });
   };
 
-  const sendEmail = () => {
-    if (firstName != "" && lastName != "" && email != "" && message != "") {
+  const sendEmail = async () => {
+    // const recaptchaToken = await executeRecaptcha('contact_form');
+    setRecaptchaToken(await executeRecaptcha("contact_form"));
+
+    if (
+      firstName !== "" &&
+      lastName !== "" &&
+      email !== "" &&
+      message !== "" &&
+      recaptchaToken
+    ) {
       const templateParams = {
         firstName,
         lastName,
         email,
         message,
+        recaptchaToken,
       };
 
       fetch("/api/message", {
@@ -53,6 +64,12 @@ const Contact: React.FC<unknown> = () => {
         .then((data) => {
           if (data.success) {
             console.log("Email sent successfully");
+            // Clear input fields
+            setFirstName("");
+            setLastName("");
+            setEmail("");
+            setMessage("");
+            setRecaptchaToken(null); // Optionally clear reCAPTCHA token if needed
           } else {
             console.log("Failed to send email");
           }
@@ -79,6 +96,7 @@ const Contact: React.FC<unknown> = () => {
           type="text"
           placeholder="First Name..."
           style={firstNameStyles}
+          value={firstName}
           onChange={handleFirstNameChange}
         />
         <input
@@ -86,6 +104,7 @@ const Contact: React.FC<unknown> = () => {
           type="text"
           placeholder="Last Name..."
           style={lastNameStyles}
+          value={lastName}
           onChange={handleLastNameChange}
         />
         <input
@@ -93,6 +112,7 @@ const Contact: React.FC<unknown> = () => {
           type="text"
           placeholder="Email Address..."
           style={emailStyles}
+          value={email}
           onChange={handleEmailChange}
         />
       </div>
@@ -100,6 +120,7 @@ const Contact: React.FC<unknown> = () => {
         <textarea
           placeholder="Then reach out to me and let’s discuss it..."
           style={messageStyles}
+          value={message}
           onChange={handleMessageChange}
         ></textarea>
         <Button
