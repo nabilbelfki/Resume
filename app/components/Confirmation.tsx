@@ -4,33 +4,56 @@ import Image from "next/image";
 import styles from "./Confirmation.module.css";
 
 interface ConfirmationProps {
-    firstName: string;
-    lastName: string;
-    dateTime: Date;
+  firstName: string;
+  lastName: string;
+  dateTime: Date;
 }
 
-const Confirmation: React.FC<ConfirmationProps> = ({ firstName, lastName, dateTime }) => {
-  
-    const time = dateTime.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "numeric",
-        hour12: true,
-    });
+const Confirmation: React.FC<ConfirmationProps> = ({
+  firstName,
+  lastName,
+  dateTime,
+}) => {
+  let time =
+    dateTime.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    }) + " ET";
 
-    const date = dateTime.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    });
+  let date = dateTime.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  if (time == "Invalid Date ET") time = "God knows what time";
+  if (date == "Invalid Date") date = "what date either";
 
   return (
-    <div className={styles.confirmation} >
+    <div className={styles.confirmation}>
       <div className={styles.icon}>
-        <Image src="/images/profile.jpg" alt="Profile Picture" width="250" height="250" />
+        <Image
+          src="/images/profile.jpg"
+          alt="Profile Picture"
+          width="250"
+          height="250"
+        />
       </div>
       <div className={styles.message}>
         <h1 className={styles.title}>Thanks for reaching out!</h1>
-        <h3 className={styles.text}><i>I look forward to speaking with you {`${firstName} ${lastName}`} at </i><b>{time + " ET"}</b><i> on </i><b>{date}</b><i>. I will give you a call then. If you need to contact me beforehand don’t hesitate to send me an email.</i></h3>
+        <h3 className={styles.text}>
+          <i>
+            I look forward to speaking with you {`${firstName} ${lastName}`} at{" "}
+          </i>
+          <b>{time}</b>
+          <i> on </i>
+          <b>{date}</b>
+          <i>
+            . I will give you a call then. If you need to contact me beforehand
+            don’t hesitate to send me an email.
+          </i>
+        </h3>
       </div>
     </div>
   );

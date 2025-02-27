@@ -31,7 +31,7 @@ interface SkillsProps {
 
 const Skills: React.FC<SkillsProps> = ({ skills }) => {
   const [type, setType] = useState("backend");
-  const [backgroundColor, setbackgroundColor] = useState(
+  const [backgroundColor, setBackgroundColor] = useState(
     "rgba(96, 96, 96, 0.1)"
   );
 
@@ -53,6 +53,18 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
   const [clickedMiscellaneousIndex, setMiscellaneousClickedIndex] = useState<
     number | null
   >(null);
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const mobile: Skill[] = [];
   const frontend: Skill[] = [];
   const backend: Skill[] = [];
@@ -77,36 +89,23 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
   });
 
   function hexToRgba(hex: string, alpha: number) {
-    // Remove the hash at the start if it's there
     if (hex == "#FFFFFF") return `rgba(96, 96, 96, 0.1)`;
     if (hex == "#EAF9FF") return `rgba(47, 129, 255, 0.3)`;
     hex = hex.replace(/^#/, "");
 
-    // Parse the r, g, b values
     const r = parseInt(hex.substring(0, 2), 16);
     const g = parseInt(hex.substring(2, 4), 16);
     const b = parseInt(hex.substring(4, 6), 16);
 
-    // Return the RGBA color
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
 
   const renderSkills = (
     skills: Skill[],
     clickedIndex: number | null,
-    setClickedIndex: React.Dispatch<React.SetStateAction<number | null>>
+    setClickedIndex: React.Dispatch<React.SetStateAction<number | null>>,
+    isMobile: boolean
   ) => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-
-    useEffect(() => {
-      const handleResize = () => {
-        setIsMobile(window.innerWidth <= 768);
-      };
-
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
     const columns = isMobile ? 2 : 3;
 
     return skills.map((skill, index) => {
@@ -163,7 +162,6 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
             }
           }
 
-          // Add +1 to each row under the clicked item
           if (row > clickedRow) {
             gridArea = `${row + 1} / ${column} / ${row + 2} / ${column + 1}`;
           }
@@ -180,7 +178,7 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
           showDescription={clickedIndex === index}
           onClick={() => {
             setClickedIndex(clickedIndex === index ? null : index);
-            setbackgroundColor(hexToRgba(skill.image.backgroundColor, 0.3));
+            setBackgroundColor(hexToRgba(skill.image.backgroundColor, 0.3));
           }}
           className={`${styles.skill} ${
             clickedIndex === index ? styles.clicked : ""
@@ -192,45 +190,63 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
 
   return (
     <div className={styles.skills} style={{ backgroundColor: backgroundColor }}>
-      {type == "mobile" && (
+      {type === "mobile" && (
         <div className={styles.mobile}>
-          {renderSkills(mobile, clickedMobileIndex, setMobileClickedIndex)}
+          {renderSkills(
+            mobile,
+            clickedMobileIndex,
+            setMobileClickedIndex,
+            isMobile
+          )}
         </div>
       )}
-      {type == "frontend" && (
+      {type === "frontend" && (
         <div className={styles.frontend}>
           {renderSkills(
             frontend,
             clickedFrontendIndex,
-            setFrontendClickedIndex
+            setFrontendClickedIndex,
+            isMobile
           )}
         </div>
       )}
-      {type == "backend" && (
+      {type === "backend" && (
         <div className={styles.backend}>
-          {renderSkills(backend, clickedBackendIndex, setBackendClickedIndex)}
+          {renderSkills(
+            backend,
+            clickedBackendIndex,
+            setBackendClickedIndex,
+            isMobile
+          )}
         </div>
       )}
-      {type == "database" && (
+      {type === "database" && (
         <div className={styles.database}>
           {renderSkills(
             database,
             clickedDatabaseIndex,
-            setDatabaseClickedIndex
+            setDatabaseClickedIndex,
+            isMobile
           )}
         </div>
       )}
-      {type == "cloud" && (
+      {type === "cloud" && (
         <div className={styles.cloud}>
-          {renderSkills(cloud, clickedCloudIndex, setCloudClickedIndex)}
+          {renderSkills(
+            cloud,
+            clickedCloudIndex,
+            setCloudClickedIndex,
+            isMobile
+          )}
         </div>
       )}
-      {type == "miscellaneous" && (
+      {type === "miscellaneous" && (
         <div className={styles.miscellaneous}>
           {renderSkills(
             miscellaneous,
             clickedMiscellaneousIndex,
-            setMiscellaneousClickedIndex
+            setMiscellaneousClickedIndex,
+            isMobile
           )}
         </div>
       )}
