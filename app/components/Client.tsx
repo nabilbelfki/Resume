@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Slideshow from "./Slideshow";
 import styles from "./Client.module.css";
-import { Slide, Client as ClientType } from "./types";
+import { Client as ClientType } from "./types";
 
 interface ClientProps {
   client: ClientType;
