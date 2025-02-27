@@ -1,5 +1,6 @@
 import React from "react";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { GoogleMap, Marker } from "@react-google-maps/api";
+// import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { Location } from "./types";
 
 const containerStyle = {
@@ -75,20 +76,20 @@ const Map: React.FC<MapProps> = ({ location }) => {
   };
 
   return (
-    <LoadScript googleMapsApiKey={googleMapsApiKey}>
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={adjustedCenter}
-        zoom={10}
-        options={options}
-      >
-        <Marker
-          position={initialCenter}
-          icon={svgMarker}
-          onLoad={handleMarkerLoad}
-        />
-      </GoogleMap>
-    </LoadScript>
+    // <LoadScript googleMapsApiKey={googleMapsApiKey}>
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      center={adjustedCenter}
+      zoom={10}
+      options={options}
+    >
+      <Marker
+        position={initialCenter}
+        icon={svgMarker}
+        onLoad={handleMarkerLoad}
+      />
+    </GoogleMap>
+    // </LoadScript>
   );
 };
 
