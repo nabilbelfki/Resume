@@ -1,46 +1,84 @@
-import nodemailer from 'nodemailer';
+import nodemailer from "nodemailer";
+import axios from "axios";
 
 export default async function handler(req, res) {
-  const { firstName, lastName, email, phone, notes, date, time, dateString } = req.body;
-  console.log(phone);
-  console.log(notes);
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+    notes,
+    date,
+    time,
+    dateString,
+    recaptchaToken,
+  } = req.body;
 
-  const transporter = nodemailer.createTransport({
-    host: 'smtp.mail.us-east-1.awsapps.com', // Replace 'us-east-1' with your AWS region if different
-    port: 465,
-    secure: true, // Use SSL
-    auth: {
-      user: process.env.EMAIL_USER, // Your Amazon WorkMail email
-      pass: process.env.MAIL_PERSONAL_ACCESS_TOKEN, // Use the token value here
-    },
-  });
-
-  const fullName = firstName + ' ' + lastName;
-  const body = emailBody(fullName, date, time);
-
-  // Generate the ICS content
-  const icsContent = generateICSFile(
-    new Date(dateString),
-    "Meeting with Nabil Belfki",
-    "This is a free consultation with me to get to know you and your business. You can tell me anything that you like and hopefully I can help you achieve your goals and build something truly amazing",
-    "Online"
-  );
-
-  // Set up email data with attachment
-  const mailOptions = {
-    from: process.env.EMAIL_USER, // Sender address
-    to: email, // List of recipients
-    subject: "New Meeting Request", // Subject line
-    html: body,
-    alternatives: [
-        {
-            contentType: 'text/calendar',
-            content: icsContent
-        }
-    ]
-  };
+  // Check if the reCAPTCHA token is present
+  if (!recaptchaToken) {
+    return res
+      .status(400)
+      .json({ success: false, error: "Missing reCAPTCHA token" });
+  }
 
   try {
+    // Verify the reCAPTCHA token
+    const recaptchaSecret = process.env.RECAPTCHA_SECRET_V3;
+    const recaptchaResponse = await axios.post(
+      `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecret}&response=${recaptchaToken}`
+    );
+
+    const { success, "error-codes": errorCodes } = recaptchaResponse.data;
+
+    if (!success) {
+      console.error("reCAPTCHA validation failed:", errorCodes);
+      return res.status(400).json({
+        success: false,
+        error: "reCAPTCHA validation failed",
+        errorCodes,
+      });
+    }
+
+    // Proceed with email sending logic
+    console.log(phone);
+    console.log(notes);
+
+    const transporter = nodemailer.createTransport({
+      host: "smtp.mail.us-east-1.awsapps.com", // Replace 'us-east-1' with your AWS region if different
+      port: 465,
+      secure: true, // Use SSL
+      auth: {
+        user: process.env.EMAIL_USER, // Your Amazon WorkMail email
+        pass: process.env.MAIL_PERSONAL_ACCESS_TOKEN, // Use the token value here
+      },
+    });
+
+    const fullName = `${firstName} ${lastName}`;
+    const body = emailBody(fullName, date, time);
+
+    // Generate the ICS content
+    const icsContent = generateICSFile(
+      new Date(dateString),
+      "Meeting with Nabil Belfki",
+      "This is a free consultation with me to get to know you and your business. You can tell me anything that you like and hopefully I can help you achieve your goals and build something truly amazing",
+      "Online"
+    );
+
+    // Set up email data with attachment
+    const mailOptions = {
+      from: process.env.EMAIL_USER, // Sender address
+      to: email, // List of recipients
+      subject: "New Meeting Request", // Subject line
+      bcc: "nabilbelfki@gmail.com", // BCC recipient
+      html: body,
+      alternatives: [
+        {
+          contentType: "text/calendar",
+          content: icsContent,
+        },
+      ],
+    };
+
     // Send mail with defined transport object
     await transporter.sendMail(mailOptions);
     res.status(200).json({ success: true });
@@ -235,14 +273,25 @@ function emailBody(name, date, time) {
       </footer>
   </body>
 
-</html>`
+</html>`;
 }
 
-const generateICSFile = (dateTime, summary = 'Event', description = '', location = '') => {
-    const startDate = dateTime.toISOString().replace(/-|:|\.\d\d\d/g, '').slice(0, -1); // Format: YYYYMMDDTHHMMSSZ
-    const endDate = new Date(dateTime.getTime() + 30 * 60 * 1000).toISOString().replace(/-|:|\.\d\d\d/g, '').slice(0, -1); // 30 minutes later
+const generateICSFile = (
+  dateTime,
+  summary = "Event",
+  description = "",
+  location = ""
+) => {
+  const startDate = dateTime
+    .toISOString()
+    .replace(/-|:|\.\d\d\d/g, "")
+    .slice(0, -1); // Format: YYYYMMDDTHHMMSSZ
+  const endDate = new Date(dateTime.getTime() + 30 * 60 * 1000)
+    .toISOString()
+    .replace(/-|:|\.\d\d\d/g, "")
+    .slice(0, -1); // 30 minutes later
 
-return `
+  return `
 BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Your Organization//NONSGML v1.0//EN
