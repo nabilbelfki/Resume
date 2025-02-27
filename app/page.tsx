@@ -6,35 +6,8 @@ import Timeline from "./components/Timeline";
 import ContactForm from "./components/ContactForm";
 import Calendar from "./components/Calendar";
 import Skills from "./components/Skills";
-import Project from "./components/Project";
-import { Experiences } from './components/types';
-
-interface Project {
-  _id: string;
-  name: string;
-  slug: string;
-}
-
-interface Image {
-  name: string;
-  url: string;
-  backgroundColor: string;
-  height: number;
-  width: number;
-}
-
-interface Description {
-  color: string;
-  text: string;
-  backgroundColor: string;
-}
-
-interface Skill {
-  name: string;
-  type: string;
-  image: Image;
-  description: Description;
-}
+import Video from "./components/Video";
+import { Experiences, Project, Skill } from "./components/types";
 
 const Home = async () => {
   let projects: Project[] = [];
@@ -82,12 +55,12 @@ const Home = async () => {
         role="Software Engineer"
         imagePath="/images/profile.jpg"
         imageAlt="Nabil Belfki"
-        biography="There is nothing that I can’t do or accomplish. I’m a great asset to a team and company. I’ve transformed countless clients in my career by helping them automate processes and solve their problems. I’m code agnostic haven write projects in many different stacks. I have knowledge in many different sectors from the flight industry to banking and finance to e-commerce."
+        biography="There is nothing that I can’t do or accomplish. I’m a great asset to any team and company. I’ve transformed countless clients in my career by helping them automate processes and solve their problems. I’m code agnostic haven writen projects in many different stacks. I have knowledge in many different sectors from the flight industry to banking and finance to e-commerce."
       />
       <div id="experiences" className="experience-and-skills">
         <Timeline experiences={experiences} />
         <div id="skills" className="skills-display">
-          <div className="skills-title-and-description">
+          <div className="skills-title-and-description unselected">
             <div className="metal">
               <Image src="/images/metal.jpg" alt="" width="200" height="300" />
             </div>
@@ -249,9 +222,10 @@ const Home = async () => {
         <div className="projects">
           {projects.map((project) => (
             <Link key={project._id} href={`/application/${project._id}`}>
-              <Project
+              <Video
                 name={project.name}
-                videoPath={`/videos/${project.slug}.gif`}
+                videoPath={`/videos/${project.slug}.mp4`}
+                thumbnail={project.thumbnail}
               />
             </Link>
           ))}
