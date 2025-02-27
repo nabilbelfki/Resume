@@ -18,14 +18,18 @@ const EmailContent: React.FC = () => {
 
   return (
     <div className={styles.background}>
-      <Confirmation firstName={firstName} lastName={lastName} dateTime={new Date(date)} />
+      <Confirmation
+        firstName={firstName}
+        lastName={lastName}
+        dateTime={new Date(date)}
+      />
       <div className={styles.content}>
         <div className={styles["add-calendar-and-cancel-meeting"]}>
           <AddCalendar dateTime={new Date(date)} />
-          <CancelMeeting meetingID="1"/>
+          <CancelMeeting meetingID="1" />
         </div>
         <div className={styles["project-preview"]}>
-          <Link key="67a2432855f8ecd625cc5ea5" href={`/application/67a2432855f8ecd625cc5ea5`}>
+          <Link key="67a2432855f8ecd625cc5ea5" href={`/#biography`}>
             <Project
               name="Personal Website"
               videoPath={`/videos/personal.gif`}

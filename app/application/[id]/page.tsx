@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import Slider from "../../components/Slider";
 import Languages from "../../components/Languages";
 import Views from "../../components/Views";
@@ -9,7 +10,8 @@ import PictureLink from "../../components/PictureLink";
 import Description from "../../components/Description";
 import Calendar from "../../components/Calendar";
 import Button from "../../components/Button";
-import Project from "../../components/Project";
+// import Project from "../../components/Project";
+import Video from "../../components/Video";
 import Map from "../../components/Map";
 import Client from "../../components/Client";
 import styles from "./Application.module.css";
@@ -60,7 +62,13 @@ const Application: React.FC<ApplicationProps> = ({ params }) => {
 
   return (
     <>
-      <Project name={project.name} videoPath={`/videos/${project.slug}.gif`} />
+      {/* <Project name={project.name} videoPath={`/videos/${project.slug}.gif`} /> */}
+      <Video
+        name={project.name}
+        videoPath={`/videos/${project.slug}.mp4`}
+        thumbnail={project.thumbnail}
+        thumbnailHeight={675}
+      />
       <div className={styles.background}>
         <div className={styles["project-information"]}>
           <div className={styles["views-and-duration"]}>
@@ -100,11 +108,13 @@ const Application: React.FC<ApplicationProps> = ({ params }) => {
           <div className={styles["call-to-action-and-calendar"]}>
             <div className={styles["call-to-action"]}>
               <div className={styles.text}>Have Questions?</div>
-              <Button
-                text="CONTACT ME"
-                onClick={() => console.log("Contact me")}
-                style={{ fontWeight: 600, width: 130 }}
-              />
+              <Link href={`/#contact`}>
+                <Button
+                  text="CONTACT ME"
+                  onClick={() => console.log("Contact me")}
+                  style={{ fontWeight: 600, width: 130 }}
+                />
+              </Link>
             </div>
             <Calendar />
           </div>
