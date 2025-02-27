@@ -1,7 +1,10 @@
-// /app/layout.tsx
+"use client";
 import React from "react";
+import Script from "next/script";
+import { ReCaptchaProvider } from "next-recaptcha-v3";
 import NavigationBar from "./components/NavigationBar";
 import Footer from "./components/Footer";
+import LoadScriptWrapper from "./components/LoadScriptWrapper"; // Adjust the import path as needed
 import "./globals.css";
 
 export default function RootLayout({
@@ -18,13 +21,31 @@ export default function RootLayout({
         <meta name="keywords" content="your, keywords, here" />
         <meta name="author" content="Your Name" />
         <title>Nabil Belfki</title>
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=G-6FW0ZXSQCR`}
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-6FW0ZXSQCR');
+          `}
+        </Script>
       </head>
       <body>
-        <div className="container">
-          <NavigationBar />
-          {children}
-          <Footer />
-        </div>
+        <ReCaptchaProvider
+          reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY_V3}
+        >
+          <LoadScriptWrapper>
+            <div className="container">
+              <NavigationBar />
+              {children}
+              <Footer />
+            </div>
+          </LoadScriptWrapper>
+        </ReCaptchaProvider>
       </body>
     </html>
   );
