@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import styles from "./Calendar.module.css";
 import moreStyles from "./ScheduleMeeting.module.css";
+import { useReCaptcha } from "next-recaptcha-v3";
 import Popup from "./Popup";
 import Button from "./Button";
 import Times from "./Times";
@@ -23,6 +24,8 @@ const Calendar: React.FC<unknown> = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
+  const { executeRecaptcha } = useReCaptcha();
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [disablePreviousMonth, setDisablePreviousMonth] = useState(true);
 
   const [firstNamePlaceHolder, setFirstNamePlaceHolder] =
@@ -59,7 +62,15 @@ const Calendar: React.FC<unknown> = () => {
     if (page === "times") {
       setPage("contact");
     } else {
-      if (firstName != "" && lastName != "" && email != "") {
+      const meetingToken = await executeRecaptcha("contact_form");
+      setRecaptchaToken(meetingToken);
+
+      if (
+        firstName !== "" &&
+        lastName !== "" &&
+        email !== "" &&
+        recaptchaToken
+      ) {
         let dateString = "";
         const time = selectedTime;
         const date = formatDate(selectedDate);
@@ -72,18 +83,14 @@ const Calendar: React.FC<unknown> = () => {
             let hour = parseInt(hourString, 10);
             const minute = parseInt(minuteString, 10);
 
-            // Handle AM/PM conversion
             if (period === "PM" && hour !== 12) {
               hour += 12;
             } else if (period === "AM" && hour === 12) {
               hour = 0;
             }
 
-            // Combine date and time in ET
             const combinedDateTime = new Date(selectedDate);
             combinedDateTime.setHours(hour, minute, 0, 0);
-
-            // Convert to ISO string for redirect URL
             dateString = combinedDateTime.toISOString();
           } else {
             console.error("Time format is incorrect");
@@ -97,6 +104,7 @@ const Calendar: React.FC<unknown> = () => {
           email: email,
           phone: phone,
           notes: notes,
+          recaptchaToken: meetingToken, // Use the generated meetingToken
         };
 
         try {
@@ -113,6 +121,7 @@ const Calendar: React.FC<unknown> = () => {
           if (data.success) {
             console.log("Meeting saved successfully");
 
+            const emailToken = await executeRecaptcha("contact_form"); // Generate a fresh token for email
             const templateParams = {
               firstName,
               lastName,
@@ -122,6 +131,7 @@ const Calendar: React.FC<unknown> = () => {
               date,
               time,
               dateString,
+              recaptchaToken: emailToken, // Use the generated emailToken
             };
 
             fetch("/api/email", {
@@ -135,6 +145,7 @@ const Calendar: React.FC<unknown> = () => {
               .then((data) => {
                 if (data.success) {
                   console.log("Email sent successfully");
+
                   const redirectUrl = `/email?firstName=${encodeURIComponent(
                     firstName
                   )}&lastName=${encodeURIComponent(
@@ -156,17 +167,17 @@ const Calendar: React.FC<unknown> = () => {
         }
       } else {
         console.log("Here");
-        if (firstName == "") {
-          console.log("Fist");
+        if (firstName === "") {
+          console.log("First");
           setFirstNamePlaceHolder("Must Enter a First Name...");
           setFirstNameStyles({ border: "solid 1px red" });
         }
-        if (lastName == "") {
+        if (lastName === "") {
           console.log("Last");
           setLastNamePlaceHolder("Must Enter a Last Name...");
           setLastNameStyles({ border: "solid 1px red" });
         }
-        if (email == "") {
+        if (email === "") {
           console.log("Email");
           setEmailPlaceHolder("Must Enter an Email...");
           setEmailStyles({ border: "solid 1px red" });
