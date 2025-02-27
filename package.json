@@ -13,6 +13,7 @@
     "axios": "^1.7.9",
     "mongoose": "^8.9.7",
     "next": "^15.1.6",
+    "next-recaptcha-v3": "^1.5.2",
     "nodemailer": "^6.10.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
