@@ -32,7 +32,7 @@
     </url>
     <url>
         <loc>
-            https://www.nabilbelfki.com/email?firstName=Nabil&lastName=Belfki&date=2025-02-27T19%3A30%3A00.000Z</loc>
+            https://www.nabilbelfki.com/email?firstName=Nabil&amp;lastName=Belfki&amp;date=2025-02-27T19%3A30%3A00.000Z</loc>
         <lastmod>2025-01-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
