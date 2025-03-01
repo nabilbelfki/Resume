@@ -77,6 +77,8 @@ const Timeline: React.FC<TimelineProps> = ({ experiences }) => {
     ];
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
+    console.log(currentMonth);
+    console.log(currentYear);
     const elements = [];
 
     for (let year = 2017; year <= currentYear; year++) {
