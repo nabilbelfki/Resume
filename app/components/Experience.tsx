@@ -80,7 +80,6 @@ const Experience: React.FC<ExperienceProps> = ({
   const [marginLeft, setMarginLeft] = useState("100%");
 
   const [widthLine2, setWidthLine2] = useState(0);
-  const [marginLeftLine2, setMarginLeftLine2] = useState("100%");
 
   useEffect(() => {
     if (experience.level === 1 || experience.level === 2) {
@@ -110,14 +109,6 @@ const Experience: React.FC<ExperienceProps> = ({
               return prevWidth + 1; // Increment width by 1% for line 2
             } else {
               return prevWidth;
-            }
-          });
-
-          setMarginLeftLine2((prevMargin) => {
-            if (prevMargin !== "0%") {
-              return `${parseFloat(prevMargin) - 1}%`; // Decrease margin-left by 1% for line 2
-            } else {
-              return prevMargin;
             }
           });
         }
