@@ -146,3 +146,21 @@
   align-items: center;
   padding: 7px;
 }
+
+@keyframes increaseWidthToTopLeft {
+  from {
+    width: 0;
+    margin-left: 82px;
+  }
+  to {
+    width: 82px;
+    margin-left: 0;
+  }
+}
+
+.line2 {
+  max-width: 82px;
+  position: relative;
+  transform-origin: bottom right;
+  animation: increaseWidthToTopLeft 2s ease-in-out forwards;
+}

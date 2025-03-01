@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./Experience.module.css";
 import { Experiences } from "./types";
@@ -35,7 +35,6 @@ const Experience: React.FC<ExperienceProps> = ({
 
   const currentYear = new Date().getFullYear();
   const currentMonth = months[new Date().getMonth()];
-  console.log(currentMonth);
   let endYearMonth = `${currentYear}-${currentMonth}`;
 
   const startDate = experience.period.start;
@@ -52,9 +51,7 @@ const Experience: React.FC<ExperienceProps> = ({
   const startX = positions[startYearMonth];
   const endX = positions[endYearMonth];
   const duration = Math.abs(startX - endX);
-  console.log(
-    `Experience - Start: ${startX}, End: ${endX}, Duration: ${duration}`
-  ); // Debug log
+
   const top = experience.level == 1 ? 393 : 353;
   const zIndex = hoveredIndex == index ? 10 : experience.zIndex;
   const informationTop =
@@ -77,6 +74,60 @@ const Experience: React.FC<ExperienceProps> = ({
       : experience.name == "New Jersey Institute of Technology"
       ? "floating-njit"
       : "floating";
+
+  // State for managing width and margin during animation for both lines
+  const [width, setWidth] = useState(0);
+  const [marginLeft, setMarginLeft] = useState("100%");
+
+  const [widthLine2, setWidthLine2] = useState(0);
+  const [marginLeftLine2, setMarginLeftLine2] = useState("100%");
+
+  useEffect(() => {
+    if (experience.level === 1 || experience.level === 2) {
+      const interval = setInterval(() => {
+        // Update for line 1 (same as before)
+        setWidth((prevWidth) => {
+          if (prevWidth < 100) {
+            return prevWidth + 1; // Increment width by 1%
+          } else {
+            clearInterval(interval); // Stop the interval when the animation is complete
+            return prevWidth;
+          }
+        });
+
+        setMarginLeft((prevMargin) => {
+          if (prevMargin !== "0%") {
+            return `${parseFloat(prevMargin) - 1}%`; // Decrease margin-left by 1%
+          } else {
+            return prevMargin;
+          }
+        });
+
+        // Update for line 2 (if it's level 2, animate the slanted line)
+        if (experience.level === 2) {
+          setWidthLine2((prevWidth) => {
+            if (prevWidth < 100) {
+              return prevWidth + 1; // Increment width by 1% for line 2
+            } else {
+              return prevWidth;
+            }
+          });
+
+          setMarginLeftLine2((prevMargin) => {
+            if (prevMargin !== "0%") {
+              return `${parseFloat(prevMargin) - 1}%`; // Decrease margin-left by 1% for line 2
+            } else {
+              return prevMargin;
+            }
+          });
+        }
+      }, 20); // Update every 20ms for smooth animation
+
+      // Cleanup the interval on unmount
+      return () => clearInterval(interval);
+    }
+  }, [experience.level]); // Run only when experience.level changes
+
   return (
     <div
       className={styles.experience}
@@ -196,21 +247,32 @@ const Experience: React.FC<ExperienceProps> = ({
           </div>
         )}
       </div>
+
       <div
         className={styles.line}
-        style={{ backgroundColor: experience.color.line }}
+        style={{
+          backgroundColor: experience.color.line,
+          width: `${width}%`,
+          marginLeft: marginLeft,
+        }}
       ></div>
+
+      {/* Apply dynamic inline styles for the slanted line (line 2) */}
       {experience.level == 2 && (
         <div
-          className={styles.line}
-          style={{
-            backgroundColor: experience.color.line,
-            transform: "rotate(30deg)",
-            width: 82,
-            marginLeft: duration - 82,
-            marginTop: 13,
-          }}
-        ></div>
+          className={styles["position-line2"]}
+          style={{ marginLeft: duration - 89 }}
+        >
+          <div
+            className={`${styles.line} ${styles.line2}`}
+            style={{
+              backgroundColor: experience.color.line,
+              transform: "rotate(30deg)",
+              width: `${widthLine2}%`, // Animated width for slanted line
+              marginTop: 33,
+            }}
+          ></div>
+        </div>
       )}
     </div>
   );

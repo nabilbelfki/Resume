@@ -21,6 +21,7 @@ export default function RootLayout({
         <meta name="keywords" content="your, keywords, here" />
         <meta name="author" content="Your Name" />
         <title>Nabil Belfki</title>
+        <link rel="icon" href="/images/favicon.png" type="image/png" />
         <Script
           strategy="afterInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=G-6FW0ZXSQCR`}
