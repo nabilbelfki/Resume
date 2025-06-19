@@ -17,8 +17,8 @@ interface Link {
 }
 
 interface Icon {
-  width: string;
-  height: string;
+  width: number;
+  height: number;
   path: string;
   alt: string;
 }
@@ -35,9 +35,21 @@ const SocialLink: React.FC<SocialLinkProps> = ({
   icon
 }) => {
   return (
-    <div id="biography" className={styles.biography}>
-      
-    </div>
+    <a href={link.href} target="_blank" style={{ textDecoration: 'none' }}>
+        <div className={styles[`social-link`]} style={{backgroundColor: title.backgroundColor}}>
+        <div className={styles[`icon-area`]}>  
+            <Image width={icon.width} height={icon.height} alt={icon.alt} src={icon.path}/>
+        </div>
+        <div className={styles[`title-and-link`]}>
+            <div className={styles.title} style={{color: title.color}}>
+                {title.text}
+            </div>
+            <div className={styles.link}  style={{color: link.color, backgroundColor: link.backgroundColor}}>
+                {link.text}
+            </div>
+        </div>
+        </div>
+    </a>
   );
 };
 

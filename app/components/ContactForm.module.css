@@ -1,73 +1,92 @@
 .contact-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap:10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .contact-form-title {
-    font-size: 32px;
-    color: #2E2E2E;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 600;
+  font-size: 32px;
+  color: #2e2e2e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  text-align: center;
 }
 
 .email-first-and-last-name {
-    display: flex;
-    gap: 10px;
-    width: 100%;
+  display: flex;
+  gap: 10px;
+  width: 100%;
 }
 
-.first-name,
-.last-name,
-.email {
-    outline: none;
-    border: none;
-    border-radius: 10px;
-    height: 40px;
-    padding-left: 5px;
-    padding-right: 5px;
+.first-name, .last-name, .email {
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  height: 40px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
-.first-name,
-.last-name {
-    flex: 1;
+.first-name, .last-name {
+  flex: 1;
 }
 
 .email {
-    flex: 1.5;
+  flex: 1.5;
 }
 
 .message {
-    width: 100%;
-    position: relative
+  width: 100%;
+  position: relative;
 }
 
 .message textarea {
-    height: 340px;
-    width: 100%;
-    outline: none;
-    border: none;
-    border-radius: 10px;
-    resize: none; /* Disable the resize handle */
-    overflow: hidden; /* Optionally hide overflow to prevent scrollbars */
-    padding: 5px;
-    font-family: 'Inter';
+  height: 340px;
+  width: 100%;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  resize: none;
+  overflow: hidden;
+  padding: 5px;
+  font-family: Inter;
 }
 
-@media (max-width: 1000px) {
-    .email-first-and-last-name  {
-      flex-wrap: wrap;
-    }
-    
-    .email {
-        flex-basis: 100%;
-    }
-
-    .contact-form-title {
-        font-size: 22px;
-    }
+@media (width <= 1200px) {
+  .message textarea {
+    height: 310px;
   }
+}
+
+@media (width <= 1000px) {
+  .email-first-and-last-name {
+    flex-wrap: wrap;
+  }
+
+  .email {
+    flex-basis: 100%;
+  }
+
+  .contact-form-title {
+    font-size: 22px;
+  }
+
+  .message textarea {
+    height: 290px;
+  }
+}
+
+@media (width <= 640px) {
+  .contact-form-title {
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  .last-name {
+    flex-basis: 100%;
+  }
+}

@@ -1,54 +1,65 @@
+
 .overlay {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 15px;
-    height: 100%;
-    width: 50%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 5px;
-    background-color: rgba(0,0,0,0.2);
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  height: 100%;
+  width: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 5px;
+  background-color: #0003;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  z-index: 1;
 }
 
 .about-client {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 10px;
-    height: 100%;
-    width: 100%;
-    /* padding: 5px; */
-    background-color: #FFFFFF;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  z-index: 1;
 }
 
 .client-title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap:15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
 }
 
 .client-title-text {
-    /* font-size: 32px; */
-    font-weight: 600;
-    color: #3D3D3D;
-    /* text-align: center; */
+  font-weight: 600;
+  color: #3d3d3d;
 }
 
 .client-description {
-    font-size: 14px;
-    font-weight: 300;
-    color: #3D3D3D;
-    text-align: center;
-    font-style: italic;
+  font-size: 14px;
+  font-weight: 300;
+  color: #3d3d3d;
+  text-align: center;
+  font-style: italic;
+}
+
+@media (width <= 640px) {
+  .overlay {
+    width: 100%;
+    width: 100vw;
+    position: static;
+    padding: 0;
+  }
+
+  .about-client {
+    padding-top: 50px;
+  }
 }

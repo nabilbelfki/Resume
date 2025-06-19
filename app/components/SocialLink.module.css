@@ -1,0 +1,59 @@
+.social-link {
+  border-radius: 5px;
+  display: flex;
+  box-shadow: 0 0 4px #00000040;
+  height: 60px;
+  padding: 5px;
+  gap: 5px;
+}
+
+.icon-area {
+  width: 40px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-and-link {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.link {
+  border-radius: 2px;
+  font-size: 10px;
+  padding: 2px;
+}
+
+@media (width <= 950px) {
+  .social-link {
+    height: 100%;
+  }
+
+  .title {
+    font-size: 12px;
+  }
+
+  .link {
+    font-size: 7px;
+  }
+}
+
+@media (width <= 640px) {
+  .title {
+    font-size: 15px;
+  }
+
+  .link {
+    font-size: 8px;
+  }
+}

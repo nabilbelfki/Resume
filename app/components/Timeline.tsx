@@ -9,12 +9,18 @@ interface TimelineProps {
 }
 
 const Timeline: React.FC<TimelineProps> = ({ experiences }) => {
+  const mobileWidth = 640;
+  const verticalWidth = 768;
+  const [direction, setDirection] = useState<"horizontal" | "vertical">(
+    window.innerWidth < verticalWidth ? "vertical" : "horizontal"
+  );
+
   const [positions, setPositions] = useState<{ [key: string]: number }>({});
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const timelineRef = useRef<HTMLDivElement>(null);
 
-  const calculatePositions = () => {
+  const calculatePositions = (dir: "horizontal" | "vertical") => {
     if (timelineRef.current) {
       const months = timelineRef.current.querySelectorAll(
         `.${styles.indicator}`
@@ -29,35 +35,41 @@ const Timeline: React.FC<TimelineProps> = ({ experiences }) => {
           const monthYear = parentClass ? parentClass[1] : null;
 
           if (monthYear) {
-            const left =
-              parentElement.getBoundingClientRect().left - timelineRect.left;
-            console.log(`Month: ${monthYear}, Left: ${left}`);
+            const offset =
+              dir === "vertical"
+                ? parentElement.getBoundingClientRect().top - timelineRect.top
+                : parentElement.getBoundingClientRect().left - timelineRect.left;
+
+            console.log(`Month: ${monthYear}, Offset: ${offset}, Direction: ${dir}`);
 
             const isJanuary = parentClass.includes(styles.year);
             if (isJanuary) {
               const yearClass = parentClass.find((cls) => cls.startsWith("20"));
               const monthYearKey = `${yearClass}`;
-              newPositions[monthYearKey] = left;
+              newPositions[monthYearKey] = offset;
             } else {
-              newPositions[monthYear] = left;
+              newPositions[monthYear] = offset;
             }
           }
         }
       });
 
-      console.log("New Positions:", newPositions);
       setPositions(newPositions);
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    calculatePositions();
-    window.addEventListener("resize", calculatePositions);
-
-    return () => {
-      window.removeEventListener("resize", calculatePositions);
+    const handleResize = () => {
+      const newDirection = window.innerWidth < verticalWidth ? "vertical" : "horizontal";
+      setDirection(newDirection);
+      calculatePositions(newDirection); // use updated direction
     };
+
+    handleResize(); // initial
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const generateMonths = () => {
@@ -96,9 +108,7 @@ const Timeline: React.FC<TimelineProps> = ({ experiences }) => {
           elements.push(
             <div
               key={monthYearClass}
-              className={`${
-                styles[months[month].toLowerCase()]
-              } ${monthYearClass}`}
+              className={`${styles[months[month].toLowerCase()]} ${monthYearClass}`}
             >
               <div className={styles.indicator}></div>
             </div>
@@ -111,7 +121,20 @@ const Timeline: React.FC<TimelineProps> = ({ experiences }) => {
   };
 
   return (
-    <div className={styles.timeline} ref={timelineRef}>
+    <div
+      className={styles.timeline}
+      ref={timelineRef}
+      style={{
+        display: "flex",
+        flexDirection: direction === "horizontal" ? "row-reverse" : "column-reverse",
+        height: direction === "horizontal" ? 500 : 600,
+        paddingTop: direction === "vertical" ? 50: 0,
+        paddingBottom: direction === "vertical" ? 50: 0,
+        paddingLeft: direction === "vertical" ? 0: 20,
+        paddingRight: direction === "vertical" ? 0: 20,
+        marginLeft: direction === "vertical" ? (window.innerWidth > mobileWidth ? 140 : 40) : 0
+      }}
+    >
       {generateMonths()}
       {!loading &&
         experiences.map((experience, index) => (
@@ -120,6 +143,7 @@ const Timeline: React.FC<TimelineProps> = ({ experiences }) => {
             index={index}
             experience={experience}
             positions={positions}
+            direction={direction}
             hoveredIndex={hoveredIndex}
             setHoveredIndex={setHoveredIndex}
           />

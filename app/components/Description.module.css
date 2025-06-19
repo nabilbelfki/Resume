@@ -1,15 +1,30 @@
 .description {
-    width: calc(100% - 20px);
-    position: relative;
-    background-color: #fff;
-    border-radius: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-    padding: 10px;
-    font-weight: 300;
-    font-size: 20px;
-    font-style: italic;
-    color: rgba(46,46,46,0.8);
-    margin-bottom: 10px;
-    height: 150px;
+  width: calc(100% - 20px);
+  position: relative;
+  background-color: #fff;
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px;
+  font-weight: 300;
+  font-size: 20px;
+  font-style: italic;
+  color: #2e2e2ecc;
+  margin-bottom: 10px;
+  min-height: 150px;
+  padding-bottom: 30px;
+}
+
+@media (width <= 640px) {
+  .description {
+    background-color: #0000;
+    height: unset;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .description button {
+    width: 100%;
+    margin-top: 20px;
+  }
 }

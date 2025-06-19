@@ -1,121 +1,138 @@
 .calendar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: #FFFFFF;
-    padding-right: 20px;
-    padding-left: 20px;
-    padding-bottom: 20px;
-    border-radius: 10px;
-    width: 400px;
-    height: 390px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #fff;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  border-radius: 10px;
+  width: 400px;
+  height: 390px;
 }
 
 .calendar-legend {
-    display: flex;
-    width: 100%;
-    height: 60px;
-    justify-content: center;
-    align-items: center;
-    gap: 20px
+  display: flex;
+  width: 100%;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
-.previous-month,
-.next-month {
-    cursor: pointer;
+.previous-month, .next-month {
+  cursor: pointer;
 }
 
 .toggle-month-disabled {
-    cursor: default;
+  cursor: default;
 }
 
 .toggle-month-disabled path {
-    fill-opacity: 0.2;
+  fill-opacity: .2;
 }
 
 .current-month {
-    color: #79D2FF;
-    font-style: italic;
-    font-weight: 500;
-    font-size: 16px;
+  color: #79d2ff;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 16px;
 }
 
 .calendar-body {
-    /* height: 200px; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: #D9D9D9;
-    width: 100%;
-    border-radius: 3px;
-    padding: 5px;
-    gap: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #d9d9d9;
+  width: 100%;
+  border-radius: 3px;
+  padding: 5px;
+  gap: 3px;
 }
 
 .days-of-the-week {
-    display: flex;
-    width: 100%;
-    gap: 3px;
+  display: flex;
+  width: 100%;
+  gap: 3px;
 }
 
 .day-of-the-week {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    border-radius: 3px;
-    background-color: #FFFFFF;
-    color: rgba(46, 46, 46, 0.8);
-    font: 16px;
-    font-weight: 600;
-    height: 40px;
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none;    /* Firefox */
-    -ms-user-select: none;     /* Internet Explorer/Edge */
-    user-select: none;         /* Standard syntax */    
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  border-radius: 3px;
+  background-color: #fff;
+  color: #2e2e2ecc;
+  font: 16px;
+  font-weight: 600;
+  height: 40px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .days {
-    display: flex;
-    width: 100%;
-    gap: 3px;
+  display: flex;
+  width: 100%;
+  gap: 3px;
 }
 
 .day {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    border-radius: 3px;
-    background-color: #FFFFFF;
-    color: rgba(46, 46, 46, 0.8);
-    font: 16px;
-    font-weight: 600;
-    height: 40px;
-    cursor: pointer;
-    transition: transform 0.3s ease; /* Smooth transition */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none;    /* Firefox */
-    -ms-user-select: none;     /* Internet Explorer/Edge */
-    user-select: none;         /* Standard syntax */    
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  border-radius: 3px;
+  background-color: #fff;
+  color: #2e2e2ecc;
+  font: 16px;
+  font-weight: 600;
+  height: 40px;
+  cursor: pointer;
+  transition: transform .3s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .unselected {
-    background-color: rgba(255, 255, 255, 0.4);
-    cursor: default;
+  background-color: #fff6;
+  cursor: default;
 }
 
 .current-day {
-    background-color: #79D2FF;
-    color: #FFFFFF;
+  background-color: #79d2ff;
+  color: #fff;
 }
 
 .past {
-    cursor: default;
+  cursor: default;
 }
 
 .day:not(.unselected):not(.past):hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+@media (width <= 950px) {
+  .calendar {
+    flex: 1;
+    width: 100%;
+  }
+}
+
+@media (width <= 640px) {
+  .calendar {
+    width: 100%;
+    height: unset;
+    border-radius: 0;
+  }
+
+  .day {
+    height: 50px;
+  }
 }

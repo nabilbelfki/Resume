@@ -1,70 +1,188 @@
 .timeline {
-    display: flex;
-    flex-direction: row-reverse;
-    position: relative;
-    height: 500px;
-    padding-left: 20px;
-    padding-right: 20px;
+  display: flex;
+  position: relative;
+  height: 500px;
 }
-  
-.timeline > div{
-    flex: 1;
+
+.timeline > div {
+  flex: 1;
 }
 
 .year {
-    position: relative;
-    margin-right: 5px;
+  position: relative;
+  margin-right: 5px;
 }
 
 .year .indicator {
-    height: 30px;
-    width: 8px;
-    background-color: #021C4D;
+  height: 30px;
+  width: 8px;
+  background-color: #021c4d;
 }
 
 .year .text {
-    transform: rotate(90deg);
-    bottom: 0px;
+  transform: rotate(90deg);
+  bottom: 0;
+  position: absolute;
+  left: -27px;
+  font-size: 25px;
+  font-weight: 600;
+  color: #021c4d;
+}
+
+.february .indicator, .march .indicator, .april .indicator, .may .indicator, .june .indicator, .july .indicator, .august .indicator, .september .indicator, .november .indicator, .december .indicator {
+  background-color: #021c4d;
+  height: 10px;
+  width: 2px;
+}
+
+.april .indicator, .july .indicator, .october .indicator {
+  background-color: #021c4d;
+  height: 20px;
+  width: 3px;
+}
+
+.year {
+  margin-top: 400px;
+}
+
+.january {
+  margin-top: 400px;
+}
+
+.february {
+  margin-top: 400px;
+}
+
+.march {
+  margin-top: 400px;
+}
+
+.april {
+  margin-top: 400px;
+}
+
+.may {
+  margin-top: 400px;
+}
+
+.june {
+  margin-top: 400px;
+}
+
+.july {
+  margin-top: 400px;
+}
+
+.august {
+  margin-top: 400px;
+}
+
+.september {
+  margin-top: 400px;
+}
+
+.october {
+  margin-top: 400px;
+}
+
+.november {
+  margin-top: 400px;
+}
+
+.december {
+  margin-top: 400px;
+}
+
+@media (width <= 768px) {
+  .timeline {
+  }
+
+  .year .text {
+    transform: rotate(0);
+    bottom: 0;
     position: absolute;
-    left: -27px;
+    left: -30px;
     font-size: 25px;
-    font-weight: 600;
-    color: #021C4D;
+    font-weight: 300;
+  }
+
+  .year .indicator {
+    height: 8px;
+    width: 30px;
+    background-color: #021c4d;
+  }
+
+  .february .indicator, .march .indicator, .april .indicator, .may .indicator, .june .indicator, .july .indicator, .august .indicator, .september .indicator, .november .indicator, .december .indicator {
+    background-color: #021c4d;
+    height: 2px;
+    width: 10px;
+  }
+
+  .april .indicator, .july .indicator, .october .indicator {
+    background-color: #021c4d;
+    height: 3px;
+    width: 20px;
+  }
+
+  .indicator {
+    display: none;
+  }
+
+  .year {
+    margin-top: 0;
+  }
+
+  .january {
+    margin-top: 0;
+  }
+
+  .february {
+    margin-top: 0;
+  }
+
+  .march {
+    margin-top: 0;
+  }
+
+  .april {
+    margin-top: 0;
+  }
+
+  .may {
+    margin-top: 0;
+  }
+
+  .june {
+    margin-top: 0;
+  }
+
+  .july {
+    margin-top: 0;
+  }
+
+  .august {
+    margin-top: 0;
+  }
+
+  .september {
+    margin-top: 0;
+  }
+
+  .october {
+    margin-top: 0;
+  }
+
+  .november {
+    margin-top: 0;
+  }
+
+  .december {
+    margin-top: 0;
+  }
 }
 
-.february .indicator,
-.march .indicator,
-.april  .indicator,
-.may .indicator,
-.june .indicator,
-.july  .indicator,
-.august .indicator,
-.september .indicator,
-.november .indicator,
-.december .indicator{
-    background-color: #021C4D;
-    height: 10px;
-    width: 2px;
+@media (width <= 950px) {
+  .timeline {
+    margin-left: 37%;
+  }
 }
-
-.april  .indicator,
-.july  .indicator,
-.october .indicator {
-    background-color: #021C4D;
-    height: 20px;
-    width: 3px;
-}
-
-.year { margin-top: 400px }
-.january { margin-top: 400px }
-.february { margin-top: 400px }
-.march { margin-top: 400px }
-.april { margin-top: 400px }
-.may { margin-top: 400px }
-.june { margin-top: 400px }
-.july { margin-top: 400px }
-.august { margin-top: 400px }
-.september { margin-top: 400px }
-.october { margin-top: 400px }
-.november { margin-top: 400px }
-.december { margin-top: 400px }

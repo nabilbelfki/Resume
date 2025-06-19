@@ -16,13 +16,13 @@ const Home = async () => {
 
   try {
     const [projectsRes, skillsRes, experiencesRes] = await Promise.all([
-      fetch("http://localhost:3000/api/projects", {
+      fetch("https://nabilbelfki.com/api/projects", {
         next: { revalidate: 60 }, // Cache the response for 60 seconds
       }),
-      fetch("http://localhost:3000/api/skills", {
+      fetch("https://nabilbelfki.com/api/skills", {
         next: { revalidate: 60 }, // Cache the response for 60 seconds
       }),
-      fetch("http://localhost:3000/api/experiences", {
+      fetch("https://nabilbelfki.com/api/experiences", {
         next: { revalidate: 60 }, // Cache the response for 60 seconds
       }),
     ]);

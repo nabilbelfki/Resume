@@ -6,6 +6,7 @@ import { Experiences } from "./types";
 interface ExperienceProps {
   experience: Experiences;
   positions: { [key: string]: number };
+  direction: "horizontal" | "vertical",
   index: number;
   hoveredIndex: number | null;
   setHoveredIndex: (index: number | null) => void;
@@ -13,6 +14,7 @@ interface ExperienceProps {
 
 const Experience: React.FC<ExperienceProps> = ({
   experience,
+  direction,
   positions,
   index,
   hoveredIndex,
@@ -37,6 +39,9 @@ const Experience: React.FC<ExperienceProps> = ({
   const currentMonth = months[new Date().getMonth()];
   let endYearMonth = `${currentYear}-${currentMonth}`;
 
+
+  const mobileWidth = 640;
+  const screenWidth = window.innerWidth;
   const startDate = experience.period.start;
 
   if (experience.period.end) {
@@ -54,100 +59,25 @@ const Experience: React.FC<ExperienceProps> = ({
 
   const top = experience.level == 1 ? 393 : 353;
   const zIndex = hoveredIndex == index ? 10 : experience.zIndex;
-  const informationTop =
-    hoveredIndex == index
-      ? experience.name == "Cole Solutions LLC"
-        ? -360
-        : -320
-      : experience.name == "Cole Solutions LLC"
-      ? -240
-      : -200;
-  const translateX =
-    experience.name == "Cole Solutions LLC"
-      ? "translateX(calc(-50% - 70px))"
-      : experience.name == "New Jersey Institute of Technology"
-      ? "translateX(calc(-50% + 100px))"
-      : "translateX(-50%)";
-  const animationClass =
-    experience.name == "Cole Solutions LLC"
-      ? "floating-cole"
-      : experience.name == "New Jersey Institute of Technology"
-      ? "floating-njit"
-      : "floating";
-
-  // State for managing width and margin during animation for both lines
-  const [width, setWidth] = useState(0);
-  const [marginLeft, setMarginLeft] = useState("100%");
-
-  const [widthLine2, setWidthLine2] = useState(0);
-
-  useEffect(() => {
-    if (experience.level === 1 || experience.level === 2) {
-      const interval = setInterval(() => {
-        // Update for line 1 (same as before)
-        setWidth((prevWidth) => {
-          if (prevWidth < 100) {
-            return prevWidth + 1; // Increment width by 1%
-          } else {
-            clearInterval(interval); // Stop the interval when the animation is complete
-            return prevWidth;
-          }
-        });
-
-        setMarginLeft((prevMargin) => {
-          if (prevMargin !== "0%") {
-            return `${parseFloat(prevMargin) - 1}%`; // Decrease margin-left by 1%
-          } else {
-            return prevMargin;
-          }
-        });
-
-        // Update for line 2 (if it's level 2, animate the slanted line)
-        if (experience.level === 2) {
-          setWidthLine2((prevWidth) => {
-            if (prevWidth < 100) {
-              return prevWidth + 1; // Increment width by 1% for line 2
-            } else {
-              return prevWidth;
-            }
-          });
-        }
-      }, 20); // Update every 20ms for smooth animation
-
-      // Cleanup the interval on unmount
-      return () => clearInterval(interval);
-    }
-  }, [experience.level]); // Run only when experience.level changes
-
+  const informationTop = direction === "vertical" ? "50%" : (hoveredIndex == index ? (experience.name == "Cole Solutions LLC" ? -360 : -320) : (experience.name == "Cole Solutions LLC" ? -240 : -200));
+  const translateX = experience.name == "Cole Solutions LLC" ? "translateX(calc(-50% - 70px))" : (experience.name == "New Jersey Institute of Technology" ? "translateX(calc(-50% + 100px))" : "translateX(-50%)");
+  const animationClass = experience.name == "Cole Solutions LLC" ? "floating-cole" : (experience.name == "New Jersey Institute of Technology" ? "floating-njit" : "floating");
   return (
     <div
       className={styles.experience}
       style={{
-        top: `${top}px`,
-        left: `${endX}px`,
-        width: `${
-          experience.level == 1
-            ? experience.name == "American College of Thessaloniki"
-              ? duration + 8
-              : duration + 12
-            : duration - 75
-        }px`,
+        // top: `${top}px`,
+        // left: `${endX}px`,
+        // width: `${experience.level == 1 ? (experience.name == "American College of Thessaloniki" ? duration + 8 : duration + 12) : duration - 75}px`,
+        top: direction === "vertical" ? `${endX}px`: `${top}px`,
+        height: `${experience.level == 1 ? (experience.name == "American College of Thessaloniki" ? duration + 8 : duration + 12) : duration - 75}px`,
+        width: direction === "vertical" ? 8 : `${experience.level == 1 ? (experience.name == "American College of Thessaloniki" ? duration + 8 : duration + 12) : duration - 75}px`,
+        left: direction === "vertical" ?  (experience.name == "New Jersey Institute of Technology" ? 98 : 70): `${endX}px`
       }}
     >
-      <div
-        className={
-          index != hoveredIndex
-            ? `${styles.information} ${styles[animationClass]}`
-            : styles.information
-        }
-        style={{
-          backgroundColor: experience.color.background,
-          zIndex: zIndex,
-          top: informationTop,
-          transform: translateX,
-        }}
-        onMouseEnter={() => setHoveredIndex(index)} // Set state to index on hover
-        onMouseLeave={() => setHoveredIndex(null)} // Set state to null when hover ends
+      <div className={index != hoveredIndex ? `${styles.information} ${styles[animationClass]}` : styles.information } style={{backgroundColor: experience.color.background, zIndex: zIndex, left: direction === "vertical"? (experience.name == "Cole Solutions LLC" ? 200 : 50) : "50%", top: informationTop, transform: translateX, width: index === hoveredIndex && screenWidth <= mobileWidth ? "90vw" : "unset"}}
+      onMouseEnter={() => setHoveredIndex(index)} // Set state to index on hover
+      onMouseLeave={() => setHoveredIndex(null)} // Set state to null when hover ends
       >
         <div className={styles.header}>
           <div className={styles.logo}>
@@ -238,31 +168,21 @@ const Experience: React.FC<ExperienceProps> = ({
           </div>
         )}
       </div>
-
-      <div
-        className={styles.line}
-        style={{
+      <div className={styles.line} style={{
           backgroundColor: experience.color.line,
-          width: `${width}%`,
-          marginLeft: marginLeft,
+          height: direction === "vertical" ? "100%" : "7px"
         }}
-      ></div>
+      >
 
-      {/* Apply dynamic inline styles for the slanted line (line 2) */}
+        </div>
       {experience.level == 2 && (
-        <div
-          className={styles["position-line2"]}
-          style={{ marginLeft: duration - 89 }}
-        >
-          <div
-            className={`${styles.line} ${styles.line2}`}
-            style={{
-              backgroundColor: experience.color.line,
-              transform: "rotate(30deg)",
-              width: `${widthLine2}%`, // Animated width for slanted line
-              marginTop: 33,
-            }}
-          ></div>
+        <div className={styles.line} style={{
+          backgroundColor: experience.color.line, 
+          transform: direction === "vertical" ? 'rotate(110deg)' : 'rotate(30deg)', 
+          width: 82, 
+          marginLeft: direction === "vertical" ? "-50px" : duration - 82, 
+          marginTop: direction === "vertical" ? "33px" : 13
+        }}>
         </div>
       )}
     </div>
