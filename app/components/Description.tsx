@@ -8,13 +8,18 @@ interface DescriptionProps {
 }
 
 const Description: React.FC<DescriptionProps> = ({ text, url }) => {
+  const screenWidth = window.innerWidth;
+  const mobileWidth = 640;
   return (
     <div className={styles.description}>
-      <div className={styles.text} dangerouslySetInnerHTML={{ __html: text }} />
+      <div
+        className={styles.text}
+        dangerouslySetInnerHTML={{ __html: text }}
+      />
       <Button
         text="VIEW SITE"
         style={{
-          position: "absolute",
+          position: screenWidth > mobileWidth ? "absolute" : 'static',
           bottom: 5,
           right: 5,
           padding: 0,

@@ -11,15 +11,14 @@ interface VideoProps {
   thumbnailHeight?: number;
 }
 
-const Video: React.FC<VideoProps> = ({
-  name,
-  videoPath,
-  thumbnail,
-  thumbnailHeight,
-}) => {
+const Video: React.FC<VideoProps> = ({ name, videoPath, thumbnail, thumbnailHeight }) => {
+  const mobileWidth = 640;
+  const screenWidth = window.innerWidth;
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const height = thumbnailHeight ? thumbnailHeight : 285;
+  const thumbnailRef = useRef<HTMLDivElement>(null);
+  const [elementWidth, setElementWidth] = useState(0);
+
   useEffect(() => {
     const setVolume = () => {
       if (videoRef.current) {
@@ -28,9 +27,14 @@ const Video: React.FC<VideoProps> = ({
     };
 
     const timeoutId = setTimeout(setVolume, 0);
-
     return () => clearTimeout(timeoutId);
   }, []);
+
+  useEffect(() => {
+    if (thumbnailRef.current) {
+      setElementWidth(thumbnailRef.current.offsetWidth);
+    }
+  }, [screenWidth]);
 
   return (
     <div
@@ -38,11 +42,16 @@ const Video: React.FC<VideoProps> = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {isHovered && <div className={styles.preview}>{name}</div>}
+      {isHovered && (<div className={styles.preview}>{name}</div>)}
       {!isHovered ? (
         <div
+          ref={thumbnailRef}
           className={styles.thumbnail}
-          style={{ backgroundColor: thumbnail.backgroundColor, height: height }}
+          style={{
+            backgroundColor: thumbnail.backgroundColor,
+            width: "100%",
+            height: `${elementWidth / 2}px`
+          }}
         >
           <Image
             src={`${thumbnail.path}${thumbnail.fileName}`}
@@ -52,23 +61,12 @@ const Video: React.FC<VideoProps> = ({
           />
         </div>
       ) : (
-        <video
-          ref={videoRef}
-          className={styles.video}
-          style={{
-            borderRadius: 10,
-            backgroundColor:
-              thumbnail.backgroundColor == "#011A49"
-                ? "#092d6e"
-                : thumbnail.backgroundColor,
-          }}
-          autoPlay
-          loop
-        >
+        <video ref={videoRef} className={styles.video} style={{ borderRadius: 10, backgroundColor: thumbnail.backgroundColor == "#011A49" ? "#092d6e" : thumbnail.backgroundColor }} autoPlay loop>
           <source src={videoPath} type="video/mp4" />
         </video>
       )}
     </div>
   );
 };
+
 export default Video;

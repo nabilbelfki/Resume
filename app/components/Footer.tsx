@@ -3,13 +3,18 @@ import NavigationLink from "./NavigationLink";
 import styles from "./Footer.module.css";
 
 const Footer: React.FC = () => {
+  
+  const mobileWidth = 640;
+  const screenWidth = window.innerWidth;
+  
   return (
     <footer className={styles.footer}>
       <ul>
         <NavigationLink href="/#biography" label="Biography" />
         <NavigationLink href="/#experiences" label="Experience" />
-        <NavigationLink href="/#skills" label="Skills" />
+        {screenWidth > mobileWidth && (<NavigationLink href="/#skills" label="Skills" />)}
         <NavigationLink href="/#projects" label="Projects" />
+        <NavigationLink href="/#meeting" label="Meeting" />
         <NavigationLink href="/#contact" label="Contact" />
       </ul>
       <div className={`${styles["copyright-and-socials"]}`}>

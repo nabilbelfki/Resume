@@ -326,7 +326,7 @@ body {
     height: calc(100vh - 90px);
   }
 
-  #contact {
+  /* #contact {
     height: calc(100vh + 90px);
-  }
+  } */
 }
