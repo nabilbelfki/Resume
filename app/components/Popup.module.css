@@ -1,42 +1,54 @@
-/* Overlay */
 .overlay {
-    position: fixed; /* Stay in place */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.25); /* Black with 25% opacity */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Ensure it is on top of other elements */
-  }
-  
-  /* Popup */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #00000040;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px #0000001a;
+  max-width: 550px;
+  z-index: 1001;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.popup-title {
+  color: #2e2e2ecc;
+  font-weight: 600;
+  font-size: 32px;
+}
+
+.popup-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (width <= 640px) {
   .popup {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 550px;
-    /* width: 100%; */
-    z-index: 1001; /* Ensure it is on top of the overlay */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .popup-title {
-    color: rgba(46,46,46,0.8);
-    font-weight: 600;
-    font-size: 32px;
+    max-width: calc(100vw - 20px);
+    margin-bottom: 90px;
   }
 
-  .popup-actions {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+  .popup-title {
+    display: none;
   }
+
+  .popup-body {
+    width: 100%;
+  }
+}

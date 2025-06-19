@@ -1,68 +1,71 @@
 .skills {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    border-radius: 20px;
-    height: 500px;
-    width: 750px;
-    color: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 20px;
+  height: 500px;
+  width: 750px;
+  color: #000;
 }
 
 .mobile, .frontend, .backend, .database, .cloud, .miscellaneous {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: min-content;
-    grid-gap: 10px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 100%;
-    width: 650px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: min-content;
+  grid-gap: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+  width: 650px;
 }
 
 .skills-types {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 40px;
-    width: 50px;
-    height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 40px;
+  width: 50px;
+  height: 100%;
 }
 
 .skill {
-    width: 100%;
-    height: 100%;
-    min-height: 150px;
-    max-height: 150px;
-    border-radius: 10px;
-    box-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.25);
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    cursor: pointer;
-    padding: 5%;
-    gap: 10px;
+  width: 100%;
+  height: 100%;
+  min-height: 150px;
+  max-height: 150px;
+  border-radius: 10px;
+  box-shadow: 0 0 4px #ffffff40;
+  transition: all .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 5%;
+  gap: 10px;
 }
-
-/* .skill:not(.clicked):hover {
-    transform: scale(1.1);
-} */
 
 .skill.clicked {
-    z-index: 10; /* Bring the expanded element to the front */
-    max-height: unset;
+  z-index: 10;
+  max-height: unset;
 }
 
-@media (max-width: 768px) {
-    .skills {
-        width: 500px;
-    }
-
-    .mobile, .frontend, .backend, .database, .cloud, .miscellaneous {
-        grid-template-columns: repeat(2, 1fr);
-        width: 450px;
-    }
+@media (width <= 640px) {
+  .skills {
+    height: calc(100vh - 90px);
+    width: 100%;
+    border-radius: 0;
   }
+
+  .skill {
+    min-height: unset;
+    max-height: unset;
+  }
+
+  .mobile, .frontend, .backend, .database, .cloud, .miscellaneous {
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+  }
+}

@@ -1,20 +1,26 @@
 .description {
-    height: 160px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 600;
-    background-color: rgba(255, 255, 255, 0.7);
-    border-radius: 10px;
-    z-index: 100;
-    padding: 10px;
+  height: 160px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  background-color: #ffffffb3;
+  border-radius: 10px;
+  z-index: 100;
+  padding: 10px;
 }
 
 .logo {
-    height: 60px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (width <= 640px) {
+  .description {
+    font-size: 12px;
+  }
 }

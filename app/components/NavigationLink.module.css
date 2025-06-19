@@ -1,9 +1,22 @@
-/* components/NavigationLink.module.css */
 .link {
-    color: white;
-    text-decoration: none;
+  color: #fff;
+  text-decoration: none;
 }
 
 .link:hover {
-    text-decoration: underline;
+  text-decoration: underline;
+}
+
+.link svg {
+  display: none;
+}
+
+@media (width <= 640px) {
+  .link svg {
+    display: block;
+  }
+
+  .text {
+    font-size: 9px;
+  }
 }

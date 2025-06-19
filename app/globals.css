@@ -1,10 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
-
 :root {
-  --background: #011A49;
+  --background: #011a49;
   --foreground: #171717;
 }
 
@@ -14,32 +9,23 @@
 
 body {
   color: var(--foreground);
-  /* background: var(--background); */
-  background: linear-gradient(
-    to bottom,
-    #011A49 0%,
-    #113C8D 44%,
-    #113C8D 60%,
-    #011A49 85%
-  );
-  font-family: 'Inter', sans-serif;
+  background: linear-gradient(#011a49 0%, #113c8d 44% 60%, #011a49 85%);
+  font-family: Inter, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .container {
-  background-color: #011A49;
+  background-color: #011a49;
   max-width: 1200px;
-  box-shadow: -10px 0 10px -10px #000000, 10px 0 10px -10px #000000;
+  box-shadow: -10px 0 10px -10px #000, 10px 0 10px -10px #000;
 }
 
 .experience-and-skills {
-  background-color: #FFFFFF;
+  background-color: #fff;
 }
 
-
-/********************* SKILLS *********************/
 .skills-display {
   display: flex;
   justify-content: center;
@@ -48,7 +34,8 @@ body {
   margin-top: 60px;
   padding: 40px;
 }
-.metal img{
+
+.metal img {
   border-radius: 20px;
   width: 400px;
   height: 500px;
@@ -56,7 +43,7 @@ body {
 
 .skills-title-and-description {
   position: relative;
-  color: #2E2E2E;
+  color: #2e2e2e;
 }
 
 .skills-title {
@@ -66,8 +53,8 @@ body {
   height: 50px;
   padding: 20px;
   border-radius: 10px;
-  background-color: rgba(217, 217, 217, 0.8);
-  box-shadow: inset 0 0 4px 0 rgba(46, 46, 46, 0.5);
+  background-color: #d9d9d9cc;
+  box-shadow: inset 0 0 4px #2e2e2e80;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -77,7 +64,6 @@ body {
   transform: translateX(-50%);
 }
 
-
 .skills-description {
   position: absolute;
   top: 150px;
@@ -85,8 +71,8 @@ body {
   height: 300px;
   padding: 20px;
   border-radius: 10px;
-  background-color: rgba(217, 217, 217, 0.8);
-  box-shadow: inset 0 0 4px 0 rgba(46, 46, 46, 0.5);
+  background-color: #d9d9d9cc;
+  box-shadow: inset 0 0 4px #2e2e2e80;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -120,7 +106,6 @@ body {
   bottom: 10px;
   right: 10px;
 }
-/********************* PROJECT *********************/
 
 .projects-display {
   position: relative;
@@ -132,22 +117,21 @@ body {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 50px;
   padding: 50px;
+  background-color: #161b28;
 }
 
-.previous-projects,
-.next-projects {
+.previous-projects, .next-projects {
   top: calc(50% - 30px);
   position: absolute;
   height: 60px;
   width: 40px;
-  background-color: rgba(217, 217, 217, 0.7);
+  background-color: #d9d9d9b3;
   border-radius: 5px;
   display: flex;
   align-items: center;
 }
 
-.previous-projects svg ,
-.next-projects svg {
+.previous-projects svg, .next-projects svg {
   height: 30px;
 }
 
@@ -163,19 +147,16 @@ body {
   padding-right: 7px;
 }
 
-.previous-projects:hover,
-.next-projects:hover { 
-  background-color: rgba(92, 92, 92, 0.7);
+.previous-projects:hover, .next-projects:hover {
+  background-color: #5c5c5cb3;
 }
 
-.previous-projects:hover path,
-.next-projects:hover path{ 
-  stroke: #C1C1C1;
+.previous-projects:hover path, .next-projects:hover path {
+  stroke: #c1c1c1;
 }
 
 .contact-and-schedule-meeting {
-  /* height: 400px; */
-  background-color: #F3F3F3;
+  background-color: #f3f3f3;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -194,7 +175,7 @@ body {
 
 .calendar-title {
   font-size: 32px;
-  color: #2E2E2E;
+  color: #2e2e2e;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -216,36 +197,136 @@ body {
   transform: translateX(-50%);
 }
 
-
 .project-page {
-  background-color: rgba(188, 188, 188, 0.4);
-  box-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.25);
+  background-color: #bcbcbc66;
+  box-shadow: 0 0 4px #ffffff40;
   height: 15px;
   width: 15px;
   border-radius: 50%;
 }
 
 .selected-page {
-  background-color: rgba(255, 255, 255, 0.7);
-  box-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.7);
+  background-color: #ffffffb3;
+  box-shadow: 0 0 4px #ffffffb3;
 }
 
-/********************* MEDIA QUERIES *********************/
-@media (max-width: 1200px) {
-  /* Your CSS styles here */
+.grecaptcha-badge {
+  visibility: hidden !important;
+}
+
+@media (width <= 1200px) {
   .skills-display {
     flex-direction: column;
   }
-}
 
-@media (max-width: 1000px) {
-  .projects {
-    grid-template-columns: 1fr;
+  .skills-title-and-description {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .metal img {
+    width: 700px;
+    height: 200px;
+  }
+
+  .skills-title {
+    top: 20px;
+    left: 140px;
+    height: 160px;
+    width: 210px;
+  }
+
+  .skills-description {
+    top: 20px;
+    font-size: 20px;
+    width: 380px;
+    height: 160px;
+    right: 30px;
+    transform: none;
+    left: unset;
+  }
+
+  .contact-and-schedule-meeting {
+    padding: 40px;
   }
 }
 
-@media (max-width: 768px) {
+@media (width <= 950px) {
+  #contact {
+    flex: 1;
+  }
+
+  #meeting {
+    flex: 1;
+  }
+}
+
+@media (width <= 900px) {
+  body {
+    margin: 0;
+  }
+}
+
+@media (width <= 768px) {
+  .contact-and-schedule-meeting {
+    flex-direction: column-reverse;
+  }
+
+  #meeting {
+    width: 100%;
+  }
+
+  #contact {
+    width: 100%;
+  }
+}
+
+@media (width <= 640px) {
+  body {
+    margin: 0;
+    width: 100%;
+  }
+
   .container {
     width: 100%;
+  }
+
+  #skills {
+    padding: 0;
+  }
+
+  .skills-title-and-description {
+    display: none;
+  }
+
+  #projects {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .projects {
+    padding: 10px;
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-title {
+    margin-top: 40px;
+    height: 20%;
+  }
+
+  .contact-and-schedule-meeting {
+    padding: 0;
+    gap: 0;
+    margin-bottom: 90px;
+  }
+
+  #meeting {
+    width: 100%;
+    height: calc(100vh - 90px);
+  }
+
+  #contact {
+    height: calc(100vh + 90px);
   }
 }

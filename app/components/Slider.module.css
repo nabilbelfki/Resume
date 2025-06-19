@@ -1,21 +1,28 @@
 .container {
-    align-items: center;
-    background: #E3E3E3;
-    display: flex;
-    height: 100px;
-    justify-content: center;
-    overflow: hidden;
-    width: 100%;
-  }
-  
+  align-items: center;
+  background: #e3e3e3;
+  display: flex;
+  height: 100px;
+  justify-content: center;
+  overflow: hidden;
+  width: 100%;
+}
+
 .slider {
   display: flex;
   position: relative;
   width: 100%;
   gap: 10px;
-  animation: scroll 20s linear infinite;
+  animation: 20s linear infinite scroll;
 }
 
 .paused {
   animation-play-state: paused;
+}
+
+@media (width <= 950px) {
+  .container {
+    display: none;
+    width: 100vw;
+  }
 }
