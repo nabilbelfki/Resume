@@ -75,7 +75,7 @@ const Experience: React.FC<ExperienceProps> = ({
         left: direction === "vertical" ?  (experience.name == "New Jersey Institute of Technology" ? 98 : 70): `${endX}px`
       }}
     >
-      <div className={index != hoveredIndex ? `${styles.information} ${styles[animationClass]}` : styles.information } style={{backgroundColor: experience.color.background, zIndex: zIndex, left: direction === "vertical"? (experience.name == "Cole Solutions LLC" ? 200 : 50) : "50%", top: informationTop, transform: translateX, width: index === hoveredIndex && screenWidth <= mobileWidth ? "90vw" : "unset"}}
+      <div className={index != hoveredIndex ? `${styles.information} ${styles[animationClass]}` : `${styles.information} ${styles[`information-additional-styles`]}` } style={{backgroundColor: experience.color.background, zIndex: zIndex, left: direction === "vertical"? (experience.name == "Cole Solutions LLC" ? 200 : 50) : "50%", top: informationTop, transform: translateX, width: index === hoveredIndex && screenWidth <= mobileWidth ? "90vw" : "unset", position: screenWidth <= mobileWidth && index === hoveredIndex ? "fixed" : "absolute"}}
       onMouseEnter={() => setHoveredIndex(index)} // Set state to index on hover
       onMouseLeave={() => setHoveredIndex(null)} // Set state to null when hover ends
       >

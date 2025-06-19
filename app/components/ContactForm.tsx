@@ -86,7 +86,7 @@ const Contact: React.FC<unknown> = () => {
   };
 
   return (
-    <div className={styles["contact-form"]}>
+    <div id="contact" className={styles["contact-form"]}>
       <div className={styles["contact-form-title"]}>
         Need a Website, Integration or Application?
       </div>

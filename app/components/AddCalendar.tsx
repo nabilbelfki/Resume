@@ -8,6 +8,10 @@ interface AddCalendarProps {
 }
 
 const AddCalendar: React.FC<AddCalendarProps> = ({ dateTime }) => {
+
+  const mobileWidth = 640;
+  const screenWidth = window.innerWidth;
+
   const handleAddToCalendar = () => {
     const icsContent = generateICSFile(dateTime, "Meeting with Nabil Belfki", "This is a free consultation with me to get to know you and your business. You can tell me anything that you like and hopefully I can help you acheive your goals and build something truly amazing", "Online");
 
@@ -27,7 +31,8 @@ const AddCalendar: React.FC<AddCalendarProps> = ({ dateTime }) => {
 
   return (
     <div className={styles["add-calendar"]} onClick={handleAddToCalendar}>
-      <Image src="/images/calendar-binding.svg" alt="Calendar Binding" width="94" height="108" />
+      {screenWidth <= mobileWidth && (<Image src="/images/calendar-binding-horizontal.svg" className={styles[`horizontal-binding`]} alt="Calendar Binding" width="94" height="108" />)}      
+      {screenWidth > mobileWidth && (<Image src="/images/calendar-binding.svg" className={styles[`vertical-binding`]} alt="Calendar Binding" width="94" height="108" />)}      
       <div className={styles.text}>Add this Event to your Calendar Application</div>
     </div>
   );

@@ -54,7 +54,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  position: absolute;
   box-shadow: 0 0 4px #00000040;
   border-radius: 15px;
   padding: 20px;
@@ -164,4 +163,30 @@
   position: relative;
   transform-origin: 100% 100%;
   animation: 2s ease-in-out forwards increaseWidthToTopLeft;
+}
+
+@media (max-width: 640px) {
+  .information-additional-styles {
+      left: 5vw !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      width: 90vw !important;
+  }
+
+  /* .header {
+    width: 100%;
+  }
+
+  .name-location-and-date {
+    width: 80%;
+  } */
+
+  .name {
+    min-width: unset;
+    font-size: 90%;
+  }
+
+  .location-and-date {
+    font-size: 12px;
+  }
 }

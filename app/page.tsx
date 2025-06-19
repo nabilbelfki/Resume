@@ -259,8 +259,8 @@ const Home = async () => {
           </div>
         )}
       </div>
-      <div id="contact" className="contact-and-schedule-meeting">
-        <ContactForm />
+      <div className="contact-and-schedule-meeting">
+        <ContactForm/>
         <div id="meeting" className="title-and-calendar">
           <div className="calendar-title">Schedule a Meeting</div>
           <Calendar />

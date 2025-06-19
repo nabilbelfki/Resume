@@ -214,6 +214,10 @@ body {
   visibility: hidden !important;
 }
 
+#experiences {
+  padding-top: 50px;
+}
+
 @media (width <= 1200px) {
   .skills-display {
     flex-direction: column;
@@ -321,12 +325,13 @@ body {
     margin-bottom: 90px;
   }
 
+  #experiences {
+    padding-top: 80px;
+  }
+
   #meeting {
     width: 100%;
     height: calc(100vh - 90px);
   }
 
-  /* #contact {
-    height: calc(100vh + 90px);
-  } */
 }

@@ -128,8 +128,6 @@ const Timeline: React.FC<TimelineProps> = ({ experiences }) => {
         display: "flex",
         flexDirection: direction === "horizontal" ? "row-reverse" : "column-reverse",
         height: direction === "horizontal" ? 500 : 600,
-        paddingTop: direction === "vertical" ? 50: 0,
-        paddingBottom: direction === "vertical" ? 50: 0,
         paddingLeft: direction === "vertical" ? 0: 20,
         paddingRight: direction === "vertical" ? 0: 20,
         marginLeft: direction === "vertical" ? (window.innerWidth > mobileWidth ? 140 : 40) : 0
