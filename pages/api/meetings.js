@@ -103,6 +103,45 @@ export default async function handler(req, res) {
         details: error.message,
       });
     }
+  } else if (req.method === "DELETE") {
+    const { firstName, lastName, dateTimeString } = req.body;
+
+    if (!firstName || !lastName || !dateTimeString) {
+      return res.status(400).json({
+        success: false,
+        error: "firstName, lastName, and dateTimeString are required",
+      });
+    }
+
+    try {
+      const dateTime = new Date(dateTimeString);
+      
+      const deletedMeeting = await Meeting.findOneAndDelete({
+        firstName,
+        lastName,
+        dateTime,
+      });
+
+      if (!deletedMeeting) {
+        return res.status(404).json({
+          success: false,
+          error: "Meeting not found",
+        });
+      }
+
+      res.status(200).json({
+        success: true,
+        message: "Meeting deleted successfully",
+        deletedMeeting,
+      });
+    } catch (error) {
+      console.error("Error deleting meeting:", error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to delete meeting",
+        details: error.message,
+      });
+    }
   } else {
     res.status(405).json({ success: false, error: "Method not allowed" });
   }

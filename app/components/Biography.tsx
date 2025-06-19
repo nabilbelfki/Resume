@@ -3,21 +3,7 @@ import Image from "next/image";
 import styles from "./Biography.module.css";
 import SocialLink from "./SocialLink";
 
-interface BiographyProps {
-  name: string;
-  role: string;
-  imagePath: string;
-  imageAlt: string;
-  biography: string;
-}
-
-const Biography: React.FC<BiographyProps> = ({
-  name,
-  role,
-  imagePath,
-  imageAlt,
-  biography,
-}) => {
+const Biography: React.FC = ({}) => {
   const socialLinks = [
     {
       title: {

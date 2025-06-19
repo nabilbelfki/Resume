@@ -53,8 +53,7 @@ export default async function handler(req, res) {
       },
     });
 
-    const fullName = `${firstName} ${lastName}`;
-    const body = emailBody(fullName, date, time);
+    const body = emailBody(firstName, lastName, date, time, new Date(dateString));
 
     // Generate the ICS content
     const icsContent = generateICSFile(
@@ -88,7 +87,10 @@ export default async function handler(req, res) {
   }
 }
 
-function emailBody(name, date, time) {
+function emailBody(firstName, lastName, date, time, dateTime) {
+  const isoString = dateTime.toISOString(); // "2025-06-26T18:30:00.000Z"
+  const encodedDate = encodeURIComponent(isoString);
+
   return `<!DOCTYPE html>
   <html lang="en">
 
@@ -117,15 +119,15 @@ function emailBody(name, date, time) {
       </nav>
       <div style="width:1200px;background-color: #FFFFFF;">
           <div style="display: flex; padding: 50px; color: #3D3D3D; gap: 40px;">
-              <div style="flex: 1;">
-                  <img src="https://nabilbelfki.com/images/profile.jpg" alt="Profile Picture" width="250" height="250"
-                      style="border-radius: 50%;">
+              <div style="flex: 1; background-color: #7090cd; border-radius: 50%;">
+                  <img src="https://nabilbelfki.com/images/profile.png" alt="Profile Picture" width="250" height="250" 
+                      style="border-radius: 45%;">
               </div>
               <div
                   style="flex: 3; display: flex; justify-content: center; align-items: flex-start; flex-direction: column; height: 250px; gap: 10px;">
                   <h1 style="font-size: 50px; margin: 0;">Thanks for reaching out!</h1>
                   <h3 style="font-size: 25px; line-height: 1.4; margin: 0;">
-                      <i style="font-weight:300;">I look forward to speaking with you ${name} at </i>
+                      <i style="font-weight:300;">I look forward to speaking with you ${firstName} ${lastName} at </i>
                       <b>${time}</b>
                       <i style="font-weight:300;"> on </i>
                       <b>${date.trim()}</b><i style="font-weight:300;">. I will give you a call then. If you need to contact me beforehand don’t hesitate to send me an
@@ -196,7 +198,7 @@ function emailBody(name, date, time) {
                           Something unexpected came up and you need to cancel? No worries, I understand just click the
                           button below.
                       </div>
-                      <button
+                      <button href="https://nabilbelfki.com/email?firstName=${firstName}&lastName=${lastName}&date=${encodedDate}"
                           style="width: 150px; height: 40px; color: white; background-color: #113C8D; outline: none; border: none; cursor: pointer; border-radius: 5px;">
                           CANCEL MEETING
                       </button>

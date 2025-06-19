@@ -8,11 +8,10 @@ interface VideoProps {
   name: string;
   videoPath: string;
   thumbnail: Thumbnail;
-  thumbnailHeight?: number;
 }
 
-const Video: React.FC<VideoProps> = ({ name, videoPath, thumbnail, thumbnailHeight }) => {
-  const mobileWidth = 640;
+const Video: React.FC<VideoProps> = ({ name, videoPath, thumbnail}) => {
+  // const mobileWidth = 640;
   const screenWidth = window.innerWidth;
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);

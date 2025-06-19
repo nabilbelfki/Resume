@@ -26,7 +26,7 @@ const EmailContent: React.FC = () => {
       <div className={styles.content}>
         <div className={styles["add-calendar-and-cancel-meeting"]}>
           <AddCalendar dateTime={new Date(date)} />
-          <CancelMeeting meetingID="1" />
+          <CancelMeeting firstName={firstName} lastName={lastName} dateTimeString={date} />
         </div>
         <div className={styles["project-preview"]}>
           <Link key="67a2432855f8ecd625cc5ea5" href={`/#biography`}>

@@ -67,7 +67,6 @@ const Application: React.FC<ApplicationProps> = ({ params }) => {
         name={project.name}
         videoPath={`/videos/${project.slug}.mp4`}
         thumbnail={project.thumbnail}
-        thumbnailHeight={675}
       />
       <div className={styles.background}>
         <div className={styles["project-information"]}>

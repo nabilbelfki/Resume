@@ -50,13 +50,7 @@ const Home = async () => {
 
   return (
     <div>
-      <Biography
-        name="Nabil Belfki"
-        role="Software Engineer"
-        imagePath="/images/profile.jpg"
-        imageAlt="Nabil Belfki"
-        biography="There is nothing that I can’t do or accomplish. I’m a great asset to any team and company. I’ve transformed countless clients in my career by helping them automate processes and solve their problems. I’m code agnostic haven writen projects in many different stacks. I have knowledge in many different sectors from the flight industry to banking and finance to e-commerce."
-      />
+      <Biography/>
       <div id="experiences" className="experience-and-skills">
         <Timeline experiences={experiences} />
         <div id="skills" className="skills-display">
