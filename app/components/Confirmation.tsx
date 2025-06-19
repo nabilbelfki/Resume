@@ -34,7 +34,7 @@ const Confirmation: React.FC<ConfirmationProps> = ({
     <div className={styles.confirmation}>
       <div className={styles.icon}>
         <Image
-          src="/images/profile.jpg"
+          src="/images/profile.png"
           alt="Profile Picture"
           width="250"
           height="250"

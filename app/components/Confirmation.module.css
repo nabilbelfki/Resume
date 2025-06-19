@@ -7,10 +7,15 @@
 
 .icon {
     flex: 1;
+    background-color: #F1F8FF;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .icon img {
-    border-radius: 50%;
+    border-radius: 42%;
 }
 
 .message {
