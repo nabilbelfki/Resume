@@ -35,9 +35,9 @@
 }
 
 @media (width <= 950px) {
-  .social-link {
+  /* .social-link {
     height: 100%;
-  }
+  } */
 
   .title {
     font-size: 12px;
