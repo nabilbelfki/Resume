@@ -2,7 +2,7 @@
 import React from "react";
 import Button from "../components/Button";
 import styles from "./CancelMeeting.module.css";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 interface CancelMeetingProps {
   firstName: string;
   lastName: string;

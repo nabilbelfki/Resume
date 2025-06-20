@@ -12,11 +12,19 @@
 }
 
 @media (width <= 640px) {
-  .link svg {
-    display: block;
-  }
+    .link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 5px;
+    }
 
-  .text {
-    font-size: 9px;
-  }
+    .link svg {
+        display: block;
+    }
+
+    .text {
+        font-size: 9px;
+    }
 }

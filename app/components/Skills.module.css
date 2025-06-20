@@ -7,6 +7,7 @@
   height: 500px;
   width: 750px;
   color: #000;
+  z-index: 10;
 }
 
 .mobile, .frontend, .backend, .database, .cloud, .miscellaneous {
