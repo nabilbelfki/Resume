@@ -40,13 +40,17 @@
   }
 
 @media (max-width: 640px) {
+    #footer {
+        display: none;
+    }
+
     .share {
         padding: 0;
     }
 
     .profile {
         width: 100vw;
-        height: calc(100vh - 90px);
+        height: 100vh;
         border-radius: 0;
         padding: 0;
     }

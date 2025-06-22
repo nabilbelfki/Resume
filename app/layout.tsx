@@ -1,6 +1,7 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Script from "next/script";
+import { usePathname } from "next/navigation"; // Use usePathname instead of useRouter
 import { ReCaptchaProvider } from "next-recaptcha-v3";
 import NavigationBar from "./components/NavigationBar";
 import Footer from "./components/Footer";
@@ -12,6 +13,26 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
+const pathname = usePathname();
+  const isSharePage = pathname === "/share";
+  const [showFooter, setShowFooter] = useState(true);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobileWidth = 640;
+      const screenWidth = window.innerWidth;
+      setShowFooter(!(screenWidth <= mobileWidth && isSharePage));
+    };
+
+    handleResize(); // Set initial value
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isSharePage]);
+
   return (
     <html lang="en">
       <head>
@@ -49,7 +70,7 @@ export default function RootLayout({
             <div className="container">
               <NavigationBar />
               {children}
-              <Footer />
+              {showFooter && (<Footer />)}
             </div>
           </LoadScriptWrapper>
         </ReCaptchaProvider>
