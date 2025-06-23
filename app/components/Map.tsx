@@ -47,6 +47,10 @@ interface MapProps {
 }
 
 const Map: React.FC<MapProps> = ({ location }) => {
+
+  const mobileWidth = 640;
+  const screenWidth = window.innerWidth;
+
   const initialCenter = {
     lat: location.latitude,
     lng: location.longitude,
@@ -60,7 +64,7 @@ const Map: React.FC<MapProps> = ({ location }) => {
   }
 
   // Manually adjust the center by a small longitude offset
-  const longitudeOffset = 0.265; // Adjust this value as needed
+  const longitudeOffset = screenWidth > mobileWidth ? 0.265 : 0; // Adjust this value as needed
   const adjustedCenter = {
     lat: location.latitude,
     lng: location.longitude - longitudeOffset,
