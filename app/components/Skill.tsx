@@ -37,7 +37,7 @@ const Skill: React.FC<SkillProps> = ({
 }) => {
   const skillStyle = {
     backgroundColor: image.backgroundColor,
-    width: showDescription ? "410px" : "200px",
+    width: showDescription ? "420px" : "200px",
     height: showDescription ? "310px" : "150px",
   };
 

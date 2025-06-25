@@ -49,7 +49,7 @@ export default async function handler(req, res) {
       secure: true, // Use SSL
       auth: {
         user: process.env.EMAIL_USER, // Your Amazon WorkMail email
-        pass: process.env.MAIL_PERSONAL_ACCESS_TOKEN, // Use the token value here
+        pass: "Myfriendisdn1!", // Use the token value here
       },
     });
 
@@ -68,7 +68,7 @@ export default async function handler(req, res) {
       from: process.env.EMAIL_USER, // Sender address
       to: email, // List of recipients
       subject: "New Meeting Request", // Subject line
-      bcc: "nabilbelfki@gmail.com", // BCC recipient
+      bcc: "nabilbelfki@gmail.com", 
       html: body,
       alternatives: [
         {
@@ -88,158 +88,80 @@ export default async function handler(req, res) {
 }
 
 function emailBody(firstName, lastName, date, time, dateTime) {
-  const isoString = dateTime.toISOString(); // "2025-06-26T18:30:00.000Z"
+  const isoString = dateTime.toISOString();
   const encodedDate = encodeURIComponent(isoString);
 
-  return `<!DOCTYPE html>
-  <html lang="en">
-
+  return `<html lang="en">
   <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Confirmation Email</title>
   </head>
+  <body style="margin:0; padding:0; font-family:Arial,sans-serif; background:linear-gradient(to bottom,#011A49 0%,#113C8D 44%,#113C8D 60%,#011A49 85%);">
+      <!-- Main Container -->
+      <div style="max-width:600px; margin:0 auto;">
+          <!-- Navigation -->
+          <nav style="background-color:#011A49; padding:15px 0;">
+              <ul style="list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; justify-content:center; gap:10px;">
+                  <li><a href="https://www.nabilbelfki.com/#biography" style="color:white; text-decoration:none; font-size:14px; font-weight:600;">Biography</a></li>
+                  <li><a href="https://www.nabilbelfki.com/#experiences" style="color:white; text-decoration:none; font-size:14px; font-weight:600;">Experience</a></li>
+                  <li><a href="https://www.nabilbelfki.com/#skills" style="color:white; text-decoration:none; font-size:14px; font-weight:600;">Skills</a></li>
+                  <li><a href="https://www.nabilbelfki.com/#projects" style="color:white; text-decoration:none; font-size:14px; font-weight:600;">Projects</a></li>
+                  <li><a href="https://www.nabilbelfki.com/#contact" style="color:white; text-decoration:none; font-size:14px; font-weight:600;">Contact</a></li>
+              </ul>
+          </nav>
+          
+          <!-- Content -->
+          <div style="background-color:#FFFFFF; padding:20px;">
+              <!-- Profile Section -->
+              <div style="display:flex; flex-direction:column; align-items:center; padding:20px 0;">
+                  <div style="background-color:#7090cd; border-radius:50%; width:150px; height:150px; display:flex; justify-content:center; align-items:center;">
+                      <img src="https://nabilbelfki.com/images/profile.png" alt="Profile Picture" width="140" height="140" style="border-radius:45%;">
+                  </div>
+                  <div style="text-align:center; margin-top:20px;">
+                      <h1 style="font-size:28px; margin:0; color:#3D3D3D;">Thanks for reaching out!</h1>
+                      <h3 style="font-size:16px; line-height:1.4; margin:10px 0 0; color:#3D3D3D; font-weight:300;">
+                          I look forward to speaking with you ${firstName} ${lastName} at <b style="font-weight:600;">${time}</b> on <b style="font-weight:600;">${date.trim()}</b>. I will give you a call then. If you need to contact me beforehand don't hesitate to send me an email.
+                      </h3>
+                  </div>
+              </div>
+              
+              <!-- Action Section -->
+              <div style="display:flex; flex-direction:column; gap:30px; padding:20px 0;">
+                  <!-- Preview Card -->
+                  <div style="width:100%; background:linear-gradient(to bottom,#011A49 0%,#113C8D 44%,#113C8D 60%,#011A49 85%); padding:20px; border-radius:20px; box-sizing:border-box;">
+                      <a href="https://www.nabilbelfki.com/application/67a2432855f8ecd625cc5ea5" style="text-decoration:none; color:inherit;">
+                          <img src="https://nabilbelfki.com/videos/personal.gif" alt="Project Preview GIF" style="width:100%; border-radius:10px;">
+                      </a>
+                  </div>
 
-  <body style="box-sizing: border-box; font-family: Arial, sans-serif; display:flex; align-items: center; justify-content: center; flex-direction: column; background: linear-gradient( to bottom,#011A49 0%, #113C8D 44%, #113C8D 60%, #011A49 85% );">
-      <nav style="background-color: #011A49; height: 90px; width:1200px;">
-          <ul
-              style="list-style: none; display: flex; height: 100%; justify-content: center; align-items: center; gap: 6rem;">
-              <li><a href="https://www.nabilbelfki.com/#biography"
-                      style="color: white; text-decoration: none; font-size: 1.6rem; font-weight: 600;">Biography</a></li>
-              <li><a href="https://www.nabilbelfki.com/#experiences"
-                      style="color: white; text-decoration: none; font-size: 1.6rem; font-weight: 600;">Experience</a>
-              </li>
-              <li><a href="https://www.nabilbelfki.com/#skills"
-                      style="color: white; text-decoration: none; font-size: 1.6rem; font-weight: 600;">Skills</a></li>
-              <li><a href="https://www.nabilbelfki.com/#projects"
-                      style="color: white; text-decoration: none; font-size: 1.6rem; font-weight: 600;">Projects</a></li>
-              <li><a href="https://www.nabilbelfki.com/#contact"
-                      style="color: white; text-decoration: none; font-size: 1.6rem; font-weight: 600;">Contact</a></li>
-          </ul>
-      </nav>
-      <div style="width:1200px;background-color: #FFFFFF;">
-          <div style="display: flex; padding: 50px; color: #3D3D3D; gap: 40px;">
-              <div style="flex: 1; background-color: #7090cd; border-radius: 50%;">
-                  <img src="https://nabilbelfki.com/images/profile.png" alt="Profile Picture" width="250" height="250" 
-                      style="border-radius: 45%;">
-              </div>
-              <div
-                  style="flex: 3; display: flex; justify-content: center; align-items: flex-start; flex-direction: column; height: 250px; gap: 10px;">
-                  <h1 style="font-size: 50px; margin: 0;">Thanks for reaching out!</h1>
-                  <h3 style="font-size: 25px; line-height: 1.4; margin: 0;">
-                      <i style="font-weight:300;">I look forward to speaking with you ${firstName} ${lastName} at </i>
-                      <b>${time}</b>
-                      <i style="font-weight:300;"> on </i>
-                      <b>${date.trim()}</b><i style="font-weight:300;">. I will give you a call then. If you need to contact me beforehand don’t hesitate to send me an
-                          email.</i>
-                  </h3>
-              </div>
-          </div>
-          <div
-              style="display: flex; justify-content: center; align-items: center; padding: 60px; padding-top: 0; gap: 30px;">
-              <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; gap:30px">
-                  <div
-                      style="display: flex; position: relative; width: 440px; box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.25); border-radius: 20px;">
-                            <svg width="94" height="108" viewBox="0 0 28 31" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute; top: 0; left: -20px;">
-                            <path d="M6 5C6 2.23858 8.23858 0 11 0H28V31H11C8.23858 31 6 28.7614 6 26V5Z" fill="#EF0000"/>
-                            <circle cx="14" cy="24" r="3" fill="#535353"/>
-                            <circle cx="14" cy="15" r="3" fill="#535353"/>
-                            <circle cx="14" cy="6" r="3" fill="#535353"/>
-                            <g filter="url(#filter0_d_266_87)">
-                            <rect x="4" y="4" width="10" height="4" rx="1" fill="#B8B8B8"/>
-                            </g>
-                            <g filter="url(#filter1_d_266_87)">
-                            <rect x="4" y="13" width="10" height="4" rx="1" fill="#B8B8B8"/>
-                            </g>
-                            <g filter="url(#filter2_d_266_87)">
-                            <rect x="4" y="22" width="10" height="4" rx="1" fill="#B8B8B8"/>
-                            </g>
-                            <defs>
-                            <filter id="filter0_d_266_87" x="0" y="0" width="18" height="12" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-                            <feOffset/>
-                            <feGaussianBlur stdDeviation="2"/>
-                            <feComposite in2="hardAlpha" operator="out"/>
-                            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_266_87"/>
-                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_266_87" result="shape"/>
-                            </filter>
-                            <filter id="filter1_d_266_87" x="0" y="9" width="18" height="12" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-                            <feOffset/>
-                            <feGaussianBlur stdDeviation="2"/>
-                            <feComposite in2="hardAlpha" operator="out"/>
-                            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_266_87"/>
-                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_266_87" result="shape"/>
-                            </filter>
-                            <filter id="filter2_d_266_87" x="0" y="18" width="18" height="12" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-                            <feOffset/>
-                            <feGaussianBlur stdDeviation="2"/>
-                            <feComposite in2="hardAlpha" operator="out"/>
-                            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_266_87"/>
-                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_266_87" result="shape"/>
-                            </filter>
-                            </defs>
-                            </svg>
-                      <div
-                          style="display: flex; justify-content: center; align-items: center; font-size: 28px; font-weight: 600; color: #3D3D3D; width: 500px; height: 108px; padding-left: 100px;">
-                          Add this Event to your Calendar Application
+                  <!-- Cancel Card -->
+                  <div style="width:100%; box-shadow:0 0 4px 1px rgba(0,0,0,0.25); border-radius:20px; padding:20px; box-sizing:border-box; text-align:center;">
+                      <div style="font-style:italic; font-size:16px; font-weight:300; color:#3D3D3D;">
+                          Something unexpected came up and you need to cancel? No worries, I understand just click the button below.
                       </div>
-                  </div>
-                  <div
-                      style="width: 400px; height: 290px; box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.25); border-radius: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 20px; gap: 20px;">
-                      <div style="font-style: italic; font-size: 20px; font-weight: 300; text-align: center;">
-                          Something unexpected came up and you need to cancel? No worries, I understand just click the
-                          button below.
-                      </div>
-                      <button href="https://nabilbelfki.com/email?firstName=${firstName}&lastName=${lastName}&date=${encodedDate}"
-                          style="width: 150px; height: 40px; color: white; background-color: #113C8D; outline: none; border: none; cursor: pointer; border-radius: 5px;">
-                          CANCEL MEETING
-                      </button>
+                      <a href="https://nabilbelfki.com/email?firstName=${firstName}&lastName=${lastName}&date=${encodedDate}" style="text-decoration:none;">
+                          <button style="width:150px; height:40px; color:white; background-color:#113C8D; border:none; border-radius:5px; cursor:pointer; margin-top:15px; font-weight:600;">
+                              CANCEL MEETING
+                          </button>
+                      </a>
                   </div>
               </div>
-              <div
-                  style="width: 700px; display: flex;justify-content: center;align-items: center;background: linear-gradient( to bottom,#011A49 0%, #113C8D 44%, #113C8D 60%, #011A49 85% );padding: 20px;border-radius: 20px;height: 428px;">
-                  <a href="https://www.nabilbelfki.com/application/67a2432855f8ecd625cc5ea5" style="text-decoration: none; color: inherit;">
-                      <div style="position: relative; display: flex; justify-content: center; align-items: center;">
-                          <div
-                              style="position: absolute; top: 0; left: 0; width: 100%; display: none; justify-content: center; align-items: center; background-color: rgba(46, 46, 46, 0.7); color: #FFFFFF; font-size: 32px; height: 50px; border-top-right-radius: 10px; border-top-left-radius: 10px;">
-                              Personal Website
-                          </div>
-                          <img src="https://nabilbelfki.com/videos/personal.gif" alt="Project Preview GIF"
-                              style="width: 660px; height: auto; border-radius: 10px;">
-                      </div>
-                  </a>
-              </div>
           </div>
-      </div>
-      <footer
-          style="background-color: #011A49; padding: 0.5rem; height: 130px; display: flex; justify-content: center; align-items: center; flex-direction: column; width:1200px;">
-          <ul
-              style="list-style: none; display: flex; height: 70%; justify-content: center; align-items: center; gap: 6rem;">
-              <li><a href="https://www.nabilbelfki.com/#biography"
-                      style="color: white; text-decoration: none; font-size: 1.6rem; font-weight: 600;">Biography</a></li>
-              <li><a href="https://www.nabilbelfki.com/#experiences"
-                      style="color: white; text-decoration: none; font-size: 1.6rem; font-weight: 600;">Experience</a>
-              </li>
-              <li><a href="https://www.nabilbelfki.com/#skills"
-                      style="color: white; text-decoration: none; font-size: 1.6rem; font-weight: 600;">Skills</a></li>
-              <li><a href="https://www.nabilbelfki.com/#projects"
-                      style="color: white; text-decoration: none; font-size: 1.6rem; font-weight: 600;">Projects</a></li>
-              <li><a href="https://www.nabilbelfki.com/#contact"
-                      style="color: white; text-decoration: none; font-size: 1.6rem; font-weight: 600;">Contact</a></li>
-          </ul>
-          <div style="display: flex; width: 100%;">
-              <div style="font-weight: 600; color: #FFFFFF;">
+          
+          <!-- Footer -->
+          <footer style="background-color:#011A49; padding:20px 0; text-align:center;">
+              <ul style="list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; justify-content:center; gap:10px;">
+                  <li><a href="https://www.nabilbelfki.com/#biography" style="color:white; text-decoration:none; font-size:14px; font-weight:600;">Biography</a></li>
+                  <li><a href="https://www.nabilbelfki.com/#experiences" style="color:white; text-decoration:none; font-size:14px; font-weight:600;">Experience</a></li>
+                  <li><a href="https://www.nabilbelfki.com/#skills" style="color:white; text-decoration:none; font-size:14px; font-weight:600;">Skills</a></li>
+                  <li><a href="https://www.nabilbelfki.com/#projects" style="color:white; text-decoration:none; font-size:14px; font-weight:600;">Projects</a></li>
+                  <li><a href="https://www.nabilbelfki.com/#contact" style="color:white; text-decoration:none; font-size:14px; font-weight:600;">Contact</a></li>
+              </ul>
+              <div style="color:white; font-weight:600; margin-top:15px; font-size:12px;">
                   Copyright © 2024 Nabil Belfki. All rights reserved.
               </div>
-              <div style="flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 5px;">
+              <div style="display:flex; justify-content:center; gap:10px; margin-top:15px;">
                   <a href="https://www.github.com/nabilbelfki" target="_blank">
                       <svg height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path fillRule="evenodd" clipRule="evenodd"
@@ -271,11 +193,10 @@ function emailBody(firstName, lastName, date, time, dateTime) {
                       </svg>
                   </a>
               </div>
-          </div>
-      </footer>
+          </footer>
+      </div>
   </body>
-
-</html>`;
+  </html>`;
 }
 
 const generateICSFile = (
