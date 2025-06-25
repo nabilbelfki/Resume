@@ -49,7 +49,7 @@ export default async function handler(req, res) {
       secure: true, // Use SSL
       auth: {
         user: process.env.EMAIL_USER, // Your Amazon WorkMail email
-        pass: "Myfriendisdn1!", // Use the token value here
+        pass: process.env.MAIL_PERSONAL_ACCESS_TOKEN, // Use the token value here
       },
     });
 
@@ -80,6 +80,15 @@ export default async function handler(req, res) {
 
     // Send mail with defined transport object
     await transporter.sendMail(mailOptions);
+
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: "nabilbelfki@gmail.com",
+      subject: `Meeting with ${firstName} ${lastName}`,
+      text: `You have a meeting with ${firstName} ${lastName} at ${time} ${date.trim()}.\n
+      ${notes}`,
+    });
+
     res.status(200).json({ success: true });
   } catch (error) {
     console.error("Error sending email:", error);
