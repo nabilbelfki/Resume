@@ -53,7 +53,7 @@ const CancelMeeting: React.FC<CancelMeetingProps> = ({firstName, lastName, dateT
       </div>
       <Button 
         text="CANCEL MEETING" 
-        style={{width: 150, fontWeight: 600}} 
+        style={{width: 150, fontWeight: 600, minHeight: 50}} 
         onClick={handleCancelMeeting} 
       />
     </div>

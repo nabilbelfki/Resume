@@ -30,7 +30,7 @@
   color: #3d3d3d;
   width: 500px;
   height: 108px;
-  padding-left: 120px;
+  padding-left: 50px;
 }
 
 @media (width <= 1000px) {
@@ -40,7 +40,7 @@
 
   .text {
     width: 340px;
-    padding: 5px 5px 5px 100px;
+    padding: 5px 5px 5px 20px;
     font-size: 20px;
   }
 }
