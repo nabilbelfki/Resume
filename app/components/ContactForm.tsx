@@ -37,12 +37,6 @@ const Contact: React.FC<unknown> = () => {
   const sendEmail = async () => {
     const recaptchaToken = await executeRecaptcha('contact_form');
     // setRecaptchaToken(await executeRecaptcha("contact_form"));
-    
-    console.log("First Name", firstName)
-    console.log("Last Name", lastName)
-    console.log("Email", email)
-    console.log("Message", message)
-    console.log("Recaptcha Token", recaptchaToken)
 
     if (
       firstName !== "" &&

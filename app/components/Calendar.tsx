@@ -25,7 +25,7 @@ const Calendar: React.FC<unknown> = () => {
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
   const { executeRecaptcha } = useReCaptcha();
-  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  // const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [disablePreviousMonth, setDisablePreviousMonth] = useState(true);
 
   const [firstNamePlaceHolder, setFirstNamePlaceHolder] =
@@ -63,13 +63,18 @@ const Calendar: React.FC<unknown> = () => {
       setPage("contact");
     } else {
       const meetingToken = await executeRecaptcha("contact_form");
-      setRecaptchaToken(meetingToken);
+      // setRecaptchaToken(meetingToken);
+
+      console.log("First Name", firstName)
+      console.log("Last Name", lastName)
+      console.log("Email", email)
+      console.log("Recaptcha Token", meetingToken)
 
       if (
         firstName !== "" &&
         lastName !== "" &&
         email !== "" &&
-        recaptchaToken
+        meetingToken
       ) {
         let dateString = "";
         const time = selectedTime;
