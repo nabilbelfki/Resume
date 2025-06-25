@@ -10,7 +10,7 @@ const Contact: React.FC<unknown> = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  // const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
 
   const [firstNameStyles, setFirstNameStyles] = useState({ border: "none" });
   const [lastNameStyles, setLastNameStyles] = useState({ border: "none" });
@@ -35,8 +35,14 @@ const Contact: React.FC<unknown> = () => {
   };
 
   const sendEmail = async () => {
-    // const recaptchaToken = await executeRecaptcha('contact_form');
-    setRecaptchaToken(await executeRecaptcha("contact_form"));
+    const recaptchaToken = await executeRecaptcha('contact_form');
+    // setRecaptchaToken(await executeRecaptcha("contact_form"));
+    
+    console.log("First Name", firstName)
+    console.log("Last Name", lastName)
+    console.log("Email", email)
+    console.log("Message", message)
+    console.log("Recaptcha Token", recaptchaToken)
 
     if (
       firstName !== "" &&
@@ -69,7 +75,7 @@ const Contact: React.FC<unknown> = () => {
             setLastName("");
             setEmail("");
             setMessage("");
-            setRecaptchaToken(null); // Optionally clear reCAPTCHA token if needed
+            // setRecaptchaToken(null); // Optionally clear reCAPTCHA token if needed
           } else {
             console.log("Failed to send email");
           }
