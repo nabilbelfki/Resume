@@ -38,10 +38,21 @@ const pathname = usePathname();
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="UTF-8" />
-        <meta name="description" content="Your page description here" />
-        <meta name="keywords" content="your, keywords, here" />
-        <meta name="author" content="Your Name" />
         <title>Nabil Belfki</title>
+        <meta name="author" content="Nabil Belfki" />
+        <meta name="description" content="Let’s bring your vision to life and transform your goals into accomplishments. With over half a decade of experience in software development, I am here to support you with my vast skillset and talents." />
+        <meta name="keywords" content="software engineer, web development, mobile development, AI, ML, custom software, Nabil Belfki" />
+        <meta name="author" content="Nabil Belfki" />
+        <meta property="og:title" content="Nabil Belfki - Software Engineer" />
+        <meta property="og:description" content="Let’s bring your vision to life and transform your goals into accomplishments. With over half a decade of experience in software development, I am here to support you with my vast skillset and talents." />
+        <meta property="og:image" content="/images/profile.png" />
+        <meta property="og:url" content="https://nabilbelfki.com" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Nabil Belfki - Software Engineer" />
+        <meta name="twitter:description" content="Let’s bring your vision to life and transform your goals into accomplishments. With over half a decade of experience in software development, I am here to support you with my vast skillset and talents." />
+        <meta name="twitter:image" content="/images/profile.png" />
+
+
         <link
           rel="icon"
           href="/images/favicon.ico"
