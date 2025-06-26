@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
         <NavigationLink href="/#experiences" label="Experience" />
         {screenWidth > mobileWidth && (<NavigationLink href="/#skills" label="Skills" />)}
         <NavigationLink href="/#projects" label="Projects" />
-        <NavigationLink href="/#meeting" label="Meeting" />
+        {screenWidth <= mobileWidth && (<NavigationLink href="/#meeting" label="Meeting" />)}
         <NavigationLink href="/#contact" label="Contact" />
       </ul>
       <div className={`${styles["copyright-and-socials"]}`}>
