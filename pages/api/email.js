@@ -151,7 +151,7 @@ function emailBody(firstName, lastName, date, time, dateTime) {
                     <div style="font-style:italic; font-size:16px; font-weight:300; color:#3D3D3D;">
                         Something unexpected came up and you need to cancel? No worries, I understand just click the button below.
                     </div>
-                    <a href="https://nabilbelfki.com/email?firstName=${firstName}&lastName=${lastName}&date=${encodedDate}" style="text-decoration:none;">
+                    <a href="https://nabilbelfki.com/email?firstName=${firstName}&lastName=${lastName}&date=${encodedDate}" style="text-decoration:none;cursor:pointer;">
                         <button style="width:150px; height:40px; color:white; background-color:#113C8D; border:none; border-radius:5px; cursor:pointer; margin-top:15px; font-weight:600;">
                             CANCEL MEETING
                         </button>
