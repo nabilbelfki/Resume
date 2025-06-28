@@ -16,10 +16,31 @@ interface Description {
   backgroundColor: string;
 }
 
+type MobileImageHeightOverflows = {
+  Redis: string;
+  "React Native": string;
+  Jenkins: string;
+  React: string;
+  PHP: string;
+  PostgreSQL: string;
+  jQuery: string;
+};
+
+const mobileImageHeightOverflows: MobileImageHeightOverflows = {
+  Redis: "90%",
+  "React Native": "70%",
+  Jenkins: "70%",
+  React: "70%",
+  PHP: "70%",
+  PostgreSQL: "70%",
+  jQuery: "70%"
+};
+
 interface SkillProps {
   gridArea: string;
   className: string;
   image: Image;
+  name: string;
   isMobile: boolean;
   description: Description;
   onClick: () => void;
@@ -30,6 +51,7 @@ const Skill: React.FC<SkillProps> = ({
   gridArea,
   className,
   image,
+  name,
   isMobile,
   description,
   onClick,
@@ -44,15 +66,26 @@ const Skill: React.FC<SkillProps> = ({
   const skillStyle = {
     backgroundColor: image.backgroundColor,
     width: screenWidth > mobileWidth ? skillWidth : "100%",
-    height: screenWidth > mobileWidth ? skillHeight : skillHeight * 0.7,
-    padding: 5
+    height: screenWidth > mobileWidth ? skillHeight : skillHeight * 0.7
   };
 
   const logoStyle = {
     alignItems: "center",
     justifyContent: showDescription ? "flex-end" : "center",
-    height: showDescription ? "100px" : "100%",
+    height: showDescription ? "60px" : "100%",
   };
+
+  const mobileImageHeightOverflows: MobileImageHeightOverflows = {
+    Redis:"90%",
+    "React Native": "70%",
+    "Jenkins": "70%",
+    "React": "70%",
+    "PHP": "70%",
+    "PostgreSQL":"70%",
+    "jQuery":"70%"
+  }
+
+  console.log(name, name in mobileImageHeightOverflows);
 
   return (
     <div
@@ -80,6 +113,17 @@ const Skill: React.FC<SkillProps> = ({
           width={
             showDescription ? image.width * 0.6 : isMobile ? 50 : image.width
           }
+
+          style={{
+            height: showDescription ? "100%" : isMobile ? 50 : image.height,
+            width: showDescription ? "auto" : isMobile ? 50 : image.width,
+            maxHeight: showDescription && image.width > 175 
+              ? 40 
+              : (name in mobileImageHeightOverflows 
+                  ? mobileImageHeightOverflows[name as keyof MobileImageHeightOverflows] 
+                  : "unset")
+          }}
+
           alt="Logo"
         />
       </div>

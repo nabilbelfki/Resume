@@ -40,7 +40,7 @@ const Timeline: React.FC<TimelineProps> = ({ experiences }) => {
                 ? parentElement.getBoundingClientRect().top - timelineRect.top
                 : parentElement.getBoundingClientRect().left - timelineRect.left;
 
-            console.log(`Month: ${monthYear}, Offset: ${offset}, Direction: ${dir}`);
+            // console.log(`Month: ${monthYear}, Offset: ${offset}, Direction: ${dir}`);
 
             const isJanuary = parentClass.includes(styles.year);
             if (isJanuary) {
@@ -89,8 +89,8 @@ const Timeline: React.FC<TimelineProps> = ({ experiences }) => {
     ];
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
-    console.log(currentMonth);
-    console.log(currentYear);
+    // console.log(currentMonth);
+    // console.log(currentYear);
     const elements = [];
 
     for (let year = 2017; year <= currentYear; year++) {

@@ -35,24 +35,12 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
     "rgba(96, 96, 96, 0.1)"
   );
 
-  const [clickedMobileIndex, setMobileClickedIndex] = useState<number | null>(
-    null
-  );
-  const [clickedFrontendIndex, setFrontendClickedIndex] = useState<
-    number | null
-  >(null);
-  const [clickedBackendIndex, setBackendClickedIndex] = useState<number | null>(
-    null
-  );
-  const [clickedDatabaseIndex, setDatabaseClickedIndex] = useState<
-    number | null
-  >(null);
-  const [clickedCloudIndex, setCloudClickedIndex] = useState<number | null>(
-    null
-  );
-  const [clickedMiscellaneousIndex, setMiscellaneousClickedIndex] = useState<
-    number | null
-  >(null);
+  const [clickedMobileIndex, setMobileClickedIndex] = useState<number | null>(0);  // First mobile skill expanded by default
+  const [clickedFrontendIndex, setFrontendClickedIndex] = useState<number | null>(0);  // First frontend skill expanded by default
+  const [clickedBackendIndex, setBackendClickedIndex] = useState<number | null>(0);  // First backend skill expanded by default
+  const [clickedDatabaseIndex, setDatabaseClickedIndex] = useState<number | null>(0);  // First database skill expanded by default
+  const [clickedCloudIndex, setCloudClickedIndex] = useState<number | null>(0);  // First cloud skill expanded by default
+  const [clickedMiscellaneousIndex, setMiscellaneousClickedIndex] = useState<number | null>(0);  // First miscellaneous skill expanded by default
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
@@ -64,6 +52,21 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    // Set background color based on the first skill of the current type
+    const currentSkills = 
+      type === "mobile" ? mobile :
+      type === "frontend" ? frontend :
+      type === "backend" ? backend :
+      type === "database" ? database :
+      type === "cloud" ? cloud :
+      miscellaneous;
+    
+    if (currentSkills.length > 0) {
+      setBackgroundColor(hexToRgba(currentSkills[0].image.backgroundColor, 0.3));
+    }
+  }, [type]);
 
   const mobile: Skill[] = [];
   const frontend: Skill[] = [];
@@ -173,6 +176,7 @@ const renderSkills = (
         gridArea={gridArea}
         isMobile={isMobile}
         image={skill.image}
+        name={skill.name}
         description={skill.description}
         showDescription={clickedIndex === index}
         onClick={() => {
