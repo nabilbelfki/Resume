@@ -26,16 +26,6 @@ type MobileImageHeightOverflows = {
   jQuery: string;
 };
 
-const mobileImageHeightOverflows: MobileImageHeightOverflows = {
-  Redis: "90%",
-  "React Native": "70%",
-  Jenkins: "70%",
-  React: "70%",
-  PHP: "70%",
-  PostgreSQL: "70%",
-  jQuery: "70%"
-};
-
 interface SkillProps {
   gridArea: string;
   className: string;
@@ -76,14 +66,14 @@ const Skill: React.FC<SkillProps> = ({
   };
 
   const mobileImageHeightOverflows: MobileImageHeightOverflows = {
-    Redis:"90%",
+    Redis: "90%",
     "React Native": "70%",
-    "Jenkins": "70%",
-    "React": "70%",
-    "PHP": "70%",
-    "PostgreSQL":"70%",
-    "jQuery":"70%"
-  }
+    Jenkins: "70%",
+    React: "70%",
+    PHP: "70%",
+    PostgreSQL: "70%",
+    jQuery: "70%"
+  };
 
   console.log(name, name in mobileImageHeightOverflows);
 
