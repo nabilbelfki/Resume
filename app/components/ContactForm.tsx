@@ -38,14 +38,17 @@ const Contact: React.FC<unknown> = () => {
 
   const sendEmail = async () => {
     setIsLoading(true);
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const recaptchaToken = await executeRecaptcha('contact_form');
     // setRecaptchaToken(await executeRecaptcha("contact_form"));
+    
 
     if (
       firstName !== "" &&
       lastName !== "" &&
       email !== "" &&
       message !== "" &&
+      pattern.test(email) &&
       recaptchaToken
     ) {
       const templateParams = {
@@ -84,9 +87,13 @@ const Contact: React.FC<unknown> = () => {
         });
     } else {
       setIsLoading(false);
+      if (firstName == "")
       setFirstNameStyles({ border: "solid 1px red" });
+      if (lastName == "")
       setLastNameStyles({ border: "solid 1px red" });
+      if (email == "" || !pattern.test(email))
       setEmailStyles({ border: "solid 1px red" });
+      if (message == "")
       setMessageStyles({ border: "solid 1px red" });
     }
   };

@@ -61,9 +61,12 @@ const Calendar: React.FC<unknown> = () => {
 
   const bookMeeting = async () => {
     if (page === "times") {
+      if (selectedTime)
       setPage("contact");
+      else alert("Please choose a time");
     } else {
       setIsLoading(true);
+      const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const meetingToken = await executeRecaptcha("contact_form");
       // setRecaptchaToken(meetingToken);
 
@@ -76,6 +79,7 @@ const Calendar: React.FC<unknown> = () => {
         firstName !== "" &&
         lastName !== "" &&
         email !== "" &&
+        pattern.test(email) &&
         meetingToken
       ) {
         let dateString = "";
@@ -192,6 +196,10 @@ const Calendar: React.FC<unknown> = () => {
         if (email === "") {
           console.log("Email");
           setEmailPlaceHolder("Must Enter an Email...");
+          setEmailStyles({ border: "solid 1px red" });
+        }
+
+        if (!pattern.test(email)) {
           setEmailStyles({ border: "solid 1px red" });
         }
         setIsLoading(false);

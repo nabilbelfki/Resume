@@ -5,8 +5,8 @@ const MeetingSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String, required: true },
-  phone: { type: String, required: true },
-  notes: { type: String, required: true },
+  phone: { type: String, required: false },
+  notes: { type: String, required: false },
 });
 
 const Meeting = mongoose.models.Meeting || mongoose.model('Meeting', MeetingSchema);

@@ -11,8 +11,8 @@ export default async function handler(req, res) {
       firstName,
       lastName,
       email,
-      phone,
-      notes,
+      phone = "",
+      notes = "",
       recaptchaToken,
     } = req.body;
 
@@ -43,6 +43,8 @@ export default async function handler(req, res) {
 
       let dateTime = new Date(dateTimeString);
       console.log("Parsed dateTime:", dateTime);
+
+      // Create the meeting object with required and optional fields
       const meeting = new Meeting({
         dateTime,
         firstName,
@@ -51,6 +53,7 @@ export default async function handler(req, res) {
         phone,
         notes,
       });
+
       await meeting.save();
       res
         .status(201)
