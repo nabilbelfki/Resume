@@ -35,10 +35,17 @@ const Skill: React.FC<SkillProps> = ({
   onClick,
   showDescription,
 }) => {
+  const mobileWidth = 640;
+  const screenWidth = window.innerWidth;
+
+  const skillWidth = showDescription ? 420 : 200
+  const skillHeight = showDescription ? 310 : 150
+
   const skillStyle = {
     backgroundColor: image.backgroundColor,
-    width: showDescription ? "420px" : "200px",
-    height: showDescription ? "310px" : "150px",
+    width: screenWidth > mobileWidth ? skillWidth : "100%",
+    height: screenWidth > mobileWidth ? skillHeight : skillHeight * 0.7,
+    padding: 5
   };
 
   const logoStyle = {
@@ -68,10 +75,10 @@ const Skill: React.FC<SkillProps> = ({
         <Image
           src={image.url + image.name}
           height={
-            showDescription ? image.height * 0.7 : isMobile ? 50 : image.height
+            showDescription ? image.height * 0.6 : isMobile ? 50 : image.height
           }
           width={
-            showDescription ? image.width * 0.7 : isMobile ? 50 : image.width
+            showDescription ? image.width * 0.6 : isMobile ? 50 : image.width
           }
           alt="Logo"
         />

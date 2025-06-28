@@ -100,93 +100,92 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
 
-  const renderSkills = (
-    skills: Skill[],
-    clickedIndex: number | null,
-    setClickedIndex: React.Dispatch<React.SetStateAction<number | null>>,
-    isMobile: boolean
-  ) => {
-    const columns = isMobile ? 2 : 3;
+const renderSkills = (
+  skills: Skill[],
+  clickedIndex: number | null,
+  setClickedIndex: React.Dispatch<React.SetStateAction<number | null>>,
+  isMobile: boolean
+) => {
+  const columns = isMobile ? 2 : 3;
 
-    return skills.map((skill, index) => {
-      const row = Math.floor(index / columns) + 1;
-      const column = (index % columns) + 1;
-      let gridArea = `${row} / ${column} / ${row + 1} / ${column + 1}`;
+  return skills.map((skill, index) => {
+    const originalRow = Math.floor(index / columns) + 1;
+    const originalCol = (index % columns) + 1;
+    let gridArea = `${originalRow} / ${originalCol} / ${originalRow + 1} / ${originalCol + 1}`;
 
-      if (clickedIndex !== null) {
-        const clickedRow = Math.floor(clickedIndex / columns) + 1;
-        const clickedColumn = (clickedIndex % columns) + 1;
+    if (clickedIndex !== null) {
+      const clickedRow = Math.floor(clickedIndex / columns) + 1;
+      const clickedCol = (clickedIndex % columns) + 1;
 
-        if (clickedIndex === index) {
-          if (isMobile) {
-            if (clickedColumn === 1) {
-              gridArea = `${clickedRow} / 1 / ${clickedRow + 1} / 3`;
-            } else if (clickedColumn === 2) {
-              gridArea = `${clickedRow} / 1 / ${clickedRow + 1} / 3`;
-            }
+      if (clickedIndex === index) {
+        // Handle expanded skill
+        if (isMobile) {
+          // Mobile: expand to full width (2x1)
+          gridArea = `${clickedRow} / 1 / ${clickedRow + 1} / 3`;
+        } else {
+          // Desktop: expand to 2x2
+          if (clickedCol === 1) {
+            gridArea = `${clickedRow} / 1 / ${clickedRow + 2} / 3`;
           } else {
-            if (clickedColumn === 1) {
-              gridArea = `${clickedRow} / 1 / ${clickedRow + 2} / 3`;
-            } else if (clickedColumn === 2) {
-              gridArea = `${clickedRow} / 2 / ${clickedRow + 2} / 4`;
-            } else if (clickedColumn === 3) {
-              gridArea = `${clickedRow} / 2 / ${clickedRow + 2} / 4`;
+            gridArea = `${clickedRow} / 2 / ${clickedRow + 2} / 4`;
+          }
+        }
+      } else {
+        // Handle non-expanded skills
+        if (isMobile) {
+          // Mobile (2-column) layout
+          const currentRow = Math.floor(index / columns) + 1;
+          
+          if (currentRow === clickedRow) {
+            // Same row as clicked item - push to next row
+            gridArea = `${clickedRow + 1} / 1 / ${clickedRow + 2} / 2`;
+          } else if (currentRow > clickedRow) {
+            // Rows after the clicked row - push down by 1 row
+            if (originalCol == 1) {
+              gridArea = `${currentRow} / 2 / ${currentRow + 1} / 3`;
+            } else {
+              gridArea = `${currentRow + 1} / 1 / ${currentRow + 2} / 2`;
             }
           }
-        } else if (row === clickedRow || row > clickedRow) {
-          if (isMobile) {
-            if (clickedColumn === 1 && column === 2) {
-              gridArea = `${clickedRow + 1} / 1 / ${clickedRow + 2} / 2`;
-            } else if (clickedColumn === 2 && column === 1) {
-              gridArea = `${clickedRow} / 1 / ${clickedRow + 1} / 2`;
+        } else {
+          // Desktop (3-column) layout
+          if (originalRow === clickedRow) {
+            if (clickedCol === 1) {
+              if (originalCol === 2) gridArea = `${clickedRow} / 3 / ${clickedRow + 1} / 4`;
+              if (originalCol === 3) gridArea = `${clickedRow + 1} / 3 / ${clickedRow + 2} / 4`;
+            } else if (clickedCol === 2) {
+              if (originalCol === 1) gridArea = `${clickedRow} / 1 / ${clickedRow + 1} / 2`;
+              if (originalCol === 3) gridArea = `${clickedRow + 1} / 1 / ${clickedRow + 2} / 2`;
+            } else {
+              if (originalCol === 1) gridArea = `${clickedRow} / 1 / ${clickedRow + 1} / 2`;
+              if (originalCol === 2) gridArea = `${clickedRow + 1} / 1 / ${clickedRow + 2} / 2`;
             }
-          } else {
-            if (clickedColumn === 1) {
-              if (column === 2) {
-                gridArea = `${clickedRow} / 3 / ${clickedRow + 1} / 4`;
-              } else if (column === 3) {
-                gridArea = `${clickedRow + 1} / 3 / ${clickedRow + 2} / 4`;
-              }
-            } else if (clickedColumn === 2) {
-              if (column === 1) {
-                gridArea = `${clickedRow} / 1 / ${clickedRow + 1} / 2`;
-              } else if (column === 3) {
-                gridArea = `${clickedRow + 1} / 1 / ${clickedRow + 2} / 2`;
-              }
-            } else if (clickedColumn === 3) {
-              if (column === 1) {
-                gridArea = `${clickedRow} / 1 / ${clickedRow + 1} / 2`;
-              } else if (column === 2) {
-                gridArea = `${clickedRow + 1} / 1 / ${clickedRow + 2} / 2`;
-              }
-            }
-          }
-
-          if (row > clickedRow) {
-            gridArea = `${row + 1} / ${column} / ${row + 2} / ${column + 1}`;
+          } else if (originalRow > clickedRow) {
+            gridArea = `${originalRow + 1} / ${originalCol} / ${originalRow + 2} / ${originalCol + 1}`;
           }
         }
       }
+    }
 
-      return (
-        <Skill
-          key={index}
-          gridArea={gridArea}
-          isMobile={isMobile}
-          image={skill.image}
-          description={skill.description}
-          showDescription={clickedIndex === index}
-          onClick={() => {
-            setClickedIndex(clickedIndex === index ? null : index);
-            setBackgroundColor(hexToRgba(skill.image.backgroundColor, 0.3));
-          }}
-          className={`${styles.skill} ${
-            clickedIndex === index ? styles.clicked : ""
-          }`}
-        />
-      );
-    });
-  };
+    return (
+      <Skill
+        key={index}
+        gridArea={gridArea}
+        isMobile={isMobile}
+        image={skill.image}
+        description={skill.description}
+        showDescription={clickedIndex === index}
+        onClick={() => {
+          setClickedIndex(clickedIndex === index ? null : index);
+          setBackgroundColor(hexToRgba(skill.image.backgroundColor, 0.3));
+        }}
+        className={`${styles.skill} ${
+          clickedIndex === index ? styles.clicked : ""
+        }`}
+      />
+    );
+  });
+};
 
   return (
     <div className={styles.skills} style={{ backgroundColor: backgroundColor }}>
