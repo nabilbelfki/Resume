@@ -164,11 +164,11 @@ function emailBody(firstName, lastName, date, time, dateTime) {
         <div style="background-color:#011A49; padding:20px 0; text-align:center;">
             <table align="center" cellpadding="0" cellspacing="0" style="margin:0 auto;">
                 <tr>
-                    <td style="padding:0 10px;"><a href="https://www.nabilbelfki.com/#biography" style="color:white; text-decoration:none; font-size:14px; font-weight:600;">Biography</a></td>
-                    <td style="padding:0 10px;"><a href="https://www.nabilbelfki.com/#experiences" style="color:white; text-decoration:none; font-size:14px; font-weight:600;">Experience</a></td>
-                    <td style="padding:0 10px;"><a href="https://www.nabilbelfki.com/#skills" style="color:white; text-decoration:none; font-size:14px; font-weight:600;">Skills</a></td>
-                    <td style="padding:0 10px;"><a href="https://www.nabilbelfki.com/#projects" style="color:white; text-decoration:none; font-size:14px; font-weight:600;">Projects</a></td>
-                    <td style="padding:0 10px;"><a href="https://www.nabilbelfki.com/#contact" style="color:white; text-decoration:none; font-size:14px; font-weight:600;">Contact</a></td>
+                    <td style="padding:0 10px;"><a href="https://www.nabilbelfki.com/#biography" style="color:white; text-decoration:none; font-size:12px; font-weight:600;">Biography</a></td>
+                    <td style="padding:0 10px;"><a href="https://www.nabilbelfki.com/#experiences" style="color:white; text-decoration:none; font-size:12px; font-weight:600;">Experience</a></td>
+                    <td style="padding:0 10px;"><a href="https://www.nabilbelfki.com/#skills" style="color:white; text-decoration:none; font-size:12px; font-weight:600;">Skills</a></td>
+                    <td style="padding:0 10px;"><a href="https://www.nabilbelfki.com/#projects" style="color:white; text-decoration:none; font-size:12px; font-weight:600;">Projects</a></td>
+                    <td style="padding:0 10px;"><a href="https://www.nabilbelfki.com/#contact" style="color:white; text-decoration:none; font-size:12px; font-weight:600;">Contact</a></td>
                 </tr>
             </table>
             <div style="color:white; font-weight:600; margin-top:15px; font-size:12px;">
