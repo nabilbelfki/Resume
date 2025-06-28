@@ -24,6 +24,7 @@ const Calendar: React.FC<unknown> = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { executeRecaptcha } = useReCaptcha();
   // const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [disablePreviousMonth, setDisablePreviousMonth] = useState(true);
@@ -62,6 +63,7 @@ const Calendar: React.FC<unknown> = () => {
     if (page === "times") {
       setPage("contact");
     } else {
+      setIsLoading(true);
       const meetingToken = await executeRecaptcha("contact_form");
       // setRecaptchaToken(meetingToken);
 
@@ -157,18 +159,23 @@ const Calendar: React.FC<unknown> = () => {
                     lastName
                   )}&date=${encodeURIComponent(dateString)}`;
                   window.location.href = redirectUrl;
+                  setIsLoading(false);
                 } else {
                   console.log("Failed to send email");
+                  setIsLoading(false);
                 }
               })
               .catch((error) => {
                 console.error("Error sending email:", error);
+                setIsLoading(false);
               });
           } else {
             console.log("Failed to save meeting");
+            setIsLoading(false);
           }
         } catch (error) {
           console.error("Error saving meeting:", error);
+          setIsLoading(false);
         }
       } else {
         console.log("Here");
@@ -187,6 +194,7 @@ const Calendar: React.FC<unknown> = () => {
           setEmailPlaceHolder("Must Enter an Email...");
           setEmailStyles({ border: "solid 1px red" });
         }
+        setIsLoading(false);
       }
     }
   };
@@ -517,6 +525,7 @@ const Calendar: React.FC<unknown> = () => {
           </>
         }
         showing={showing}
+        isLoading={isLoading}
         onClose={onClose}
       />
     </div>

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useReCaptcha } from "next-recaptcha-v3";
 import Button from "./Button";
+import Loading from "./Loading";
 import styles from "./ContactForm.module.css";
 
 const Contact: React.FC<unknown> = () => {
@@ -10,6 +11,7 @@ const Contact: React.FC<unknown> = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   // const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
 
   const [firstNameStyles, setFirstNameStyles] = useState({ border: "none" });
@@ -35,6 +37,7 @@ const Contact: React.FC<unknown> = () => {
   };
 
   const sendEmail = async () => {
+    setIsLoading(true);
     const recaptchaToken = await executeRecaptcha('contact_form');
     // setRecaptchaToken(await executeRecaptcha("contact_form"));
 
@@ -73,11 +76,14 @@ const Contact: React.FC<unknown> = () => {
           } else {
             console.log("Failed to send email");
           }
+          setIsLoading(false);
         })
         .catch((error) => {
           console.error("Error sending email:", error);
+          setIsLoading(false);
         });
     } else {
+      setIsLoading(false);
       setFirstNameStyles({ border: "solid 1px red" });
       setLastNameStyles({ border: "solid 1px red" });
       setEmailStyles({ border: "solid 1px red" });
@@ -87,6 +93,7 @@ const Contact: React.FC<unknown> = () => {
 
   return (
     <div id="contact" className={styles["contact-form"]}>
+      <Loading isLoading={isLoading} zIndex={10}/>
       <div className={styles["contact-form-title"]}>
         Need a Website, Integration or Application?
       </div>
