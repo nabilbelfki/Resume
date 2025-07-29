@@ -14,12 +14,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.container {
-  background-color: #011a49;
-  max-width: 1200px;
-  box-shadow: -10px 0 10px -10px #000, 10px 0 10px -10px #000;
+  margin: 0;
 }
 
 .experience-and-skills {
@@ -216,6 +211,14 @@ body {
 
 #experiences {
   padding-top: 50px;
+}
+
+.codex-editor {
+  background-color: white;
+}
+
+#editorjs {
+  width: 100%;
 }
 
 @media (width <= 1200px) {

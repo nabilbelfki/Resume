@@ -3,9 +3,11 @@ import React, { useState, useEffect } from "react";
 import Script from "next/script";
 import { usePathname } from "next/navigation"; // Use usePathname instead of useRouter
 import { ReCaptchaProvider } from "next-recaptcha-v3";
-import NavigationBar from "./components/NavigationBar";
-import Footer from "./components/Footer";
-import LoadScriptWrapper from "./components/LoadScriptWrapper"; // Adjust the import path as needed
+import SideBar from '@/components/SideBar/SideBar'
+import NavigationBar from "@/components/NavigationBar/NavigationBar";
+import Footer from "@/components/Footer/Footer";
+import LoadScriptWrapper from "../components/LoadScriptWrapper/LoadScriptWrapper"; // Adjust the import path as needed
+import styles from "./Layout.module.css";
 import "./globals.css";
 
 export default function RootLayout({
@@ -15,8 +17,12 @@ export default function RootLayout({
 }) {
 
 const pathname = usePathname();
+  const isLoginPage = pathname === "/admin";
+  const isAdminPage = pathname?.substring(0,6) === "/admin" && !isLoginPage;
   const isSharePage = pathname === "/share";
   const [showFooter, setShowFooter] = useState(true);
+
+  const containerStyles = isAdminPage ? styles[`admin-container`] : styles[`site-container`]
 
   useEffect(() => {
     const handleResize = () => {
@@ -78,10 +84,11 @@ const pathname = usePathname();
           reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY_V3}
         >
           <LoadScriptWrapper>
-            <div className="container">
-              <NavigationBar />
+            <div className={isAdminPage ? styles[`admin-container`] : styles[`site-container`]}>
+              {!isLoginPage && (<NavigationBar type={isAdminPage ? 'admin' : 'classic'} />)}
+              {isAdminPage && (<SideBar />)}
               {children}
-              {showFooter && (<Footer />)}
+              {(showFooter && !isLoginPage && !isAdminPage) && (<Footer />)}
             </div>
           </LoadScriptWrapper>
         </ReCaptchaProvider>

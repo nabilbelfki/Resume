@@ -1,0 +1,175 @@
+[{
+  "_id": {
+    "$oid": "67bd32112a548afa963f8320"
+  },
+  "level": 1,
+  "zIndex": 1,
+  "name": "American College of Thessaloniki",
+  "location": "Thessaloniki, Greece",
+  "type": "Education",
+  "logo": {
+    "opened": {
+      "name": "act.svg",
+      "width": 50,
+      "height": 50
+    },
+    "closed": {
+      "name": "act.svg",
+      "width": 120,
+      "height": 120
+    }
+  },
+  "title": "Bachelors of Science",
+  "subtitle": "Business and Computing",
+  "period": {
+    "title": "June 2017",
+    "start": "2017-09-01",
+    "end": "2021-06-16"
+  },
+  "color": {
+    "line": "#870404",
+    "name": "#2E2E2E",
+    "title": "#FFFFFF",
+    "subtitle": "#FFFFFF",
+    "type": "#FFFFFF",
+    "date": "#870404",
+    "location": "rgba(46,46,46,0.7)",
+    "background": "#FFFFFF",
+    "details": "#870404",
+    "description": {
+      "text": "#FFFFFF",
+      "background": "rgba(255,255,255,0.3)"
+    }
+  },
+  "description": "I began my education aboard after having moved from United States to Greece. Here is where I fell in love with technology and began sharpening my skills. I broadened my understanding of various areas of Business and Computing during my Bachelors of Science Degree here."
+},
+{
+  "_id": {
+    "$oid": "67bd372c2a548afa963f8322"
+  },
+  "level": 1,
+  "zIndex": 1,
+  "name": "theCoderSchool",
+  "location": "Belle Mead, NJ",
+  "type": "Work",
+  "logo": {
+    "opened": {
+      "name": "the-coder-school.png",
+      "width": 50,
+      "height": 50
+    },
+    "closed": {
+      "name": "the-coder-school.png",
+      "width": 120,
+      "height": 120
+    }
+  },
+  "title": "Programming Instructor",
+  "period": {
+    "title": "March-August 2022",
+    "start": "2021-07-01",
+    "end": "2022-09-01"
+  },
+  "color": {
+    "line": "#10C810",
+    "name": "#2E2E2E",
+    "title": "#10C810",
+    "type": "#10C810",
+    "date": "#FFFFFF",
+    "location": "rgba(46,46,46,0.7)",
+    "background": "#10C810",
+    "details": "#FFFFFF",
+    "description": {
+      "text": "#2E2E2E",
+      "background": "rgba(0,0,0,0.1)"
+    }
+  },
+  "description": "Helping K-12 learn to code solidified my understanding further. Seeing their learning process was insightful. Here I learned the importance of projects compared to just teaching them to code. Building a project makes you realize the potential and why we code in the first place."
+},
+{
+  "_id": {
+    "$oid": "67bd38672a548afa963f8323"
+  },
+  "level": 2,
+  "zIndex": 1,
+  "name": "New Jersey Institute of Technology",
+  "location": "Newark, NJ",
+  "type": "Education",
+  "logo": {
+    "opened": {
+      "name": "njit.png",
+      "width": 50,
+      "height": 50
+    },
+    "closed": {
+      "name": "njit.png",
+      "width": 120,
+      "height": 120
+    }
+  },
+  "title": "Masters of Science",
+  "subtitle": "Business and Computing",
+  "period": {
+    "title": "September 2022-May 2025",
+    "start": "2022-09-01",
+    "end": "2025-05-19"
+  },
+  "color": {
+    "line": "#C30000",
+    "name": "#2E2E2E",
+    "title": "#C30000",
+    "subtitle": "#C30000",
+    "type": "#C30000",
+    "date": "#FFFFFF",
+    "location": "rgba(46,46,46,0.7)",
+    "background": "#C30000",
+    "details": "#FFFFFF",
+    "description": {
+      "text": "#2E2E2E",
+      "background": "rgba(0,0,0,0.1)"
+    }
+  },
+  "description": "For my Master's in Computer Science I emerged myself in the field, alongside like-minded people I fed my hunger for wanting to learn everything technology related. I left no stone unturned, from distributed programming to networking then cybersecurity, machine learning, AI and the list goes on."
+},
+{
+  "_id": {
+    "$oid": "67bd393a2a548afa963f8324"
+  },
+  "level": 1,
+  "zIndex": 2,
+  "name": "Cole Solutions LLC",
+  "location": "Piscataway, NJ",
+  "type": "Work",
+  "logo": {
+    "opened": {
+      "name": "cole-solutions-2.svg",
+      "width": 50,
+      "height": 50
+    },
+    "closed": {
+      "name": "cole-solutions-1.svg",
+      "width": 150,
+      "height": 120
+    }
+  },
+  "title": "Software Developer",
+  "period": {
+    "title": "September 2022-Present",
+    "start": "2022-09-01"
+  },
+  "color": {
+    "line": "#0898DA",
+    "name": "#223E60",
+    "title": "#FFFFFF",
+    "type": "#FFFFFF",
+    "date": "#0898DA",
+    "location": "#223E60",
+    "background": "#FFFFFF",
+    "details": "#0898DA",
+    "description": {
+      "text": "#FFFFFF",
+      "background": "rgba(255,255,255,0.3)"
+    }
+  },
+  "description": "At Cole Solutions I became a well-versed Developer. Building applications for various client gave me knowledge in many different industries including banking and finance, travel, staffing, manufacturing and e-commerce. Here I discovered to apply everything I had learned over the years."
+}]

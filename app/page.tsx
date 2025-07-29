@@ -1,13 +1,13 @@
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-import Biography from "./components/Biography";
-import Timeline from "./components/Timeline";
-import ContactForm from "./components/ContactForm";
-import Calendar from "./components/Calendar";
-import Skills from "./components/Skills";
-import Video from "./components/Video";
-import { Experiences, Project, Skill } from "./components/types";
+import Biography from "@/components/Biography/Biography";
+import Timeline from "@/components/Timeline/Timeline";
+import ContactForm from "@/components/ContactForm/ContactForm";
+import Calendar from "@/components/Calendar/Calendar";
+import Skills from "@/components/Skills/Skills";
+import Video from "@/components/Video/Video";
+import { Experiences, Project, Skill } from "../lib/types";
 
 const Home = async () => {
   let projects: Project[] = [];

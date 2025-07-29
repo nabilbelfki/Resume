@@ -10,6 +10,22 @@
   },
   "dependencies": {
     "@aws-sdk/client-workmail": "^3.830.0",
+    "@editorjs/checklist": "^1.6.0",
+    "@editorjs/code": "^2.9.3",
+    "@editorjs/delimiter": "^1.4.2",
+    "@editorjs/editorjs": "^2.30.8",
+    "@editorjs/embed": "^2.7.6",
+    "@editorjs/header": "^2.8.8",
+    "@editorjs/image": "^2.10.2",
+    "@editorjs/inline-code": "^1.5.2",
+    "@editorjs/link": "^2.6.2",
+    "@editorjs/list": "^2.0.8",
+    "@editorjs/marker": "^1.4.0",
+    "@editorjs/quote": "^2.7.6",
+    "@editorjs/raw": "^2.5.1",
+    "@editorjs/simple-image": "^1.6.0",
+    "@editorjs/table": "^2.4.5",
+    "@editorjs/warning": "^1.4.1",
     "@react-google-maps/api": "^2.20.6",
     "axios": "^1.7.9",
     "mongoose": "^8.9.7",
@@ -17,7 +33,8 @@
     "next-recaptcha-v3": "^1.5.2",
     "nodemailer": "^6.10.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-editor-js": "^2.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

@@ -1,0 +1,33 @@
+.container {
+    min-height: 800px;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    color: #3D3D3D;
+}
+
+.post {
+    padding: 0 50px;
+}
+
+.date-read-time-and-category {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    font-weight: 600;
+}
+
+.date,
+.bullet,
+.read-time {
+    color: #656565;
+}
+
+.category {
+    margin-left: 13px;
+    color: #A1C2FF;
+    font-size: 18px;
+}

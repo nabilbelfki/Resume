@@ -1,0 +1,871 @@
+[{
+  "_id": {
+    "$oid": "67a23bc555f8ecd625cc5ea3"
+  },
+  "name": "The Game of Cluedo",
+  "duration": "2 Months",
+  "startDate": "2024-11-10T00:00:00Z",
+  "endDate": "2025-01-16T00:00:00Z",
+  "views": 1247,
+  "repository": {
+    "type": "Github",
+    "url": "https://www.github.com/nabilbelfki/Clue",
+    "shortUrl": "www.github.com/nabilbelfki/Clue"
+  },
+  "container": {
+    "type": "Docker",
+    "url": "https://hub.docker.com/r/nabilbelfki/clue",
+    "shortUrl": "hub.docker.com/r/nabilbelfki/clue"
+  },
+  "thumbnail": {
+    "path": "/images/logos/",
+    "fileName": "clue-thumbnail.svg",
+    "width": 200,
+    "height": 100,
+    "backgroundColor": "#FF4B4B"
+  },
+  "description": "This game was developed at New Jersey Institute of Technology, during the Fall term of 2024 for my Artificial Intelligence course. It is based on the game of Cluedo by Hasbro, and is a web application that simulates the real experience of playing the boardgame, where up to 6 players can jump into a lobby and attempt to guess how the murder was done. I think its a super cool and fun game if you ask me and I even tried to reach out to Hasbro Inc. through email to show them it and see if they want to collaborate, but I was immediately shot down. If you know someone at Hasbro let me know so I can \nhopefully get in touch with them.",
+  "slug": "clue",
+  "url": "https://www.clue.nabilbelfki.com/",
+  "languages": [
+    {
+      "name": "HTML 5",
+      "color": "#E34F26",
+      "percentage": 40
+    },
+    {
+      "name": "PHP 7.3",
+      "color": "#777BB3",
+      "percentage": 20
+    },
+    {
+      "name": "JavaScript EC6",
+      "color": "#FFDF00",
+      "percentage": 20
+    },
+    {
+      "name": "MySQL 8.1",
+      "color": "#00678C",
+      "percentage": 10
+    },
+    {
+      "name": "CSS 3",
+      "color": "#0089CA",
+      "percentage": 5
+    },
+    {
+      "name": "Miscallaneous",
+      "color": "#D9D9D9",
+      "percentage": 5
+    }
+  ],
+  "tools": [
+    {
+      "name": "Django",
+      "slug": "django",
+      "url": "https://www.djangoproject.com/",
+      "color": "#0C4B33",
+      "imagePath": "/images/logos/django.svg",
+      "width": 230
+    },
+    {
+      "name": "Python",
+      "slug": "python",
+      "url": "https://www.python.org/",
+      "color": "#28445B",
+      "imagePath": "/images/logos/python.svg",
+      "width": 150
+    },
+    {
+      "name": "jQuery",
+      "slug": "jquery",
+      "url": "https://jquery.com/",
+      "color": "#FFFFFF",
+      "imagePath": "/images/logos/jquery.svg",
+      "width": 150
+    },
+    {
+      "name": "HTML",
+      "slug": "html",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+      "color": "#E34F26",
+      "imagePath": "/images/logos/html.svg",
+      "width": 150
+    },
+    {
+      "name": "CSS",
+      "slug": "css",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+      "color": "#0089CA",
+      "imagePath": "/images/logos/css.svg",
+      "width": 150
+    },
+    {
+      "name": "Redis",
+      "slug": "redis",
+      "url": "https://redis.io/",
+      "color": "#ED9793",
+      "imagePath": "/images/logos/redis.svg",
+      "width": 150
+    },
+    {
+      "name": "MySQL",
+      "slug": "mysql",
+      "url": "https://www.mysql.com/",
+      "color": "#FFFFFF",
+      "imagePath": "/images/logos/mysql.svg",
+      "width": 210
+    },
+    {
+      "name": "Daphne",
+      "slug": "daphne",
+      "url": "https://github.com/django/daphne",
+      "color": "#5DA6E2",
+      "imagePath": "/images/logos/pip.svg",
+      "width": 150
+    },
+    {
+      "name": "Ubuntu",
+      "slug": "ubuntu",
+      "url": "https://ubuntu.com/",
+      "color": "#F6D8C4",
+      "imagePath": "/images/logos/ubuntu.svg",
+      "width": 150
+    },
+    {
+      "name": "Nginx",
+      "slug": "nginx",
+      "url": "https://nginx.org/en/",
+      "color": "#2A4D2A",
+      "imagePath": "/images/logos/nginx.svg",
+      "width": 150
+    },
+    {
+      "name": "Figma",
+      "slug": "figma",
+      "url": "https://www.figma.com/",
+      "color": "#2E2E2E",
+      "imagePath": "/images/logos/figma.svg",
+      "width": 150
+    },
+    {
+      "name": "Visual Studio Code",
+      "slug": "visual-studio-code",
+      "url": "https://code.visualstudio.com/",
+      "color": "#EDEDED",
+      "imagePath": "/images/logos/visual-studio-code.svg",
+      "width": 150
+    },
+    {
+      "name": "GitHub",
+      "slug": "github",
+      "url": "https://www.github.com/",
+      "color": "#2E2E2E",
+      "imagePath": "/images/github-logo.svg",
+      "width": 150
+    },
+    {
+      "name": "Docker",
+      "slug": "docker",
+      "url": "https://www.docker.com/",
+      "color": "#127EC0",
+      "imagePath": "/images/docker.svg",
+      "width": 150
+    }
+  ],
+  "client": {
+    "title": {
+      "name": "Hasbro Inc.",
+      "fontSize": 32
+    },
+    "logo": {
+      "path": "/images/logos/",
+      "fileName": "hasbro.png",
+      "width": 40,
+      "height": 40
+    },
+    "location": {
+      "latitude": 41.88355,
+      "longitude": -71.35301
+    },
+    "description": "Hasbro, Inc. is a leading global play and entertainment company committed to creating the world’s best play experiences. Founded in 1923 and headquartered in Pawtucket, Rhode Island, Hasbro designs and produces a wide range of toys, games, and entertainment products. The company’s portfolio includes iconic brands such as NERF, My Little Pony, Transformers, Play-Doh, Monopoly, and Magic: The Gathering.",
+    "slides": [
+      {
+        "name": "Clue",
+        "image": {
+          "width": 355.45,
+          "height": 200,
+          "src": "/images/cluedo.png",
+          "alt": "Cluedo Tudor Artwork",
+          "backgroundColor": "#272727"
+        }
+      },
+      {
+        "name": "Monopoly",
+        "image": {
+          "width": 216,
+          "height": 288,
+          "src": "/images/monopoly.jpg",
+          "alt": "Monopoly Artwork",
+          "backgroundColor": "#219CEE"
+        }
+      },
+      {
+        "name": "Play-Doh",
+        "image": {
+          "width": 324,
+          "height": 247.43,
+          "src": "/images/playdoh.png",
+          "alt": "Play-Doh Artwork",
+          "backgroundColor": "#FFFFFF"
+        }
+      },
+      {
+        "name": "Transformers",
+        "image": {
+          "width": 324,
+          "height": 200,
+          "src": "/images/transformers.png",
+          "alt": "Optimus Prime Artwork",
+          "backgroundColor": "#FFFFFF"
+        }
+      },
+      {
+        "name": "Magic the Gathering",
+        "image": {
+          "width": 324,
+          "height": 182.3,
+          "src": "/images/magic-the-gathering.jpg",
+          "alt": "Magic the Gathering Artwork",
+          "backgroundColor": "#181c26"
+        }
+      },
+      {
+        "name": "My Little Pony",
+        "image": {
+          "width": 243.62,
+          "height": 280,
+          "src": "/images/my-little-pony.png",
+          "alt": "My Little Pony Artwork",
+          "backgroundColor": "#FFFFFF"
+        }
+      },
+      {
+        "name": "Littlest Pet Shop",
+        "image": {
+          "width": 400,
+          "height": 225,
+          "src": "/images/littlest-pet-shop.jpg",
+          "alt": "Littlest Pet Shop Artwork",
+          "backgroundColor": "#783fbc"
+        }
+      }
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "67a2432855f8ecd625cc5ea5"
+  },
+  "name": "Personal Website",
+  "duration": "3 Months",
+  "startDate": "2024-12-09T00:00:00Z",
+  "endDate": "2025-04-29T00:00:00Z",
+  "views": 537,
+  "repository": {
+    "url": "https://github.com/nabilbelfki/Resume",
+    "shortUrl": "github.com/nabilbelfki/Resume",
+    "type": "GitHub"
+  },
+  "thumbnail": {
+    "path": "/images/logos/",
+    "fileName": "personal-thumbnail.svg",
+    "width": 200,
+    "height": 100,
+    "backgroundColor": "#011A49"
+  },
+  "description": "This project was to showcase all the previous work that I've done. I thought if I have the skills to make a nice interactive resume, why not do it? Done in the newest technologies that are hype right now like Next.js 15, React and more. The website is also responsive to mobile screen sizes and in the future I plan it to be a mobile application too. Some of these animations were super hard to make and took a lot of time and effort in getting correct, but it really helped me learn which is so valuable! Reach out to me and let me know what you think!",
+  "slug": "personal",
+  "url": "https://www.nabilbelfki.com",
+  "languages": [
+    {
+      "name": "MongoDB",
+      "color": "#009546",
+      "percentage": 20
+    },
+    {
+      "name": "TypeScript 5.7",
+      "color": "#3178C6",
+      "percentage": 70
+    },
+    {
+      "name": "JavaScript EC6",
+      "color": "#FFDF00",
+      "percentage": 10
+    }
+  ],
+  "tools": [
+    {
+      "name": "React",
+      "slug": "react",
+      "url": "https://react.dev/",
+      "color": "#F3F3F3",
+      "imagePath": "/images/logos/react.svg",
+      "width": 150
+    },
+    {
+      "name": "Next.js",
+      "slug": "next",
+      "url": "https://nextjs.org/",
+      "color": "#000000",
+      "imagePath": "/images/logos/next.svg",
+      "width": 150
+    },
+    {
+      "name": "MongoDB",
+      "slug": "mongo",
+      "url": "https://www.mongodb.com/",
+      "color": "#009546",
+      "imagePath": "/images/logos/mongo.svg",
+      "width": 250
+    },
+    {
+      "name": "jQuery",
+      "slug": "jquery",
+      "url": "https://jquery.com/",
+      "color": "#FFFFFF",
+      "imagePath": "/images/logos/jquery.svg",
+      "width": 150
+    },
+    {
+      "name": "HTML",
+      "slug": "html",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+      "color": "#E34F26",
+      "imagePath": "/images/logos/html.svg",
+      "width": 150
+    },
+    {
+      "name": "CSS",
+      "slug": "css",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+      "color": "#0089CA",
+      "imagePath": "/images/logos/css.svg",
+      "width": 150
+    },
+    {
+      "name": "Redis",
+      "slug": "redis",
+      "url": "https://redis.io/",
+      "color": "#ED9793",
+      "imagePath": "/images/logos/redis.svg",
+      "width": 150
+    },
+    {
+      "name": "Ubuntu",
+      "slug": "ubuntu",
+      "url": "https://ubuntu.com/",
+      "color": "#F6D8C4",
+      "imagePath": "/images/logos/ubuntu.svg",
+      "width": 150
+    },
+    {
+      "name": "Nginx",
+      "slug": "nginx",
+      "url": "https://nginx.org/en/",
+      "color": "#2A4D2A",
+      "imagePath": "/images/logos/nginx.svg",
+      "width": 150
+    },
+    {
+      "name": "Figma",
+      "slug": "figma",
+      "url": "https://www.figma.com/",
+      "color": "#2E2E2E",
+      "imagePath": "/images/logos/figma.svg",
+      "width": 150
+    },
+    {
+      "name": "Visual Studio Code",
+      "slug": "visual-studio-code",
+      "url": "https://code.visualstudio.com/",
+      "color": "#EDEDED",
+      "imagePath": "/images/logos/visual-studio-code.svg",
+      "width": 150
+    },
+    {
+      "name": "GitHub",
+      "slug": "github",
+      "url": "https://www.github.com/",
+      "color": "#2E2E2E",
+      "imagePath": "/images/github-logo.svg",
+      "width": 150
+    },
+    {
+      "name": "Docker",
+      "slug": "docker",
+      "url": "https://www.docker.com/",
+      "color": "#127EC0",
+      "imagePath": "/images/docker.svg",
+      "width": 150
+    }
+  ],
+  "container": {
+    "type": "Docker",
+    "url": "https://github.com/nabilbelfki/Resume",
+    "shortUrl": "github.com/nabilbelfki/Resume"
+  },
+  "client": {
+    "title": {
+      "name": "nabilbelfki.com",
+      "fontSize": 32
+    },
+    "logo": {
+      "path": "/images/",
+      "fileName": "profile.jpg",
+      "width": 40,
+      "height": 40
+    },
+    "location": {
+      "latitude": 40.59355,
+      "longitude": -74.6093
+    },
+    "description": "Welcome to Nabil Belfki’s personal website, your gateway to discovering the multifaceted world of a passionate and innovative software engineer. With a rich background in various industries, including aviation, finance, and e-commerce, Nabil has a proven track record of transforming businesses through cutting-edge technology and automation.",
+    "slides": [
+      {
+        "name": "Computer Science Graduate Certificate",
+        "image": {
+          "width": 372.41,
+          "height": 288,
+          "src": "/images/graduate-certificate.jpg",
+          "alt": "My Computer Science Graduate Certificate from NJIT",
+          "backgroundColor": "#FFFFFF"
+        }
+      },
+      {
+        "name": "Desktop Design",
+        "image": {
+          "width": 270.91,
+          "height": 285,
+          "src": "/images/desktop-design.png",
+          "alt": "Figma Desktop Design",
+          "backgroundColor": "#FFFFFF"
+        }
+      },
+      {
+        "name": "Mobile Design",
+        "image": {
+          "width": 178.42,
+          "height": 285,
+          "src": "/images/mobile-design.png",
+          "alt": "Figma Mobile Design",
+          "backgroundColor": "#FFFFFF"
+        }
+      }
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "67a2447d55f8ecd625cc5ea6"
+  },
+  "name": "Supersail",
+  "duration": "1 Day",
+  "startDate": "2023-11-04T00:00:00Z",
+  "endDate": "2023-11-05T00:00:00Z",
+  "views": 2498,
+  "repository": {
+    "url": "https://github.com/nabilbelfki/hack-njit-2023",
+    "shortUrl": "github.com/nabilbelfki/hack-njit-2023",
+    "type": "Github"
+  },
+  "thumbnail": {
+    "path": "/images/logos/",
+    "fileName": "supersail-thumbnail.svg",
+    "width": 200,
+    "height": 100,
+    "backgroundColor": "#81C1F9"
+  },
+  "description": "This game was created during HackNJIT which is hosted by Major League Hacking (MLH) and New Jersey Institute of Technology (NJIT). It was done within 24 hours of coding between Debarshi Kundu and I. Although we didn't place in the competition, we did win an award in Best Use of AWS. All of the sprites were drawn and designed by me, along with much of the coding too. Debarshi helped with configuring the Ubuntu server and getting a domain where we could host the game for others to play. We worked very well together and I learned a lot about teamwork from this event!",
+  "slug": "supersail",
+  "container": {
+    "url": "https://hub.docker.com/r/nabilbelfki/supersail",
+    "shortUrl": "hub.docker.com/r/nabilbelfki/supersail",
+    "type": "Docker"
+  },
+  "url": "https://www.supersail.nabilbelfki.com",
+  "languages": [
+    {
+      "name": "PHP 7.2",
+      "color": "#777BB3",
+      "percentage": 25
+    },
+    {
+      "name": "JavaScript EC6",
+      "color": "#FFDF00",
+      "percentage": 55
+    },
+    {
+      "name": "CSS 3",
+      "color": "#0089CA",
+      "percentage": 15
+    },
+    {
+      "name": "Miscellaneous",
+      "color": "#D9D9D9",
+      "percentage": 5
+    }
+  ],
+  "tools": [
+    {
+      "name": "PHP",
+      "slug": "php",
+      "url": "https://www.php.net/",
+      "color": "#777BB3",
+      "imagePath": "/images/logos/php.png",
+      "width": 150
+    },
+    {
+      "name": "jQuery",
+      "slug": "jquery",
+      "url": "https://jquery.com/",
+      "color": "#FFFFFF",
+      "imagePath": "/images/logos/jquery.svg",
+      "width": 150
+    },
+    {
+      "name": "HTML",
+      "slug": "html",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+      "color": "#E34F26",
+      "imagePath": "/images/logos/html.svg",
+      "width": 150
+    },
+    {
+      "name": "CSS",
+      "slug": "css",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+      "color": "#0089CA",
+      "imagePath": "/images/logos/css.svg",
+      "width": 150
+    },
+    {
+      "name": "Ubuntu",
+      "slug": "ubuntu",
+      "url": "https://ubuntu.com/",
+      "color": "#F6D8C4",
+      "imagePath": "/images/logos/ubuntu.svg",
+      "width": 150
+    },
+    {
+      "name": "Apache",
+      "slug": "apache",
+      "url": "https://apache.org/",
+      "color": "#FF8EE5",
+      "imagePath": "/images/logos/apache.svg",
+      "width": 200
+    },
+    {
+      "name": "Figma",
+      "slug": "figma",
+      "url": "https://www.figma.com/",
+      "color": "#2E2E2E",
+      "imagePath": "/images/logos/figma.svg",
+      "width": 150
+    },
+    {
+      "name": "Visual Studio Code",
+      "slug": "visual-studio-code",
+      "url": "https://code.visualstudio.com/",
+      "color": "#EDEDED",
+      "imagePath": "/images/logos/visual-studio-code.svg",
+      "width": 150
+    },
+    {
+      "name": "GitHub",
+      "slug": "github",
+      "url": "https://www.github.com/",
+      "color": "#2E2E2E",
+      "imagePath": "/images/github-logo.svg",
+      "width": 150
+    },
+    {
+      "name": "Docker",
+      "slug": "docker",
+      "url": "https://www.docker.com/",
+      "color": "#127EC0",
+      "imagePath": "/images/docker.svg",
+      "width": 150
+    },
+    {
+      "name": "Procreate",
+      "slug": "procreate",
+      "url": "https://procreate.com/",
+      "color": "#242424",
+      "imagePath": "/images/logos/procreate.svg",
+      "width": 150
+    }
+  ],
+  "client": {
+    "title": {
+      "name": "Major League Hacking",
+      "fontSize": 26
+    },
+    "logo": {
+      "path": "/images/logos/",
+      "fileName": "mlh.png",
+      "width": 70.24,
+      "height": 30
+    },
+    "location": {
+      "latitude": 40.73935,
+      "longitude": -73.98376
+    },
+    "description": "Major League Hacking (MLH) is the official student hackathon league, dedicated to empowering the next generation of developers and technologists. Founded in 2013, MLH organizes over 300 weekend-long invention competitions annually, inspiring innovation and fostering a global community of more than 500,000 developers.",
+    "slides": [
+      {
+        "name": "HackNJIT 2023 Logo",
+        "image": {
+          "width": 244.83,
+          "height": 250,
+          "src": "/images/hack-njit-2023.jpeg",
+          "alt": "HackNJIT 2023 Logo",
+          "backgroundColor": "#FFFFFF"
+        }
+      },
+      {
+        "name": "HackNJIT 2023 Group Photo",
+        "image": {
+          "width": 320,
+          "height": 240,
+          "src": "/images/hack-njit-competition.jpg",
+          "alt": "HackNJIT 2023 Group Photo",
+          "backgroundColor": "#9f9f9f"
+        }
+      },
+      {
+        "name": "Ship",
+        "image": {
+          "width": 218,
+          "height": 200,
+          "src": "/images/ship.png",
+          "alt": "Handmade Ship Drawing",
+          "backgroundColor": "#505050"
+        }
+      },
+      {
+        "name": "Enemy",
+        "image": {
+          "width": 200,
+          "height": 200,
+          "src": "/images/enemy.png",
+          "alt": "Handmade Enemy Drawing",
+          "backgroundColor": "#f5f5f5"
+        }
+      },
+      {
+        "name": "Coin",
+        "image": {
+          "width": 200,
+          "height": 200,
+          "src": "/images/coin.png",
+          "alt": "Handmade Coin Drawing",
+          "backgroundColor": "#808080"
+        }
+      }
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "67a2d88855f8ecd625cc5ead"
+  },
+  "name": "Narcotics Anonymous NJ",
+  "duration": "17 Months",
+  "startDate": "2023-06-17T00:00:00Z",
+  "endDate": "2024-12-21T00:00:00Z",
+  "views": 212,
+  "repository": "github.com/na",
+  "thumbnail": {
+    "path": "/images/logos/",
+    "fileName": "na-thumbnail.svg",
+    "width": 200,
+    "height": 100,
+    "backgroundColor": "#FFFFFF"
+  },
+  "description": "This website was for Narcotics Anonymous and it was done as volunteer work. It includes an event system to view current events, a map to see locations of meetings and much more. It is a responsive website on all devices. I had a really good friend of mine growing up die from addiction and I wanted to give back and show my appreciation for what programs like these do for our community. If you or someone you know has a problem with drug addiction, you can visit <a href='https://na.org/'>Narcotics Anonymous</a> to find out more. Also click the button to see the site I created.",
+  "slug": "na",
+  "container": "docker.com/na",
+  "url": "https://www.narcotics-anonymous.nabilbelfki.com/",
+  "languages": [
+    {
+      "name": "PHP 8.3",
+      "color": "#777BB3",
+      "percentage": 50
+    },
+    {
+      "name": "JavaScript EC6",
+      "color": "#FFDF00",
+      "percentage": 20
+    },
+    {
+      "name": "HTML 5",
+      "color": "#E34F26",
+      "percentage": 10
+    },
+    {
+      "name": "CSS 3",
+      "color": "#0089CA",
+      "percentage": 7
+    },
+    {
+      "name": "MySQL 8.1",
+      "color": "#00678C",
+      "percentage": 10
+    },
+    {
+      "name": "Miscellaneous",
+      "color": "#D9D9D9",
+      "percentage": 3
+    }
+  ],
+  "tools": [
+    {
+      "name": "jQuery",
+      "slug": "jquery",
+      "url": "https://jquery.com/",
+      "color": "#FFFFFF",
+      "imagePath": "/images/logos/jquery.svg",
+      "width": 150
+    },
+    {
+      "name": "HTML",
+      "slug": "html",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+      "color": "#E34F26",
+      "imagePath": "/images/logos/html.svg",
+      "width": 150
+    },
+    {
+      "name": "CSS",
+      "slug": "css",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+      "color": "#0089CA",
+      "imagePath": "/images/logos/css.svg",
+      "width": 150
+    },
+    {
+      "name": "React",
+      "slug": "react",
+      "url": "https://react.dev/",
+      "color": "#F3F3F3",
+      "imagePath": "/images/logos/react.svg",
+      "width": 150
+    },
+    {
+      "name": "Ubuntu",
+      "slug": "ubuntu",
+      "url": "https://ubuntu.com/",
+      "color": "#F6D8C4",
+      "imagePath": "/images/logos/ubuntu.svg",
+      "width": 150
+    },
+    {
+      "name": "WordPress",
+      "slug": "wordpress",
+      "url": "https://wordpress.com/",
+      "color": "#E8E8E8",
+      "imagePath": "/images/logos/wordpress.svg",
+      "width": 150
+    },
+    {
+      "name": "Apache",
+      "slug": "apache",
+      "url": "https://apache.org/",
+      "color": "#FF8EE5",
+      "imagePath": "/images/logos/apache.svg",
+      "width": 200
+    },
+    {
+      "name": "Figma",
+      "slug": "figma",
+      "url": "https://www.figma.com/",
+      "color": "#2E2E2E",
+      "imagePath": "/images/logos/figma.svg",
+      "width": 150
+    },
+    {
+      "name": "Visual Studio Code",
+      "slug": "visual-studio-code",
+      "url": "https://code.visualstudio.com/",
+      "color": "#EDEDED",
+      "imagePath": "/images/logos/visual-studio-code.svg",
+      "width": 150
+    },
+    {
+      "name": "GitHub",
+      "slug": "github",
+      "url": "https://www.github.com/",
+      "color": "#2E2E2E",
+      "imagePath": "/images/github-logo.svg",
+      "width": 150
+    },
+    {
+      "name": "Docker",
+      "slug": "docker",
+      "url": "https://www.docker.com/",
+      "color": "#127EC0",
+      "imagePath": "/images/docker.svg",
+      "width": 150
+    }
+  ],
+  "client": {
+    "title": {
+      "name": "Narcotics Anonymous",
+      "fontSize": 28
+    },
+    "logo": {
+      "path": "/images/logos/",
+      "fileName": "na.svg",
+      "width": 40,
+      "height": 40
+    },
+    "location": {
+      "latitude": 34.23596,
+      "longitude": -118.56352
+    },
+    "description": "Narcotics Anonymous (NA) is a global, nonprofit fellowship dedicated to helping individuals recover from drug addiction. Founded in 1953, NA follows a twelve-step program similar to that of Alcoholics Anonymous, providing a supportive community for people who have struggled with substance use disorders.",
+    "slides": [
+      {
+        "name": "6 Month Keytag",
+        "image": {
+          "width": 196.63,
+          "height": 250,
+          "src": "/images/keytag.svg",
+          "alt": "Blue 6 Month Cleantime Anniversary Keytag",
+          "backgroundColor": "#9d9d9d"
+        }
+      },
+      {
+        "name": "Narcotics Anonymous New Jersey Logo",
+        "image": {
+          "width": 258.62,
+          "height": 200,
+          "src": "/images/nanj.png",
+          "alt": "Narcotics Anonymous New Jersey Logo",
+          "backgroundColor": "#FFFFFF"
+        }
+      },
+      {
+        "name": "Guiding Principles Book",
+        "image": {
+          "width": 188.97,
+          "height": 288,
+          "src": "/images/guiding-principles.jpeg",
+          "alt": "Guiding Principles Book",
+          "backgroundColor": "#FFFFFF"
+        }
+      }
+    ]
+  }
+}]

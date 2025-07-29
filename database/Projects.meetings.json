@@ -1,0 +1,462 @@
+[{
+  "_id": {
+    "$oid": "67bd44dcc4dde7707bfbdd70"
+  },
+  "dateTime": {
+    "$date": "2025-02-26T19:30:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Hello",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67be7987caa8fe4872268153"
+  },
+  "dateTime": {
+    "$date": "2025-02-27T19:30:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Hello",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67be8528e04f358eb829b4ab"
+  },
+  "dateTime": {
+    "$date": "2025-02-27T18:00:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "This is me testing reCaptcha v3.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67be85abe04f358eb829b4ae"
+  },
+  "dateTime": {
+    "$date": "2025-02-27T19:00:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Testing ReCaptcha v3",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67be8671e04f358eb829b4b1"
+  },
+  "dateTime": {
+    "$date": "2025-02-27T21:00:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "This is another v3 test.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67c3821b3b758c0e88332032"
+  },
+  "dateTime": {
+    "$date": "2025-03-12T17:00:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nbelfki@colesolutions.net",
+  "phone": "9086663793",
+  "notes": "Hello Nabil",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "684ca60def5d3f2c8276ecb6"
+  },
+  "dateTime": {
+    "$date": "2025-06-17T17:30:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Testing",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "684cbd56ef5d3f2c8276ecee"
+  },
+  "dateTime": {
+    "$date": "2025-06-19T18:00:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Hello",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "684cbf09ef5d3f2c8276ecf1"
+  },
+  "dateTime": {
+    "$date": "2025-06-19T17:30:00.000Z"
+  },
+  "firstName": "Kristallia",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Hello son I want to book a meeting to charge your car.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "684cbf66ef5d3f2c8276ed03"
+  },
+  "dateTime": {
+    "$date": "2025-06-19T19:00:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Hello",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "684cbfc7ef5d3f2c8276ed06"
+  },
+  "dateTime": {
+    "$date": "2025-06-19T20:30:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Hello",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68542bbb5a6caf047d822753"
+  },
+  "dateTime": {
+    "$date": "2025-06-19T16:30:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Hello",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "685430445a6caf047d822756"
+  },
+  "dateTime": {
+    "$date": "2025-06-26T16:30:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Testing the datetime.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68546ff972f4a86cf823777d"
+  },
+  "dateTime": {
+    "$date": "2025-06-26T18:30:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Hello this is another message.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68548d71aa2c306d2cab56fe"
+  },
+  "dateTime": {
+    "$date": "2025-06-26T17:00:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Let's test these meetings.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6858a6eda0ecb505fbaabc75"
+  },
+  "dateTime": {
+    "$date": "2025-06-24T18:00:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Hello, testing, testing... 123",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6858b67b5f5a8ff8268869c2"
+  },
+  "dateTime": {
+    "$date": "2025-06-27T18:30:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Hello Testing the New Mobile Responsive Body DeepSeek Gave me.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6858bb775f5a8ff8268869c5"
+  },
+  "dateTime": {
+    "$date": "2025-06-27T19:00:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Hello this is a test.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6858bbd731f9e87459644384"
+  },
+  "dateTime": {
+    "$date": "2025-06-25T19:00:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Hello this is an email test.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6858bcf731f9e87459644387"
+  },
+  "dateTime": {
+    "$date": "2025-06-27T19:30:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmai.com",
+  "phone": "9086663793",
+  "notes": "Hello this is a message.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6858be8931f9e8745964438a"
+  },
+  "dateTime": {
+    "$date": "2025-06-26T16:00:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Hello Hello",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "685b6f1731f9e874596443a9"
+  },
+  "dateTime": {
+    "$date": "2025-06-27T16:00:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Hello",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "685b766731f9e874596443ba"
+  },
+  "dateTime": {
+    "$date": "2025-06-27T16:30:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Hello this is John, I own a bakery and I really like your design work. I want to revamp my website, let's talk.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "685b77a2f6f84c1d9a64d39c"
+  },
+  "dateTime": {
+    "$date": "2025-06-27T17:00:00.000Z"
+  },
+  "firstName": "Theresa",
+  "lastName": "Bane",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Hello this is Theresa, I need a logo, reach back out to me.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "685b7d4218fe4709f58943df"
+  },
+  "dateTime": {
+    "$date": "2025-06-25T21:30:00.000Z"
+  },
+  "firstName": "Jannet",
+  "lastName": "Jackson",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Hello this is Jannet, my company needs an integration and would like your expertise.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "685b9e5918fe4709f589440c"
+  },
+  "dateTime": {
+    "$date": "2025-06-26T15:00:00.000Z"
+  },
+  "firstName": "Lia",
+  "lastName": "Belfki",
+  "email": "Kristal.one@hotmail.com",
+  "phone": "6468180093",
+  "notes": "Good luck. Looking forward doing business with you\n\nLove you mom",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "685f570895b9d7b229a812c0"
+  },
+  "dateTime": {
+    "$date": "2025-06-28T19:30:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nbelfki@colesolutions.net",
+  "phone": "9086663793",
+  "notes": "Hello",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "685f60fbaf6ecbb9fd9c61c2"
+  },
+  "dateTime": {
+    "$date": "2025-06-30T17:00:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nbelfki@colesolutions.net",
+  "phone": "9086663793",
+  "notes": "Hello Hello",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "685f63b4af6ecbb9fd9c61c5"
+  },
+  "dateTime": {
+    "$date": "2025-06-30T20:30:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nbelfki@colesolutions.net",
+  "phone": "9086663793",
+  "notes": "Hello, again I am testing it.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68604e07af6ecbb9fd9c61c8"
+  },
+  "dateTime": {
+    "$date": "2025-06-29T18:00:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Testing the email again.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68605440af6ecbb9fd9c61ce"
+  },
+  "dateTime": {
+    "$date": "2025-06-30T19:30:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Testing out the loading screen when scheduling a meeting.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686055f8f00547ab0512ea50"
+  },
+  "dateTime": {
+    "$date": "2025-06-30T18:30:00.000Z"
+  },
+  "firstName": "Alanah",
+  "lastName": "Ryan",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Hello Nabil, let's have a meeting together.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68605a7f621f32a39143f9bc"
+  },
+  "dateTime": {
+    "$date": "2025-06-30T19:00:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "",
+  "notes": "",
+  "__v": 0
+}]

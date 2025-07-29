@@ -1,0 +1,19 @@
+.comments-section {
+    background-color: #F3F3F3;
+    padding: 50px;
+}
+
+.comments {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.more {
+    text-decoration: underline;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+}

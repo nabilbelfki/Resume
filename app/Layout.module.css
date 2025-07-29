@@ -1,0 +1,17 @@
+.site-container {
+  background-color: #011a49;
+  max-width: 1200px;
+  box-shadow: -10px 0 10px -10px #000, 10px 0 10px -10px #000;
+}
+
+.admin-container {
+  background-color: #FFFFFF;
+  width: 100vw;
+  height: 100vh;
+}
+
+.login-container {
+  background-color: #FFFFFF;
+  width: 100vw;
+  height: 100vh;
+}

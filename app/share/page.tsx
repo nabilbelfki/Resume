@@ -1,8 +1,8 @@
 import React from "react";
-import QRCode from "../components/QRCode";
+import QRCode from "../../components/QRCode/QRCode";
 import styles from "./Share.module.css";
-import SocialLink from "../components/SocialLink";
-import { socialLinks } from "../components/SocialLinks";
+import SocialLink from "../../components/SocialLink/SocialLink";
+import { socialLinks } from "../../components/SocialLink/SocialLinks";
 
 const Share: React.FC = () => {
 

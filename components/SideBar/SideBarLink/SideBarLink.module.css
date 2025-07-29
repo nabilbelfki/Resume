@@ -1,0 +1,44 @@
+.container {
+    margin-left: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    text-decoration: none;
+    align-items: center;
+    gap: 20px;
+    color: inherit;
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+}
+
+.container:hover path {
+    fill: #474747;
+}
+
+.container:hover .label {
+    text-decoration: underline;
+}
+
+.label {
+    color: #474747;
+    font-weight: 600;
+    opacity: 0;
+    max-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    transition: opacity 0.29s ease-out, max-width 0.13s ease-out;
+    transition-delay: 0s;
+}
+
+
+.label.labelVisible { 
+    opacity: 1;
+    max-width: 200px;
+    transition-delay: 0.26s;
+}

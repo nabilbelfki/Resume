@@ -1,0 +1,212 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.actions {
+    position: relative;
+}
+
+.dropdown-button {
+    height: 35px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border: solid 1.6px #C6C6C6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    color: #4C4C4C;
+    font-size: 16px;
+    background-color: #F8F8F8;
+    box-shadow: 0 0 3px 0 rgba(0,0,0,0.25);
+    border-radius: 1px;
+}
+
+.dropdown {
+    z-index: 3;
+    color: #4C4C4C;
+    position: absolute;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-bottom: solid 1px #C6C6C6;
+    border-left: solid 1px #C6C6C6;
+    border-right: solid 1px #C6C6C6;
+    width: 100%;
+    box-shadow: 0 0 3px 0 rgba(0,0,0,0.25);
+    top: 35px;
+    left: 0;
+}
+
+.dropdown button {
+    text-align: left;
+    font-weight: 590;
+    padding-left: 25px;
+    width: 100%;
+    height: 40px;
+    border: none;
+    background-color: inherit;
+}
+
+.dropdown button:not(:last-child) {
+border-bottom: solid 1px #C6C6C6;
+}
+
+.create-and-search {
+    display: flex;
+    gap: 20px;
+}
+
+.create {
+    height: 35px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border: solid 0.5px white;
+    cursor: pointer;
+    color: #FFFFFF;
+    /* font-weight: 600; */
+    font-size: 16px;
+    background: linear-gradient(to right, #43A4FF 0%, #0084FF 75%, #0370D5 100%);
+    box-shadow: 0 0 3px 0 rgba(0,0,0,0.25);
+    border-radius: 1px;
+}
+
+.create:hover {
+    background: linear-gradient(to right, #1683ea 0%, #0069cb 75%, #02488a 100%);
+}
+
+.search {
+    position: relative;
+}
+
+.search input {
+    font-size: 16px;
+    height: 35px;
+    width: 280px;
+    border: solid 0.5px #C6C6C6;
+    box-shadow: 0 0 3px 0 rgba(0,0,0,0.25);
+    border-radius: 1px;
+    padding: 12px;
+}
+
+.icon {
+    position: absolute;
+    top: 9px;
+    right: 10px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse; /* Still good for cell borders */
+    color: #4C4C4C;
+}
+
+.table th {
+    height: 35px;
+    padding: 12px;
+}
+
+.table td {
+    height: 50px;
+    padding: 12px;
+}
+
+.table thead {
+    width: 100%;
+    border-bottom: solid 1.6px #A3A3A3;
+}
+.table tbody {
+    width: 100%;
+}
+
+.table thead th {
+    padding-bottom: 0px;
+}
+
+.table thead th:not(:first-child) {
+    border-left: solid 1.6px #A3A3A3;
+}
+
+.table thead th:first-child {
+    width: 35px;
+    padding-bottom: 5px;
+}
+
+.checkbox {
+    height: 20px;
+    width: 20px;
+}
+
+.table tbody tr {
+    width: 100%;
+    cursor: pointer;
+    border-bottom: solid 1.4px #E5E5E5;
+}
+
+.table tbody tr:hover {
+    background-color: #F8F8F8;
+}
+
+.table tbody td:not(:first-child) {
+    border-left: solid 1.5px #E5E5E5;
+}
+
+.footer {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pagination,
+.showing {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.label {
+    font-style: italic;
+    color: #4C4C4C;
+}
+
+.page,
+.limit {
+    height: 30px;
+    width: 50px;
+    box-shadow: 0 0 2 0 rgba(0,0,0,0.25);
+    font-size: 16px;
+    border-radius: 5px;
+    text-align: center;
+    border: none;
+    font-weight: 600;
+    color: #4C4C4C;
+}
+
+.page:focus {
+    outline: solid 1px #4C4C4C;
+}
+
+.previous {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.next {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+}
+
+.previous:hover g,
+.next:hover g {
+    fill: #4C4C4C;
+}

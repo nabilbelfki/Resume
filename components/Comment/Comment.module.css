@@ -1,0 +1,38 @@
+.comment {
+    display: flex;
+    flex-direction: column;
+    gap: 15px
+}
+
+.user-and-date-time {
+    display: flex;
+    justify-content: space-between;
+}
+
+.user {
+    gap:10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.avatar {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+}
+
+.name {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.date-time {
+    color: #656565;
+    font-weight: 600;
+    font-size: 14px;
+}

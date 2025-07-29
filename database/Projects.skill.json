@@ -1,0 +1,1349 @@
+[{
+  "_id": {
+    "$oid": "67a9636e4910996fdb42df2f"
+  },
+  "type": "frontend",
+  "name": "JavaScript",
+  "image": {
+    "name": "js.png",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFDF00",
+    "height": 129.58,
+    "width": 129.58
+  },
+  "description": {
+    "color": "#000000",
+    "text": "I’ve worked on several projects using JavaScript, some most notably on the frontend. I have a solid 5 years of experience in this programming language and it can be seen in some of the projects that I have here.",
+    "backgroundColor": "rgba(255, 255, 255, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67a963b94910996fdb42df30"
+  },
+  "type": "database",
+  "name": "MySQL",
+  "image": {
+    "name": "mysql.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 250,
+    "width": 250
+  },
+  "description": {
+    "color": "#FFFFFF",
+    "text": "MySQL is a open-source RDBMS created by the developers of MariaDB that later was acquired by Oracle. It still has a open-source tier, that I heavily use when it comes to the LAMP stack, PHP has its built-in mysqli object making it very easy to implement.",
+    "backgroundColor": "rgba(0,103,140,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67a963dc4910996fdb42df31"
+  },
+  "type": "frontend",
+  "name": "Angular",
+  "image": {
+    "name": "angular.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#CF1717",
+    "height": 130,
+    "width": 130
+  },
+  "description": {
+    "color": "rgb(207, 23, 23)",
+    "text": "Angular is a great frontend framework that I love, but if you asked me I couldn't decide between it and React.",
+    "backgroundColor": "rgba(255, 255, 255, 0.85)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67a963f74910996fdb42df32"
+  },
+  "type": "backend",
+  "name": "PHP",
+  "image": {
+    "name": "php.png",
+    "url": "/images/logos/",
+    "backgroundColor": "#777BB3",
+    "height": 150,
+    "width": 150
+  },
+  "description": {
+    "color": "#000000",
+    "text": "PHP is one of the first backend server-side scripting languages that became popular in the 1970's with the rise of the internet. There are great frameworks out there and wide support for it due to its large community. I have extensive experience in PHP as it was my first server-side language I learned.",
+    "backgroundColor": "rgba(255,255,255,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67a964404910996fdb42df33"
+  },
+  "type": "frontend",
+  "name": "React",
+  "image": {
+    "name": "react.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 103.21,
+    "width": 114.67
+  },
+  "description": {
+    "color": "#000000",
+    "text": "React has a place in my heart. Its component reusability, state change and more won me over. Its a great tool with many packages out there for it. It's a great choice of mine when it comes to smaller application stacks compared to Angular.",
+    "backgroundColor": "rgba(83,193,222,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67a964584910996fdb42df34"
+  },
+  "type": "database",
+  "name": "PostgreSQL",
+  "image": {
+    "name": "postgresql.png",
+    "url": "/images/logos/",
+    "backgroundColor": "#336791",
+    "height": 150,
+    "width": 150
+  },
+  "description": {
+    "color": "#000000",
+    "text": "PostgreSQL is a great database I mostly use with Python applications. If I am coding in Pythn and writing an Apriori algorithm, Classification model such as Logistic Regression, Random Tree Forest, Decision Trees, Ada Boost or Neural Networks or a regression model I will most likely be using PostgreSQL.",
+    "backgroundColor": "rgba(255,255,255,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aa8ca18449de1c4300bd28"
+  },
+  "type": "frontend",
+  "name": "Next.js",
+  "image": {
+    "name": "next.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#000000",
+    "height": 150,
+    "width": 150
+  },
+  "description": {
+    "color": "#000000",
+    "text": "Next.js is my favorite framework built upon React. I have been using it a lot lately and it greatly simplifies things. My favorite part about Next.js is the built in routing, giving the ability to create RESTful API endpoints with ease.",
+    "backgroundColor": "rgba(255,255,255,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aa8cfa8449de1c4300bd2b"
+  },
+  "type": "frontend",
+  "name": "HTML",
+  "image": {
+    "name": "html.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#E34F26",
+    "height": 130,
+    "width": 130
+  },
+  "description": {
+    "color": "rgb(227, 79, 38)",
+    "text": "HTML is at the base of every web application and with HTML 5 there were many great additions that I absolutely loved. I had also been using HTML 4 for as long as I can remember.",
+    "backgroundColor": "rgba(255,255,255,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aa8d308449de1c4300bd2e"
+  },
+  "type": "frontend",
+  "name": "CSS",
+  "image": {
+    "name": "css.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#0089CA",
+    "height": 130,
+    "width": 130
+  },
+  "description": {
+    "color": "rgb(0, 137, 202)",
+    "text": "Cascading Style Sheets are also a basic necessity in websites and although I tend to lean more towards frameworks like SASS and Tailwind nowadays vanilla CSS comes natural to me. From specificy to media queries and complex selectors I know it all!",
+    "backgroundColor": "rgba(255,255,255,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aa8e098449de1c4300bd31"
+  },
+  "type": "frontend",
+  "name": "Tailwind CSS",
+  "image": {
+    "name": "tailwind.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#31585E",
+    "height": 100.73,
+    "width": 170.59
+  },
+  "description": {
+    "color": "rgb(0, 137, 202)",
+    "text": "Tailwind CSS is an open-source utility-first CSS framework for rapidly building custom user interfaces. What I absoluting love with about Tailwind is it makes it very easy to style webpages with barely any code at all, making any developer's life easy.",
+    "backgroundColor": "rgba(255,255,255,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aa8e628449de1c4300bd32"
+  },
+  "type": "frontend",
+  "name": "Bootstrap",
+  "image": {
+    "name": "bootstrap.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#CFB6F5",
+    "height": 130,
+    "width": 130
+  },
+  "description": {
+    "color": "#563D7C",
+    "text": "Bootstrap is a great HTML, Javascript ans CSS library that can really cut time on coding with its ready, out the box UI elements. It is a library that has grown immensely over the years and continues to garner support. When I don't need to design my own UI elements that tend to be more complex, I will use Bootstrap on projects.",
+    "backgroundColor": "rgba(255,255,255,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aa8fe28449de1c4300bd33"
+  },
+  "type": "frontend",
+  "name": "SASS",
+  "image": {
+    "name": "sass.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#E2BBCF",
+    "height": 129.58,
+    "width": 172.78
+  },
+  "description": {
+    "color": "#CF649A",
+    "text": "Sass (Syntactically Awesome Style Sheets) is a preprocessor scripting language that is interpreted or compiled into CSS. It simplifies the styling product and I've found Sass particularly useful for managing large stylesheets and reducing code repetition, ultimately speeding up the development process.",
+    "backgroundColor": "rgba(255,255,255,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aa90a68449de1c4300bd34"
+  },
+  "type": "frontend",
+  "name": "jQuery",
+  "image": {
+    "name": "jquery.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 129.58,
+    "width": 146.35
+  },
+  "description": {
+    "color": "#000000",
+    "text": "jQuery is a older library and nowadays has been succeeded mostly by the popular frameworks React and Angular but it still holds its merit. It can still come in handy when working with a client that is using a LAMP stack. The animations for UI elements are also great right out of the box.",
+    "backgroundColor": "rgba(33,96,155,0.6)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aa915e8449de1c4300bd37"
+  },
+  "type": "frontend",
+  "name": "Vue",
+  "image": {
+    "name": "vue.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#C5F4DF",
+    "height": 123.09,
+    "width": 136.75
+  },
+  "description": {
+    "color": "#35495E",
+    "text": "Vue.js is an open-source JavaScript framework for building user interfaces and single-page applications. Vue.js is known for its simplicity, flexibility, and ease of integration with other projects and libraries. I've found it particularly useful for web applications with minimal effort but I do favor Angular and React more.",
+    "backgroundColor": "rgba(66,184,131,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aa92148449de1c4300bd38"
+  },
+  "type": "frontend",
+  "name": "TypeScript",
+  "image": {
+    "name": "typescript.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#3178C6",
+    "height": 129.58,
+    "width": 134.57
+  },
+  "description": {
+    "color": "#3178C6",
+    "text": "TypeScript being a superscript of JavaScript has taken its place for me. I started coding in Java so I have a love for hard-typed languages and learned early on how important it is, mitigating many errors that arise from any in JavaScript. Unless working with legacy code I tend to prefer TypeScript.",
+    "backgroundColor": "rgba(255,255,255,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aa933d8449de1c4300bd39"
+  },
+  "type": "frontend",
+  "name": "Figma",
+  "image": {
+    "name": "figma.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#2E2E2E",
+    "height": 130,
+    "width": 130
+  },
+  "description": {
+    "color": "#000000",
+    "text": "Figma has gain much traction in the past few years and has taken the graphic design world by storm. Every web application I work on, starts with a Figma design file. It's a place where I brainstorm and visualize my applications, and help them come to life.",
+    "backgroundColor": "rgba(255,255,255,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aa94538449de1c4300bd3d"
+  },
+  "type": "backend",
+  "name": "Node.js",
+  "image": {
+    "name": "node.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#3B481A",
+    "height": 130,
+    "width": 130
+  },
+  "description": {
+    "color": "#3B481A",
+    "text": "If I could one settle with one backend framework it would have to be Node.js. Nowaways TypeScript is my number one language of choice especially in the web space and having a full stack solely built on it is great. That means I don't need to mix different languages and keep my entire source code in JavaScript and I love that!",
+    "backgroundColor": "rgba(255,255,255,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aa94938449de1c4300bd3e"
+  },
+  "type": "backend",
+  "name": "Python",
+  "image": {
+    "name": "python.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#28445B",
+    "height": 130,
+    "width": 130
+  },
+  "description": {
+    "color": "#28445B",
+    "text": "Python my second favorite language after JavaScript. Nowadays full-fledged web applications can be written, with many frameworks out there for it as well. I am well-versed in the language and use it for the libraries out there on Machine Learning to build models.",
+    "backgroundColor": "rgba(255,255,255,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aabd2a8449de1c4300bd42"
+  },
+  "type": "backend",
+  "name": "Django",
+  "image": {
+    "name": "django.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#0C4B33",
+    "height": 62.15,
+    "width": 179.58
+  },
+  "description": {
+    "color": "rgb(12, 75, 51)",
+    "text": "Django is my prefered web application framework for Python. Even though Flask is simple and beginner friendly, it lacks the versatility and capabilities that Django has. For larger and more complex applications you will see me using Django.",
+    "backgroundColor": "rgba(255,255,255,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aabdfb8449de1c4300bd45"
+  },
+  "type": "backend",
+  "name": "Flask",
+  "image": {
+    "name": "flask.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#000000",
+    "height": 130,
+    "width": 130
+  },
+  "description": {
+    "color": "#000000",
+    "text": "Flask is great for simple applications and is easy to use. It was the first Python web application framework that I adopted. It makes web development in Python easy and defining API endpoints compared to vanilla Python.",
+    "backgroundColor": "rgba(255,255,255,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aabe898449de1c4300bd46"
+  },
+  "type": "backend",
+  "name": "Laravel",
+  "image": {
+    "name": "laravel.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 130,
+    "width": 130
+  },
+  "description": {
+    "color": "#FFFFFF",
+    "text": "Laravel is my number one framework for PHP. It has the most support and as of today is most widely used. Its routing is great and the validation comes in handy compared to creating your own. My favorite part about Laravel is the ORM and database features, almost removing the need to interact with the database natively.",
+    "backgroundColor": "rgba(255,41,25,0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aabf368449de1c4300bd47"
+  },
+  "type": "backend",
+  "name": "Express",
+  "image": {
+    "name": "express.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 40.19,
+    "width": 179.58
+  },
+  "description": {
+    "color": "#F9F9F9",
+    "text": "Express.js is the only framework I use when it comes to creating Rest APIs in Node.js. It helps eliminate excessive code and has built in features that make declaring HTTP endpoints second nature from GET, POST, PUT, PATCH and DELETE requests.",
+    "backgroundColor": "rgba(0,0,0,0.6)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aabfca8449de1c4300bd48"
+  },
+  "type": "backend",
+  "name": ".Net",
+  "image": {
+    "name": "dotnet.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#512BD4",
+    "height": 130,
+    "width": 130
+  },
+  "description": {
+    "color": "#FFFFFF",
+    "text": ".Net is a keen framework I use when I am working on Windows Servers with Microsoft SQL Server and IIS or also known as the WISA stack. It uses C# which is a great Object-Oriented Programming Language second to Java for me and makes web application and API development a breeze.",
+    "backgroundColor": "rgba(0,0,0,0.6)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aac06e8449de1c4300bd4a"
+  },
+  "type": "backend",
+  "name": "Java",
+  "image": {
+    "name": "java.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFF7D5",
+    "height": 129.58,
+    "width": 194.38
+  },
+  "description": {
+    "color": "#FFF7D5",
+    "text": "Java is the first programming language that I ever learned! I don't typically use Servlets and JSP for web development as much and tend to favor Node.js, yet have worked on projects in the past with Spring for it. I have also done projects during my university years, PC applications for all Operating Systems taking advantage of JVMs.",
+    "backgroundColor": "rgba(83,130,161,0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aac24d8449de1c4300bd4b"
+  },
+  "type": "backend",
+  "name": "Microsoft AL",
+  "image": {
+    "name": "al.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#80F1D2",
+    "height": 130,
+    "width": 130
+  },
+  "description": {
+    "color": "#048273",
+    "text": "I have written many integrations for client's ERP systems and when it comes to Microsoft Dynamics 365 and Business Central Application Language (AL) is what's used. Its different to conventional programming languages because its built for an ERP system making it harder to use for many.",
+    "backgroundColor": "rgba(255,255,255,0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aac2ca8449de1c4300bd4f"
+  },
+  "type": "backend",
+  "name": "Apache",
+  "image": {
+    "name": "apache.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FF8EE5",
+    "height": 73.19,
+    "width": 179.58
+  },
+  "description": {
+    "color": "rgb(255, 142, 229)",
+    "text": "The Apache HTTP Server Project is a great open-source framework that I have used heavily to host web applications. It is highly reliable and customizable and has been around for decades and pairs well with all flavors of Linux.",
+    "backgroundColor": "rgba(255,255,255,0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67ab7b188449de1c4300bd50"
+  },
+  "type": "backend",
+  "name": "Nginx",
+  "image": {
+    "name": "nginx.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#2A4D2A",
+    "height": 129.58,
+    "width": 112.88
+  },
+  "description": {
+    "color": "rgb(42, 77, 42)",
+    "text": "Nginx is another great open-source framework I use to serve HTTP requests. It outperforms Apache when it comes to static files and that is why I usually favor it because it is more efficient.",
+    "backgroundColor": "rgba(255,255,255,0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abac158449de1c4300bd51"
+  },
+  "type": "backend",
+  "name": "IIS",
+  "image": {
+    "name": "iis.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 129.58,
+    "width": 172.78
+  },
+  "description": {
+    "color": "#000000",
+    "text": "When using the WISA (Windows Server, Internet Information Services, SQL, ASP.Net) stack there is no other option other than serving applications using IIS. It's a great tool to bind ports and certificates and setup security. I've used it to whitelist/blacklist IP Addresses and assign certicates too among other things.",
+    "backgroundColor": "rgb(127, 186, 0, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abacb88449de1c4300bd52"
+  },
+  "type": "backend",
+  "name": "Ruby",
+  "image": {
+    "name": "ruby.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#77625F",
+    "height": 103.66,
+    "width": 103.66
+  },
+  "description": {
+    "color": "#77625F",
+    "text": "Ruby is an older programming language and its use has been dwindling in recent years. It is still a means to create amazing applications and even has a web framework that I've use called Ruby on Rails.",
+    "backgroundColor": "rgb(255, 255, 255, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abade78449de1c4300bd53"
+  },
+  "type": "backend",
+  "name": "GraphQL",
+  "image": {
+    "name": "graphql.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#EAD9E4",
+    "height": 129.58,
+    "width": 113.39
+  },
+  "description": {
+    "color": "#E10098",
+    "text": "GraphQL has taken the industry by storm, capitalizing on the RESTful architectures downside which is sending extensive, unwanted data. It will become more wide-spread and I have been using it more and more in my endpoints.",
+    "backgroundColor": "rgb(255, 255, 255, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abafe48449de1c4300bd54"
+  },
+  "type": "backend",
+  "name": "Spring",
+  "image": {
+    "name": "spring.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#2A5A0B",
+    "height": 116.62,
+    "width": 116.62
+  },
+  "description": {
+    "color": "rgb(42, 90, 11)",
+    "text": "Spring is the only framework that I have used for Java to build applications. It is wildly accepted by the field and has become a great tool where every developer uses in the world of Java.",
+    "backgroundColor": "rgb(255, 255, 255, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abb0478449de1c4300bd55"
+  },
+  "type": "backend",
+  "name": "Hibernate",
+  "image": {
+    "name": "hibernate.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#8E958A",
+    "height": 103.66,
+    "width": 98.47
+  },
+  "description": {
+    "color": "rgb(89 102 108)",
+    "text": "Hibernate ORM is a great tool all year round, not just the winter time. No but seriously its a great library for Java. My first introduction to ORM was in Laravel with PHP, yet Hibernate takes it to another level, and can be integrated with multiple frameworks of Java such as Spring or Struts.",
+    "backgroundColor": "rgb(255, 255, 255, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abb0848449de1c4300bd56"
+  },
+  "type": "backend",
+  "name": "Ubuntu",
+  "image": {
+    "name": "ubuntu.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#F6D8C4",
+    "height": 130,
+    "width": 130
+  },
+  "description": {
+    "color": "#F47421",
+    "text": "Ubuntu has to be my favorite distribution of Linux. It is a debian-build and by far the most popular by long shot. Originator of the apt-get package manager this is a great distro all in all.",
+    "backgroundColor": "rgb(255, 255, 255, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abb1268449de1c4300bd57"
+  },
+  "type": "backend",
+  "name": "Windows Server",
+  "image": {
+    "name": "windows.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FDFDFD",
+    "height": 123.09,
+    "width": 218.82
+  },
+  "description": {
+    "color": "#FFFFFF",
+    "text": "I have dabbled with Windows Server 2012, 2016, 2019 and 2022 depending on the application version and compatibility needed for the projects I've worked. A great operating systems that pairs well with Microsoft Services such as SSMS, SSIS, SSRS and more.",
+    "backgroundColor": "rgba(211,132,32,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abb9238449de1c4300bd58"
+  },
+  "type": "backend",
+  "name": "Linux",
+  "image": {
+    "name": "linux.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#EAF9FF",
+    "height": 129.58,
+    "width": 109.95
+  },
+  "description": {
+    "color": "#000000",
+    "text": "I have over half a decade of experience using Linunx and have built many applications hosted on it. It's a great open-source variation of UNIX SV4, that has now become the resounding major os of the web.",
+    "backgroundColor": "rgba(255,255,255,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abb9c88449de1c4300bd5a"
+  },
+  "type": "backend",
+  "name": "Kali Linux",
+  "image": {
+    "name": "kali.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#277BFB",
+    "height": 129.58,
+    "width": 159.17
+  },
+  "description": {
+    "color": "rgb(39, 123, 251)",
+    "text": "Kali is a great debian distribution of Linux that I prefer when I am using any Cybersecurity related tool. One that I love to use is to install a Honeypot server to help secure my applications from foreign actors.",
+    "backgroundColor": "rgba(255,255,255,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abbb928449de1c4300bd5b"
+  },
+  "type": "backend",
+  "name": "CentOS",
+  "image": {
+    "name": "centos.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 130,
+    "width": 130
+  },
+  "description": {
+    "color": "#FFFFFF",
+    "text": "CentOS is a amazing non-debian based distribution that I also love. When dealing with client servers that are enterprise grade I will opt for this.",
+    "backgroundColor": "rgba(147,34,121,0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abcb258449de1c4300bd5c"
+  },
+  "type": "backend",
+  "name": "Amazon Linux",
+  "image": {
+    "name": "amazon-linux.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 89.79,
+    "width": 179.58
+  },
+  "description": {
+    "color": "#FFFFFF",
+    "text": "Amazon Linux a RHEL 6/7 based distro that will soon move to Fedora. You will mostly see me using this with AWS if I am spinning up an EC2 instance in a cluster.",
+    "backgroundColor": "rgba(35,47,62,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abcb8c8449de1c4300bd5d"
+  },
+  "type": "backend",
+  "name": "BASH",
+  "image": {
+    "name": "bash.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#D2D2D2",
+    "height": 129.58,
+    "width": 192.27
+  },
+  "description": {
+    "color": "#3E474A",
+    "text": "Bash (Bourne Again SHell) is an open-source Unix shell and command language interpreter. Developed for the GNU Project, it is widely used as the default shell on most Linux distributions. I've found it particularly useful for its robust feature set, including command history, job control, and support for complex scripting.",
+    "backgroundColor": "rgba(255,255,255,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abcc0c8449de1c4300bd5e"
+  },
+  "type": "database",
+  "name": "MongoDB",
+  "image": {
+    "name": "mongo.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#009546",
+    "height": 53.7,
+    "width": 179.03
+  },
+  "description": {
+    "color": "#484749",
+    "text": "MongoDB is a excellent open-source NoSQL database that pairs well when I'm dealing with clusters due to horizontal scaling or when the data is semi-structured. I have built many applications in Mongo, so can be seen in my personal projects too.",
+    "backgroundColor": "rgba(255,255,255,0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abcc8d8449de1c4300bd5f"
+  },
+  "type": "database",
+  "name": "Redis",
+  "image": {
+    "name": "redis.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#ED9793",
+    "height": 130,
+    "width": 130
+  },
+  "description": {
+    "color": "#A42122",
+    "text": "Redis works well with any database and backend that I have developed. Caching results have significantly reduced times down to 5milliseconds. I have projects here where I implement Redis and it works well with any GET request in HTTP.",
+    "backgroundColor": "rgba(255,255,255,0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abcd9a8449de1c4300bd60"
+  },
+  "type": "database",
+  "name": "MariaDB",
+  "image": {
+    "name": "mariadb.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#DABF66",
+    "height": 170,
+    "width": 170
+  },
+  "description": {
+    "color": "#895D3D",
+    "text": "MariaDB is another populate open-source RDBMS, that I also use. I prefer it over MySQL, but both are very similar, just MariaDB having a couple additional features. I use MariaDB most when in the LAMP stack",
+    "backgroundColor": "rgba(255,255,255,0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abce5e8449de1c4300bd61"
+  },
+  "type": "database",
+  "name": "Firestore",
+  "image": {
+    "name": "firestore.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 103.21,
+    "width": 74.74
+  },
+  "description": {
+    "color": "#000000",
+    "text": "Firestore is a NoSQL database developed by Google, I have used this primarily in iOS applications. One great mobile app I built was a digital wardrobe stored in Firestore that was referenced using RFID.",
+    "backgroundColor": "rgba(244 ,132, 16,0.6)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abced48449de1c4300bd62"
+  },
+  "type": "database",
+  "name": "SQLite",
+  "image": {
+    "name": "sqlite.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#BCE6FE",
+    "height": 129.03,
+    "width": 199.39
+  },
+  "description": {
+    "color": "#003b57",
+    "text": "SQLite is another RDBMS that I have used in the past, which is open-source as well. All RDBMS systems include similar features and there are only slight variations between them. SQLite is serverless unlike others therefore making it less scalable, yet still applicable to small and medium sized applications.",
+    "backgroundColor": "rgba(255 ,255, 255,0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abcf6f8449de1c4300bd63"
+  },
+  "type": "database",
+  "name": "Microsoft SQL Server",
+  "image": {
+    "name": "mssql.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 129.03,
+    "width": 158.35
+  },
+  "description": {
+    "color": "#000000",
+    "text": "I have been using Microsoft SQL Server extensively. From Schema and table creation, PL/SQL scripts, stored procedures, triggers, normalizing the data and indexing.",
+    "backgroundColor": "rgb(194, 40, 39,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abd0448449de1c4300bd64"
+  },
+  "type": "database",
+  "name": "Oracle Database",
+  "image": {
+    "name": "oracledb.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#393939",
+    "height": 99.91,
+    "width": 179.03
+  },
+  "description": {
+    "color": "rgb(57, 57, 57)",
+    "text": "Oracle DB is another RDBMS that I have used, the on-premises and express version. In some ERP systems I have also written integrations in Oracle Database.",
+    "backgroundColor": "rgb(255, 255, 255,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abd1238449de1c4300bd65"
+  },
+  "type": "mobile",
+  "name": "Android",
+  "image": {
+    "name": "android.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#081604",
+    "height": 130,
+    "width": 130
+  },
+  "description": {
+    "color": "#081604",
+    "text": "I have written code for Android using Android Studios ever since Java was used, before Kotlin was introduced. I always keep up to date with the newest versions of Android and the features as well.",
+    "backgroundColor": "rgb(255, 255, 255,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abd1a68449de1c4300bd66"
+  },
+  "type": "mobile",
+  "name": "Kotlin",
+  "image": {
+    "name": "kotlin.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#B7A0F4",
+    "height": 39.77,
+    "width": 179.03
+  },
+  "description": {
+    "color": "rgb(90 51 192)",
+    "text": "I have worked on mobile applications using Kotlin. Although I do prefer using Cordova, React Native and Ionic, I do believe its important to have knowledge of native mobile development too and has definitely come in handy for me.",
+    "backgroundColor": "rgb(255, 255, 255,0.8)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abd2018449de1c4300bd67"
+  },
+  "type": "mobile",
+  "name": "Swift",
+  "image": {
+    "name": "swift.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 90.31,
+    "width": 99.34
+  },
+  "description": {
+    "color": "#474747",
+    "text": "Swift is thr proprietary language for development in Apple's operating system line up, whether it be MacOS, WatchOS, iOS, iPadOS and even VisionOS now.",
+    "backgroundColor": "rgb(249 111 48 / 70%)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abd2708449de1c4300bd68"
+  },
+  "type": "mobile",
+  "name": "iOS",
+  "image": {
+    "name": "ios.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#F6F5F5",
+    "height": 130,
+    "width": 130
+  },
+  "description": {
+    "color": "#02549f",
+    "text": "I have developed multiple applications in native iOS development. My capstone project for my Bachelors degree in Computer Science was done in iOS and Swift.",
+    "backgroundColor": "rgb(255, 255, 255, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abd3198449de1c4300bd69"
+  },
+  "type": "mobile",
+  "name": "Ionic",
+  "image": {
+    "name": "ionic.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 90.31,
+    "width": 90.31
+  },
+  "description": {
+    "color": "#000000",
+    "text": "Ionic is a framework that I love to expedite mobile development, instead of needing to write native code in both Kotlin and Swift, I am able to take my existing webpage code and convert it into native Kotlin and Swift.",
+    "backgroundColor": "rgb(56, 128, 255, 0.6)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abd4108449de1c4300bd6a"
+  },
+  "type": "mobile",
+  "name": "Cordova",
+  "image": {
+    "name": "cordova.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#EEEDED",
+    "height": 103.21,
+    "width": 103.21
+  },
+  "description": {
+    "color": "#303e4b",
+    "text": "Apache Cordova is another great framework from the Apache Foundation that is also open-source and helps cut time to generate native mobile code with ease. I've used it with earlier versions of Ionic and standalone as well.",
+    "backgroundColor": "rgb(255, 255, 255, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abd4928449de1c4300bd6b"
+  },
+  "type": "mobile",
+  "name": "Flutter",
+  "image": {
+    "name": "flutter.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 129.03,
+    "width": 158.04
+  },
+  "description": {
+    "color": "#064171",
+    "text": "Flutter is another open-source UI software development toolkit to build natively compiled applications for mobile, web, and desktop from a single codebase. I enjoy it for its hot reload feature, which significantly speeds up the development process and enhances productivity.",
+    "backgroundColor": "rgb(88, 198, 248, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abd4fc8449de1c4300bd6c"
+  },
+  "type": "backend",
+  "name": "Spring Boot",
+  "image": {
+    "name": "spring-boot.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 130,
+    "width": 130
+  },
+  "description": {
+    "color": "#000000",
+    "text": "Spring Boot is an open-source Java-based framework used to create stand-alone, production-grade Spring-based applications. I've found it particularly useful for its ability to quickly set up and run applications with minimal configuration.",
+    "backgroundColor": "rgba(109,179,63,0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abd5478449de1c4300bd6d"
+  },
+  "type": "mobile",
+  "name": "React Native",
+  "image": {
+    "name": "react.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#000000",
+    "height": 103.21,
+    "width": 114.67
+  },
+  "description": {
+    "color": "#000000",
+    "text": "React Native is an open-source framework developed by Facebook for building mobile applications using JavaScript and React. I'm fond of its ability to leverage the same design as React, enabling a seamless transition from web to mobile development.",
+    "backgroundColor": "rgb(255, 255, 255, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abd5e88449de1c4300bd6e"
+  },
+  "type": "cloud",
+  "name": "Amazon Web Services",
+  "image": {
+    "name": "aws.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 76.08,
+    "width": 125.31
+  },
+  "description": {
+    "color": "#252f3e",
+    "text": "AWS has a plethora of services that I have become acustomed to including IAM, Route 53, EC2, S3, EBS and Amazon Dynamo as well as many others. This website itself is hosted on AWS.",
+    "backgroundColor": "rgb(255, 153, 0, 0.5)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abd64e8449de1c4300bd6f"
+  },
+  "type": "cloud",
+  "name": "Azure",
+  "image": {
+    "name": "azure.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#E2F1FF",
+    "height": 89.5,
+    "width": 161.11
+  },
+  "description": {
+    "color": "#000000",
+    "text": "Azure is a comprehensive cloud computing platform by Microsoft that offers a wide range of services, including analytics, storage, and networking. I have extensive experience with Azure, particularly in developing scalable applications within the Azure Application Registry among other amazing services that it offers.",
+    "backgroundColor": "rgb(255, 255, 255, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abef638449de1c4300bd70"
+  },
+  "type": "cloud",
+  "name": "Google Cloud Platform",
+  "image": {
+    "name": "google-cloud-platform.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 103.21,
+    "width": 114.67
+  },
+  "description": {
+    "color": "#474747",
+    "text": "Google Cloud Platform (GCP) is another suite of cloud computing services offered by Google similar to Azure and AWS. I've leveraged its powerful infrastructure and tools like Google Kubernetes Engine, BigQuery, and Cloud Functions to create amazing apps and to optimize performance and efficiency.",
+    "backgroundColor": "#EEEEEE"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abf00d8449de1c4300bd71"
+  },
+  "type": "cloud",
+  "name": "Oracle Cloud",
+  "image": {
+    "name": "oracle-cloud.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 92.81,
+    "width": 179
+  },
+  "description": {
+    "color": "#000000",
+    "text": "Oracle Cloud is another comprehensive suite of cloud services offered by Oracle Corporation. I have rigorously used features like Oracle Autonomous Database, Oracle Cloud Infrastructure (OCI) which I am certified in, and Oracle Cloud Applications to create stunning applications and enhance performance, scalability, and security.",
+    "backgroundColor": "rgb(237, 27, 36, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abf03a8449de1c4300bd72"
+  },
+  "type": "cloud",
+  "name": "Docker",
+  "image": {
+    "name": "docker.svg",
+    "url": "/images/",
+    "backgroundColor": "#127EC0",
+    "height": 90.3,
+    "width": 126.41
+  },
+  "description": {
+    "color": "#127EC0",
+    "text": "Docker containerization leverages similar traits the VMs have yet on the application layer. No longer are the days of dependency and version issues. In this age of Microservices, all applications I will create a container for. This allows for them to scale horizontally too in the future by creating a cluster.",
+    "backgroundColor": "rgb(255, 255, 255, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abf0fa8449de1c4300bd73"
+  },
+  "type": "cloud",
+  "name": "Kubernetes",
+  "image": {
+    "name": "kubernetes.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 103.19,
+    "width": 103.19
+  },
+  "description": {
+    "color": "#000000",
+    "text": "Kubernetes is an open-source container orchestration platform designed to automate the deployment, scaling, and management of containerized applications. I love how Kubernetes makes it easy to manage a load balancer to ensure high availability and efficient resource utilization.",
+    "backgroundColor": "rgb(50, 108, 229, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abf1be8449de1c4300bd74"
+  },
+  "type": "cloud",
+  "name": "Jenkins",
+  "image": {
+    "name": "jenkins.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#333232",
+    "height": 129,
+    "width": 93.44
+  },
+  "description": {
+    "color": "#333232",
+    "text": "Jenkins is an open-source automation server used to automate various aspects of software development, including building, testing, and deploying applications. With Jenkins I've streamlined development workflows, configured pipelines, and managed build processes, ensuring efficient and reliable software delivery.",
+    "backgroundColor": "rgb(255, 255, 255, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abf22f8449de1c4300bd75"
+  },
+  "type": "miscellaneous",
+  "name": "GitHub",
+  "image": {
+    "name": "github-logo.svg",
+    "url": "/images/",
+    "backgroundColor": "#2E2E2E",
+    "height": 130,
+    "width": 130
+  },
+  "description": {
+    "color": "#2E2E2E",
+    "text": "Github is an open-source version control software which tracks changes or you source code and with the use of GitHub actions can create webhooks to implement in CI/CD pipelines. I use GitHub for all of my personal project including this website, click on the icon in my biography and follow me there.",
+    "backgroundColor": "rgb(255, 255, 255, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abf3188449de1c4300bd76"
+  },
+  "type": "miscellaneous",
+  "name": "Hadoop",
+  "image": {
+    "name": "hadoop.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#9B00DD",
+    "height": 129,
+    "width": 174.14
+  },
+  "description": {
+    "color": "#9B00DD",
+    "text": "Hadoop is an open-source framework used to process data in a distributed system such as an EC2 cluster. It helps significantly reducing the time needed to train models and comes with its own query language MapReduce. I have used it in my Machine Learning projects to train models on various datasets.",
+    "backgroundColor": "rgb(255, 255, 255, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abf4038449de1c4300bd77"
+  },
+  "type": "miscellaneous",
+  "name": "Apache Spark",
+  "image": {
+    "name": "spark.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#C3D037",
+    "height": 130,
+    "width": 130
+  },
+  "description": {
+    "color": "#3d3b3e",
+    "text": "Apache Spark is also another open-source framework used for data processing in distributed systems. It was developed due to Hadoops limitations and is significantly faster. I use Hadoop with Apache Spark most of the time.",
+    "backgroundColor": "rgb(255, 255, 255, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abf47e8449de1c4300bd78"
+  },
+  "type": "miscellaneous",
+  "name": "Git",
+  "image": {
+    "name": "git.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 150,
+    "width": 150
+  },
+  "description": {
+    "color": "#000000",
+    "text": "Git the language used for version control. It was developed by the creator of Linux, Linus Torvalds. I have been using Git for many years to track changes in my source code and collaborate with other developers.",
+    "backgroundColor": "rgb(244, 76, 40, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abf4d58449de1c4300bd79"
+  },
+  "type": "miscellaneous",
+  "name": "GitLab",
+  "image": {
+    "name": "gitlab.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 90.3,
+    "width": 100.91
+  },
+  "description": {
+    "color": "#000000",
+    "text": "GitLab is another version control technology that I am very familiar with. I have worked with other developers and clients in it and its ability to host to source code directly in any server you want is a great addition.",
+    "backgroundColor": "rgb(252, 109, 38, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abf5808449de1c4300bd7a"
+  },
+  "type": "miscellaneous",
+  "name": "Jira",
+  "image": {
+    "name": "jira.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 101.59,
+    "width": 179
+  },
+  "description": {
+    "color": "#000000",
+    "text": "Jira has a suite of tools that come in handy. Jira, Bitbucket and Confluence are the most notable. Project management is a necessity for every project and with Jira Agile/Scrum sprints can be acheived.",
+    "backgroundColor": "rgb(38, 132, 255, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67abf5b58449de1c4300bd7b"
+  },
+  "type": "miscellaneous",
+  "name": "Pip Modules",
+  "image": {
+    "name": "pip.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#5DA6E2",
+    "height": 103.19,
+    "width": 117.08
+  },
+  "description": {
+    "color": "#2F6491",
+    "text": "Pip is the dedicated package manager of Python. I use pip to download all the amazing packages of Python such as scikit-learn, Numpy and Pandas which are my most used packages but I have also used many more in the projects that I have developed for Python and pip always comes in handy.",
+    "backgroundColor": "rgba(255, 255, 255, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67ac38c68449de1c4300bd7c"
+  },
+  "type": "miscellaneous",
+  "name": "Maven",
+  "image": {
+    "name": "maven.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#FFFFFF",
+    "height": 129,
+    "width": 169.73
+  },
+  "description": {
+    "color": "#FFFFFF",
+    "text": "Maven is a build automation tool primarily used for Java projects. It simplifies the build process by managing project dependencies, compiling source code, packaging the compiled code into JAR files, and deploying the artifacts. I've found it particularly useful for its dependency management and ability to integrate with various development tools.",
+    "backgroundColor": "rgb(162, 30, 99, 0.7)"
+  }
+},
+{
+  "_id": {
+    "$oid": "67ac38e88449de1c4300bd7d"
+  },
+  "type": "miscellaneous",
+  "name": "Gradle",
+  "image": {
+    "name": "gradle.svg",
+    "url": "/images/logos/",
+    "backgroundColor": "#22DA27",
+    "height": 90.3,
+    "width": 120.39
+  },
+  "description": {
+    "color": "#22DA27",
+    "text": "Gradle is a versatile build automation tool that supports multiple programming languages, including Java, Groovy, and Kotlin. It combines the best features of Apache Ant and Maven, offering a flexible and powerful way to manage project builds and that's why I think Gradle is extremely useful.",
+    "backgroundColor": "rgba(2, 48, 58, 0.8)"
+  }
+}]

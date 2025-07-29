@@ -1,0 +1,74 @@
+.container {
+    min-height: 800px;
+    background-color: #103A88;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap:20px;
+}
+
+.title {
+    color: white;
+    font-size: 42px;
+    font-weight: 600;
+    width: 100%;
+    padding-left: 30px;
+}
+
+.blogs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.blog {
+    height: 300px;
+    width: 300px;
+    border-radius: 20px;
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 140px;
+    width: 100%;
+    background: linear-gradient(rgba(0,0,0,0) 0%, #000000 100%);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    padding-bottom: 10px;
+    gap: 5px;
+}
+
+.blog-title {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    width: 100%;
+}
+
+.date-read-and-category {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 12px;
+}
+
+.date-and-read {
+    color: #C9C9C9;
+    font-size: 10px;
+}
+
+.category {
+    color: #A1C2FF;
+    font-size: 12px;
+    font-weight: 600;
+}

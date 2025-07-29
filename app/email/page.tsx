@@ -2,10 +2,10 @@
 import React, { Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import AddCalendar from "../components/AddCalendar";
-import Confirmation from "../components/Confirmation";
-import Project from "../components/Project";
-import CancelMeeting from "../components/CancelMeeting";
+import AddCalendar from "../../components/AddCalendar/AddCalendar";
+import Confirmation from "../../components/Confirmation/Confirmation";
+import Project from "../../components/Project/Project";
+import CancelMeeting from "../../components/CancelMeeting/CancelMeeting";
 import styles from "./Email.module.css";
 
 const EmailContent: React.FC = () => {

@@ -1,0 +1,39 @@
+.container {
+    margin-bottom: 70px;
+}
+
+.title {
+    font-size: 56px;
+    font-weight: 600;
+    color: #4C4C4C;
+}
+
+.breadcrumbs {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon-and-link {
+    display: flex;
+    justify-content: flex-start;
+    text-decoration: none;
+    align-items: flex-end;
+    cursor: pointer;
+    gap: 10px;
+}
+
+.icon {
+     display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.label {
+    color: #727272;
+}
+
+.icon-and-link:hover .label {
+    text-decoration: underline;
+}

@@ -1,23 +1,23 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import Slider from "../../components/Slider";
-import Languages from "../../components/Languages";
-import Views from "../../components/Views";
-import Duration from "../../components/Duration";
-import Dates from "../../components/Dates";
-import PictureLink from "../../components/PictureLink";
-import Description from "../../components/Description";
-import Calendar from "../../components/Calendar";
-import Button from "../../components/Button";
+import Slider from "@/components/Slider/Slider";
+import Languages from "@/components/Languages/Languages";
+import Views from "@/components/Views/Views";
+import Duration from "@/components/Duration/Duration";
+import Dates from "@/components/Dates/Dates";
+import PictureLink from "@/components/PictureLink/PictureLink";
+import Description from "@/components/Description/Description";
+import Calendar from "@/components/Calendar/Calendar";
+import Button from "@/components/Button/Button";
 // import Project from "../../components/Project";
-import Video from "../../components/Video";
-import Map from "../../components/Map";
-import Client from "../../components/Client";
+import Video from "@/components/Video/Video";
+import Map from "@/components/Map/Map";
+import Client from "@/components/Client/Client";
 import styles from "./Application.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Project as ProjectType } from "../../components/types";
+import { Project as ProjectType } from "../../../lib/types";
 
 interface ApplicationProps {
   params: Promise<{ id: string }>;

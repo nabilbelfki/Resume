@@ -1,0 +1,27 @@
+.sidebar {
+    padding-top: 30px;
+    position: fixed;
+    top: 90px;
+    left: 0;
+    height: calc(100% - 90px);
+    background-color: #F2F2F2;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    z-index: 10;
+    gap: 30px;
+    box-sizing: border-box;
+    transition: width 0.3s ease-in-out, align-items 0.3s ease-in-out, padding 0.3s ease-in-out;
+}
+
+.sidebar.expanded {
+    width: 250px;
+    align-items: flex-start;
+    box-shadow: 4px 1px 4px 3px rgba(0,0,0,0.15);
+}
+
+.sidebar.expanded .container {
+    justify-content: flex-start;
+    width: 100%;
+}
