@@ -1,0 +1,48 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.thumbnail {
+    height: 200px;
+    width: 200px;
+    background: linear-gradient(#8FFF9C 0%, #56995D 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: solid 2px #575757;
+}
+
+.initials {
+    font-size: 64px;
+    font-weight: 550;
+}
+
+.edit {
+    height: 45px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border: solid 1.6px #C6C6C6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: #4C4C4C;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: #F8F8F8;
+    box-shadow: 0 0 3px 0 rgba(0,0,0,0.25);
+    border-radius: 1px;
+    border-radius: 100px;
+    width: 140px;
+}
+
+.edit:hover {
+    background-color: #e2e2e2;
+}

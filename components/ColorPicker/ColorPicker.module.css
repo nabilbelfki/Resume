@@ -1,0 +1,47 @@
+.container {
+    position: relative;
+}
+
+.container input {
+    padding: 15px;
+    outline: none;
+    font-size: 16px;
+    color: #4C4C4C;
+    border: solid 1.6px #C6C6C6;
+    box-shadow: 0 0 1.5px 0 rgba(0,0,0,0.25);
+    height: 42px;
+    width: 100%;
+}
+
+.picker {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 42px;
+    padding: 5px;
+    padding-right: 7px;
+}
+
+.picker input{
+    width: 10px;
+    height: 10px;
+}
+
+.color-wheel {
+    border: solid 1.6px #C6C6C6;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 42px;
+    padding: 5px;
+    padding-right: 7px;
+    z-index: 2;
+}
+
+.color-wheel div {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.25);
+}

@@ -11,7 +11,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ type = 'classic' }) => {
   return (
     <nav className={type === 'classic' ? styles.nav : styles['nav-admin']}>
       {type === 'admin' ? (<>
-        <a>
+        <a href="/">
           <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 0 16 16" fill="none">
             <rect width="15.168" height="15.168" rx="2" fill="#011A49"/>
             <path fillRule="evenodd" clipRule="evenodd" d="M4.53135 10.3163H2.57764L5.65622 4.85773H7.20735L7.2784 6.83512H7.34944L8.47431 4.86957H11.4345C12.879 4.83405 13.2106 6.7996 11.1621 7.54557C12.4173 7.8179 12.062 9.98475 9.82415 10.2926H5.78647L5.71542 8.30337H5.65622L4.53135 10.3163ZM10.3096 7.00094H9.36236L9.93072 5.99448H10.4517C10.9609 5.98264 11.3161 6.65755 10.3096 7.00094ZM9.49261 9.04938H8.20197L8.87689 7.86531H9.85967C10.4162 7.85347 10.4991 8.81256 9.49261 9.04938Z" fill="white"/>

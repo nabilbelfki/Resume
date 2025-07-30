@@ -14,16 +14,20 @@ const Home = async () => {
   let skills: Skill[] = [];
   let experiences: Experiences[] = [];
 
+ // Define your local API base URL
+  // It's good practice to use an environment variable for this
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
+
   try {
     const [projectsRes, skillsRes, experiencesRes] = await Promise.all([
-      fetch("https://nabilbelfki.com/api/projects", {
-        next: { revalidate: 60 }, // Cache the response for 60 seconds
+      fetch(`${API_BASE_URL}/api/projects`, { // Use absolute URL
+        next: { revalidate: 60 },
       }),
-      fetch("https://nabilbelfki.com/api/skills", {
-        next: { revalidate: 60 }, // Cache the response for 60 seconds
+      fetch(`${API_BASE_URL}/api/skills`, { // Use absolute URL
+        next: { revalidate: 60 },
       }),
-      fetch("https://nabilbelfki.com/api/experiences", {
-        next: { revalidate: 60 }, // Cache the response for 60 seconds
+      fetch(`${API_BASE_URL}/api/experiences`, { // Use absolute URL
+        next: { revalidate: 60 },
       }),
     ]);
 
@@ -34,7 +38,8 @@ const Home = async () => {
     }
 
     if (skillsRes.ok) {
-      skills = await skillsRes.json();
+      const skillsData = await skillsRes.json();
+      skills = skillsData.data;
     } else {
       console.error("Failed to fetch skills:", skillsRes.statusText);
     }

@@ -164,5 +164,5 @@ export interface Experiences {
 
   export interface Action {
     label: string;
-    action: () => void
+    action: (ids: string[]) => void
   }

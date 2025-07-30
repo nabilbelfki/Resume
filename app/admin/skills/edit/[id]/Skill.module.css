@@ -54,6 +54,25 @@
     background: linear-gradient(to right, #1683ea 0%, #0069cb 75%, #02488a 100%);
 }
 
+
+.delete {
+    height: 45px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border: solid 0.5px white;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 18px;
+    background: linear-gradient(to right, rgba(241,66,69, 0.7) 0%, rgba(199,42,45, 0.7) 75%, rgba(167,27,30, 0.7) 100%);
+    box-shadow: 0 0 3px 0 rgba(0,0,0,0.25);
+    border-radius: 1px;
+}
+
+.delete:hover {
+    background: linear-gradient(to right, rgba(185, 50, 53, 0.7) 0%, rgba(137, 29, 31, 0.7) 75%, rgba(105, 17, 18, 0.7) 100%);
+}
+
 .content {
     background-color: #F8F8F8;
     border: solid 1.6 #E8E8E8;
@@ -103,13 +122,25 @@
 .container input::-ms-input-placeholder { /* Internet Explorer 10-11 */
     color: #C6C6C6;
 }
+
 /* --- End new rule --- */
 
 .input input:focus {
     border: solid 2px #8E8E8E;
 }
 
-.general {
+.input select {
+    padding-left: 10px;
+    padding-right: 20px;
+    outline: none;
+    font-size: 16px;
+    color: #4C4C4C;
+    border: solid 1.6px #C6C6C6;
+    box-shadow: 0 0 1.5px 0 rgba(0,0,0,0.25);
+    height: 42px;
+}
+
+.grid {
     margin-top: 30px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -117,10 +148,45 @@
     margin-bottom: 60px;
 }
 
-.address {
-    margin-top: 30px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-    margin-bottom: 60px;
+
+.textbox {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
+
+.textbox label {
+    color: #00449C;
+    font-size: 12px;
+}
+
+.textbox textarea {
+    height: 200px;
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    padding: 15px;
+    border: solid 1.6px #C6C6C6;
+    box-shadow: 0 0 1.5px 0 rgba(0,0,0,0.25);
+    outline: none;
+    resize: none;
+}
+
+.textbox textarea:focus {
+    border: solid 2px #8E8E8E;
+}
+
+/* --- New rule for textarea placeholder text color --- */
+.textbox textarea::placeholder {
+    color: #C6C6C6; /* Set the desired placeholder color for textareas */
+    opacity: 1; /* Ensure full opacity */
+}
+
+/* For cross-browser compatibility (textareas) */
+.textbox textarea:-ms-input-placeholder { /* Edge */
+    color: #C6C6C6;
+}
+
+.textbox textarea::-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #C6C6C6;
+}
+/* --- End new rule for textarea placeholder text color --- */

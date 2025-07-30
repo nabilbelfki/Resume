@@ -1,9 +1,10 @@
 "use client"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./User.module.css"
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import AvatarUpload from "@/components/AvatarUpload/AvatarUpload";
 import { Breadcrumb as breadcrumb} from "@/lib/types";
+import { useParams, useRouter } from "next/navigation";
 
 interface UserData {
   avatar?: string;
@@ -26,6 +27,10 @@ interface UserData {
 }
 
 const User: React.FC = () => {
+  const params = useParams();
+  const router = useRouter();
+  const id = params?.id as string;
+
   const [formData, setFormData] = useState<UserData>({
     username: '',
     firstName: '',
@@ -43,7 +48,50 @@ const User: React.FC = () => {
     }
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!id) return;
+
+      try {
+        setLoading(true);
+        const response = await fetch(`/api/users/${id}`);
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch user`);
+        }
+
+        const data = await response.json();
+        setFormData({
+          username: data.username || '',
+          firstName: data.firstName || '',
+          lastName: data.lastName || '',
+          email: data.email || '',
+          birthday: data.birthday ? new Date(data.birthday).toISOString().split('T')[0] : '',
+          phoneNumber: data.phoneNumber || '',
+          role: data.role || '',
+          status: data.status || '',
+          address: {
+            addressOne: data.address?.addressOne || '',
+            addressTwo: data.address?.addressTwo || '',
+            city: data.address?.city || '',
+            state: data.address?.state || '',
+            zipCode: data.address?.zipCode || '',
+            country: data.address?.country || ''
+          }
+        });
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to fetch data');
+        console.error('Error fetching user:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [id]);
 
   const breadcrumbs: breadcrumb[] = [
     {
@@ -55,23 +103,20 @@ const User: React.FC = () => {
       href: '/admin/users'
     },
     {
-      label: 'Create User',
-      href: '/admin/users/create'
+      label: id ? 'Edit User' : 'Create User',
+      href: id ? `/admin/users/edit/${id}` : '/admin/users/create'
     }
   ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
-    console.log(`ID: ${id}`, value)
-
+    
     if (id in formData) {
-      console.log('In User')
       setFormData({
         ...formData,
         [id]: value
       });
     } else if (id in formData.address!) {
-      console.log('In Address')
       setFormData({
         ...formData,
         address: {
@@ -80,7 +125,6 @@ const User: React.FC = () => {
         }
       });
     }
-    console.log(formData);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -89,59 +133,89 @@ const User: React.FC = () => {
     setError(null);
 
     try {
-        // Basic validation
-        if (!formData.username || !formData.firstName || !formData.lastName || !formData.email) {
-          alert('Username, first name, last name, and email are required');
-        }
+      // Basic validation
+      if (!formData.username || !formData.firstName || !formData.lastName || !formData.email) {
+        throw new Error('Username, first name, last name, and email are required');
+      }
 
-        // Prepare the data to send - ensure all address fields are strings (empty or filled)
-        const dataToSend = {
+      const dataToSend = {
         ...formData,
         birthday: formData.birthday || "",
         phoneNumber: formData.phoneNumber || "",
-        role: "",
-        status: "Pending",
         address: {
-            addressOne: formData.address?.addressOne || "",
-            addressTwo: formData.address?.addressTwo || "",
-            city: formData.address?.city || "",
-            state: formData.address?.state || "",
-            zipCode: formData.address?.zipCode || "",
-            country: formData.address?.country || "",
+          addressOne: formData.address?.addressOne || "",
+          addressTwo: formData.address?.addressTwo || "",
+          city: formData.address?.city || "",
+          state: formData.address?.state || "",
+          zipCode: formData.address?.zipCode || "",
+          country: formData.address?.country || "",
         }
-        };
+      };
 
-        const response = await fetch('/api/users', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
+      let response;
+      // PUT request for updating existing user
+      response = await fetch(`/api/users/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dataToSend),
-        });
+      });
 
-        if (!response.ok) {
+      if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to create user');
-        }
+        throw new Error(errorData.error || `Failed to update user`);
+      }
 
-        const newUser = await response.json();
-        console.log('User created successfully:', newUser);
-        
-        // Redirect to users list
-        window.location.href = '/admin/users';
+      const result = await response.json();
+      console.log(`User updated successfully:`, result);
+      
+      // Redirect to users list
+      router.push('/admin/users');
     } catch (err) {
-        console.error('Error creating user:', err);
-        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      console.error(`Error updating user:`, err);
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
     } finally {
-        setIsSubmitting(false);
+      setIsSubmitting(false);
     }
-    };
+  };
+
+  const handleDelete = async () => {
+    if (!id) return;
+    
+    if (!confirm('Are you sure you want to delete this user?')) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`/api/users/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to delete user');
+      }
+
+      console.log('User deleted successfully');
+      router.push('/admin/users');
+    } catch (err) {
+      console.error('Error deleting user:', err);
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className={styles.container}>
       <Breadcrumbs breadcrumbs={breadcrumbs}/>
       <div className={styles.actions}>
-        <button className={styles.back} onClick={()=>location.href = '/admin/users'}>
+          <button 
+            className={styles.back} 
+            onClick={() => router.push('/admin/users')}
+          >
           <svg style={{rotate: '180deg'}} xmlns="http://www.w3.org/2000/svg" version="1.0"height="20" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
             <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#727272" stroke="none">
               <path d="M1721 4034 c-94 -47 -137 -147 -107 -249 11 -37 29 -63 68 -101 29 -28 333 -290 676 -583 342 -293 622 -535 621 -539 0 -4 -277 -243 -615 -532 -777 -663 -740 -629 -759 -693 -54 -181 134 -339 298 -251 59 32 1549 1310 1583 1358 64 90 51 196 -33 278 -26 25 -382 331 -790 680 -556 476 -751 637 -781 646 -60 18 -103 14 -161 -14z"/>
@@ -155,6 +229,14 @@ const User: React.FC = () => {
           disabled={isSubmitting}
         >
           {isSubmitting ? 'Saving...' : 'Save Changes'}
+        </button>
+        
+        <button 
+          className={styles.delete} 
+          onClick={handleDelete}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Deleting...' : 'Delete User'}
         </button>
       </div>
       {error && <div className={styles.error}>{error}</div>}

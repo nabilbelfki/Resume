@@ -44,9 +44,11 @@
 }
 
 .dropdown button {
+    color: #4C4C4C;
     text-align: left;
     font-weight: 590;
     padding-left: 25px;
+    font-size: 12px;
     width: 100%;
     height: 40px;
     border: none;
@@ -55,6 +57,10 @@
 
 .dropdown button:not(:last-child) {
 border-bottom: solid 1px #C6C6C6;
+}
+
+.dropdown button:hover {
+    background-color: #F8F8F8;
 }
 
 .create-and-search {
@@ -106,14 +112,32 @@ border-bottom: solid 1px #C6C6C6;
     color: #4C4C4C;
 }
 
+.table tr {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    width: 100%;
+}
+
 .table th {
     height: 35px;
     padding: 12px;
 }
 
+.sorting {
+    margin-left: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .table td {
     height: 50px;
     padding: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .table thead {
@@ -125,7 +149,8 @@ border-bottom: solid 1px #C6C6C6;
 }
 
 .table thead th {
-    padding-bottom: 0px;
+    padding: 12px;
+    cursor: pointer;
 }
 
 .table thead th:not(:first-child) {
@@ -133,13 +158,29 @@ border-bottom: solid 1px #C6C6C6;
 }
 
 .table thead th:first-child {
-    width: 35px;
-    padding-bottom: 5px;
+    max-width: 35px;
+    cursor: default;
+    padding: 0;
+}
+
+.table tbody td:first-child {
+    max-width: 35px;
+    cursor: default;
+    padding: 0;
+}
+
+.table th,
+.table td {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .checkbox {
-    height: 20px;
-    width: 20px;
+    height: 18px;
+    width: 18px;
+    border: solid 1.6px #A3A3A3;
+    border-radius: none;
 }
 
 .table tbody tr {
@@ -154,6 +195,36 @@ border-bottom: solid 1px #C6C6C6;
 
 .table tbody td:not(:first-child) {
     border-left: solid 1.5px #E5E5E5;
+}
+
+.thumbnail {
+    border-radius: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 3px 0 rgba(0,0,0,0.25);
+    height: 40px;
+    width: 40px;
+}
+
+.thumbnail img {
+    border-radius: 5;
+}
+
+.avatar {
+    background-color: #0370D5;
+    display: flex;
+    font-weight: 550;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+}
+
+.status {
+    font-weight: 550;
 }
 
 .footer {
@@ -196,6 +267,8 @@ border-bottom: solid 1px #C6C6C6;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: inherit;
+    border: none;
     cursor: pointer;
 }
 
@@ -203,6 +276,8 @@ border-bottom: solid 1px #C6C6C6;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    background-color: inherit;
+    border: none;
     cursor: pointer;
 }
 

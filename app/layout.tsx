@@ -22,7 +22,7 @@ const pathname = usePathname();
   const isSharePage = pathname === "/share";
   const [showFooter, setShowFooter] = useState(true);
 
-  const containerStyles = isAdminPage ? styles[`admin-container`] : styles[`site-container`]
+  const background = isAdminPage ? '#FFFFFF' : 'linear-gradient(#011a49 0%, #113c8d 44% 60%, #011a49 85%)'
 
   useEffect(() => {
     const handleResize = () => {
@@ -79,7 +79,7 @@ const pathname = usePathname();
           `}
         </Script>
       </head>
-      <body>
+      <body style={{background}}>
         <ReCaptchaProvider
           reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY_V3}
         >

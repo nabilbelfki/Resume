@@ -4,9 +4,10 @@ import styles from "./Users.module.css"
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import { Breadcrumb as breadcrumb, Action } from "@/lib/types";
 import Table from "@/components/Table/Table"
+import { useRouter } from "next/navigation";
 
 const Users: React.FC = () => {
-
+    const router = useRouter();
     const breadcrumbs: breadcrumb[] = [
         {
             label: 'Users',
@@ -18,30 +19,59 @@ const Users: React.FC = () => {
         }
     ];
 
+    const deleteUsers = async (IDs: string[]) => {    
+        if (!confirm(`Are you sure you want to delete ${IDs.length > 1 ? 'these users' : 'this user'}?`)) {
+            return;
+        }
+
+        try {
+            // Use Promise.all to delete all users in parallel
+            const results = await Promise.all(
+                IDs.map(id => 
+                    fetch(`/api/users/${id}`, {
+                        method: 'DELETE',
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to delete user');
+                        }
+                        return response;
+                    })
+                )
+            );
+
+            console.log(`${IDs.length} user(s) deleted successfully`);
+            router.refresh();
+        } catch (err) {
+            console.error('Error deleting users:', err);
+            alert(`Failed to delete some users. Please try again.`);
+        }
+    }
+
     const actions: Action[] = [
         {
-            label: 'Accept Users',
-            action: () => console.log('Accept Users')
+            label: 'Accept Users', // Method: PUT // Endpoint: /api/users/
+            action: (ids) => console.log('Accept Users')
         },
         {
             label: 'Delete Users',
-            action: () => console.log('Delete Users')
+            action: deleteUsers
         },
         {
             label: 'Decline Users',
-            action: () => console.log('Decline Users')
+            action: (ids) => console.log('Decline Users')
         },
         {
             label: 'Reset Password',
-            action: () => console.log('Reset Password')
+            action: (ids) => console.log('Reset Password')
         },
         {
             label: 'Deactivate Users',
-            action: () => console.log('Deactivate Users')
+            action: (ids) => console.log('Deactivate Users')
         },
         {
             label: 'Activate Users',
-            action: () => console.log('Activate Users')
+            action: (ids) => console.log('Activate Users')
         },
     ];
     return (
@@ -49,16 +79,55 @@ const Users: React.FC = () => {
             <Breadcrumbs breadcrumbs={breadcrumbs}/>
             <Table 
                 actions={actions}
-                placeholder="Search Users..."
-                button={'Create User'}      
-                headers={['Name', 'Email', 'Role', 'Status', 'Created']}
-                rows={[
-                    ['Nabil Belfki', 'nabilbelfki@gmail.com', 'Administrator', 'Accepted', '07/26/2025'],
-                    ['Layla Belfki', 'laylabelfki@gmail.com', 'Author', 'Accepted', '08/03/2025'],
-                    ['Kristallia Belfki', 'liabelfki@gmail.com', 'Administrator', 'Disabled', '08/07/2025'],
-                    ['Abderrazzak Belfki', 'zakbelfki@gmail.com', '', 'Declined', '08/13/2025'],
-                    ['Gerasimos Antonatos', 'gerasimosantonatos@gmail.com', '', 'Pending', '08/16/2025'],
-                    ['Ismail Aboudihaj', 'ismailaboudihaj@gmail.com', 'Administrator', 'Accepted', '07/26/2025']
+                showing={5}
+                entity="User"
+                columns={[
+                    { 
+                        label: 'Name', 
+                        selectors: [['firstName'], ['lastName']], 
+                        type: 'avatar', 
+                        avatar: 'image',
+                        flex: 3
+                    }, 
+                    { 
+                        label:'Email', 
+                        selectors: [['email']],
+                        flex: 2
+                    }, 
+                    { 
+                        label: 'Role', 
+                        selectors: [['role']] 
+                    }, 
+                    { 
+                        label:'Status', 
+                        selectors: [['status']], 
+                        type: 'status',
+                        alignment: 'center',
+                        colors: [
+                            {
+                                key: 'Active',
+                                color: '#4D7F3D'
+                            },
+                            {
+                                key: 'Deactivated',
+                                color: '#D07900'
+                            },
+                            {
+                                key: 'Declined',
+                                color: '#B63939'
+                            },
+                            {
+                                key: 'Pending',
+                                color: '#BAB63C'
+                            },
+                        ]
+                    }, 
+                    { 
+                        label:'Created', 
+                        selectors: [['created']],
+                        alignment: 'center',
+                        type: 'date'
+                    }
                 ]}
             />
         </div>

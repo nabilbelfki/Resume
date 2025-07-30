@@ -1,7 +1,9 @@
+"use client";
 import React from "react";
 import styles from "./Skills.module.css"
 import { Breadcrumb as breadcrumb, Action } from "@/lib/types";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
+import Table from "@/components/Table/Table";
 
 const Skills: React.FC = () => {
     const breadcrumbs: breadcrumb[] = [
@@ -14,10 +16,52 @@ const Skills: React.FC = () => {
             href: '/admin/skills'
         }
     ];
-
+    const actions = [
+        {
+            label: 'Delete Users',
+            action: (IDs:string[]) => console.log(IDs)
+        }
+    ]
     return (
         <div className={styles.container}>
             <Breadcrumbs breadcrumbs={breadcrumbs}/>
+            <Table 
+                actions={actions}
+                showing={5}
+                entity="Skill"
+                columns={[
+                    { 
+                        label: 'Logo', 
+                        selectors: [['image', 'url'], ['image', 'name']],
+                        type: 'thumbnail',
+                        alignment: 'center',
+                        thumbnailBackgroundColor: [['image', 'backgroundColor']],
+                    }, 
+                    { 
+                        label: 'Name', 
+                        selectors: [['name']], 
+                        flex: 2
+                    }, 
+                    { 
+                        label: 'Description', 
+                        selectors: [ ['description', 'text'] ],
+                        flex: 4,
+                        maxWidth: "400px"
+                    },
+                    { 
+                        label: 'Type', 
+                        selectors: [['type']],
+                        alignment: 'center',
+                        formatter: (text) => text[0].toUpperCase() + text.slice(1)
+                    },
+                    { 
+                        label:'Created', 
+                        selectors: [['created']],
+                        alignment: 'center',
+                        type: 'date'
+                    }
+                ]}
+            />
         </div>
     );
 }

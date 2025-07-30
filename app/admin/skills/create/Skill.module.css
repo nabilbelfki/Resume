@@ -103,13 +103,25 @@
 .container input::-ms-input-placeholder { /* Internet Explorer 10-11 */
     color: #C6C6C6;
 }
+
 /* --- End new rule --- */
 
 .input input:focus {
     border: solid 2px #8E8E8E;
 }
 
-.general {
+.input select {
+    padding-left: 10px;
+    padding-right: 20px;
+    outline: none;
+    font-size: 16px;
+    color: #4C4C4C;
+    border: solid 1.6px #C6C6C6;
+    box-shadow: 0 0 1.5px 0 rgba(0,0,0,0.25);
+    height: 42px;
+}
+
+.grid {
     margin-top: 30px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -117,10 +129,45 @@
     margin-bottom: 60px;
 }
 
-.address {
-    margin-top: 30px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-    margin-bottom: 60px;
+
+.textbox {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
+
+.textbox label {
+    color: #00449C;
+    font-size: 12px;
+}
+
+.textbox textarea {
+    height: 200px;
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    padding: 15px;
+    border: solid 1.6px #C6C6C6;
+    box-shadow: 0 0 1.5px 0 rgba(0,0,0,0.25);
+    outline: none;
+    resize: none;
+}
+
+.textbox textarea:focus {
+    border: solid 2px #8E8E8E;
+}
+
+/* --- New rule for textarea placeholder text color --- */
+.textbox textarea::placeholder {
+    color: #C6C6C6; /* Set the desired placeholder color for textareas */
+    opacity: 1; /* Ensure full opacity */
+}
+
+/* For cross-browser compatibility (textareas) */
+.textbox textarea:-ms-input-placeholder { /* Edge */
+    color: #C6C6C6;
+}
+
+.textbox textarea::-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #C6C6C6;
+}
+/* --- End new rule for textarea placeholder text color --- */

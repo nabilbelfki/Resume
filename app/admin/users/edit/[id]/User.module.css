@@ -54,6 +54,24 @@
     background: linear-gradient(to right, #1683ea 0%, #0069cb 75%, #02488a 100%);
 }
 
+.delete {
+    height: 45px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border: solid 0.5px white;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 18px;
+    background: linear-gradient(to right, rgba(241,66,69, 0.7) 0%, rgba(199,42,45, 0.7) 75%, rgba(167,27,30, 0.7) 100%);
+    box-shadow: 0 0 3px 0 rgba(0,0,0,0.25);
+    border-radius: 1px;
+}
+
+.delete:hover {
+    background: linear-gradient(to right, rgba(185, 50, 53, 0.7) 0%, rgba(137, 29, 31, 0.7) 75%, rgba(105, 17, 18, 0.7) 100%);
+}
+
 .content {
     background-color: #F8F8F8;
     border: solid 1.6 #E8E8E8;
