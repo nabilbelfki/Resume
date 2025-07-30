@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Skill.module.css"
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
-import AvatarUpload from "@/components/AvatarUpload/AvatarUpload";
+import ThumbnailUpload from "@/components/ThumbnailUpload/ThumbnailUpload";
 import { Breadcrumb as breadcrumb} from "@/lib/types";
 import ColorPicker from "@/components/ColorPicker/ColorPicker";
 import Dropdown from "@/components/Dropdown/Dropdown";
@@ -253,7 +253,7 @@ const Skill: React.FC = () => {
       </div>
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.content}>
-        <AvatarUpload />
+        <ThumbnailUpload />
         <label className={styles.title}>General Information</label>
         <div className={styles.grid}>
           <div className={styles.input}>

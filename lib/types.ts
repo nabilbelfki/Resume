@@ -166,3 +166,13 @@ export interface Experiences {
     label: string;
     action: (ids: string[]) => void
   }
+
+  export type MediaType = 'Image' | 'Video' | 'Sound';
+
+  export interface Media {
+    name: string;
+    path: string;
+    description: string;
+    size?: number;
+    type: MediaType;
+  }
