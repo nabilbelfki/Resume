@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import styles from "./Skill.module.css"
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
-import AvatarUpload from "@/components/AvatarUpload/AvatarUpload";
+import ThumbnailUpload from "@/components/ThumbnailUpload/ThumbnailUpload";
 import { Breadcrumb as breadcrumb} from "@/lib/types";
 import ColorPicker from "@/components/ColorPicker/ColorPicker";
 import Dropdown from "@/components/Dropdown/Dropdown";
@@ -30,8 +30,8 @@ const Skill: React.FC = () => {
     type: '',
     name: '',
     image: {
-      name: 'hadoop.svg',
-      url: '/images/logos/',
+      name: '',
+      url: '',
       backgroundColor: '',
       width: null,
       height: null,
@@ -95,6 +95,7 @@ const Skill: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     setIsSubmitting(true);
     setError(null);
 
@@ -104,19 +105,26 @@ const Skill: React.FC = () => {
         throw new Error('Type and name are required');
       }
 
+      // Validate image
+      if (!formData.image.name || !formData.image.url) {
+        alert('Please select a thumbnail');
+      }
+
       // Prepare the data to send
       const dataToSend = {
-        ...formData,
+        name: formData.name,
+        type: formData.type,
+        status: formData.status || 'Active',
         image: {
-          name: formData.image.name || '',
-          url: formData.image.url || '',
+          name: formData.image.name,
+          url: formData.image.url.replace(formData.image.name,''),
           backgroundColor: formData.image.backgroundColor || '#ffffff',
-          width: formData.image.width || 100,
-          height: formData.image.height || 100,
+          width: formData.image.width ? Number(formData.image.width) : 100,
+          height: formData.image.height ? Number(formData.image.height) : 100,
         },
         description: {
+          text: formData.description.text,
           color: formData.description.color || '#000000',
-          text: formData.description.text || '',
           backgroundColor: formData.description.backgroundColor || '#ffffff',
         }
       };
@@ -131,11 +139,11 @@ const Skill: React.FC = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to create skill');
+        throw new Error(errorData.message || 'Failed to create skill');
       }
 
-      const newSkill = await response.json();
-      console.log('Skill created successfully:', newSkill);
+      const result = await response.json();
+      console.log('Skill created successfully:', result);
       
       // Redirect to skills list
       window.location.href = '/admin/skills';
@@ -169,7 +177,24 @@ const Skill: React.FC = () => {
       </div>
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.content}>
-        <AvatarUpload />
+        <ThumbnailUpload 
+          value={{
+            name: formData.image.name,
+            path: formData.image.url.substring(0, formData.image.url.lastIndexOf('/') + 1),
+            backgroundColor: formData.image.backgroundColor
+          }}
+          onChange={(media) => {
+            setFormData(prev => ({
+              ...prev,
+              image: {
+                ...prev.image,
+                name: media.name,
+                url: `${media.path}${media.name}`,
+                backgroundColor: media.backgroundColor || prev.image.backgroundColor
+              }
+            }));
+          }}
+        />
         <label className={styles.title}>General Information</label>
         <div className={styles.grid}>
           <div className={styles.input}>

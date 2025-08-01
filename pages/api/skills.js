@@ -80,7 +80,7 @@ export default async function handler(req, res) {
       case "POST":
         try {
           console.log("Processing POST request for Skills");
-          const { type, name, image, description } = req.body;
+          const { type, status, name, image, description } = req.body;
 
           // Basic validation
           if (!type || !name || !image || !description) {
@@ -98,6 +98,7 @@ export default async function handler(req, res) {
               height: image.height || 0,
               width: image.width || 0,
             },
+            status,
             description: {
               color: description.color || '',
               text: description.text || '',

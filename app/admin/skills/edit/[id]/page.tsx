@@ -35,8 +35,8 @@ const Skill: React.FC = () => {
     type: '',
     name: '',
     image: {
-      name: 'hadoop.svg',
-      url: '/images/logos/',
+      name: '',
+      url: '',
       backgroundColor: '',
       width: null,
       height: null,
@@ -69,8 +69,8 @@ const Skill: React.FC = () => {
             type: data.type || '',
             name: data.name || '',
             image: {
-              name: 'hadoop.svg',
-              url: '/images/logos/',
+              name: data.image.name || '',
+              url: data.image.url || '',
               backgroundColor: data.image.backgroundColor || '',
               width: data.image.width || '',
               height: data.image.height || '',
@@ -140,6 +140,17 @@ const Skill: React.FC = () => {
     console.log(formData);
   };
 
+  const handleThumbnailChange = (media: { name: string; path: string }) => {
+    setFormData(prev => ({
+      ...prev,
+      image: {
+        ...prev.image,
+        name: media.name,
+        url: `${media.path}${media.name}`
+      }
+    }));
+  };
+
   const handleDelete = async () => {
     if (!id) return;
     
@@ -171,57 +182,61 @@ const Skill: React.FC = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    // e.preventDefault();
-    // setIsSubmitting(true);
-    // setError(null);
+    e.preventDefault();
 
-    // try {
-    //   // Basic validation
-    //   if (!formData.type || !formData.name) {
-    //     throw new Error('Type and name are required');
-    //   }
+    if (!formData.image.name) {
+      alert("Please select a thumbnail");
+      return;
+    }
 
-    //   // Prepare the data to send
-    //   const dataToSend = {
-    //     ...formData,
-    //     image: {
-    //       name: formData.image.name || '',
-    //       url: formData.image.url || '',
-    //       backgroundColor: formData.image.backgroundColor || '#ffffff',
-    //       width: formData.image.width || 100,
-    //       height: formData.image.height || 100,
-    //     },
-    //     description: {
-    //       color: formData.description.color || '#000000',
-    //       text: formData.description.text || '',
-    //       backgroundColor: formData.description.backgroundColor || '#ffffff',
-    //     }
-    //   };
+    setIsSubmitting(true);
+    setError(null);
 
-    //   const response = await fetch('/api/skills', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(dataToSend),
-    //   });
+    try {
+      // Prepare the data to send
+      const dataToSend = {
+        ...formData,
+        // Ensure image data is properly formatted
+        image: {
+          name: formData.image.name,
+          url: formData.image.url.replace(formData.image.name,''),
+          backgroundColor: formData.image.backgroundColor || '#ffffff',
+          width: formData.image.width || 100,
+          height: formData.image.height || 100,
+        },
+        description: {
+          color: formData.description.color || '#000000',
+          text: formData.description.text || '',
+          backgroundColor: formData.description.backgroundColor || '#ffffff',
+        }
+      };
 
-    //   if (!response.ok) {
-    //     const errorData = await response.json();
-    //     throw new Error(errorData.error || 'Failed to create skill');
-    //   }
+      const method = id ? 'PUT' : 'POST';
+      const url = id ? `/api/skills/${id}` : '/api/skills';
 
-    //   const newSkill = await response.json();
-    //   console.log('Skill created successfully:', newSkill);
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSend),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to save skill');
+      }
+
+      const result = await response.json();
+      console.log('Skill saved successfully:', result);
       
-    //   // Redirect to skills list
-    //   window.location.href = '/admin/skills';
-    // } catch (err) {
-    //   console.error('Error creating skill:', err);
-    //   setError(err instanceof Error ? err.message : 'An unknown error occurred');
-    // } finally {
-    //   setIsSubmitting(false);
-    // }
+      router.push(`/admin/skills`);
+    } catch (err) {
+      console.error('Error saving skill:', err);
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -253,7 +268,24 @@ const Skill: React.FC = () => {
       </div>
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.content}>
-        <ThumbnailUpload />
+        <ThumbnailUpload 
+          value={{
+            name: formData.image.name,
+            path: formData.image.url.substring(0, formData.image.url.lastIndexOf('/') + 1),
+            backgroundColor: formData.image.backgroundColor
+          }}
+          onChange={(media) => {
+            setFormData(prev => ({
+              ...prev,
+              image: {
+                ...prev.image,
+                name: media.name,
+                url: `${media.path}${media.name}`,
+                backgroundColor: media.backgroundColor || prev.image.backgroundColor
+              }
+            }));
+          }}
+        />
         <label className={styles.title}>General Information</label>
         <div className={styles.grid}>
           <div className={styles.input}>

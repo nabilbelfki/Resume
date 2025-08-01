@@ -75,8 +75,6 @@ const Skill: React.FC<SkillProps> = ({
     jQuery: "70%"
   };
 
-  console.log(name, name in mobileImageHeightOverflows);
-
   return (
     <div
       style={{ gridArea, ...skillStyle }}

@@ -91,7 +91,7 @@ export default async function handler(req, res) {
         clearCache('user');
 
         const {
-          avatar,
+          image,
           username,
           firstName,
           lastName,
@@ -107,9 +107,9 @@ export default async function handler(req, res) {
         if (!username || !firstName || !lastName || !email) {
           return res.status(400).json({ error: "Missing required fields: username, firstName, lastName, email" });
         }
-
+        
         const newUser = await User.create({
-          avatar,
+          image,
           username,
           firstName,
           lastName,

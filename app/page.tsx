@@ -45,7 +45,8 @@ const Home = async () => {
     }
 
     if (experiencesRes.ok) {
-      experiences = await experiencesRes.json();
+      const experiencesData = await experiencesRes.json();
+      experiences = experiencesData.data;
     } else {
       console.error("Failed to fetch experiences:", experiencesRes.statusText);
     }

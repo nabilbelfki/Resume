@@ -1,0 +1,4864 @@
+[{
+  "_id": {
+    "$oid": "688ae921a8c9ad0d37aebcd2"
+  },
+  "fileName": "act.svg",
+  "path": "/images/act.svg",
+  "url": "https://www.nabilbelfki.com/images/act.svg",
+  "fileSize": 77298,
+  "created": {
+    "$date": "2025-06-19T14:38:26.987Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.987Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:13.675Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:13.675Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae921a8c9ad0d37aebcd5"
+  },
+  "fileName": "backend.svg",
+  "path": "/images/backend.svg",
+  "url": "https://www.nabilbelfki.com/images/backend.svg",
+  "fileSize": 6368,
+  "created": {
+    "$date": "2025-06-19T14:38:26.988Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.988Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:13.734Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:13.734Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae921a8c9ad0d37aebcd8"
+  },
+  "fileName": "blog-1.png",
+  "path": "/images/blog-1.png",
+  "url": "https://www.nabilbelfki.com/images/blog-1.png",
+  "fileSize": 380992,
+  "created": {
+    "$date": "2025-06-29T03:35:20.085Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-29T03:35:20.085Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:13.796Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:13.796Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae921a8c9ad0d37aebcdb"
+  },
+  "fileName": "blog-2.png",
+  "path": "/images/blog-2.png",
+  "url": "https://www.nabilbelfki.com/images/blog-2.png",
+  "fileSize": 216875,
+  "created": {
+    "$date": "2025-06-29T03:36:36.885Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-29T03:36:36.885Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:13.857Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:13.857Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae921a8c9ad0d37aebcde"
+  },
+  "fileName": "calendar-binding-horizontal.svg",
+  "path": "/images/calendar-binding-horizontal.svg",
+  "url": "https://www.nabilbelfki.com/images/calendar-binding-horizontal.svg",
+  "fileSize": 16911,
+  "created": {
+    "$date": "2025-06-19T18:55:38.282Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T18:55:38.283Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:13.915Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:13.915Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae921a8c9ad0d37aebce1"
+  },
+  "fileName": "calendar-binding.svg",
+  "path": "/images/calendar-binding.svg",
+  "url": "https://www.nabilbelfki.com/images/calendar-binding.svg",
+  "fileSize": 2672,
+  "created": {
+    "$date": "2025-06-19T14:38:26.988Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.988Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:13.971Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:13.971Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae922a8c9ad0d37aebce4"
+  },
+  "fileName": "cloud.svg",
+  "path": "/images/cloud.svg",
+  "url": "https://www.nabilbelfki.com/images/cloud.svg",
+  "fileSize": 1198,
+  "created": {
+    "$date": "2025-06-19T14:38:26.988Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.988Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:14.033Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:14.033Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae922a8c9ad0d37aebce7"
+  },
+  "fileName": "cluedo.png",
+  "path": "/images/cluedo.png",
+  "url": "https://www.nabilbelfki.com/images/cluedo.png",
+  "fileSize": 891280,
+  "created": {
+    "$date": "2025-06-19T14:38:26.988Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.989Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:14.091Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:14.091Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae922a8c9ad0d37aebcea"
+  },
+  "fileName": "coin.png",
+  "path": "/images/coin.png",
+  "url": "https://www.nabilbelfki.com/images/coin.png",
+  "fileSize": 1128489,
+  "created": {
+    "$date": "2025-06-19T14:38:26.989Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.993Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:14.147Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:14.147Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae922a8c9ad0d37aebced"
+  },
+  "fileName": "cole-solutions-1-old.svg",
+  "path": "/images/cole-solutions-1-old.svg",
+  "url": "https://www.nabilbelfki.com/images/cole-solutions-1-old.svg",
+  "fileSize": 16721,
+  "created": {
+    "$date": "2025-06-19T14:38:26.993Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.993Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:14.203Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:14.203Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae922a8c9ad0d37aebcf0"
+  },
+  "fileName": "cole-solutions-1.svg",
+  "path": "/images/cole-solutions-1.svg",
+  "url": "https://www.nabilbelfki.com/images/cole-solutions-1.svg",
+  "fileSize": 11758,
+  "created": {
+    "$date": "2025-07-17T06:31:13.378Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-07-17T06:31:13.378Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:14.260Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:14.260Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae922a8c9ad0d37aebcf3"
+  },
+  "fileName": "cole-solutions-2-old.svg",
+  "path": "/images/cole-solutions-2-old.svg",
+  "url": "https://www.nabilbelfki.com/images/cole-solutions-2-old.svg",
+  "fileSize": 2451,
+  "created": {
+    "$date": "2025-06-19T14:38:26.994Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.994Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:14.315Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:14.315Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae922a8c9ad0d37aebcf6"
+  },
+  "fileName": "cole-solutions-2.svg",
+  "path": "/images/cole-solutions-2.svg",
+  "url": "https://www.nabilbelfki.com/images/cole-solutions-2.svg",
+  "fileSize": 11758,
+  "created": {
+    "$date": "2025-07-17T06:31:13.378Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-07-17T06:31:13.378Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:14.369Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:14.369Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae922a8c9ad0d37aebcf9"
+  },
+  "fileName": "color-wheel.png",
+  "path": "/images/color-wheel.png",
+  "url": "https://www.nabilbelfki.com/images/color-wheel.png",
+  "fileSize": 2528,
+  "created": {
+    "$date": "2025-07-30T06:40:41.969Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-07-30T06:40:41.969Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:14.423Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:14.423Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae922a8c9ad0d37aebcfc"
+  },
+  "fileName": "database.svg",
+  "path": "/images/database.svg",
+  "url": "https://www.nabilbelfki.com/images/database.svg",
+  "fileSize": 2309,
+  "created": {
+    "$date": "2025-06-19T14:38:26.994Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.994Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:14.479Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:14.479Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae922a8c9ad0d37aebcff"
+  },
+  "fileName": "description-background.svg",
+  "path": "/images/description-background.svg",
+  "url": "https://www.nabilbelfki.com/images/description-background.svg",
+  "fileSize": 440,
+  "created": {
+    "$date": "2025-06-19T14:38:26.994Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.994Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:14.537Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:14.537Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae922a8c9ad0d37aebd02"
+  },
+  "fileName": "desktop-design.png",
+  "path": "/images/desktop-design.png",
+  "url": "https://www.nabilbelfki.com/images/desktop-design.png",
+  "fileSize": 105919,
+  "created": {
+    "$date": "2025-06-19T14:38:26.994Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.994Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:14.594Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:14.594Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae922a8c9ad0d37aebd05"
+  },
+  "fileName": "docker-whale.svg",
+  "path": "/images/docker-whale.svg",
+  "url": "https://www.nabilbelfki.com/images/docker-whale.svg",
+  "fileSize": 2115,
+  "created": {
+    "$date": "2025-06-19T16:34:29.680Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T16:34:29.680Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:14.651Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:14.651Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae922a8c9ad0d37aebd08"
+  },
+  "fileName": "docker.svg",
+  "path": "/images/docker.svg",
+  "url": "https://www.nabilbelfki.com/images/docker.svg",
+  "fileSize": 2107,
+  "created": {
+    "$date": "2025-06-19T14:38:26.994Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.994Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:14.707Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:14.707Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae922a8c9ad0d37aebd0b"
+  },
+  "fileName": "droplets.png",
+  "path": "/images/droplets.png",
+  "url": "https://www.nabilbelfki.com/images/droplets.png",
+  "fileSize": 73335,
+  "created": {
+    "$date": "2025-06-19T14:38:26.994Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.995Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:14.765Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:14.765Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae922a8c9ad0d37aebd0e"
+  },
+  "fileName": "email.svg",
+  "path": "/images/email.svg",
+  "url": "https://www.nabilbelfki.com/images/email.svg",
+  "fileSize": 1739,
+  "created": {
+    "$date": "2025-06-19T16:35:14.382Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T16:35:14.383Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:14.818Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:14.818Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae922a8c9ad0d37aebd11"
+  },
+  "fileName": "enemy.png",
+  "path": "/images/enemy.png",
+  "url": "https://www.nabilbelfki.com/images/enemy.png",
+  "fileSize": 214954,
+  "created": {
+    "$date": "2025-06-19T14:38:26.995Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.995Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:14.876Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:14.876Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae922a8c9ad0d37aebd14"
+  },
+  "fileName": "favicon.png",
+  "path": "/images/favicon.png",
+  "url": "https://www.nabilbelfki.com/images/favicon.png",
+  "fileSize": 502,
+  "created": {
+    "$date": "2025-06-19T14:38:26.995Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.995Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:14.935Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:14.935Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae922a8c9ad0d37aebd17"
+  },
+  "fileName": "frontend.svg",
+  "path": "/images/frontend.svg",
+  "url": "https://www.nabilbelfki.com/images/frontend.svg",
+  "fileSize": 1269,
+  "created": {
+    "$date": "2025-06-19T14:38:26.996Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.996Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:14.993Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:14.993Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae923a8c9ad0d37aebd1a"
+  },
+  "fileName": "github-cat.svg",
+  "path": "/images/github-cat.svg",
+  "url": "https://www.nabilbelfki.com/images/github-cat.svg",
+  "fileSize": 2119,
+  "created": {
+    "$date": "2025-06-19T16:34:05.306Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T16:34:05.307Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:15.049Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:15.049Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae923a8c9ad0d37aebd1d"
+  },
+  "fileName": "github-email.png",
+  "path": "/images/github-email.png",
+  "url": "https://www.nabilbelfki.com/images/github-email.png",
+  "fileSize": 565,
+  "created": {
+    "$date": "2025-06-28T03:20:55.101Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-28T03:31:27.719Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:15.106Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:15.106Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae923a8c9ad0d37aebd20"
+  },
+  "fileName": "github-logo.svg",
+  "path": "/images/github-logo.svg",
+  "url": "https://www.nabilbelfki.com/images/github-logo.svg",
+  "fileSize": 2350,
+  "created": {
+    "$date": "2025-06-19T14:38:26.996Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.996Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:15.162Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:15.162Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae923a8c9ad0d37aebd23"
+  },
+  "fileName": "github.svg",
+  "path": "/images/github.svg",
+  "url": "https://www.nabilbelfki.com/images/github.svg",
+  "fileSize": 2279,
+  "created": {
+    "$date": "2025-06-19T14:38:26.996Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.996Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:15.216Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:15.216Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae923a8c9ad0d37aebd26"
+  },
+  "fileName": "graduate-certificate.jpg",
+  "path": "/images/graduate-certificate.jpg",
+  "url": "https://www.nabilbelfki.com/images/graduate-certificate.jpg",
+  "fileSize": 83350,
+  "created": {
+    "$date": "2025-06-19T14:38:26.996Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "jpg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.996Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:15.275Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:15.275Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae923a8c9ad0d37aebd29"
+  },
+  "fileName": "guiding-principles.jpeg",
+  "path": "/images/guiding-principles.jpeg",
+  "url": "https://www.nabilbelfki.com/images/guiding-principles.jpeg",
+  "fileSize": 139986,
+  "created": {
+    "$date": "2025-06-19T14:38:26.996Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "jpeg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.996Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:15.329Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:15.329Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae923a8c9ad0d37aebd2c"
+  },
+  "fileName": "hack-njit-2023.jpeg",
+  "path": "/images/hack-njit-2023.jpeg",
+  "url": "https://www.nabilbelfki.com/images/hack-njit-2023.jpeg",
+  "fileSize": 17578,
+  "created": {
+    "$date": "2025-06-19T14:38:26.996Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "jpeg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.997Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:15.390Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:15.390Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae923a8c9ad0d37aebd2f"
+  },
+  "fileName": "hack-njit-competition.jpg",
+  "path": "/images/hack-njit-competition.jpg",
+  "url": "https://www.nabilbelfki.com/images/hack-njit-competition.jpg",
+  "fileSize": 460254,
+  "created": {
+    "$date": "2025-06-19T14:38:26.997Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "jpg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:26.998Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:15.449Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:15.449Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae923a8c9ad0d37aebd32"
+  },
+  "fileName": "keytag.png",
+  "path": "/images/keytag.png",
+  "url": "https://www.nabilbelfki.com/images/keytag.png",
+  "fileSize": 3714870,
+  "created": {
+    "$date": "2025-06-19T14:38:26.998Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.008Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:15.502Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:15.502Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae923a8c9ad0d37aebd35"
+  },
+  "fileName": "keytag.svg",
+  "path": "/images/keytag.svg",
+  "url": "https://www.nabilbelfki.com/images/keytag.svg",
+  "fileSize": 101052,
+  "created": {
+    "$date": "2025-06-19T14:38:27.009Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.009Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:15.558Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:15.558Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae923a8c9ad0d37aebd38"
+  },
+  "fileName": "languages.svg",
+  "path": "/images/languages.svg",
+  "url": "https://www.nabilbelfki.com/images/languages.svg",
+  "fileSize": 4021082,
+  "created": {
+    "$date": "2025-06-01T18:41:45.817Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-01T18:41:45.819Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:15.611Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:15.611Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae923a8c9ad0d37aebd3b"
+  },
+  "fileName": "left-arrow.svg",
+  "path": "/images/left-arrow.svg",
+  "url": "https://www.nabilbelfki.com/images/left-arrow.svg",
+  "fileSize": 487,
+  "created": {
+    "$date": "2025-06-19T14:38:27.009Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.009Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:15.667Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:15.667Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae923a8c9ad0d37aebd3e"
+  },
+  "fileName": "linkedin-email.png",
+  "path": "/images/linkedin-email.png",
+  "url": "https://www.nabilbelfki.com/images/linkedin-email.png",
+  "fileSize": 450,
+  "created": {
+    "$date": "2025-06-28T03:21:08.005Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-28T03:31:45.150Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:15.721Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:15.721Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae923a8c9ad0d37aebd41"
+  },
+  "fileName": "linkedin-letters.svg",
+  "path": "/images/linkedin-letters.svg",
+  "url": "https://www.nabilbelfki.com/images/linkedin-letters.svg",
+  "fileSize": 753,
+  "created": {
+    "$date": "2025-06-19T16:35:51.648Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T18:48:16.261Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:15.779Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:15.779Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae923a8c9ad0d37aebd44"
+  },
+  "fileName": "linkedin.svg",
+  "path": "/images/linkedin.svg",
+  "url": "https://www.nabilbelfki.com/images/linkedin.svg",
+  "fileSize": 593,
+  "created": {
+    "$date": "2025-06-19T14:38:27.009Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.009Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:15.836Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:15.836Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae923a8c9ad0d37aebd47"
+  },
+  "fileName": "littlest-pet-shop.jpg",
+  "path": "/images/littlest-pet-shop.jpg",
+  "url": "https://www.nabilbelfki.com/images/littlest-pet-shop.jpg",
+  "fileSize": 99296,
+  "created": {
+    "$date": "2025-06-19T14:38:27.009Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "jpg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.009Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:15.893Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:15.893Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae923a8c9ad0d37aebd4a"
+  },
+  "fileName": "al.svg",
+  "path": "/images/logos/al.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/al.svg",
+  "fileSize": 25998,
+  "created": {
+    "$date": "2025-06-19T14:38:27.010Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.010Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:15.951Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:15.951Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae924a8c9ad0d37aebd4d"
+  },
+  "fileName": "amazon-linux.svg",
+  "path": "/images/logos/amazon-linux.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/amazon-linux.svg",
+  "fileSize": 87053,
+  "created": {
+    "$date": "2025-06-19T14:38:27.010Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.010Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:16.010Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:16.010Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae924a8c9ad0d37aebd50"
+  },
+  "fileName": "android.svg",
+  "path": "/images/logos/android.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/android.svg",
+  "fileSize": 72905,
+  "created": {
+    "$date": "2025-06-19T14:38:27.010Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.010Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:16.066Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:16.066Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae924a8c9ad0d37aebd53"
+  },
+  "fileName": "angular.svg",
+  "path": "/images/logos/angular.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/angular.svg",
+  "fileSize": 1361,
+  "created": {
+    "$date": "2025-06-19T14:38:27.010Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.010Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:16.120Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:16.120Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae924a8c9ad0d37aebd56"
+  },
+  "fileName": "apache.svg",
+  "path": "/images/logos/apache.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/apache.svg",
+  "fileSize": 43087,
+  "created": {
+    "$date": "2025-06-19T14:38:27.010Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.011Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:16.176Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:16.176Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae924a8c9ad0d37aebd59"
+  },
+  "fileName": "aws.svg",
+  "path": "/images/logos/aws.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/aws.svg",
+  "fileSize": 756872,
+  "created": {
+    "$date": "2025-06-19T14:38:27.011Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.013Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:16.231Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:16.231Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae924a8c9ad0d37aebd5c"
+  },
+  "fileName": "azure.svg",
+  "path": "/images/logos/azure.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/azure.svg",
+  "fileSize": 1231248,
+  "created": {
+    "$date": "2025-06-19T14:38:27.013Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.016Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:16.289Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:16.289Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae924a8c9ad0d37aebd5f"
+  },
+  "fileName": "bash.svg",
+  "path": "/images/logos/bash.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/bash.svg",
+  "fileSize": 281787,
+  "created": {
+    "$date": "2025-06-19T14:38:27.016Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.017Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:16.351Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:16.351Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae924a8c9ad0d37aebd62"
+  },
+  "fileName": "bootstrap.svg",
+  "path": "/images/logos/bootstrap.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/bootstrap.svg",
+  "fileSize": 21870,
+  "created": {
+    "$date": "2025-06-19T14:38:27.017Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.017Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:16.410Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:16.410Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae924a8c9ad0d37aebd65"
+  },
+  "fileName": "centos.svg",
+  "path": "/images/logos/centos.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/centos.svg",
+  "fileSize": 1098721,
+  "created": {
+    "$date": "2025-06-19T14:38:27.017Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.020Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:16.468Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:16.468Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae924a8c9ad0d37aebd68"
+  },
+  "fileName": "clue-thumbnail.svg",
+  "path": "/images/logos/clue-thumbnail.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/clue-thumbnail.svg",
+  "fileSize": 2399,
+  "created": {
+    "$date": "2025-06-19T14:38:27.020Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.020Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:16.525Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:16.525Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae924a8c9ad0d37aebd6b"
+  },
+  "fileName": "cordova.svg",
+  "path": "/images/logos/cordova.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/cordova.svg",
+  "fileSize": 12905,
+  "created": {
+    "$date": "2025-06-19T14:38:27.020Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.020Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:16.585Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:16.585Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae924a8c9ad0d37aebd6e"
+  },
+  "fileName": "css.svg",
+  "path": "/images/logos/css.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/css.svg",
+  "fileSize": 187465,
+  "created": {
+    "$date": "2025-06-19T14:38:27.020Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.021Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:16.644Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:16.644Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae924a8c9ad0d37aebd71"
+  },
+  "fileName": "django.svg",
+  "path": "/images/logos/django.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/django.svg",
+  "fileSize": 5290,
+  "created": {
+    "$date": "2025-06-19T14:38:27.021Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.021Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:16.702Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:16.702Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae924a8c9ad0d37aebd74"
+  },
+  "fileName": "docker.svg",
+  "path": "/images/logos/docker.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/docker.svg",
+  "fileSize": 602,
+  "created": {
+    "$date": "2025-06-19T14:38:27.021Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.021Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:16.758Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:16.758Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae924a8c9ad0d37aebd77"
+  },
+  "fileName": "dotnet.svg",
+  "path": "/images/logos/dotnet.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/dotnet.svg",
+  "fileSize": 47765,
+  "created": {
+    "$date": "2025-06-19T14:38:27.021Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.021Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:16.817Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:16.817Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae924a8c9ad0d37aebd7a"
+  },
+  "fileName": "express.svg",
+  "path": "/images/logos/express.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/express.svg",
+  "fileSize": 29913,
+  "created": {
+    "$date": "2025-06-19T14:38:27.021Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.021Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:16.874Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:16.874Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae924a8c9ad0d37aebd7d"
+  },
+  "fileName": "figma.svg",
+  "path": "/images/logos/figma.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/figma.svg",
+  "fileSize": 54289,
+  "created": {
+    "$date": "2025-06-19T14:38:27.021Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.021Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:16.934Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:16.934Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae924a8c9ad0d37aebd80"
+  },
+  "fileName": "firestore.svg",
+  "path": "/images/logos/firestore.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/firestore.svg",
+  "fileSize": 279408,
+  "created": {
+    "$date": "2025-06-19T14:38:27.022Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.022Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:16.995Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:16.995Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae925a8c9ad0d37aebd83"
+  },
+  "fileName": "flask.svg",
+  "path": "/images/logos/flask.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/flask.svg",
+  "fileSize": 90832,
+  "created": {
+    "$date": "2025-06-19T14:38:27.022Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.023Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:17.055Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:17.055Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae925a8c9ad0d37aebd86"
+  },
+  "fileName": "flutter.svg",
+  "path": "/images/logos/flutter.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/flutter.svg",
+  "fileSize": 46190,
+  "created": {
+    "$date": "2025-06-19T14:38:27.023Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.023Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:17.115Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:17.115Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae925a8c9ad0d37aebd89"
+  },
+  "fileName": "git.svg",
+  "path": "/images/logos/git.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/git.svg",
+  "fileSize": 64314,
+  "created": {
+    "$date": "2025-06-19T14:38:27.023Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.023Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:17.172Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:17.172Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae925a8c9ad0d37aebd8c"
+  },
+  "fileName": "github.svg",
+  "path": "/images/logos/github.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/github.svg",
+  "fileSize": 2270,
+  "created": {
+    "$date": "2025-06-19T14:38:27.023Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.023Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:17.228Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:17.228Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae925a8c9ad0d37aebd8f"
+  },
+  "fileName": "gitlab.svg",
+  "path": "/images/logos/gitlab.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/gitlab.svg",
+  "fileSize": 138618,
+  "created": {
+    "$date": "2025-06-19T14:38:27.023Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.024Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:17.283Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:17.283Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae925a8c9ad0d37aebd92"
+  },
+  "fileName": "google-cloud-platform.svg",
+  "path": "/images/logos/google-cloud-platform.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/google-cloud-platform.svg",
+  "fileSize": 54054,
+  "created": {
+    "$date": "2025-06-19T14:38:27.024Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.024Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:17.337Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:17.337Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae925a8c9ad0d37aebd95"
+  },
+  "fileName": "gradle.svg",
+  "path": "/images/logos/gradle.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/gradle.svg",
+  "fileSize": 96891,
+  "created": {
+    "$date": "2025-06-19T14:38:27.024Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.024Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:17.395Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:17.395Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae925a8c9ad0d37aebd98"
+  },
+  "fileName": "graphql.svg",
+  "path": "/images/logos/graphql.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/graphql.svg",
+  "fileSize": 1856,
+  "created": {
+    "$date": "2025-06-19T14:38:27.024Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.024Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:17.451Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:17.451Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae925a8c9ad0d37aebd9b"
+  },
+  "fileName": "hadoop.svg",
+  "path": "/images/logos/hadoop.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/hadoop.svg",
+  "fileSize": 434539,
+  "created": {
+    "$date": "2025-06-19T14:38:27.024Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.026Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:17.509Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:17.509Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae925a8c9ad0d37aebd9e"
+  },
+  "fileName": "hasbro.png",
+  "path": "/images/logos/hasbro.png",
+  "url": "https://www.nabilbelfki.com/images/logos/hasbro.png",
+  "fileSize": 209169,
+  "created": {
+    "$date": "2025-06-19T14:38:27.026Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.026Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:17.565Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:17.565Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae925a8c9ad0d37aebda1"
+  },
+  "fileName": "hibernate.svg",
+  "path": "/images/logos/hibernate.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/hibernate.svg",
+  "fileSize": 267468,
+  "created": {
+    "$date": "2025-06-19T14:38:27.026Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.027Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:17.618Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:17.618Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae925a8c9ad0d37aebda4"
+  },
+  "fileName": "html.svg",
+  "path": "/images/logos/html.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/html.svg",
+  "fileSize": 777809,
+  "created": {
+    "$date": "2025-06-19T14:38:27.027Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.029Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:17.675Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:17.675Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae925a8c9ad0d37aebda7"
+  },
+  "fileName": "iis.svg",
+  "path": "/images/logos/iis.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/iis.svg",
+  "fileSize": 63841,
+  "created": {
+    "$date": "2025-06-19T14:38:27.029Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.029Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:17.731Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:17.731Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae925a8c9ad0d37aebdaa"
+  },
+  "fileName": "ionic.svg",
+  "path": "/images/logos/ionic.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/ionic.svg",
+  "fileSize": 93305,
+  "created": {
+    "$date": "2025-06-19T14:38:27.029Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.029Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:17.788Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:17.788Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae925a8c9ad0d37aebdad"
+  },
+  "fileName": "ios.svg",
+  "path": "/images/logos/ios.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/ios.svg",
+  "fileSize": 363441,
+  "created": {
+    "$date": "2025-06-19T14:38:27.030Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.030Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:17.847Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:17.847Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae925a8c9ad0d37aebdb0"
+  },
+  "fileName": "java.svg",
+  "path": "/images/logos/java.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/java.svg",
+  "fileSize": 221620,
+  "created": {
+    "$date": "2025-06-19T14:38:27.031Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.031Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:17.903Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:17.903Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae925a8c9ad0d37aebdb3"
+  },
+  "fileName": "jenkins.svg",
+  "path": "/images/logos/jenkins.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/jenkins.svg",
+  "fileSize": 27333,
+  "created": {
+    "$date": "2025-06-19T14:38:27.031Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.031Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:17.962Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:17.962Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae926a8c9ad0d37aebdb6"
+  },
+  "fileName": "jira.svg",
+  "path": "/images/logos/jira.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/jira.svg",
+  "fileSize": 536635,
+  "created": {
+    "$date": "2025-06-19T14:38:27.031Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.032Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:18.018Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:18.018Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae926a8c9ad0d37aebdb9"
+  },
+  "fileName": "jquery.svg",
+  "path": "/images/logos/jquery.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/jquery.svg",
+  "fileSize": 5620,
+  "created": {
+    "$date": "2025-06-19T14:38:27.032Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.032Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:18.074Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:18.074Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae926a8c9ad0d37aebdbc"
+  },
+  "fileName": "js.png",
+  "path": "/images/logos/js.png",
+  "url": "https://www.nabilbelfki.com/images/logos/js.png",
+  "fileSize": 11139,
+  "created": {
+    "$date": "2025-06-19T14:38:27.032Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.033Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:18.131Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:18.131Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae926a8c9ad0d37aebdbf"
+  },
+  "fileName": "kali-2.svg",
+  "path": "/images/logos/kali-2.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/kali-2.svg",
+  "fileSize": 16135,
+  "created": {
+    "$date": "2025-06-19T14:38:27.033Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.033Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:18.190Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:18.190Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae926a8c9ad0d37aebdc2"
+  },
+  "fileName": "kali.svg",
+  "path": "/images/logos/kali.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/kali.svg",
+  "fileSize": 14840,
+  "created": {
+    "$date": "2025-06-19T14:38:27.033Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.033Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:18.243Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:18.243Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae926a8c9ad0d37aebdc5"
+  },
+  "fileName": "kotlin.svg",
+  "path": "/images/logos/kotlin.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/kotlin.svg",
+  "fileSize": 890944,
+  "created": {
+    "$date": "2025-06-19T14:38:27.033Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.035Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:18.299Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:18.299Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae926a8c9ad0d37aebdc8"
+  },
+  "fileName": "kubernetes.svg",
+  "path": "/images/logos/kubernetes.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/kubernetes.svg",
+  "fileSize": 63871,
+  "created": {
+    "$date": "2025-06-19T14:38:27.035Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.036Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:18.355Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:18.355Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae926a8c9ad0d37aebdcb"
+  },
+  "fileName": "laravel.svg",
+  "path": "/images/logos/laravel.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/laravel.svg",
+  "fileSize": 64329,
+  "created": {
+    "$date": "2025-06-19T14:38:27.036Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.036Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:18.412Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:18.412Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae926a8c9ad0d37aebdce"
+  },
+  "fileName": "linux.svg",
+  "path": "/images/logos/linux.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/linux.svg",
+  "fileSize": 1211887,
+  "created": {
+    "$date": "2025-06-19T14:38:27.036Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.039Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:18.470Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:18.470Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae926a8c9ad0d37aebdd1"
+  },
+  "fileName": "mariadb.svg",
+  "path": "/images/logos/mariadb.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/mariadb.svg",
+  "fileSize": 35370,
+  "created": {
+    "$date": "2025-06-19T14:38:27.039Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.039Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:18.528Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:18.528Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae926a8c9ad0d37aebdd4"
+  },
+  "fileName": "maven.svg",
+  "path": "/images/logos/maven.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/maven.svg",
+  "fileSize": 119404,
+  "created": {
+    "$date": "2025-06-19T14:38:27.039Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.040Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:18.629Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:18.629Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae926a8c9ad0d37aebdd7"
+  },
+  "fileName": "mlh.png",
+  "path": "/images/logos/mlh.png",
+  "url": "https://www.nabilbelfki.com/images/logos/mlh.png",
+  "fileSize": 25280,
+  "created": {
+    "$date": "2025-06-19T14:38:27.040Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.040Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:18.687Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:18.687Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae926a8c9ad0d37aebdda"
+  },
+  "fileName": "mongo.svg",
+  "path": "/images/logos/mongo.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/mongo.svg",
+  "fileSize": 90743,
+  "created": {
+    "$date": "2025-06-19T14:38:27.040Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.040Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:18.739Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:18.739Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae926a8c9ad0d37aebddd"
+  },
+  "fileName": "mssql.svg",
+  "path": "/images/logos/mssql.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/mssql.svg",
+  "fileSize": 82012,
+  "created": {
+    "$date": "2025-06-19T14:38:27.040Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.040Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:18.797Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:18.797Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae926a8c9ad0d37aebde0"
+  },
+  "fileName": "mysql.png",
+  "path": "/images/logos/mysql.png",
+  "url": "https://www.nabilbelfki.com/images/logos/mysql.png",
+  "fileSize": 20816,
+  "created": {
+    "$date": "2025-06-19T14:38:27.040Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.040Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:18.853Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:18.853Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae926a8c9ad0d37aebde3"
+  },
+  "fileName": "mysql.svg",
+  "path": "/images/logos/mysql.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/mysql.svg",
+  "fileSize": 28275,
+  "created": {
+    "$date": "2025-06-19T14:38:27.040Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.040Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:18.909Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:18.909Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae926a8c9ad0d37aebde6"
+  },
+  "fileName": "na-thumbnail.svg",
+  "path": "/images/logos/na-thumbnail.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/na-thumbnail.svg",
+  "fileSize": 16021,
+  "created": {
+    "$date": "2025-06-19T14:38:27.041Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.041Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:18.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:18.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae927a8c9ad0d37aebde9"
+  },
+  "fileName": "na.svg",
+  "path": "/images/logos/na.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/na.svg",
+  "fileSize": 6734,
+  "created": {
+    "$date": "2025-06-19T14:38:27.041Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.041Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:19.023Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:19.023Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae927a8c9ad0d37aebdec"
+  },
+  "fileName": "next.svg",
+  "path": "/images/logos/next.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/next.svg",
+  "fileSize": 1313,
+  "created": {
+    "$date": "2025-06-19T14:38:27.041Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.041Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:19.080Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:19.080Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae927a8c9ad0d37aebdef"
+  },
+  "fileName": "nginx.svg",
+  "path": "/images/logos/nginx.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/nginx.svg",
+  "fileSize": 46766,
+  "created": {
+    "$date": "2025-06-19T14:38:27.041Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.041Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:19.134Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:19.134Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae927a8c9ad0d37aebdf2"
+  },
+  "fileName": "node.svg",
+  "path": "/images/logos/node.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/node.svg",
+  "fileSize": 53919,
+  "created": {
+    "$date": "2025-06-19T14:38:27.041Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.041Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:19.189Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:19.189Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae927a8c9ad0d37aebdf5"
+  },
+  "fileName": "oracle-cloud.svg",
+  "path": "/images/logos/oracle-cloud.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/oracle-cloud.svg",
+  "fileSize": 302803,
+  "created": {
+    "$date": "2025-06-19T14:38:27.041Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.042Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:19.245Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:19.245Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae927a8c9ad0d37aebdf8"
+  },
+  "fileName": "oracledb.svg",
+  "path": "/images/logos/oracledb.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/oracledb.svg",
+  "fileSize": 288127,
+  "created": {
+    "$date": "2025-06-19T14:38:27.042Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.043Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:19.301Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:19.301Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae927a8c9ad0d37aebdfb"
+  },
+  "fileName": "personal-thumbnail.svg",
+  "path": "/images/logos/personal-thumbnail.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/personal-thumbnail.svg",
+  "fileSize": 596,
+  "created": {
+    "$date": "2025-06-19T14:38:27.043Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.043Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:19.357Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:19.357Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae927a8c9ad0d37aebdfe"
+  },
+  "fileName": "php.png",
+  "path": "/images/logos/php.png",
+  "url": "https://www.nabilbelfki.com/images/logos/php.png",
+  "fileSize": 32172,
+  "created": {
+    "$date": "2025-06-19T14:38:27.043Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.043Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:19.414Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:19.414Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae927a8c9ad0d37aebe01"
+  },
+  "fileName": "pip.svg",
+  "path": "/images/logos/pip.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/pip.svg",
+  "fileSize": 53015,
+  "created": {
+    "$date": "2025-06-19T14:38:27.043Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.043Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:19.470Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:19.470Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae927a8c9ad0d37aebe04"
+  },
+  "fileName": "postgresql.png",
+  "path": "/images/logos/postgresql.png",
+  "url": "https://www.nabilbelfki.com/images/logos/postgresql.png",
+  "fileSize": 39919,
+  "created": {
+    "$date": "2025-06-19T14:38:27.043Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.043Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:19.528Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:19.528Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae927a8c9ad0d37aebe07"
+  },
+  "fileName": "procreate.svg",
+  "path": "/images/logos/procreate.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/procreate.svg",
+  "fileSize": 141783,
+  "created": {
+    "$date": "2025-06-19T14:38:27.043Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.044Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:19.585Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:19.585Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae927a8c9ad0d37aebe0a"
+  },
+  "fileName": "python.svg",
+  "path": "/images/logos/python.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/python.svg",
+  "fileSize": 1327740,
+  "created": {
+    "$date": "2025-06-19T14:38:27.044Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.047Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:19.680Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:19.680Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae927a8c9ad0d37aebe0d"
+  },
+  "fileName": "react.png",
+  "path": "/images/logos/react.png",
+  "url": "https://www.nabilbelfki.com/images/logos/react.png",
+  "fileSize": 150074,
+  "created": {
+    "$date": "2025-06-19T14:38:27.047Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.047Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:19.738Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:19.738Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae927a8c9ad0d37aebe10"
+  },
+  "fileName": "react.svg",
+  "path": "/images/logos/react.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/react.svg",
+  "fileSize": 535,
+  "created": {
+    "$date": "2025-06-19T14:38:27.047Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.047Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:19.795Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:19.795Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae927a8c9ad0d37aebe13"
+  },
+  "fileName": "redis.svg",
+  "path": "/images/logos/redis.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/redis.svg",
+  "fileSize": 39584,
+  "created": {
+    "$date": "2025-06-19T14:38:27.047Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.047Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:19.857Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:19.857Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae927a8c9ad0d37aebe16"
+  },
+  "fileName": "ruby.svg",
+  "path": "/images/logos/ruby.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/ruby.svg",
+  "fileSize": 2879597,
+  "created": {
+    "$date": "2025-06-19T14:38:27.048Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.055Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:19.913Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:19.913Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae927a8c9ad0d37aebe19"
+  },
+  "fileName": "sass.svg",
+  "path": "/images/logos/sass.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/sass.svg",
+  "fileSize": 26677,
+  "created": {
+    "$date": "2025-06-19T14:38:27.055Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.055Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:19.972Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:19.972Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae928a8c9ad0d37aebe1c"
+  },
+  "fileName": "spark.svg",
+  "path": "/images/logos/spark.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/spark.svg",
+  "fileSize": 37450,
+  "created": {
+    "$date": "2025-06-19T14:38:27.055Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.055Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:20.025Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:20.025Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae928a8c9ad0d37aebe1f"
+  },
+  "fileName": "spring-boot.svg",
+  "path": "/images/logos/spring-boot.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/spring-boot.svg",
+  "fileSize": 10346,
+  "created": {
+    "$date": "2025-06-19T14:38:27.055Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.055Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:20.083Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:20.083Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae928a8c9ad0d37aebe22"
+  },
+  "fileName": "spring.svg",
+  "path": "/images/logos/spring.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/spring.svg",
+  "fileSize": 23263,
+  "created": {
+    "$date": "2025-06-19T14:38:27.055Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.055Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:20.140Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:20.140Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae928a8c9ad0d37aebe25"
+  },
+  "fileName": "sqlite.svg",
+  "path": "/images/logos/sqlite.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/sqlite.svg",
+  "fileSize": 254083,
+  "created": {
+    "$date": "2025-06-19T14:38:27.055Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.056Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:20.198Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:20.198Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae928a8c9ad0d37aebe28"
+  },
+  "fileName": "supersail-thumbnail.svg",
+  "path": "/images/logos/supersail-thumbnail.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/supersail-thumbnail.svg",
+  "fileSize": 253073,
+  "created": {
+    "$date": "2025-06-19T14:38:27.056Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.056Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:20.255Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:20.255Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae928a8c9ad0d37aebe2b"
+  },
+  "fileName": "swift.svg",
+  "path": "/images/logos/swift.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/swift.svg",
+  "fileSize": 91536,
+  "created": {
+    "$date": "2025-06-19T14:38:27.056Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.057Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:20.314Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:20.314Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae928a8c9ad0d37aebe2e"
+  },
+  "fileName": "tailwind.svg",
+  "path": "/images/logos/tailwind.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/tailwind.svg",
+  "fileSize": 11303,
+  "created": {
+    "$date": "2025-06-19T14:38:27.057Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.057Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:20.371Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:20.371Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae928a8c9ad0d37aebe31"
+  },
+  "fileName": "typescript.svg",
+  "path": "/images/logos/typescript.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/typescript.svg",
+  "fileSize": 1714,
+  "created": {
+    "$date": "2025-06-19T14:38:27.057Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.057Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:20.585Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:20.585Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae928a8c9ad0d37aebe34"
+  },
+  "fileName": "ubuntu.svg",
+  "path": "/images/logos/ubuntu.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/ubuntu.svg",
+  "fileSize": 77082,
+  "created": {
+    "$date": "2025-06-19T14:38:27.057Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.057Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:20.644Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:20.644Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae928a8c9ad0d37aebe37"
+  },
+  "fileName": "visual-studio-code.svg",
+  "path": "/images/logos/visual-studio-code.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/visual-studio-code.svg",
+  "fileSize": 32892,
+  "created": {
+    "$date": "2025-06-19T14:38:27.057Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.057Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:20.735Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:20.735Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae928a8c9ad0d37aebe3a"
+  },
+  "fileName": "vue.svg",
+  "path": "/images/logos/vue.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/vue.svg",
+  "fileSize": 310,
+  "created": {
+    "$date": "2025-06-19T14:38:27.057Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.057Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:20.790Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:20.790Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae928a8c9ad0d37aebe3d"
+  },
+  "fileName": "windows.svg",
+  "path": "/images/logos/windows.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/windows.svg",
+  "fileSize": 1815013,
+  "created": {
+    "$date": "2025-06-19T14:38:27.057Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.062Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:20.849Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:20.849Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae928a8c9ad0d37aebe40"
+  },
+  "fileName": "wordpress.svg",
+  "path": "/images/logos/wordpress.svg",
+  "url": "https://www.nabilbelfki.com/images/logos/wordpress.svg",
+  "fileSize": 1380,
+  "created": {
+    "$date": "2025-06-19T14:38:27.062Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.062Z"
+  },
+  "metadata": {
+    "directory": "images/logos"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:20.904Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:20.904Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae928a8c9ad0d37aebe43"
+  },
+  "fileName": "magic-the-gathering.jpg",
+  "path": "/images/magic-the-gathering.jpg",
+  "url": "https://www.nabilbelfki.com/images/magic-the-gathering.jpg",
+  "fileSize": 367724,
+  "created": {
+    "$date": "2025-06-19T14:38:27.062Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "jpg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.063Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:20.961Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:20.961Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae929a8c9ad0d37aebe46"
+  },
+  "fileName": "mail-email.png",
+  "path": "/images/mail-email.png",
+  "url": "https://www.nabilbelfki.com/images/mail-email.png",
+  "fileSize": 604,
+  "created": {
+    "$date": "2025-06-28T03:21:22.365Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-28T03:31:56.120Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:21.017Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:21.017Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae929a8c9ad0d37aebe49"
+  },
+  "fileName": "mail.svg",
+  "path": "/images/mail.svg",
+  "url": "https://www.nabilbelfki.com/images/mail.svg",
+  "fileSize": 1694,
+  "created": {
+    "$date": "2025-06-19T14:38:27.063Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.063Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:21.072Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:21.072Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae929a8c9ad0d37aebe4c"
+  },
+  "fileName": "map-marker-closed.svg",
+  "path": "/images/map-marker-closed.svg",
+  "url": "https://www.nabilbelfki.com/images/map-marker-closed.svg",
+  "fileSize": 3291,
+  "created": {
+    "$date": "2025-06-19T14:38:27.063Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.063Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:21.127Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:21.127Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae929a8c9ad0d37aebe4f"
+  },
+  "fileName": "map-marker-opened.svg",
+  "path": "/images/map-marker-opened.svg",
+  "url": "https://www.nabilbelfki.com/images/map-marker-opened.svg",
+  "fileSize": 3341,
+  "created": {
+    "$date": "2025-06-19T14:38:27.063Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.063Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:21.184Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:21.184Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae929a8c9ad0d37aebe52"
+  },
+  "fileName": "metal.jpg",
+  "path": "/images/metal.jpg",
+  "url": "https://www.nabilbelfki.com/images/metal.jpg",
+  "fileSize": 2219232,
+  "created": {
+    "$date": "2025-06-19T14:38:27.063Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "jpg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.064Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:21.241Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:21.241Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae929a8c9ad0d37aebe55"
+  },
+  "fileName": "miscellaneous.svg",
+  "path": "/images/miscellaneous.svg",
+  "url": "https://www.nabilbelfki.com/images/miscellaneous.svg",
+  "fileSize": 1130,
+  "created": {
+    "$date": "2025-06-19T14:38:27.065Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.065Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:21.296Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:21.296Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae929a8c9ad0d37aebe58"
+  },
+  "fileName": "mobile-design.png",
+  "path": "/images/mobile-design.png",
+  "url": "https://www.nabilbelfki.com/images/mobile-design.png",
+  "fileSize": 1320680,
+  "created": {
+    "$date": "2025-06-19T14:38:27.065Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.068Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:21.358Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:21.358Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae929a8c9ad0d37aebe5b"
+  },
+  "fileName": "mobile.svg",
+  "path": "/images/mobile.svg",
+  "url": "https://www.nabilbelfki.com/images/mobile.svg",
+  "fileSize": 1890,
+  "created": {
+    "$date": "2025-06-19T14:38:27.068Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.068Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:21.412Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:21.412Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae929a8c9ad0d37aebe5e"
+  },
+  "fileName": "monopoly.jpg",
+  "path": "/images/monopoly.jpg",
+  "url": "https://www.nabilbelfki.com/images/monopoly.jpg",
+  "fileSize": 438008,
+  "created": {
+    "$date": "2025-06-19T14:38:27.068Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "jpg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.069Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:21.470Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:21.470Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae929a8c9ad0d37aebe61"
+  },
+  "fileName": "my-little-pony.png",
+  "path": "/images/my-little-pony.png",
+  "url": "https://www.nabilbelfki.com/images/my-little-pony.png",
+  "fileSize": 282749,
+  "created": {
+    "$date": "2025-06-19T14:38:27.069Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.070Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:21.525Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:21.525Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae929a8c9ad0d37aebe64"
+  },
+  "fileName": "nabilbelfki.com.svg",
+  "path": "/images/nabilbelfki.com.svg",
+  "url": "https://www.nabilbelfki.com/images/nabilbelfki.com.svg",
+  "fileSize": 649,
+  "created": {
+    "$date": "2025-06-22T22:55:50.534Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-22T22:55:50.534Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:21.582Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:21.582Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae929a8c9ad0d37aebe67"
+  },
+  "fileName": "nanj.png",
+  "path": "/images/nanj.png",
+  "url": "https://www.nabilbelfki.com/images/nanj.png",
+  "fileSize": 61792,
+  "created": {
+    "$date": "2025-06-19T14:38:27.070Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.070Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:21.640Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:21.640Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae929a8c9ad0d37aebe6a"
+  },
+  "fileName": "nerf.jpeg",
+  "path": "/images/nerf.jpeg",
+  "url": "https://www.nabilbelfki.com/images/nerf.jpeg",
+  "fileSize": 28132,
+  "created": {
+    "$date": "2025-06-19T14:38:27.070Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "jpeg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.070Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:21.697Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:21.697Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae929a8c9ad0d37aebe6d"
+  },
+  "fileName": "next.svg",
+  "path": "/images/next.svg",
+  "url": "https://www.nabilbelfki.com/images/next.svg",
+  "fileSize": 167,
+  "created": {
+    "$date": "2025-06-19T14:38:27.070Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.070Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:21.792Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:21.792Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae929a8c9ad0d37aebe70"
+  },
+  "fileName": "njit.png",
+  "path": "/images/njit.png",
+  "url": "https://www.nabilbelfki.com/images/njit.png",
+  "fileSize": 20947,
+  "created": {
+    "$date": "2025-06-19T14:38:27.070Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.070Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:21.855Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:21.855Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae929a8c9ad0d37aebe73"
+  },
+  "fileName": "paint-spackle.svg",
+  "path": "/images/paint-spackle.svg",
+  "url": "https://www.nabilbelfki.com/images/paint-spackle.svg",
+  "fileSize": 20522,
+  "created": {
+    "$date": "2025-06-19T16:17:22.124Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T16:17:22.124Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:21.909Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:21.909Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae929a8c9ad0d37aebe76"
+  },
+  "fileName": "playdoh.png",
+  "path": "/images/playdoh.png",
+  "url": "https://www.nabilbelfki.com/images/playdoh.png",
+  "fileSize": 71688,
+  "created": {
+    "$date": "2025-06-19T14:38:27.070Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.070Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:21.969Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:21.969Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae92aa8c9ad0d37aebe79"
+  },
+  "fileName": "previous.svg",
+  "path": "/images/previous.svg",
+  "url": "https://www.nabilbelfki.com/images/previous.svg",
+  "fileSize": 167,
+  "created": {
+    "$date": "2025-06-19T14:38:27.070Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.070Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:22.025Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:22.025Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae92aa8c9ad0d37aebe7c"
+  },
+  "fileName": "profile.jpg",
+  "path": "/images/profile.jpg",
+  "url": "https://www.nabilbelfki.com/images/profile.jpg",
+  "fileSize": 275705,
+  "created": {
+    "$date": "2025-06-19T14:38:27.070Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "jpg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.071Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:22.087Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:22.087Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae92aa8c9ad0d37aebe7f"
+  },
+  "fileName": "profile.png",
+  "path": "/images/profile.png",
+  "url": "https://www.nabilbelfki.com/images/profile.png",
+  "fileSize": 973025,
+  "created": {
+    "$date": "2025-06-01T19:21:55.812Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-01T19:21:55.812Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:22.146Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:22.146Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae92aa8c9ad0d37aebe82"
+  },
+  "fileName": "qr-code.png",
+  "path": "/images/qr-code.png",
+  "url": "https://www.nabilbelfki.com/images/qr-code.png",
+  "fileSize": 4680,
+  "created": {
+    "$date": "2025-06-22T21:31:50.069Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-22T21:31:50.070Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:22.205Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:22.205Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae92aa8c9ad0d37aebe85"
+  },
+  "fileName": "qr-code.svg",
+  "path": "/images/qr-code.svg",
+  "url": "https://www.nabilbelfki.com/images/qr-code.svg",
+  "fileSize": 9855,
+  "created": {
+    "$date": "2025-06-22T21:55:03.335Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-22T21:55:03.336Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:22.262Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:22.262Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae92aa8c9ad0d37aebe88"
+  },
+  "fileName": "right-arrow.svg",
+  "path": "/images/right-arrow.svg",
+  "url": "https://www.nabilbelfki.com/images/right-arrow.svg",
+  "fileSize": 513,
+  "created": {
+    "$date": "2025-06-19T14:38:27.071Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.071Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:22.316Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:22.316Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae92aa8c9ad0d37aebe8b"
+  },
+  "fileName": "screw.svg",
+  "path": "/images/screw.svg",
+  "url": "https://www.nabilbelfki.com/images/screw.svg",
+  "fileSize": 422,
+  "created": {
+    "$date": "2025-06-19T14:38:27.071Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.071Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:22.374Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:22.374Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae92aa8c9ad0d37aebe8e"
+  },
+  "fileName": "ship.png",
+  "path": "/images/ship.png",
+  "url": "https://www.nabilbelfki.com/images/ship.png",
+  "fileSize": 654454,
+  "created": {
+    "$date": "2025-06-19T14:38:27.071Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.073Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:22.433Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:22.433Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae92aa8c9ad0d37aebe91"
+  },
+  "fileName": "the-coder-school.png",
+  "path": "/images/the-coder-school.png",
+  "url": "https://www.nabilbelfki.com/images/the-coder-school.png",
+  "fileSize": 12218,
+  "created": {
+    "$date": "2025-06-19T14:38:27.073Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.073Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:22.489Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:22.489Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae92aa8c9ad0d37aebe94"
+  },
+  "fileName": "transformers.png",
+  "path": "/images/transformers.png",
+  "url": "https://www.nabilbelfki.com/images/transformers.png",
+  "fileSize": 956748,
+  "created": {
+    "$date": "2025-06-19T14:38:27.073Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "png",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-06-19T14:38:27.074Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:22.546Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:22.546Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688ae92aa8c9ad0d37aebe97"
+  },
+  "fileName": "trash.svg",
+  "path": "/images/trash.svg",
+  "url": "https://www.nabilbelfki.com/images/trash.svg",
+  "fileSize": 963,
+  "created": {
+    "$date": "2025-07-27T01:43:28.224Z"
+  },
+  "description": "",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2025-07-27T01:43:32.787Z"
+  },
+  "metadata": {
+    "directory": "images"
+  },
+  "createdAt": {
+    "$date": "2025-07-31T03:55:22.605Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-31T03:55:22.605Z"
+  },
+  "__v": 0
+}]

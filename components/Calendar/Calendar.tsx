@@ -6,6 +6,7 @@ import { useReCaptcha } from "next-recaptcha-v3";
 import Popup from "@/components/Popup/Popup";
 import Button from "@/components/Button/Button";
 import Times from "@/components/Times/Times";
+import { formatDate } from "@/lib/utilities";
 
 interface Bookings {
   dateTime: string;
@@ -287,9 +288,9 @@ const Calendar: React.FC<unknown> = () => {
       try {
         const response = await fetch(`/api/meetings?date=${formattedDate}`);
         const data = await response.json();
-
+        console.log("Data", data)
         if (data.success) {
-          setMeetings(data.meetings);
+          setMeetings(data.data);
           setShowing(true);
         } else {
           console.error("Failed to fetch meetings:", data.error);
@@ -378,25 +379,6 @@ const Calendar: React.FC<unknown> = () => {
     }
 
     return weeks;
-  };
-
-  const formatDate = (date: Date | null) => {
-    if (!date) return "";
-    const formattedDate = date.toLocaleDateString("en-US", {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    });
-    const day = date.getDate();
-    const daySuffix =
-      day % 10 === 1 && day !== 11
-        ? "st"
-        : day % 10 === 2 && day !== 12
-        ? "nd"
-        : day % 10 === 3 && day !== 13
-        ? "rd"
-        : "th";
-    return formattedDate.replace(/\d+/, `${day}${daySuffix}`);
   };
 
   return (

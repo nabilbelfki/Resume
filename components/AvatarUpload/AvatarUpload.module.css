@@ -8,9 +8,10 @@
 }
 
 .thumbnail {
+    position: relative;
     height: 200px;
     width: 200px;
-    background: linear-gradient(#8FFF9C 0%, #56995D 100%);
+    background: #D9D9D9;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,6 +22,26 @@
 .initials {
     font-size: 64px;
     font-weight: 550;
+}
+
+
+.remove {
+    position: absolute;
+    bottom: -15px;
+    right: 50%;
+    transform: translateX(50%);
+    opacity: 0;
+    border: none;
+    background-color: unset;
+    transition: all 0.3s ease-out;
+    pointer-events: none; /* Prevent flickering when moving mouse over the button */
+    cursor:pointer;
+}
+
+.thumbnail:hover .remove {
+    opacity: 1;
+    bottom: -5px; /* Moves up 10px from original -15px position */
+    pointer-events: auto; /* Re-enable pointer events when visible */
 }
 
 .edit {

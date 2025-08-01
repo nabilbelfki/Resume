@@ -170,9 +170,20 @@ export interface Experiences {
   export type MediaType = 'Image' | 'Video' | 'Sound';
 
   export interface Media {
-    name: string;
-    path: string;
-    description: string;
-    size?: number;
-    type: MediaType;
+      _id?: string; // Optional for MongoDB documents
+      name: string;
+      path: string; // URL or path to the media file
+      description: string;
+      size?: number; // File size in bytes
+      type: MediaType;
+      backgroundColor?: string;
+      file?: File | Blob; // For new uploads before they're saved to server
+      extension?: string; // File extension (e.g., 'jpg', 'mp4')
+      dimensions?: { // For images/videos
+          width?: number;
+          height?: number;
+      };
+      url?: string; // Full URL to access the media
+      createdAt?: Date; // Timestamp
+      updatedAt?: Date; // Timestamp
   }

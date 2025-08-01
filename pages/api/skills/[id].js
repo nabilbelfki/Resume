@@ -68,6 +68,7 @@ async function handlePutRequest(id, req, res) {
     {
       type: body.type,
       name: body.name,
+      status: body.status,
       image: {
         name: body.image.name,
         url: body.image.url,

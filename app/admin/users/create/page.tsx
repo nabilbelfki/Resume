@@ -6,7 +6,10 @@ import AvatarUpload from "@/components/AvatarUpload/AvatarUpload";
 import { Breadcrumb as breadcrumb} from "@/lib/types";
 
 interface UserData {
-  avatar?: string;
+  image?: {
+    name: string | null;
+    path: string | null;
+  };
   username: string;
   firstName: string;
   lastName: string;
@@ -42,6 +45,9 @@ const User: React.FC = () => {
       country: ''
     }
   });
+
+  const initials = `${(formData.firstName[0] ? formData.firstName[0] : '')}${(formData.lastName[0] ? formData.lastName[0] : '')}`;
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -83,6 +89,17 @@ const User: React.FC = () => {
     console.log(formData);
   };
 
+   const handleAvatarChange = (media: { name: string | null; path: string | null }) => {
+    setFormData(prev => ({
+      ...prev,
+      image: {
+        name: media.name,
+        path: media.path
+      }
+    }));
+  };
+
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -97,6 +114,9 @@ const User: React.FC = () => {
         // Prepare the data to send - ensure all address fields are strings (empty or filled)
         const dataToSend = {
         ...formData,
+        image: formData.image?.name && formData.image?.path 
+          ? `${formData.image.path}${formData.image.name}`
+          : '',
         birthday: formData.birthday || "",
         phoneNumber: formData.phoneNumber || "",
         role: "",
@@ -159,7 +179,11 @@ const User: React.FC = () => {
       </div>
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.content}>
-        <AvatarUpload />
+        <AvatarUpload 
+        initials={initials}
+          value={formData.image}
+          onChange={handleAvatarChange}
+        />
         <label className={styles.title}>General Information</label>
         <div className={styles.general}>
           <div className={styles.input}>

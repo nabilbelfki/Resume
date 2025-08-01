@@ -85,12 +85,13 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
 
     useEffect(() => {
         const fetchData = async () => {
+            const folder = (entity.toLowerCase() === 'media' || entity.toLowerCase() === 'message') ? entity.toLowerCase() : entity.toLowerCase() + 's';
             try {
                 setLoading(true);
-                const response = await fetch(`/api/${entity.toLowerCase()}s?page=${currentPage}&limit=${showing}&search=${searchQuery}&sortBy=${sort}&sortOrder=${order}`);
+                const response = await fetch(`/api/${folder}?page=${currentPage}&limit=${showing}&search=${searchQuery}&sortBy=${sort}&sortOrder=${order}`);
 
                 if (!response.ok) {
-                    throw new Error(`Failed to fetch ${entity.toLowerCase()}s`);
+                    throw new Error(`Failed to fetch ${folder}`);
                 }
 
                 const data = await response.json();
@@ -100,7 +101,7 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
                 setTotalPages(data.totalPages || 1);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'Failed to fetch data');
-                console.error(`Error fetching ${entity.toLowerCase()}s:`, err);
+                console.error(`Error fetching ${folder}:`, err);
             } finally {
                 setLoading(false);
             }
@@ -115,8 +116,9 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
     };
 
     const getText = (row: Row, column: Column) => {
+        console.log(column.selectors, row)
         const values = column.selectors
-            .map(selectorPath => { // selectorPath is now an array like ['address', 'city']
+            .map(selectorPath => {
                 let currentValue: any = row;
                 for (const key of selectorPath) {
                     if (currentValue && typeof currentValue === 'object' && key in currentValue) {
@@ -161,8 +163,8 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
     const renderCellContent = (row: Row, column: Column) => {
         
         const values = getText(row, column);
-
         if (column.type === 'thumbnail') {
+            console.log("Values: ", values);
             const backgroundColor = getText(row, {selectors: column.thumbnailBackgroundColor} as Column).join("")
             return (
                 <div className={styles.thumbnail} style={{backgroundColor}}>
@@ -291,7 +293,7 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
                     <div className={styles.search}>
                         <input 
                             type="text"
-                            placeholder={`Search ${entity}s`}
+                            placeholder={`Search ${entity === "Media" ? entity : entity + 's'}`}
                             value={searchQuery}
                             onChange={handleSearch}
                         />
@@ -356,7 +358,7 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
                                     />
                                 </td>
                                 {columns.map((column, colIndex) => (
-                                    <td onClick={() => location.href = window.location.href + '/edit/' + row._id}
+                                    <td onClick={() => location.href = window.location.href + (entity === 'Message' ? '/view/' : '/edit/') + row._id}
                                         key={`${index}-${column.label}-${colIndex}`}
                                         title={getText(row, column).join(" ")}
                                         style={{

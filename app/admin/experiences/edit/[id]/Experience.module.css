@@ -1,0 +1,231 @@
+.container {
+    margin-top: 90px;
+    margin-left: 60px;
+    width: calc(100% - 60px);
+    min-height: calc(100vh - 90px);
+    padding: 50px;
+}
+
+.actions {
+    position: absolute;
+    display: flex;
+    gap: 30px;
+    top: 170px;
+    right: 100px;
+}
+
+.back {
+    height: 45px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border: solid 1.6px #C6C6C6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: #4C4C4C;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: #F8F8F8;
+    box-shadow: 0 0 3px 0 rgba(0,0,0,0.25);
+    border-radius: 1px;
+}
+
+.back:hover {
+    background-color: #e2e2e2;
+}
+
+.save {
+    height: 45px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border: solid 0.5px white;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 18px;
+    background: linear-gradient(to right, #43A4FF 0%, #0084FF 75%, #0370D5 100%);
+    box-shadow: 0 0 3px 0 rgba(0,0,0,0.25);
+    border-radius: 1px;
+}
+
+.save:hover {
+    background: linear-gradient(to right, #1683ea 0%, #0069cb 75%, #02488a 100%);
+}
+
+.delete {
+    height: 45px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border: solid 0.5px white;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 18px;
+    background: linear-gradient(to right, rgba(241,66,69, 0.7) 0%, rgba(199,42,45, 0.7) 75%, rgba(167,27,30, 0.7) 100%);
+    box-shadow: 0 0 3px 0 rgba(0,0,0,0.25);
+    border-radius: 1px;
+}
+
+.delete:hover {
+    background: linear-gradient(to right, rgba(185, 50, 53, 0.7) 0%, rgba(137, 29, 31, 0.7) 75%, rgba(105, 17, 18, 0.7) 100%);
+}
+
+.content {
+    background-color: #F8F8F8;
+    border: solid 1.6 #E8E8E8;
+    min-height: 400px;
+    padding: 50px;
+}
+
+.avatarContainer {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatarContainer label {
+    color: #3CA1FF;
+    font-weight: 550;
+    font-size: 24px;
+}
+
+.front-and-back {
+    display: flex;
+    justify-content: center;
+    gap: 70px;
+}
+
+.same {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.same label {
+    color: #00449C;
+    font-size: 12px;
+}
+
+.same input {
+    height: 25px;
+    width: 25px;
+}
+
+.title {
+    padding-left: 30px;
+    color: #3CA1FF;
+    font-weight: 550;
+    font-size: 32px;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.input label {
+    color: #00449C;
+    font-size: 12px;
+}
+
+.input input {
+    padding: 15px;
+    outline: none;
+    font-size: 16px;
+    color: #4C4C4C;
+    border: solid 1.6px #C6C6C6;
+    box-shadow: 0 0 1.5px 0 rgba(0,0,0,0.25);
+    height: 42px;
+}
+
+/* --- New rule for placeholder text color --- */
+.container input::placeholder {
+    color: #C6C6C6; /* Set the desired placeholder color */
+    opacity: 1; /* Ensure full opacity, as some browsers reduce it by default */
+}
+
+/* For cross-browser compatibility (though ::placeholder is widely supported now) */
+.container input:-ms-input-placeholder { /* Edge */
+    color: #C6C6C6;
+}
+
+.container input::-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #C6C6C6;
+}
+
+/* --- End new rule --- */
+
+.input input:focus {
+    border: solid 2px #8E8E8E;
+}
+
+.input select {
+    padding-left: 10px;
+    padding-right: 20px;
+    outline: none;
+    font-size: 16px;
+    color: #4C4C4C;
+    border: solid 1.6px #C6C6C6;
+    box-shadow: 0 0 1.5px 0 rgba(0,0,0,0.25);
+    height: 42px;
+}
+
+.grid {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+
+.textbox {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 60px;
+    gap: 4px;
+}
+
+.textbox label {
+    color: #00449C;
+    font-size: 12px;
+}
+
+.textbox textarea {
+    height: 200px;
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    padding: 15px;
+    border: solid 1.6px #C6C6C6;
+    box-shadow: 0 0 1.5px 0 rgba(0,0,0,0.25);
+    outline: none;
+    resize: none;
+}
+
+.textbox textarea:focus {
+    border: solid 2px #8E8E8E;
+}
+
+/* --- New rule for textarea placeholder text color --- */
+.textbox textarea::placeholder {
+    color: #C6C6C6; /* Set the desired placeholder color for textareas */
+    opacity: 1; /* Ensure full opacity */
+}
+
+/* For cross-browser compatibility (textareas) */
+.textbox textarea:-ms-input-placeholder { /* Edge */
+    color: #C6C6C6;
+}
+
+.textbox textarea::-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #C6C6C6;
+}
+/* --- End new rule for textarea placeholder text color --- */

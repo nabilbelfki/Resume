@@ -7,7 +7,10 @@ import { Breadcrumb as breadcrumb} from "@/lib/types";
 import { useParams, useRouter } from "next/navigation";
 
 interface UserData {
-  avatar?: string;
+  image?: {
+    name: string | null;
+    path: string | null;
+  };
   username: string;
   firstName: string;
   lastName: string;
@@ -47,6 +50,9 @@ const User: React.FC = () => {
       country: ''
     }
   });
+
+  const initials = `${(formData.firstName[0] ? formData.firstName[0] : '')}${(formData.lastName[0] ? formData.lastName[0] : '')}`;
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -63,7 +69,25 @@ const User: React.FC = () => {
           throw new Error(`Failed to fetch user`);
         }
 
+
         const data = await response.json();
+    
+        // Extract name and path from the image URL
+        const imageUrl = data.image || '';
+        let imageName = '';
+        let imagePath = '';
+
+        if (imageUrl) {
+          const lastSlashIndex = imageUrl.lastIndexOf('/');
+          if (lastSlashIndex >= 0) {
+            imageName = imageUrl.substring(lastSlashIndex + 1);
+            imagePath = imageUrl.substring(0, lastSlashIndex + 1);
+          } else {
+            // Handle case where URL has no slashes (just a filename)
+            imageName = imageUrl;
+          }
+        }
+        
         setFormData({
           username: data.username || '',
           firstName: data.firstName || '',
@@ -73,6 +97,10 @@ const User: React.FC = () => {
           phoneNumber: data.phoneNumber || '',
           role: data.role || '',
           status: data.status || '',
+          image: {
+            name: imageName,
+            path: imagePath
+          },
           address: {
             addressOne: data.address?.addressOne || '',
             addressTwo: data.address?.addressTwo || '',
@@ -140,6 +168,9 @@ const User: React.FC = () => {
 
       const dataToSend = {
         ...formData,
+        image: formData.image?.name && formData.image?.path 
+          ? `${formData.image.path}${formData.image.name}`
+          : '',
         birthday: formData.birthday || "",
         phoneNumber: formData.phoneNumber || "",
         address: {
@@ -176,6 +207,16 @@ const User: React.FC = () => {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleAvatarChange = (media: { name: string | null; path: string | null }) => {
+    setFormData(prev => ({
+      ...prev,
+      image: {
+        name: media.name,
+        path: media.path
+      }
+    }));
   };
 
   const handleDelete = async () => {
@@ -241,7 +282,11 @@ const User: React.FC = () => {
       </div>
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.content}>
-        <AvatarUpload />
+        <AvatarUpload 
+        initials={initials}
+          value={formData.image}
+          onChange={handleAvatarChange}
+        />
         <label className={styles.title}>General Information</label>
         <div className={styles.general}>
           <div className={styles.input}>

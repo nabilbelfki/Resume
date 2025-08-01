@@ -18,7 +18,7 @@ const Skills: React.FC = () => {
     ];
     const actions = [
         {
-            label: 'Delete Users',
+            label: 'Delete Skills',
             action: (IDs:string[]) => console.log(IDs)
         }
     ]

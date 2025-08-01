@@ -1,11 +1,13 @@
 import dbConnect from "../../lib/dbConnect";
 import Meeting from "../../models/Meeting";
 import axios from "axios";
+import { getCache, setCache } from "../../lib/cache";
 
 export default async function handler(req, res) {
   await dbConnect();
 
   if (req.method === "POST") {
+    // Keep the existing POST handler exactly as is
     const {
       dateTimeString,
       firstName,
@@ -75,38 +77,75 @@ export default async function handler(req, res) {
       }
     }
   } else if (req.method === "GET") {
-    const { date } = req.query; // Expecting date in YYYY-MM-DD format
-
-    if (!date) {
-      return res
-        .status(400)
-        .json({ success: false, error: "Date query parameter is required" });
-    }
+    const { date, page = 1, limit = 10, sortOrder = 'desc' } = req.query;
 
     try {
-      const startOfDay = new Date(date);
-      startOfDay.setUTCHours(0, 0, 0, 0);
+        // Parse pagination parameters
+        const pageNumber = parseInt(page.toString());
+        const limitNumber = parseInt(limit.toString());
+        const skip = (pageNumber - 1) * limitNumber;
+        
+        // Validate sort order
+        const sortDirection = sortOrder.toString().toLowerCase() === 'asc' ? 1 : -1;
 
-      const endOfDay = new Date(startOfDay);
-      endOfDay.setUTCHours(23, 59, 59, 999);
+        // Create cache key with all parameters
+        const cacheKey = `meetings:${date || 'all'}:${page}:${limit}:${sortOrder}`;
+        
+        // Check cache
+        const cachedData = getCache(cacheKey);
+        if (cachedData) {
+            console.log("Returning cached meetings data");
+            return res.status(200).json(cachedData);
+        }
 
-      const meetings = await Meeting.find({
-        dateTime: {
-          $gte: startOfDay,
-          $lt: endOfDay,
-        },
-      });
+        // Build query conditions
+        const conditions = {};
+        if (date) {
+            const startOfDay = new Date(date);
+            startOfDay.setUTCHours(0, 0, 0, 0);
+            const endOfDay = new Date(startOfDay);
+            endOfDay.setUTCHours(23, 59, 59, 999);
+            
+            conditions.dateTime = {
+                $gte: startOfDay,
+                $lt: endOfDay
+            };
+        }
 
-      res.status(200).json({ success: true, meetings });
+        // Get total count
+        const total = await Meeting.countDocuments(conditions);
+
+        // Fetch paginated meetings
+        const data = await Meeting.find(conditions)
+            .skip(skip)
+            .limit(limitNumber)
+            .sort({ dateTime: sortDirection });
+
+        // Prepare response
+        const responseData = {
+            success: true,
+            data,
+            total,
+            totalPages: Math.ceil(total / limitNumber),
+            currentPage: pageNumber,
+            limit: limitNumber,
+            sortOrder
+        };
+
+        // Cache the response
+        setCache(cacheKey, responseData);
+
+        res.status(200).json(responseData);
     } catch (error) {
-      console.error("Error fetching meetings:", error);
-      res.status(500).json({
-        success: false,
-        error: "Failed to fetch meetings",
-        details: error.message,
-      });
+        console.error("Error fetching meetings:", error);
+        res.status(500).json({
+            success: false,
+            error: "Failed to fetch meetings",
+            details: error.message,
+        });
     }
-  } else if (req.method === "DELETE") {
+} else if (req.method === "DELETE") {
+    // Keep the existing DELETE handler exactly as is
     const { firstName, lastName, dateTimeString } = req.body;
 
     if (!firstName || !lastName || !dateTimeString) {
