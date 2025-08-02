@@ -32,7 +32,8 @@ const Home = async () => {
     ]);
 
     if (projectsRes.ok) {
-      projects = await projectsRes.json();
+      const projectsData = await projectsRes.json();
+      projects = projectsData.data;
     } else {
       console.error("Failed to fetch projects:", projectsRes.statusText);
     }

@@ -1,4 +1,6 @@
 "use client";
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import React, { useState, useEffect } from "react";
 import Script from "next/script";
 import { usePathname } from "next/navigation"; // Use usePathname instead of useRouter
@@ -84,12 +86,14 @@ const pathname = usePathname();
           reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY_V3}
         >
           <LoadScriptWrapper>
-            <div className={isAdminPage ? styles[`admin-container`] : styles[`site-container`]}>
-              {!isLoginPage && (<NavigationBar type={isAdminPage ? 'admin' : 'classic'} />)}
-              {isAdminPage && (<SideBar />)}
-              {children}
-              {(showFooter && !isLoginPage && !isAdminPage) && (<Footer />)}
-            </div>
+            <DndProvider backend={HTML5Backend}>
+              <div className={isAdminPage ? styles[`admin-container`] : styles[`site-container`]}>
+                {!isLoginPage && (<NavigationBar type={isAdminPage ? 'admin' : 'classic'} />)}
+                {isAdminPage && (<SideBar />)}
+                {children}
+                {(showFooter && !isLoginPage && !isAdminPage) && (<Footer />)}
+              </div>
+            </DndProvider>
           </LoadScriptWrapper>
         </ReCaptchaProvider>
       </body>
