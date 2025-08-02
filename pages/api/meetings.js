@@ -1,7 +1,7 @@
 import dbConnect from "../../lib/dbConnect";
 import Meeting from "../../models/Meeting";
 import axios from "axios";
-import { getCache, setCache } from "../../lib/cache";
+import { clearCache, getCache, setCache } from "../../lib/cache";
 
 export default async function handler(req, res) {
   await dbConnect();
@@ -55,11 +55,13 @@ export default async function handler(req, res) {
         phone,
         notes,
       });
-
+      clearCache('meeting');
       await meeting.save();
+
       res
         .status(201)
         .json({ success: true, message: "Meeting saved successfully" });
+
     } catch (error) {
       console.error("Error saving meeting:", error);
       if (error.code === 11000) {

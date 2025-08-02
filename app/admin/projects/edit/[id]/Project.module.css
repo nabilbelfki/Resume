@@ -79,6 +79,45 @@
     padding: 50px;
 }
 
+.avatarContainer {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatarContainer label {
+    color: #3CA1FF;
+    font-weight: 550;
+    font-size: 24px;
+}
+
+.front-and-back {
+    display: flex;
+    justify-content: center;
+    gap: 70px;
+}
+
+.same {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.same label {
+    color: #00449C;
+    font-size: 12px;
+}
+
+.same input {
+    height: 25px;
+    width: 25px;
+}
+
 .title {
     padding-left: 30px;
     color: #3CA1FF;
@@ -89,7 +128,6 @@
 .input {
     display: flex;
     flex-direction: column;
-    position: relative;
     gap: 4px;
 }
 
@@ -106,6 +144,12 @@
     border: solid 1.6px #C6C6C6;
     box-shadow: 0 0 1.5px 0 rgba(0,0,0,0.25);
     height: 42px;
+}
+
+.latitude-and-longitude {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 /* --- New rule for placeholder text color --- */
@@ -129,31 +173,6 @@
     border: solid 2px #8E8E8E;
 }
 
-.input-button {
-    position: absolute;
-    top: 18px;
-    right: 0;
-    height: 42px;
-    padding-left: 15px;
-    padding-right: 15px;
-    border: solid 1.6px #C6C6C6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    color: #4C4C4C;
-    font-size: 12px;
-    font-weight: 600;
-    background-color: #F8F8F8;
-    box-shadow: 0 0 3px 0 rgba(0,0,0,0.25);
-    border-radius: 1px;
-}
-
-.input-button:hover {
-    background-color: #e2e2e2;
-}
-
 .input select {
     padding-left: 10px;
     padding-right: 20px;
@@ -170,13 +189,14 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 40px;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 
 .textbox {
     display: flex;
     flex-direction: column;
+    margin-bottom: 40px;
     gap: 4px;
 }
 

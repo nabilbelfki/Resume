@@ -7,6 +7,14 @@ const ProjectSchema = new mongoose.Schema({
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   views: { type: Number, required: true },
+  url: { type: String, required: true },
+  thumbnail: {
+    fileName: { type: String, required: false },
+    path: { type: String, required: false },
+    backgroundColor: { type: String, required: false },
+    width: { type: Number, required: false },
+    height: { type: Number, required: false }
+  },
   repository: {
     type: {
       type: String,
@@ -35,28 +43,20 @@ const ProjectSchema = new mongoose.Schema({
       required: false,
     },
   },
-  tools: {
-    name: {
-      type: String,
-      required: false,
-    },
-    slug: {
-      type: String,
-      required: false,
-    },
-    url: {
-      type: String,
-      required: false,
-    },
-    color: {
-      type: String,
-      required: false,
-    },
-    imagePath: {
-      type: String,
-      required: false,
-    },
-  },
+  languages: [{
+    name: { type: String, required: false },
+    color: { type: String, required: false },
+    percentage: { type: Number, required: false }
+  }],
+  tools: [{
+    name: { type: String, required: false },
+    slug: { type: String, required: false },
+    url: { type: String, required: false },
+    color: { type: String, required: false },
+    imagePath: { type: String, required: false },
+    width: { type: Number, required: false },
+    height: { type: Number, required: false }
+  }],
   description: { type: String, required: true },
   slug: { type: String, required: true },
   client: {

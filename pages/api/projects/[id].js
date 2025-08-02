@@ -61,7 +61,7 @@ async function handlePutRequest(id, req, res) {
   }
 
   // Clear relevant caches
-  clearCache('projects'); // Clear all projects list caches
+  clearCache('project'); // Clear all projects list caches
   setCache(`project-${id}`, null);
 
   const updateData = {
@@ -70,51 +70,15 @@ async function handlePutRequest(id, req, res) {
     startDate: new Date(body.startDate),
     endDate: new Date(body.endDate),
     views: body.views,
-    repository: {
-      type: body.repository.type,
-      url: body.repository.url,
-      shortUrl: body.repository.shortUrl
-    },
-    container: body.container ? {
-      type: body.container.type || '',
-      url: body.container.url || '',
-      shortUrl: body.container.shortUrl || ''
-    } : undefined,
-    tools: body.tools ? {
-      name: body.tools.name || '',
-      slug: body.tools.slug || '',
-      url: body.tools.url || '',
-      color: body.tools.color || '',
-      imagePath: body.tools.imagePath || ''
-    } : undefined,
+    repository: body.repository,
+    thumbnail: body.thumbnail,
     description: body.description,
     slug: body.slug,
-    client: {
-      title: {
-        name: body.client.title.name,
-        fontSize: body.client.title.fontSize
-      },
-      logo: {
-        width: body.client.logo.width,
-        height: body.client.logo.height,
-        path: body.client.logo.path,
-        fileName: body.client.logo.fileName
-      },
-      location: {
-        latitude: body.client.location.latitude,
-        longitude: body.client.location.longitude
-      },
-      description: body.client.description,
-      slides: body.client.slides?.map(slide => ({
-        name: slide.name,
-        image: {
-          width: slide.image.width,
-          height: slide.image.height,
-          src: slide.image.src,
-          alt: slide.image.alt
-        }
-      })) || []
-    },
+    url: body.url,
+    languages: body.languages,
+    tools: body.tools,
+    container: body.container,
+    client: body.client,
     updatedAt: new Date()
   };
 

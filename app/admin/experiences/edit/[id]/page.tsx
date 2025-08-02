@@ -413,7 +413,7 @@ const Experience: React.FC = () => {
           onClick={handleSubmit}
           disabled={isSubmitting}
         >
-          {isSubmitting ? (id ? 'Updating...' : 'Saving...') : (id ? 'Update Experience' : 'Save Experience')}
+          {isSubmitting ? (id ? 'Updating...' : 'Saving...') : (id ? 'Save Changes' : 'Save Experience')}
         </button>
         {id && (
           <button 

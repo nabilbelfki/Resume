@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
-  avatar: {type: String, required: false},
+  image: {type: String, required: false},
   username: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },

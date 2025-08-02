@@ -229,6 +229,36 @@ const Meeting: React.FC = () => {
     }
   };
 
+  const handleDelete = async () => {
+    if (!id) return;
+    
+    if (!confirm('Are you sure you want to delete this experience?')) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`/api/meetings/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to delete experience');
+      }
+
+      console.log('Experience deleted successfully');
+      window.location.href = '/admin/meetings';
+    } catch (err) {
+      console.error('Error deleting experience:', err);
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <Breadcrumbs breadcrumbs={breadcrumbs}/>
@@ -251,6 +281,15 @@ const Meeting: React.FC = () => {
         >
           {isSubmitting ? 'Saving...' : 'Save Changes'}
         </button>
+        {id && (
+          <button 
+            className={styles.delete} 
+            onClick={handleDelete}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Deleting...' : 'Delete Meeting'}
+          </button>
+        )}
       </div>
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.content}>

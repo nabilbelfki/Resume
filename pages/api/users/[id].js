@@ -59,8 +59,7 @@ async function handlePutRequest(id, req, res) {
   }
 
   // Clear relevant caches
-  setCache("users", null);
-  setCache(`user-${id}`, null);
+  clearCache("user");
 
   const updatedUser = await User.findByIdAndUpdate(
     id,

@@ -10,11 +10,13 @@ const ExperienceSchema = new mongoose.Schema({
   logo: {
     opened: {
       name: { type: String, required: true },
+      path: { type: String, required: true },
       width: { type: Number, required: true },
       height: { type: Number, required: true }
     },
     closed: {
       name: { type: String, required: true },
+      path: { type: String, required: true },
       width: { type: Number, required: true },
       height: { type: Number, required: true }
     }

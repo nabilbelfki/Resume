@@ -5,21 +5,25 @@ import { Media as MediaType } from "@/lib/types";
 import Media from "@/components/Media/Media";
 
 
+// MediaPicker.tsx
 interface MediaPickerProps {
   value?: {
     name: string;
     path: string;
-    backgroundColor?: string; // Add background color
+    width?: number;
+    height?: number;
+    backgroundColor?: string;
   };
   onChange?: (media: { 
     name: string; 
     path: string;
-    backgroundColor?: string; // Add background color
+    width?: number;
+    height?: number;
+    backgroundColor?: string;
   }) => void;
-  backgroundColor?: string; // Optional prop to override
-  style?: React.CSSProperties; // Optional style prop
+  backgroundColor?: string;
+  style?: React.CSSProperties;
 }
-
 
 const MediaPicker: React.FC<MediaPickerProps> = ({ 
   value, 
@@ -27,14 +31,35 @@ const MediaPicker: React.FC<MediaPickerProps> = ({
   backgroundColor,
   style
 }) => {
+    const [dimensions, setDimensions] = useState({
+        width: value?.width || 0,
+        height: value?.height || 0
+    });
+    
     const [showMediaPicker, setShowMediaPicker] = useState(false);
+    const handleDimensionChange = (type: 'width' | 'height', val: number) => {
+        const newDimensions = {
+            ...dimensions,
+            [type]: val
+        };
+        setDimensions(newDimensions);
+        
+        if (onChange && value) {
+            onChange({
+                ...value,
+                ...newDimensions
+            });
+        }
+    };
+
 
     const handleMediaSelect = (selectedMedia: MediaType) => {
         if (onChange) {
             onChange({
                 name: selectedMedia.name,
                 path: selectedMedia.path,
-                backgroundColor: selectedMedia.backgroundColor || '' // Pass background color
+                backgroundColor: selectedMedia.backgroundColor || '',
+                ...dimensions
             });
         }
         setShowMediaPicker(false);
@@ -116,10 +141,20 @@ const MediaPicker: React.FC<MediaPickerProps> = ({
             </div>
             <div className={styles['width-and-height']}>
                 <div className={styles.width}>
-                    <input type="number" placeholder="W" />
+                    <input 
+                        type="number" 
+                        placeholder="W" 
+                        value={dimensions.width || ''}
+                        onChange={(e) => handleDimensionChange('width', Number(e.target.value))}
+                    />
                 </div>
                 <div className={styles.height}>
-                    <input type="number" placeholder="H" />
+                    <input 
+                        type="number" 
+                        placeholder="H" 
+                        value={dimensions.height || ''}
+                        onChange={(e) => handleDimensionChange('height', Number(e.target.value))}
+                    />
                 </div>
             </div>
         </div>

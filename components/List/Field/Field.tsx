@@ -77,9 +77,18 @@ const Field: React.FC<{
       return (
         <div className={styles['media-field']}>
           <MediaPicker 
-            value={commonProps.value}
-            onChange={commonProps.onChange}
-            backgroundColor={backgroundColor}
+            value={{
+              name: field.value?.name || '',
+              path: field.value?.path || '',
+              width: field.value?.width,
+              height: field.value?.height,
+              backgroundColor: backgroundColor
+            }}
+            onChange={(media) => onChange({
+              ...media,
+              width: media.width,
+              height: media.height
+            })}
           />
         </div>
       );

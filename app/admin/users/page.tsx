@@ -35,7 +35,8 @@ const Users: React.FC = () => {
                         if (!response.ok) {
                             throw new Error('Failed to delete user');
                         }
-                        return response;
+
+                        location.href = '/admin/users';
                     })
                 )
             );

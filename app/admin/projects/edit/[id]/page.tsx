@@ -1,12 +1,34 @@
 "use client"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Project.module.css"
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import { Breadcrumb as breadcrumb} from "@/lib/types";
 import List from "@/components/List/List";
 import ThumbnailUpload from "@/components/ThumbnailUpload/ThumbnailUpload"
 import MediaPicker from "@/components/MediaPicker/MediaPicker";
-import Languages from "@/components/Languages/Languages";
+import { useParams } from "next/navigation";
+
+interface ToolData {
+  name: string;
+  color: string;
+  slug: string;
+  url: string;
+  imagePath: string;
+  width?: number;
+  height?: number;
+}
+
+interface SlideData {
+  name: string;
+  color?: string;
+  image: {
+    src: string;
+    alt?: string;
+    width?: number;
+    height?: number;
+    backgroundColor?: string;
+  };
+}
 
 interface ProjectData {
   name: string;
@@ -71,6 +93,8 @@ interface ProjectData {
 }
 
 const Project: React.FC = () => {
+  const params = useParams();
+  const id = params?.id as string;
   const [thumbnail, setThumbnail] = useState<{ name: string; path: string; backgroundColor?: string }>({ 
     name: '', 
     path: '' 
@@ -110,6 +134,94 @@ const Project: React.FC = () => {
       slides: []
     }
   });
+  
+  useEffect(() => {
+    const fetchProject = async () => {
+      if (!id) return;
+      
+      try {
+        const response = await fetch(`/api/projects/${id}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch project');
+        }
+        const data = await response.json();
+        
+        // Transform the data to match your form structure
+        setFormData({
+          name: data.name,
+          slug: data.slug,
+          url: data.url,
+          duration: data.duration,
+          startDate: data.startDate.split('T')[0],
+          endDate: data.endDate?.split('T')[0] || '',
+          views: data.views,
+          description: data.description,
+          thumbnail: {
+            name: data.thumbnail?.fileName || '',
+            path: data.thumbnail?.path || '',
+            backgroundColor: data.thumbnail?.backgroundColor
+          },
+          repositories: {
+            github: data.repository?.url || '',
+            docker: data.container?.url || '',
+            figma: '' // Add if you have this field
+          },
+          languages: data.languages || [],
+          tools: (data.tools as ToolData[])?.map((tool: ToolData) => ({
+            name: tool.name,
+            color: tool.color,
+            slug: tool.slug,
+            url: tool.url,
+            thumbnail: {
+              name: tool.imagePath?.split('/').pop() || '',
+              path: tool.imagePath?.replace(/[^/]*$/, '') || '',
+              width: tool.width,
+              height: tool.height
+            }
+          })) || [],
+          client: {
+            title: data.client?.title?.name || '',
+            description: data.client?.description || '',
+            location: {
+              latitude: data.client?.location?.latitude || 0,
+              longitude: data.client?.location?.longitude || 0
+            },
+            logo: {
+              name: data.client?.logo?.fileName || '',
+              path: data.client?.logo?.path || '',
+              width: data.client?.logo?.width,
+              height: data.client?.logo?.height
+            },
+            slides: data.client?.slides?.map((slide: SlideData) => ({
+              name: slide.name,
+              color: slide.image?.backgroundColor || '', // Default value
+              thumbnail: {
+                name: slide.image?.src?.split('/').pop() || '',
+                path: slide.image?.src?.replace(/[^/]*$/, '') || '',
+                width: slide.image?.width,
+                height: slide.image?.height
+              }
+            })) || [],
+          }
+        });
+
+        // Set thumbnail if exists
+        if (data.thumbnail) {
+          setThumbnail({
+            name: data.thumbnail.fileName,
+            path: data.thumbnail.path,
+            backgroundColor: data.thumbnail.backgroundColor
+          });
+        }
+
+      } catch (error) {
+        console.error('Error fetching project:', error);
+        setError(error instanceof Error ? error.message : 'Failed to load project');
+      }
+    };
+
+    fetchProject();
+  }, [id]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -117,7 +229,7 @@ const Project: React.FC = () => {
   const breadcrumbs: breadcrumb[] = [
     { label: 'Projects', href: '/admin/projects' },
     { label: 'All Projects', href: '/admin/projects' },
-    { label: 'Create Project', href: '/admin/projects/create' }
+    { label: 'Edit Project', href: '/admin/projects/edit/' + id }
   ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -287,10 +399,13 @@ const Project: React.FC = () => {
         }
       };
 
-      console.log("Submitting data:", finalFormData);  // For debugging
+      console.log("Submitting data:", finalFormData);
 
-      const response = await fetch('/api/projects', {
-        method: 'POST',
+      const url = id ? `/api/projects/${id}` : '/api/projects';
+      const method = id ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method,
         headers: {
           'Content-Type': 'application/json',
         },
@@ -299,13 +414,43 @@ const Project: React.FC = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to create project');
+        throw new Error(errorData.error || `Failed to ${id ? 'update' : 'create'} project`);
       }
 
       window.location.href = '/admin/projects';
     } catch (err) {
       console.error('Error submitting form:', err);
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+
+  const handleDelete = async () => {
+    if (!id) return;
+    
+    if (!confirm('Are you sure you want to delete this project? This action cannot be undone.')) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`/api/projects/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to delete project');
+      }
+
+      window.location.href = '/admin/projects';
+    } catch (err) {
+      console.error('Error deleting project:', err);
+      setError(err instanceof Error ? err.message : 'Failed to delete project');
     } finally {
       setIsSubmitting(false);
     }
@@ -333,6 +478,15 @@ const Project: React.FC = () => {
         >
           {isSubmitting ? 'Saving...' : 'Save Changes'}
         </button>
+        {id && (
+          <button 
+            className={styles.delete} 
+            onClick={handleDelete}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Deleting...' : 'Delete Project'}
+          </button>
+        )}
       </div>
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.content}>

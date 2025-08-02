@@ -104,7 +104,7 @@ const Skill: React.FC = () => {
     },
     {
       label: 'Edit Skill',
-      href: '/admin/skills/edit' + id
+      href: '/admin/skills/edit/' + id
     }
   ];
 
