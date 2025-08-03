@@ -9,7 +9,6 @@
 
 body {
   color: var(--foreground);
-  background: linear-gradient(#011a49 0%, #113c8d 44% 60%, #011a49 85%);
   font-family: Inter, sans-serif;
   display: flex;
   justify-content: center;

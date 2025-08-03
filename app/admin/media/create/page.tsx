@@ -51,13 +51,13 @@ const Media: React.FC = () => {
       if (!formData.file) {
         throw new Error('Please select a file to upload');
       }
-
+      console.log("Data", formData);
       // Create new FormData object
       const formDataToSend = new FormData();
       formDataToSend.append('file', formData.file);
       formDataToSend.append('type', formData.type);
       formDataToSend.append('description', formData.description);
-
+      console.log(formDataToSend)
       // Debug: Log FormData contents
       for (const [key, value] of formDataToSend.entries()) {
         console.log(key, value);

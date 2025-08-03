@@ -1,12 +1,7 @@
 import dbConnect from "../../lib/dbConnect";
 import Media from "../../models/Media";
-import { setCache, getCache, clearCache } from "../../lib/cache";
-import fs from 'fs';
-import path from 'path';
-import { v4 as uuidv4 } from 'uuid';
-
-// Use CommonJS require for formidable to avoid Turbopack issues
-const formidable = require('formidable');
+import { getCache, setCache } from "../../lib/cache";
+import { handleFileUpload, saveMediaToDatabase } from "../../lib/mediaUtilities";
 
 export const config = {
   api: {
@@ -51,8 +46,8 @@ export default async function handler(req, res) {
           const searchRegex = new RegExp(search.toString(), 'i');
           conditions.$or = [
             { fileName: searchRegex },
-            { description: searchRegex },
-            { 'metadata.directory': searchRegex }
+            // { description: searchRegex },
+            // { 'metadata.directory': searchRegex }
           ];
         }
 
@@ -88,120 +83,30 @@ export default async function handler(req, res) {
         break;
 
       case "POST":
-        clearCache('media');
-        
-        // Initialize formidable correctly
-        const form = new formidable.IncomingForm();
-        form.keepExtensions = true;
-        form.maxFileSize = 50 * 1024 * 1024;
-
-        const { fields, files } = await new Promise((resolve, reject) => {
-          form.parse(req, (err, fields, files) => {
-            if (err) {
-              if (err.code === 'LIMIT_FILE_SIZE') {
-                reject(new Error('File size exceeds 50MB limit'));
-              } else {
-                reject(err);
-              }
-            }
-            resolve({ fields, files });
-          });
-        });
-
-        if (!files?.file) {
-          return res.status(400).json({ error: "No file uploaded" });
-        }
-
-        const file = files.file;
-        
-        if (!file.filepath) {
-          return res.status(400).json({ error: "Invalid file path" });
-        }
-
-        // Get and validate file type
-        const fileType = String(fields?.type || 'Image').toLowerCase();
-        if (!['image', 'video', 'sound'].includes(fileType)) {
-          return res.status(400).json({ error: "Invalid file type specified" });
-        }
-
-        // Get file extension
-        const originalFilename = file.originalFilename || file.newFilename;
-        const ext = path.extname(originalFilename) || 
-                   (fileType === 'image' ? '.jpg' : 
-                    fileType === 'video' ? '.mp4' : '.mp3');
-
-        // Create upload directory
-        const typeDir = `${fileType}s`;
-        const uploadDir = path.join(process.cwd(), 'public', typeDir);
-        if (!fs.existsSync(uploadDir)) {
-          fs.mkdirSync(uploadDir, { recursive: true });
-        }
-
-        // Generate unique filename and move file
-        const fileName = `${uuidv4()}${ext}`;
-        const newPath = path.join(uploadDir, fileName);
-        
         try {
-          await fs.promises.rename(file.filepath, newPath);
-        } catch (err) {
-          console.error('File move error:', err);
-          return res.status(500).json({ error: "Failed to save file" });
+          const uploadResult = await handleFileUpload(req);
+          const newMedia = await saveMediaToDatabase(uploadResult);
+          
+          return res.status(201).json(newMedia);
+        } catch (error) {
+          console.error('Upload error:', error);
+          return res.status(400).json({ 
+            error: error.message || "File upload failed",
+            details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+          });
         }
-
-        const relativePath = `/${typeDir}/${fileName}`;
-
-        // Get dimensions for images
-        let dimensions = { width: null, height: null };
-        if (fileType === 'image') {
-          try {
-            const sizeOf = await import('image-size');
-            const imageDimensions = sizeOf.default(newPath);
-            dimensions = {
-              width: imageDimensions.width,
-              height: imageDimensions.height
-            };
-          } catch (err) {
-            console.error('Could not get image dimensions:', err);
-          }
-        }
-
-        // Create media document
-        const mediaDoc = await Media.create({
-          fileName,
-          path: relativePath,
-          url: `${process.env.NEXT_PUBLIC_BASE_URL || ''}${relativePath}`,
-          fileSize: file.size,
-          description: fields.description || '',
-          type: fileType,
-          extension: ext.replace('.', ''),
-          dimensions,
-          backgroundColor: fields.backgroundColor || '#ffffff',
-          created: new Date(),
-          lastModified: new Date(),
-          metadata: {
-            directory: fileType,
-            ...(fields.metadata && JSON.parse(fields.metadata))
-          }
-        });
-
-        res.status(201).json(mediaDoc);
-        break;
 
       default:
         res.setHeader("Allow", ["GET", "POST"]);
-        res.status(405).end(`Method ${method} Not Allowed`);
-        break;
+        return res.status(405).end(`Method ${method} Not Allowed`);
     }
   } catch (error) {
     console.error(`Error during ${method} request:`, error);
     
-    if (error.name === 'ValidationError') {
-      return res.status(400).json({ error: error.message });
-    }
-    
-    res.status(500).json({ 
-      error: error.message || `Failed to process ${method} request`,
-      details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+    return res.status(500).json({ 
+      error: errorMessage,
+      ...(process.env.NODE_ENV === 'development' && { details: error instanceof Error ? error.stack : undefined })
     });
   }
 }

@@ -6,10 +6,11 @@ import Upload from "@/components/Upload/Upload";
 import { Breadcrumb as breadcrumb} from "@/lib/types";
 import Dropdown from "@/components/Dropdown/Dropdown";
 import { Media as MediaType } from "@/lib/types";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 const Media: React.FC = () => {
   const params = useParams();
+  const router = useRouter();
   const id = params?.id as string;
   const [formData, setFormData] = useState<Omit<MediaType, '_id'> & { file?: File }>({
     name: '',
@@ -22,20 +23,50 @@ const Media: React.FC = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   const breadcrumbs: breadcrumb[] = [
     { label: 'Media', href: '/admin/media' },
     { label: 'All Media', href: '/admin/media' },
-    { label: 'Edit Media', href: '/admin/media/edit/' + id }
+    { label: isEditing ? 'Edit Media' : 'Upload Media', href: `/admin/media/${id ? 'edit/' + id : 'create'}` }
   ];
 
+  // Fetch media data if editing
   useEffect(() => {
-  return () => {
-    if (formData.path.startsWith('blob:')) {
-      URL.revokeObjectURL(formData.path);
+    if (id) {
+      const fetchMedia = async () => {
+        try {
+          const response = await fetch(`/api/media/${id}`);
+          if (!response.ok) throw new Error('Failed to fetch media');
+          const media = await response.json();
+          
+          setFormData({
+            name: media.fileName,
+            path: media.url,
+            description: media.description,
+            type: media.fileType,
+            size: media.fileSize,
+            backgroundColor: media.backgroundColor,
+            file: undefined
+          });
+          setIsEditing(true);
+        } catch (error) {
+          console.error('Error fetching media:', error);
+          setError('Failed to load media data');
+        }
+      };
+      fetchMedia();
     }
-  };
-}, [formData.path]);
+  }, [id]);
+
+  // Clean up blob URLs
+  useEffect(() => {
+    return () => {
+      if (formData.path.startsWith('blob:')) {
+        URL.revokeObjectURL(formData.path);
+      }
+    };
+  }, [formData.path]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -52,39 +83,92 @@ const Media: React.FC = () => {
 
     try {
       if (!formData.name) throw new Error('Name is required');
-      if (!formData.file && !formData.path) throw new Error('Please select a file');
+      if (!isEditing && !formData.file && !formData.path) throw new Error('Please select a file');
 
-      const formDataToSend = new FormData();
-      
-      if (formData.file) {
-        formDataToSend.append('file', formData.file);
-      } else if (formData.path.startsWith('blob:')) {
-        const response = await fetch(formData.path);
-        const blob = await response.blob();
-        formDataToSend.append('file', blob, formData.name);
+      if (isEditing) {
+        // Determine if we're updating just metadata or uploading a new file
+        if (formData.file) {
+          // File upload with metadata
+          const formDataToSend = new FormData();
+          formDataToSend.append('file', formData.file);
+          formDataToSend.append('fileName', formData.name);
+          formDataToSend.append('fileType', formData.type);
+          formDataToSend.append('description', formData.description);
+          formDataToSend.append('backgroundColor', formData.backgroundColor || '#FFFFFF');
+
+          const response = await fetch(`/api/media/${id}`, {
+            method: 'PUT',
+            body: formDataToSend
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Update failed');
+          }
+
+          const result = await response.json();
+          console.log('Update successful:', result);
+          router.push('/admin/media');
+
+        } else {
+          // Metadata-only update
+          const response = await fetch(`/api/media/${id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              fileName: formData.name,
+              fileType: formData.type,
+              description: formData.description,
+              backgroundColor: formData.backgroundColor
+            })
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Update failed');
+          }
+
+          const result = await response.json();
+          console.log('Update successful:', result);
+          router.push('/admin/media');
+        }
+
       }
+    } catch (err) {
+      console.error('Error:', err);
+      setError(err instanceof Error ? err.message : 'Operation failed');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-      formDataToSend.append('name', formData.name);
-      formDataToSend.append('type', formData.type);
-      formDataToSend.append('description', formData.description);
-      formDataToSend.append('backgroundColor', formData.backgroundColor || '#FFFFFF');
+  const handleDelete = async () => {
+    if (!id) return;
+    
+    if (!confirm('Are you sure you want to delete this media item? This action cannot be undone.')) {
+      return;
+    }
 
-      const response = await fetch(`/api/media?type=${formData.type}`, {
-        method: 'POST',
-        body: formDataToSend // Don't set Content-Type header - browser will do it
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`/api/media/${id}`, {
+        method: 'DELETE'
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Upload failed');
+        throw new Error(errorData.error || 'Delete failed');
       }
 
-      const result = await response.json();
-      console.log('Upload successful:', result);
-      window.location.href = '/admin/media';
+      console.log('Media deleted successfully');
+      router.push('/admin/media');
     } catch (err) {
-      console.error('Upload error:', err);
-      setError(err instanceof Error ? err.message : 'Upload failed');
+      console.error('Delete error:', err);
+      setError(err instanceof Error ? err.message : 'Delete failed');
     } finally {
       setIsSubmitting(false);
     }
@@ -96,7 +180,8 @@ const Media: React.FC = () => {
       <div className={styles.actions}>
         <button 
           className={styles.back} 
-          onClick={() => window.location.href = '/admin/media'}
+          onClick={() => router.push('/admin/media')}
+          disabled={isSubmitting}
         >
           <svg style={{rotate: '180deg'}} xmlns="http://www.w3.org/2000/svg" version="1.0" height="20" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
             <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#727272" stroke="none">
@@ -110,8 +195,17 @@ const Media: React.FC = () => {
           onClick={handleSubmit}
           disabled={isSubmitting}
         >
-          {isSubmitting ? 'Uploading...' : 'Upload Media'}
+          {isSubmitting ? (isEditing ? 'Saving...' : 'Uploading...') : (isEditing ? 'Save Changes' : 'Upload Media')}
         </button>
+        {isEditing && (
+          <button 
+            className={styles.delete} 
+            onClick={handleDelete}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Deleting...' : 'Delete Media'}
+          </button>
+        )}
       </div>
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.content}>
@@ -177,7 +271,6 @@ const Media: React.FC = () => {
               ]}
               value={formData.type}
               onChange={(value) => {
-                // Optional: Allow manual override if needed
                 setFormData(prev => ({
                   ...prev,
                   type: value as 'Image' | 'Video' | 'Sound'
@@ -191,7 +284,7 @@ const Media: React.FC = () => {
               type="text" 
               id="size" 
               placeholder="File Size" 
-              value={`${((formData.size || 0) / 1024).toFixed(2)} KB`} // Fixed calculation
+              value={`${((formData.size || 0) / 1024).toFixed(2)} KB`}
               disabled
             />
           </div>

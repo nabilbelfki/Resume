@@ -43,15 +43,29 @@ export default async function handler(req, res) {
         const conditions = {};
         if (search) {
           const searchRegex = new RegExp(search.toString(), 'i');
+          const searchTerms = search.toString().trim().split(/\s+/);
+          
           conditions.$or = [
             { firstName: searchRegex },
             { lastName: searchRegex },
             { email: searchRegex },
-            { username: searchRegex },
-            { 'address.city': searchRegex },
-            { 'address.country': searchRegex },
             { role: searchRegex },
-            { status: searchRegex }
+            { status: searchRegex },
+            // Combined name search for "firstName lastName" or "lastName firstName"
+            ...(searchTerms.length > 1 ? [
+              {
+                $and: [
+                  { firstName: new RegExp(searchTerms[0], 'i') },
+                  { lastName: new RegExp(searchTerms[1], 'i') }
+                ]
+              },
+              {
+                $and: [
+                  { firstName: new RegExp(searchTerms[1], 'i') },
+                  { lastName: new RegExp(searchTerms[0], 'i') }
+                ]
+              }
+            ] : [])
           ];
         }
 

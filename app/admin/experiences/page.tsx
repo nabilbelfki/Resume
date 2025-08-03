@@ -4,8 +4,10 @@ import styles from "./Experiences.module.css"
 import { Breadcrumb as breadcrumb, Action } from "@/lib/types";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import Table from "@/components/Table/Table";
+import { useRouter } from "next/navigation";
 
 const Experiences: React.FC = () => {
+    const router = useRouter();
     const breadcrumbs: breadcrumb[] = [
         {
             label: 'Experiences',
@@ -17,10 +19,38 @@ const Experiences: React.FC = () => {
         }
     ];
 
-    const actions = [
+    const actions: Action[] = [
         {
-            label: 'Delete Experience',
-            action: (IDs:string[]) => console.log(IDs)
+            label: 'Delete Experiences',
+            action: async (IDs:string[]) => {
+                if (!confirm(`Are you sure you want to delete ${IDs.length > 1 ? 'these experiences' : 'this experience'}?`)) {
+                    return;
+                }
+
+                try {
+                    // Use Promise.all to delete all users in parallel
+                    const results = await Promise.all(
+                        IDs.map(id => 
+                            fetch(`/api/experiences/${id}`, {
+                                method: 'DELETE',
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Failed to delete experiences');
+                                }
+
+                                location.href = '/admin/experiences';
+                            })
+                        )
+                    );
+
+                    console.log(`${IDs.length} experience(s) deleted successfully`);
+                    router.refresh();
+                } catch (err) {
+                    console.error('Error deleting experiences:', err);
+                    alert(`Failed to delete some experiences. Please try again.`);
+                }
+            }
         }
     ];
 

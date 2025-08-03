@@ -1,17 +1,27 @@
 .site-container {
-  background-color: #011a49;
+  /* background-color: #011a49; */
   max-width: 1200px;
   box-shadow: -10px 0 10px -10px #000, 10px 0 10px -10px #000;
+  width: 100vw;
+  height: 100vh;
 }
 
 .admin-container {
-  background-color: #FFFFFF;
+  /* background-color: #FFFFFF; */
   width: 100vw;
   height: 100vh;
 }
 
 .login-container {
-  background-color: #FFFFFF;
+  /* background-color: #FFFFFF; */
   width: 100vw;
   height: 100vh;
+}
+
+.gradient {
+  background: linear-gradient(#011a49 0%, #113c8d 44% 60%, #011a49 85%);
+}
+
+.white {
+  background: #FFFFFF;
 }

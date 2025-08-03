@@ -4,8 +4,10 @@ import styles from "./Projects.module.css"
 import { Breadcrumb as breadcrumb, Action } from "@/lib/types";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import Table from "@/components/Table/Table";
+import { useRouter } from "next/navigation";
 
 const Projects: React.FC = () => {
+    const router = useRouter();
     const breadcrumbs: breadcrumb[] = [
         {
             label: 'Projects',
@@ -17,10 +19,38 @@ const Projects: React.FC = () => {
         }
     ];
 
-    const actions = [
+    const actions: Action[] = [
         {
             label: 'Delete Projects',
-            action: (IDs:string[]) => console.log(IDs)
+            action: async (IDs:string[]) => {
+                if (!confirm(`Are you sure you want to delete ${IDs.length > 1 ? 'these projects' : 'this project'}?`)) {
+                    return;
+                }
+
+                try {
+                    // Use Promise.all to delete all users in parallel
+                    const results = await Promise.all(
+                        IDs.map(id => 
+                            fetch(`/api/projects/${id}`, {
+                                method: 'DELETE',
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Failed to delete projects');
+                                }
+
+                                location.href = '/admin/projects';
+                            })
+                        )
+                    );
+
+                    console.log(`${IDs.length} project(s) deleted successfully`);
+                    router.refresh();
+                } catch (err) {
+                    console.error('Error deleting projects:', err);
+                    alert(`Failed to delete some projects. Please try again.`);
+                }
+            }
         }
     ];
 

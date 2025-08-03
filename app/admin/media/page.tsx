@@ -4,8 +4,10 @@ import styles from "./Media.module.css"
 import { Breadcrumb as breadcrumb, Action } from "@/lib/types";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import Table from "@/components/Table/Table";
+import { useRouter } from "next/navigation";
 
 const Media: React.FC = () => {
+    const router = useRouter();
     const breadcrumbs: breadcrumb[] = [
         {
             label: 'Media',
@@ -20,7 +22,35 @@ const Media: React.FC = () => {
     const actions = [
         {
             label: 'Delete Media',
-            action: (IDs:string[]) => console.log(IDs)
+            action: async (IDs:string[]) => {
+                if (!confirm(`Are you sure you want to delete ${IDs.length > 1 ? 'these media files' : 'this media'}?`)) {
+                    return;
+                }
+
+                try {
+                    // Use Promise.all to delete all users in parallel
+                    const results = await Promise.all(
+                        IDs.map(id => 
+                            fetch(`/api/media/${id}`, {
+                                method: 'DELETE',
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Failed to delete media');
+                                }
+
+                                location.href = '/admin/media';
+                            })
+                        )
+                    );
+
+                    console.log(`${IDs.length} media deleted successfully`);
+                    router.refresh();
+                } catch (err) {
+                    console.error('Error deleting media:', err);
+                    alert(`Failed to delete some media. Please try again.`);
+                }
+            }
         }
     ]
 

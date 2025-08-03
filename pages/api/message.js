@@ -103,7 +103,12 @@ async function handlePostRequest(req, res) {
 
 // GET handler - Fetch paginated messages
 async function handleGetRequest(req, res) {
-  const { page = 1, limit = 10, sortOrder = 'desc' } = req.query;
+  const { 
+    page = 1, 
+    limit = 10, 
+    sortOrder = 'desc',
+    search = ''  // Add search parameter
+  } = req.query;
 
   try {
     // Parse parameters
@@ -112,8 +117,8 @@ async function handleGetRequest(req, res) {
     const skip = (pageNumber - 1) * limitNumber;
     const sortDirection = sortOrder.toString().toLowerCase() === 'asc' ? 1 : -1;
 
-    // Cache setup
-    const cacheKey = `messages:${page}:${limit}:${sortOrder}`;
+    // Cache setup (include search in cache key)
+    const cacheKey = `messages:${page}:${limit}:${sortOrder}:${search}`;
     const cachedData = getCache(cacheKey);
     
     if (cachedData) {
@@ -121,9 +126,37 @@ async function handleGetRequest(req, res) {
       return res.status(200).json(cachedData);
     }
 
+    // Build query conditions
+    const conditions = {};
+    if (search) {
+      const searchRegex = new RegExp(search.toString(), 'i');
+      const searchTerms = search.toString().trim().split(/\s+/);
+      
+      conditions.$or = [
+        { firstName: searchRegex },
+        { lastName: searchRegex },
+        { email: searchRegex },
+        // Combined name search for "firstName lastName" or "lastName firstName"
+        ...(searchTerms.length > 1 ? [
+          {
+            $and: [
+              { firstName: new RegExp(searchTerms[0], 'i') },
+              { lastName: new RegExp(searchTerms[1], 'i') }
+            ]
+          },
+          {
+            $and: [
+              { firstName: new RegExp(searchTerms[1], 'i') },
+              { lastName: new RegExp(searchTerms[0], 'i') }
+            ]
+          }
+        ] : [])
+      ];
+    }
+
     // Database operations
-    const total = await Message.countDocuments();
-    const data = await Message.find({})
+    const total = await Message.countDocuments(conditions);
+    const data = await Message.find(conditions)
       .skip(skip)
       .limit(limitNumber)
       .sort({ created: sortDirection });
@@ -136,7 +169,8 @@ async function handleGetRequest(req, res) {
       totalPages: Math.ceil(total / limitNumber),
       currentPage: pageNumber,
       limit: limitNumber,
-      sortOrder
+      sortOrder,
+      searchQuery: search  // Include search query in response
     };
 
     // Cache response

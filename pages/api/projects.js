@@ -57,8 +57,7 @@ async function handleGetRequest(query, res) {
     const searchRegex = new RegExp(search.toString(), 'i');
     conditions.$or = [
       { name: searchRegex },
-      { description: searchRegex },
-      { 'client.title.name': searchRegex }
+      { url: searchRegex },
     ];
   }
 

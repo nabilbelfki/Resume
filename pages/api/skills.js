@@ -41,7 +41,8 @@ export default async function handler(req, res) {
         if (search) {
           const searchRegex = new RegExp(search.toString(), 'i');
           conditions.$or = [
-            { name: searchRegex }
+            { name: searchRegex },
+            { type: searchRegex }
           ];
         }
 

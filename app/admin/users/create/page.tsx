@@ -155,7 +155,7 @@ const User: React.FC = () => {
     } finally {
         setIsSubmitting(false);
     }
-    };
+  };
 
   return (
     <div className={styles.container}>

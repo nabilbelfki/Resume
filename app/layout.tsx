@@ -18,7 +18,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
 
-const pathname = usePathname();
+  const pathname = usePathname();
+  console.log("Path Name",pathname);
   const isLoginPage = pathname === "/admin";
   const isAdminPage = pathname?.substring(0,6) === "/admin" && !isLoginPage;
   const isSharePage = pathname === "/share";
@@ -87,7 +88,7 @@ const pathname = usePathname();
         >
           <LoadScriptWrapper>
             <DndProvider backend={HTML5Backend}>
-              <div className={isAdminPage ? styles[`admin-container`] : styles[`site-container`]}>
+              <div className={isAdminPage ? styles[`admin-container`] : (isLoginPage ? styles['login-container'] : styles[`site-container`])}>
                 {!isLoginPage && (<NavigationBar type={isAdminPage ? 'admin' : 'classic'} />)}
                 {isAdminPage && (<SideBar />)}
                 {children}
