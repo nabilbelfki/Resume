@@ -68,6 +68,7 @@ const Projects: React.FC = () => {
                         type: 'thumbnail',
                         alignment: 'center',
                         thumbnailBackgroundColor: [['thumbnail', 'backgroundColor']],
+                        sortable: false
                     }, 
                     { 
                         label: 'Name', 
@@ -94,7 +95,8 @@ const Projects: React.FC = () => {
                         label:'Created', 
                         selectors: [['startDate']],
                         alignment: 'center',
-                        type: 'date'
+                        type: 'date',
+                        sort: true
                     }
                 ]}
             />

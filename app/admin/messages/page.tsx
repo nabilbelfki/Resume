@@ -83,7 +83,8 @@ const Messages: React.FC = () => {
                         label:'Created', 
                         selectors: [['created']],
                         alignment: 'center',
-                        type: 'date'
+                        type: 'date',
+                        sort: true
                     }
                 ]}
             />

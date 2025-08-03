@@ -15,17 +15,21 @@ export default async function handler(req, res) {
       return res.status(200).json({ isAuthenticated: false, user: null });
     }
 
-    const user = verifyToken(token);
+    const userData = verifyToken(token);
     
-    if (!user) {
+    if (!userData) {
       return res.status(200).json({ isAuthenticated: false, user: null });
     }
 
     return res.status(200).json({ 
       isAuthenticated: true,
       user: {
-        id: user.id,
-        email: user.email
+        id: userData.id,
+        email: userData.email,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        image: userData.image,
+        role: userData.role
       }
     });
 

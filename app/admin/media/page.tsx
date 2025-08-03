@@ -68,6 +68,7 @@ const Media: React.FC = () => {
                         type: 'thumbnail',
                         alignment: 'center',
                         thumbnailBackgroundColor: [['image', 'backgroundColor']],
+                        sortable: false
                     }, 
                     { 
                         label: 'File Name', 
@@ -90,7 +91,8 @@ const Media: React.FC = () => {
                         label:'Created', 
                         selectors: [['lastModified']],
                         alignment: 'center',
-                        type: 'date'
+                        type: 'date',
+                        sort: true
                     }
                 ]}
             />

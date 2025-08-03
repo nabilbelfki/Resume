@@ -11,6 +11,8 @@ interface Column {
     type?: string;
     avatar?: string;
     colors?: Color[];
+    sort?: boolean;
+    sortable?: boolean;
     alignment?: 'left' | 'center' | 'right';
     flex?: number;
     maxWidth?: string;
@@ -47,7 +49,11 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
     const [totalResults, setTotalResults] = useState(0);
     const [dropdown, setDropdown] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
-    const [sort, setSort] = useState("created")
+    // Update the initial sort logic to use the 'sort' property for initial sorting
+    const initialSortColumn = columns.find(column => column.sort);
+    const [sortBy, setSortBy] = useState(
+        initialSortColumn?.selectors[0].join('.') || 'created'
+    );
     const [order, setOrder] = useState<'desc' | 'asc'>('desc');
 
     const alignment = {
@@ -83,32 +89,34 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
     };
     }, [dropdown, styles]); // Only re-run if dropdown state changes
 
+    // Update your useEffect dependency array to include sortBy and order
     useEffect(() => {
-        const fetchData = async () => {
-            const folder = (entity.toLowerCase() === 'media' || entity.toLowerCase() === 'message') ? entity.toLowerCase() : entity.toLowerCase() + 's';
-            try {
-                setLoading(true);
-                const response = await fetch(`/api/${folder}?page=${currentPage}&limit=${showing}&search=${searchQuery}&sortBy=${sort}&sortOrder=${order}`);
+    const fetchData = async () => {
+        const folder = (entity.toLowerCase() === 'media' || entity.toLowerCase() === 'message') ? entity.toLowerCase() : entity.toLowerCase() + 's';
+        try {
+        setLoading(true);
+        const response = await fetch(
+            `/api/${folder}?page=${currentPage}&limit=${showing}&search=${searchQuery}&sortBy=${sortBy}&sortOrder=${order}`
+        );
 
-                if (!response.ok) {
-                    throw new Error(`Failed to fetch ${folder}`);
-                }
+        if (!response.ok) {
+            throw new Error(`Failed to fetch ${folder}`);
+        }
 
-                const data = await response.json();
-                console.log(data)
-                setData(data.data);
-                setTotalResults(data.total);
-                setTotalPages(data.totalPages || 1);
-            } catch (err) {
-                setError(err instanceof Error ? err.message : 'Failed to fetch data');
-                console.error(`Error fetching ${folder}:`, err);
-            } finally {
-                setLoading(false);
-            }
-        };
+        const data = await response.json();
+        setData(data.data);
+        setTotalResults(data.total);
+        setTotalPages(data.totalPages || 1);
+        } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to fetch data');
+        console.error(`Error fetching ${folder}:`, err);
+        } finally {
+        setLoading(false);
+        }
+    };
 
-        fetchData();
-    }, [entity, currentPage, showing, searchQuery]);
+    fetchData();
+    }, [entity, currentPage, showing, searchQuery, sortBy, order]); // Add sortBy and order to dependencies
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value);
@@ -116,7 +124,7 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
     };
 
     const getText = (row: Row, column: Column) => {
-        console.log(column.selectors, row)
+        // console.log(column.selectors, row)
         const values = column.selectors
             .map(selectorPath => {
                 let currentValue: any = row;
@@ -164,7 +172,7 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
         
         const values = getText(row, column);
         if (column.type === 'thumbnail') {
-            console.log("Values: ", values);
+            // console.log("Values: ", values);
             const backgroundColor = getText(row, {selectors: column.thumbnailBackgroundColor} as Column).join("")
             return (
                 <div className={styles.thumbnail} style={{backgroundColor}}>
@@ -249,6 +257,23 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
         return Array.from(selectedRows);
     };
 
+    // Update the handleSort function to check sortable property (default true)
+    const handleSort = (column: Column) => {
+        // Skip if column is explicitly not sortable
+        if (column.sortable === false) return;
+        
+        const columnSortKey = column.selectors[0].join('.');
+        
+        // If clicking on the same column, toggle the order
+        if (sortBy === columnSortKey) {
+            setOrder(prev => prev === 'asc' ? 'desc' : 'asc');
+        } else {
+            // If clicking on a different column, set it as the new sort and default to desc
+            setSortBy(columnSortKey);
+            setOrder('desc');
+        }
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.header}>
@@ -324,23 +349,28 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
                                 />
                             </th>
                             {columns.map((column, index) => (
+                                // Update the table header rendering
                                 <th 
                                     key={'header-' + index} 
                                     style={{
                                         flex: column.flex ? column.flex : 1,
                                         justifyContent: column.alignment ? alignment[column.alignment] : "flex-start",
-                                        maxWidth: column.maxWidth ? column.maxWidth : "unset"
+                                        maxWidth: column.maxWidth ? column.maxWidth : "unset",
+                                        cursor: column.sortable !== false ? 'pointer' : 'default' // Show pointer cursor for sortable columns
                                     }}
+                                    onClick={() => handleSort(column)}
                                 >
                                     <span>{column.label}</span>
-                                    <div className={styles.sorting}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="7" viewBox="0 0 3 2" fill="none">
-                                            <path d="M1.65119 0.674574C1.57143 0.582482 1.42857 0.582482 1.34881 0.674574L0.487556 1.66907C0.375381 1.7986 0.467392 2 0.638742 2L2.36126 2C2.53261 2 2.62462 1.7986 2.51244 1.66907L1.65119 0.674574Z" fill="#727272"/>
-                                        </svg>
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="7" viewBox="0 0 3 2" fill="none">
-                                            <path d="M1.65119 1.82543C1.57143 1.91752 1.42857 1.91752 1.34881 1.82543L0.487556 0.830931C0.375381 0.701402 0.467392 0.5 0.638742 0.5L2.36126 0.5C2.53261 0.5 2.62462 0.701402 2.51244 0.830931L1.65119 1.82543Z" fill="#727272"/>
-                                        </svg>
-                                    </div>
+                                    {column.sortable !== false && ( // Show sort indicators for sortable columns
+                                        <div className={styles.sorting}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="7" viewBox="0 0 3 2" fill="none">
+                                                <path d="M1.65119 0.674574C1.57143 0.582482 1.42857 0.582482 1.34881 0.674574L0.487556 1.66907C0.375381 1.7986 0.467392 2 0.638742 2L2.36126 2C2.53261 2 2.62462 1.7986 2.51244 1.66907L1.65119 0.674574Z" fill={sortBy === column.selectors[0].join('.') && order === 'asc' ? '#727272' : 'none'}/>
+                                            </svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="7" viewBox="0 0 3 2" fill="none">
+                                                <path d="M1.65119 1.82543C1.57143 1.91752 1.42857 1.91752 1.34881 1.82543L0.487556 0.830931C0.375381 0.701402 0.467392 0.5 0.638742 0.5L2.36126 0.5C2.53261 0.5 2.62462 0.701402 2.51244 0.830931L1.65119 1.82543Z" fill={sortBy === column.selectors[0].join('.') && order === 'desc' ? '#727272': 'none'}/>
+                                            </svg>
+                                        </div>
+                                    )}
                                 </th>
                             ))}
                         </tr>

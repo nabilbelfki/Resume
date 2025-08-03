@@ -10,6 +10,7 @@ import NavigationBar from "@/components/NavigationBar/NavigationBar";
 import Footer from "@/components/Footer/Footer";
 import LoadScriptWrapper from "../components/LoadScriptWrapper/LoadScriptWrapper";
 import styles from "./Layout.module.css";
+import { UserProvider } from '@/contexts/UserContext';
 import "./globals.css";
 
 export default function RootLayout({
@@ -22,7 +23,7 @@ export default function RootLayout({
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  console.log("Path Name", pathname);
+  // console.log("Path Name", pathname);
   const isLoginPage = pathname === "/admin";
   const isAdminPage = pathname?.substring(0,6) === "/admin" && !isLoginPage;
   const isSharePage = pathname === "/share";
@@ -143,20 +144,22 @@ export default function RootLayout({
         </Script>
       </head>
       <body style={{background}}>
-        <ReCaptchaProvider
-          reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY_V3}
-        >
-          <LoadScriptWrapper>
-            <DndProvider backend={HTML5Backend}>
-              <div className={isAdminPage ? styles[`admin-container`] : (isLoginPage ? styles['login-container'] : styles[`site-container`])}>
-                {!isLoginPage && (<NavigationBar type={isAdminPage ? 'admin' : 'classic'} />)}
-                {isAdminPage && (<SideBar />)}
-                {children}
-                {(showFooter && !isLoginPage && !isAdminPage) && (<Footer />)}
-              </div>
-            </DndProvider>
-          </LoadScriptWrapper>
-        </ReCaptchaProvider>
+        <UserProvider>
+          <ReCaptchaProvider
+            reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY_V3}
+          >
+            <LoadScriptWrapper>
+              <DndProvider backend={HTML5Backend}>
+                <div className={isAdminPage ? styles[`admin-container`] : (isLoginPage ? styles['login-container'] : styles[`site-container`])}>
+                  {!isLoginPage && (<NavigationBar type={isAdminPage ? 'admin' : 'classic'} />)}
+                  {isAdminPage && (<SideBar />)}
+                  {children}
+                  {(showFooter && !isLoginPage && !isAdminPage) && (<Footer />)}
+                </div>
+              </DndProvider>
+            </LoadScriptWrapper>
+          </ReCaptchaProvider>
+        </UserProvider>
       </body>
     </html>
   );

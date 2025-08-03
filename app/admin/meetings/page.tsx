@@ -90,7 +90,8 @@ const Meetings: React.FC = () => {
                         label:'Date', 
                         selectors: [['dateTime']],
                         alignment: 'center',
-                        type: 'date'
+                        type: 'date',
+                        sort: true
                     }
                 ]}
             />

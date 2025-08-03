@@ -36,6 +36,7 @@ const Skills: React.FC = () => {
                         type: 'thumbnail',
                         alignment: 'center',
                         thumbnailBackgroundColor: [['image', 'backgroundColor']],
+                        sortable: false
                     }, 
                     { 
                         label: 'Name', 
@@ -58,7 +59,8 @@ const Skills: React.FC = () => {
                         label:'Created', 
                         selectors: [['created']],
                         alignment: 'center',
-                        type: 'date'
+                        type: 'date',
+                        sort: true
                     }
                 ]}
             />

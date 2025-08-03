@@ -72,6 +72,14 @@
 .avatar-background {
   background-color: #7090CD;
   border-radius: 50%;
+  cursor: pointer;
+  font-size: 22px;
+  font-weight: 550;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
 }
 
 .dropdown {

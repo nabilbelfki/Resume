@@ -1,15 +1,38 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import NavigationLink from "@/components/NavigationBar/NavigationLink/NavigationLink";
 import styles from "./NavigationBar.module.css";
+import { useUser } from '@/contexts/UserContext';
+import { stringToHexColor, isColorTooDark } from '@/lib/color';
+
 
 interface NavigationBarProps {
   type?: 'classic' | 'admin';
 }
 
 const NavigationBar: React.FC<NavigationBarProps> = ({ type = 'classic' }) => {
+  const { user } = useUser();
+  
   const [dropdown, setDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Handle clicks outside the dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdown(false);
+      }
+    };
+
+    if (dropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [dropdown]);
 
   const signout = async () => {
   try {
@@ -31,6 +54,8 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ type = 'classic' }) => {
   }
 }
 
+if (!user) return null;
+
   return (
     <nav className={type === 'classic' ? styles.nav : styles['nav-admin']}>
       {type === 'admin' ? (<>
@@ -49,14 +74,18 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ type = 'classic' }) => {
             </div>
             <input type="text" placeholder="" />
           </div>
-          <div className={styles.avatar}>
-            <div className={styles['avatar-background']} onClick={()=>setDropdown(!dropdown)}>
-              <Image src='/images/profile.png' alt='A profile picture of the user' height={50} width={50} />
+          <div className={styles.avatar} ref={dropdownRef}>
+            <div className={styles['avatar-background']} style={{backgroundColor: stringToHexColor(`${user.firstName} ${user.lastName}`), color: isColorTooDark(stringToHexColor(`${user.firstName} ${user.lastName}`)) ? '#FFFFFF' : '#4C4C4C' }} onClick={()=>setDropdown(!dropdown)}>
+              {user.image ? (
+                <Image src={user.image} alt='A profile picture of the user' height={50} width={50} />
+              ) : (
+                <span>{`${user.firstName.charAt(0)} ${user.lastName.charAt(0)}`}</span>
+              )}
             </div>
             {dropdown && (
               <div className={styles.dropdown}>
-                <button>Account</button>
-                <button>Settings</button>
+                <button onClick={() => {location.href = '/admin/users/edit/' + user.id } }>Account</button>
+                <button onClick={() => {location.href = '/admin/settings'} }>Settings</button>
                 <button onClick={signout}>Sign Out</button>
               </div>
             )}

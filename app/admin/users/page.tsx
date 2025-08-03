@@ -127,6 +127,7 @@ const Users: React.FC = () => {
                         label:'Created', 
                         selectors: [['created']],
                         alignment: 'center',
+                        sort: true,
                         type: 'date'
                     }
                 ]}
