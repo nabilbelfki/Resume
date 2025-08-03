@@ -4,7 +4,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 650px;
-    height: 700px;
+    /* min-height: 700px; */
     background-color: #FFFFFF;
     border-radius: 25px;
     display: flex;
@@ -23,6 +23,15 @@
     gap: 40px;
 }
 
+.verified svg {
+    animation: fadeIn 0.3s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
 .confirmation {
     font-size: 32px;
     font-weight: 600;
@@ -32,6 +41,7 @@
 .text {
     text-align: center;
     color: #4c4c4c;
+    font-weight: 550;
     font-size: 18px;
 }
 
@@ -118,4 +128,15 @@
 .clickable:hover,
 .forgot-password:hover {
     color: #0e2f75;
+}
+
+.error {
+  border: 2px solid red !important;
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
 }

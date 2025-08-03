@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
 import NavigationLink from "@/components/NavigationBar/NavigationLink/NavigationLink";
 import styles from "./NavigationBar.module.css";
@@ -8,6 +9,28 @@ interface NavigationBarProps {
 }
 
 const NavigationBar: React.FC<NavigationBarProps> = ({ type = 'classic' }) => {
+  const [dropdown, setDropdown] = useState(false);
+
+  const signout = async () => {
+  try {
+    const response = await fetch('/api/signout', {
+      method: 'POST',
+      credentials: 'include' // Important for cookie-based auth
+    });
+
+    if (response.ok) {
+      // Optional: Redirect after logout
+      window.location.href = '/admin'; // Or your login page
+    } else {
+      console.error('Logout failed');
+    }
+  } catch (error) {
+    console.error('Logout error:', error);
+  } finally {
+    setDropdown(false); // Close the dropdown
+  }
+}
+
   return (
     <nav className={type === 'classic' ? styles.nav : styles['nav-admin']}>
       {type === 'admin' ? (<>
@@ -27,9 +50,16 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ type = 'classic' }) => {
             <input type="text" placeholder="" />
           </div>
           <div className={styles.avatar}>
-            <div className={styles['avatar-background']}>
+            <div className={styles['avatar-background']} onClick={()=>setDropdown(!dropdown)}>
               <Image src='/images/profile.png' alt='A profile picture of the user' height={50} width={50} />
             </div>
+            {dropdown && (
+              <div className={styles.dropdown}>
+                <button>Account</button>
+                <button>Settings</button>
+                <button onClick={signout}>Sign Out</button>
+              </div>
+            )}
           </div>
         </div>
       </>

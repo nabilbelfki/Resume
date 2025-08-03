@@ -1,5 +1,6 @@
 import dbConnect from "../../lib/dbConnect";
 import User from "../../models/User";
+import bcrypt from 'bcrypt';
 import { setCache, getCache, clearCache } from "../../lib/cache";
 
 export default async function handler(req, res) {
@@ -112,14 +113,28 @@ export default async function handler(req, res) {
           email,
           birthday,
           phoneNumber,
+          password, // This comes in plain text from the client
           role,
           status,
           address,
         } = req.body;
 
-        // Basic validation (you might want more robust validation)
+        // Basic validation
         if (!username || !firstName || !lastName || !email) {
           return res.status(400).json({ error: "Missing required fields: username, firstName, lastName, email" });
+        }
+
+        // Only validate password if it's provided (for cases where password might be optional)
+        let hashedPassword = undefined;
+        if (password) {
+          // Validate password strength if needed
+          if (password.length < 8) {
+            return res.status(400).json({ error: "Password must be at least 8 characters long" });
+          }
+
+          // Hash the password with a salt round of 10
+          const saltRounds = 10;
+          hashedPassword = await bcrypt.hash(password, saltRounds);
         }
         
         const newUser = await User.create({
@@ -128,17 +143,22 @@ export default async function handler(req, res) {
           firstName,
           lastName,
           email,
-          // Convert birthday string to Date object if provided
+          password: hashedPassword, // Store the hashed password
           birthday: birthday ? new Date(birthday) : undefined,
           phoneNumber,
           role,
           status,
           address,
-          created: new Date(), // Set the creation date
+          created: new Date(),
         });
 
         console.log("New user created:", newUser);
-        res.status(201).json(newUser); // 201 Created for successful resource creation
+        
+        // Important: Don't send the password (even hashed) back in the response
+        const userResponse = { ...newUser.toJSON() };
+        delete userResponse.password;
+        
+        res.status(201).json(userResponse);
         break;
 
       default:

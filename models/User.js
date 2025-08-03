@@ -10,6 +10,7 @@ const UserSchema = new mongoose.Schema({
   phoneNumber: { type: String, required: false },
   role: { type: String, required: false },
   status: { type: String, required: false },
+  password: { type: String, required: false  },
   address: { 
     addressOne: { type: String, required: false},
     addressTwo: { type: String, required: false},

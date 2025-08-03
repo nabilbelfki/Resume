@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./SignIn.module.css"
+import { useRouter } from "next/navigation";
 
 interface Form {
   firstName?: string;
@@ -18,8 +19,12 @@ const SignIn: React.FC = () => {
     password: '',
     retypePassword: ''
   });
-
-  const [page, setPage] = useState<'signin' | 'register' | 'forgot' | 'account-created' | 'email-sent' >('signin');
+  const router = useRouter();
+  const [errors, setErrors] = useState<Record<string, boolean>>({});
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [page, setPage] = useState<'signin' | 'register' | 'forgot' | 'account-created' | 'email-sent'>('signin');
+  
   const buttonTexts = {
     'signin': 'Sign In',
     'register': 'Create Account',
@@ -28,68 +33,167 @@ const SignIn: React.FC = () => {
 
   const usernameEmailPlaceholder = page === 'register' ? 'Email' : 'Username or Email';
 
-  const handleSubmit = () => {
-    console.log('Submitting', page)
-    if (page === 'register') createUser()
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: false }));
+    }
+  };
+
+  const validateForm = () => {
+    console.log("Validating...")
+    const newErrors: Record<string, boolean> = {};
+    
+    if (page === 'register') {
+      console.log('Register');
+      if (!form.firstName) newErrors.firstname = true;
+      if (!form.lastName) newErrors.lastname = true;
+      if (!form.emailOrUsername) newErrors.username = true;
+      if (!form.password) newErrors.password = true;
+      if (!form.retypePassword) newErrors.retypePassword = true;
+      
+      if (form.password && form.retypePassword && form.password !== form.retypePassword) {
+        newErrors.password = true;
+        newErrors.retypePassword = true;
+      }
+      
+      if (form.emailOrUsername && !form.emailOrUsername.includes("@")) {
+        newErrors.emailOrUsername = true;
+      }
+    } else if (page === 'signin') {
+      if (!form.emailOrUsername) newErrors.username = true;
+      if (!form.password) newErrors.password = true;
+    } else if (page === 'forgot') {
+      if (!form.emailOrUsername) newErrors.username = true;
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async () => {
+    if (!validateForm()) return;
+    
+    setLoading(true);
+    try {
+      if (page === 'register') {
+        await createUser();
+      } else if (page === 'forgot') {
+        await sendPasswordResetEmail();
+      } else if (page === 'signin') {
+        await signin();
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setErrorMessage('Something went wrong');
+    } finally {
+      setLoading(false);
+    }
   }
 
-  const createUser = async () => {
-      console.log('Here')
-      setPage('account-created');
-      // try {
-      //     // Basic validation
-      //     if (!form.firstName || !form.lastName || !form.emailOrUsername || !form.password || !form.retypePassword) {
-      //       alert('Username, first name, last name, and email are required');
-      //       return;
-      //     }
+  const changePage = (page: 'signin' | 'register' | 'forgot' | 'account-created' | 'email-sent') => {
+    setErrors({
+      firstname: false,
+      lastname: false,
+      username: false,
+      password: false,
+      retypePassword: false,
+    });
+    setPage(page);
+  };
 
-      //     if (!form.emailOrUsername.includes("@")) {
-      //       alert('Not a valid email');
-      //       return;
-      //     }
-  
-      //     // Prepare the data to send - ensure all address fields are strings (empty or filled)
-      //     const dataToSend = {
-      //       username: form.emailOrUsername.split("@")[0],
-      //       firstName: form.firstName || '',
-      //       lastName: form.lastName || '',
-      //       email: form.emailOrUsername,
-      //       image: '',
-      //       birthday: "",
-      //       phoneNumber: "",
-      //       role: "",
-      //       status: "Pending",
-      //       address: {
-      //           addressOne: "",
-      //           addressTwo: "",
-      //           city: "",
-      //           state: "",
-      //           zipCode: "",
-      //           country: "",
-      //       }
-      //     };
-  
-      //     const response = await fetch('/api/users', {
-      //     method: 'POST',
-      //     headers: {
-      //         'Content-Type': 'application/json',
-      //     },
-      //     body: JSON.stringify(dataToSend),
-      //     });
-  
-      //     if (!response.ok) {
-      //     const errorData = await response.json();
-      //     throw new Error(errorData.error || 'Failed to create user');
-      //     }
-  
-      //     const newUser = await response.json();
-      //     console.log('User created successfully:', newUser);
-          
-      //     // Redirect to users list
-      //     window.location.href = '/admin';
-      // } catch (err) {
-      //     console.error('Error creating user:', err);
-      // }
+  const createUser = async () => {
+    try {
+      // Prepare the data to send - ensure all address fields are strings (empty or filled)
+      const dataToSend = {
+        username: form.emailOrUsername.split("@")[0],
+        firstName: form.firstName || '',
+        lastName: form.lastName || '',
+        email: form.emailOrUsername,
+        password: form.password,
+        image: '',
+        birthday: "",
+        phoneNumber: "",
+        role: "",
+        status: "Pending",
+        address: {
+            addressOne: "",
+            addressTwo: "",
+            city: "",
+            state: "",
+            zipCode: "",
+            country: "",
+        }
+      };
+
+      const response = await fetch('/api/users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSend),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create user');
+      }
+
+      const newUser = await response.json();
+      console.log('User created successfully:', newUser);
+      
+      setPage('account-created');
+    } catch (err) {
+      console.error('Error creating user:', err);
+    }
+  };
+
+  const sendPasswordResetEmail = () => {
+    setPage('email-sent');
+  }
+
+  // In your signin function
+  const signin = async () => {
+    try {
+      const response = await fetch('/api/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // This is crucial
+        body: JSON.stringify({
+          emailOrUsername: form.emailOrUsername,
+          password: form.password
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Login failed');
+      }
+
+      // Immediately verify the session after signin
+      const authCheck = await fetch('/api/authorize', {
+        credentials: 'include'
+      });
+      const authData = await authCheck.json();
+      
+      if (authData.isAuthenticated) {
+        router.push('/admin/dashboard');
+      } else {
+        throw new Error('Session verification failed');
+      }
+    } catch (error) {
+      setErrorMessage('Something went wrong');
+    }
+  }
+
+  const getInputClassName = (fieldName: string) => {
+    return `${styles[fieldName]} ${errors[fieldName] ? styles.error : ''}`;
   };
 
   return (
@@ -110,23 +214,64 @@ const SignIn: React.FC = () => {
                   </svg>
               </div>
               
+              {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
+
               {page === 'register' && (<div className={styles.signin}>
-                <span className={styles.unclickable}>Already have an account?</span><span className={styles.clickable} onClick={() => setPage('signin')}>Sign In</span>
+                <span className={styles.unclickable}>Already have an account?</span><span className={styles.clickable} onClick={() => changePage('signin')}>Sign In</span>
               </div>)}
               {page === 'forgot' && (<div className={styles.signin}>
-                <span className={styles.unclickable}>Know your password?</span><span className={styles.clickable} onClick={() => setPage('signin')}>Sign In</span>
+                <span className={styles.unclickable}>Know your password?</span><span className={styles.clickable} onClick={() => changePage('signin')}>Sign In</span>
               </div>)}
               {page === 'signin' && (<div className={styles.signin}>
-                <span className={styles.unclickable}>Dont have an account?</span><span className={styles.clickable} onClick={() => setPage('register')}>Create an Account</span>
+                <span className={styles.unclickable}>Dont have an account?</span><span className={styles.clickable} onClick={() => changePage('register')}>Create an Account</span>
               </div>)}
               {page === 'register' && (<div className={styles['first-and-last-name']}>
-                  <input type="text" placeholder="First Name" name="firstname" className={styles.firstname} />
-                  <input type="text" placeholder="Last Name" name="lastname" className={styles.lastname} />
+                  <input 
+                    type="text" 
+                    placeholder="First Name" 
+                    name="firstName" 
+                    className={getInputClassName('firstname')} 
+                    value={form.firstName}
+                    onChange={handleChange}
+                  />
+                  <input 
+                    type="text" 
+                    placeholder="Last Name" 
+                    name="lastName" 
+                    className={getInputClassName('lastname')} 
+                    value={form.lastName}
+                    onChange={handleChange}
+                  />
                 </div>)}
-              <input type="text" placeholder={usernameEmailPlaceholder} name="username" className={styles.username} />
-              {page !== 'forgot' && (<input type="password" placeholder="Password" name="password" className={styles.password} />)}
-              {page === 'register' && (<input type="password" placeholder="Retype Password" name="retype-password" className={styles.password} />)}
-              {page === 'signin' && (<div className={styles[`forgot-password`]}><span style={{cursor: 'pointer'}} onClick={()=> setPage('forgot')}>Forgot Password</span></div>)}
+              <input 
+                type="text" 
+                placeholder={usernameEmailPlaceholder} 
+                name="emailOrUsername" 
+                className={getInputClassName('username')} 
+                value={form.emailOrUsername}
+                onChange={handleChange}
+              />
+              {page !== 'forgot' && (
+                <input 
+                  type="password" 
+                  placeholder="Password" 
+                  name="password" 
+                  className={getInputClassName('password')} 
+                  value={form.password}
+                  onChange={handleChange}
+                />
+              )}
+              {page === 'register' && (
+                <input 
+                  type="password" 
+                  placeholder="Retype Password" 
+                  name="retypePassword" 
+                  className={getInputClassName('password')} 
+                  value={form.retypePassword}
+                  onChange={handleChange}
+                />
+              )}
+              {page === 'signin' && (<div className={styles[`forgot-password`]}><span style={{cursor: 'pointer'}} onClick={()=> changePage('forgot')}>Forgot Password</span></div>)}
               <button className={styles.submit} onClick={handleSubmit}>{buttonTexts[page]}</button>
             </>
           )}
