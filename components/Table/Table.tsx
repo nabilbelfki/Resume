@@ -175,7 +175,7 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
     const renderCellContent = (row: Row, column: Column) => {
         const values = getText(row, column);
         if (column.type === 'thumbnail') {
-            const backgroundColor = getText(row, { selectors: column.thumbnailBackgroundColor } as Column).join("");
+            const backgroundColor = column.thumbnailBackgroundColor ? getText(row, { selectors: column.thumbnailBackgroundColor } as Column).join("") : '#8C8C8C';
             return (
                 <div className={styles.thumbnail} style={{ backgroundColor }}>
                     <Image 
@@ -216,7 +216,7 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
                                 alt={`${values[0]} ${values[1]}`} 
                                 width={30}
                                 height={30}
-                                style={{ borderRadius: "50%" }}
+                                style={{ borderRadius: "50%"}}
                             />
                         ) : (
                             <span style={{ color }}>{values[0][0] + values[1][0]}</span>

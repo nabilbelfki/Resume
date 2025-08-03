@@ -67,7 +67,6 @@ const Media: React.FC = () => {
                         selectors: [['path']],
                         type: 'thumbnail',
                         alignment: 'center',
-                        thumbnailBackgroundColor: [['image', 'backgroundColor']],
                         sortable: false
                     }, 
                     { 
