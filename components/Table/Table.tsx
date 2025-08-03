@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Table.module.css";
 import { Action } from "@/lib/types";
-import { stringToHexColor, isColorTooDark} from "@/lib/color";
+import { stringToHexColor, isColorTooDark } from "@/lib/color";
 import Image from "next/image";
 
 interface Column {
@@ -16,7 +16,7 @@ interface Column {
     alignment?: 'left' | 'center' | 'right';
     flex?: number;
     maxWidth?: string;
-    formatter?: (text: string) => any
+    formatter?: (text: string) => any;
     thumbnailBackgroundColor?: string[][];
 }
 
@@ -38,7 +38,7 @@ interface Row {
     [key: string]: any;
 }
 
-const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, create = true }) => {
+const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initialShowing = 25, create = true }) => { // Renamed prop to avoid naming conflict
     const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
     const [selectAll, setSelectAll] = useState(false);
     const [data, setData] = useState<Row[]>([]);
@@ -49,6 +49,11 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
     const [totalResults, setTotalResults] = useState(0);
     const [dropdown, setDropdown] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
+
+    // --- FIX 1: Make 'showing' a state variable and add an inputValue state for the input field ---
+    const [showing, setShowing] = useState(initialShowing);
+    const [showingInput, setShowingInput] = useState(String(initialShowing));
+
     // Update the initial sort logic to use the 'sort' property for initial sorting
     const initialSortColumn = columns.find(column => column.sort);
     const [sortBy, setSortBy] = useState(
@@ -60,62 +65,62 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
         "left": "flex-start",
         "center": "center",
         "right": "flex-end",
-    }
+    };
 
     // Add this useEffect hook to your component
     useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-        const dropdownElement = document.querySelector(`.${styles.dropdown}`);
-        const buttonElement = document.querySelector(`.${styles['dropdown-button']}`);
-        
-        if (dropdown && dropdownElement && buttonElement) {
-        const isClickInsideDropdown = dropdownElement.contains(event.target as Node);
-        const isClickOnButton = buttonElement.contains(event.target as Node);
-        
-        if (!isClickInsideDropdown && !isClickOnButton) {
-            setDropdown(false);
-        }
-        }
-    };
+        const handleClickOutside = (event: MouseEvent) => {
+            const dropdownElement = document.querySelector(`.${styles.dropdown}`);
+            const buttonElement = document.querySelector(`.${styles['dropdown-button']}`);
+            
+            if (dropdown && dropdownElement && buttonElement) {
+                const isClickInsideDropdown = dropdownElement.contains(event.target as Node);
+                const isClickOnButton = buttonElement.contains(event.target as Node);
+                
+                if (!isClickInsideDropdown && !isClickOnButton) {
+                    setDropdown(false);
+                }
+            }
+        };
 
-    // Add event listener when dropdown is open
-    if (dropdown) {
-        document.addEventListener('mousedown', handleClickOutside);
-    }
+        // Add event listener when dropdown is open
+        if (dropdown) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
 
-    // Cleanup function
-    return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
-    };
+        // Cleanup function
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
     }, [dropdown, styles]); // Only re-run if dropdown state changes
 
     // Update your useEffect dependency array to include sortBy and order
     useEffect(() => {
-    const fetchData = async () => {
-        const folder = (entity.toLowerCase() === 'media' || entity.toLowerCase() === 'message') ? entity.toLowerCase() : entity.toLowerCase() + 's';
-        try {
-        setLoading(true);
-        const response = await fetch(
-            `/api/${folder}?page=${currentPage}&limit=${showing}&search=${searchQuery}&sortBy=${sortBy}&sortOrder=${order}`
-        );
+        const fetchData = async () => {
+            const folder = (entity.toLowerCase() === 'media' || entity.toLowerCase() === 'message') ? entity.toLowerCase() : entity.toLowerCase() + 's';
+            try {
+                setLoading(true);
+                const response = await fetch(
+                    `/api/${folder}?page=${currentPage}&limit=${showing}&search=${searchQuery}&sortBy=${sortBy}&sortOrder=${order}`
+                );
 
-        if (!response.ok) {
-            throw new Error(`Failed to fetch ${folder}`);
-        }
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch ${folder}`);
+                }
 
-        const data = await response.json();
-        setData(data.data);
-        setTotalResults(data.total);
-        setTotalPages(data.totalPages || 1);
-        } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch data');
-        console.error(`Error fetching ${folder}:`, err);
-        } finally {
-        setLoading(false);
-        }
-    };
+                const data = await response.json();
+                setData(data.data);
+                setTotalResults(data.total);
+                setTotalPages(data.totalPages || 1);
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'Failed to fetch data');
+                console.error(`Error fetching ${folder}:`, err);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    fetchData();
+        fetchData();
     }, [entity, currentPage, showing, searchQuery, sortBy, order]); // Add sortBy and order to dependencies
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -124,7 +129,6 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
     };
 
     const getText = (row: Row, column: Column) => {
-        // console.log(column.selectors, row)
         const values = column.selectors
             .map(selectorPath => {
                 let currentValue: any = row;
@@ -169,13 +173,11 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
     };
 
     const renderCellContent = (row: Row, column: Column) => {
-        
         const values = getText(row, column);
         if (column.type === 'thumbnail') {
-            // console.log("Values: ", values);
-            const backgroundColor = getText(row, {selectors: column.thumbnailBackgroundColor} as Column).join("")
+            const backgroundColor = getText(row, { selectors: column.thumbnailBackgroundColor } as Column).join("");
             return (
-                <div className={styles.thumbnail} style={{backgroundColor}}>
+                <div className={styles.thumbnail} style={{ backgroundColor }}>
                     <Image 
                         src={values.join("")} 
                         alt={`${values[0]} ${values[1]}`} 
@@ -202,23 +204,22 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
         }
 
         if (column.type === 'avatar') {
-            const avatarUrl =  column.avatar ? row[column.avatar] : null;
-            console.log("Avatar URL", avatarUrl)
-            const backgroundColor = stringToHexColor(content)
-            const color = isColorTooDark(backgroundColor) ? '#FFFFFF' : '#4C4C4C'
+            const avatarUrl = column.avatar ? row[column.avatar] : null;
+            const backgroundColor = stringToHexColor(content);
+            const color = isColorTooDark(backgroundColor) ? '#FFFFFF' : '#4C4C4C';
             return (
                 <>
-                    <div className={styles.avatar} style={{backgroundColor}}>
+                    <div className={styles.avatar} style={{ backgroundColor }}>
                         {avatarUrl ? (
                             <Image 
                                 src={avatarUrl} 
                                 alt={`${values[0]} ${values[1]}`} 
                                 width={30}
                                 height={30}
-                                style={{borderRadius: "50%"}}
+                                style={{ borderRadius: "50%" }}
                             />
                         ) : (
-                            <span style={{color}}>{values[0][0]+values[1][0]}</span>
+                            <span style={{ color }}>{values[0][0] + values[1][0]}</span>
                         )}
                     </div>
                     <span title={content}>{content}</span>
@@ -230,27 +231,27 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
     };
 
     const handleRowSelect = (rowId: string) => {
-    setSelectedRows(prev => {
-        const newSelection = new Set(prev);
-        if (newSelection.has(rowId)) {
-        newSelection.delete(rowId);
-        } else {
-        newSelection.add(rowId);
-        }
-        return newSelection;
-    });
+        setSelectedRows(prev => {
+            const newSelection = new Set(prev);
+            if (newSelection.has(rowId)) {
+                newSelection.delete(rowId);
+            } else {
+                newSelection.add(rowId);
+            }
+            return newSelection;
+        });
     };
 
     const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const isChecked = e.target.checked;
-    setSelectAll(isChecked);
-    
-    if (isChecked) {
-        const allIds = data.map(row => row._id);
-        setSelectedRows(new Set(allIds));
-    } else {
-        setSelectedRows(new Set());
-    }
+        const isChecked = e.target.checked;
+        setSelectAll(isChecked);
+        
+        if (isChecked) {
+            const allIds = data.map(row => row._id);
+            setSelectedRows(new Set(allIds));
+        } else {
+            setSelectedRows(new Set());
+        }
     };
 
     const selected = () => {
@@ -274,6 +275,49 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
         }
     };
 
+    // --- FIX 2: Create a separate state for the page input value ---
+    const [pageInputValue, setPageInputValue] = useState(String(currentPage));
+
+    useEffect(() => {
+        setPageInputValue(String(currentPage));
+    }, [currentPage]);
+
+    const handlePageInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setPageInputValue(value);
+        
+        // Only update currentPage state on a valid, positive integer
+        const page = parseInt(value);
+        if (!isNaN(page) && page >= 1 && page <= totalPages) {
+            setCurrentPage(page);
+        } else if (value === '') {
+            // This allows the user to clear the input
+            setCurrentPage(1); // or set a temporary value that doesn't trigger a fetch
+        }
+    };
+
+    const handleShowingInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setShowingInput(value);
+
+        const limit = parseInt(value);
+        if (!isNaN(limit) && limit >= 1) {
+            setShowing(limit);
+            setCurrentPage(1);  // Reset to first page whenever showing changes
+        }
+    };
+    
+    // --- FIX 4: Add a handler to prevent page changes on input blur if the value is invalid ---
+    const handlePageInputBlur = () => {
+        const page = parseInt(pageInputValue);
+        if (isNaN(page) || page < 1 || page > totalPages) {
+            // Reset to the current valid page if the input is invalid
+            setPageInputValue(String(currentPage));
+        } else {
+            setCurrentPage(page);
+        }
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.header}>
@@ -288,18 +332,16 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
                         <div className={styles.dropdown}>
                             {actions.map((action, index) => (
                                 <button 
-                                    key={'action-'+index} 
+                                    key={'action-' + index} 
                                     onClick={() => {
                                         const selectedIDs = selected();
-                                        console.log('Selected IDs', selectedIDs);
                                         if (!selectedIDs.length) {
                                             alert(`No ${entity} selected`);
                                             return;
                                         }
-
                                         action.action(selectedIDs);
-                                    }
-                                }>
+                                    }}
+                                >
                                     {action.label}
                                 </button>
                             ))}
@@ -349,25 +391,24 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
                                 />
                             </th>
                             {columns.map((column, index) => (
-                                // Update the table header rendering
                                 <th 
                                     key={'header-' + index} 
                                     style={{
                                         flex: column.flex ? column.flex : 1,
                                         justifyContent: column.alignment ? alignment[column.alignment] : "flex-start",
                                         maxWidth: column.maxWidth ? column.maxWidth : "unset",
-                                        cursor: column.sortable !== false ? 'pointer' : 'default' // Show pointer cursor for sortable columns
+                                        cursor: column.sortable !== false ? 'pointer' : 'default'
                                     }}
                                     onClick={() => handleSort(column)}
                                 >
                                     <span>{column.label}</span>
-                                    {column.sortable !== false && ( // Show sort indicators for sortable columns
+                                    {column.sortable !== false && (
                                         <div className={styles.sorting}>
                                             <svg xmlns="http://www.w3.org/2000/svg" height="7" viewBox="0 0 3 2" fill="none">
                                                 <path d="M1.65119 0.674574C1.57143 0.582482 1.42857 0.582482 1.34881 0.674574L0.487556 1.66907C0.375381 1.7986 0.467392 2 0.638742 2L2.36126 2C2.53261 2 2.62462 1.7986 2.51244 1.66907L1.65119 0.674574Z" fill={sortBy === column.selectors[0].join('.') && order === 'asc' ? '#727272' : 'none'}/>
                                             </svg>
                                             <svg xmlns="http://www.w3.org/2000/svg" height="7" viewBox="0 0 3 2" fill="none">
-                                                <path d="M1.65119 1.82543C1.57143 1.91752 1.42857 1.91752 1.34881 1.82543L0.487556 0.830931C0.375381 0.701402 0.467392 0.5 0.638742 0.5L2.36126 0.5C2.53261 0.5 2.62462 0.701402 2.51244 0.830931L1.65119 1.82543Z" fill={sortBy === column.selectors[0].join('.') && order === 'desc' ? '#727272': 'none'}/>
+                                                <path d="M1.65119 1.82543C1.57143 1.91752 1.42857 1.91752 1.34881 1.82543L0.487556 0.830931C0.375381 0.701402 0.467392 0.5 0.638742 0.5L2.36126 0.5C2.53261 0.5 2.62462 0.701402 2.51244 0.830931L1.65119 1.82543Z" fill={sortBy === column.selectors[0].join('.') && order === 'desc' ? '#727272' : 'none'}/>
                                             </svg>
                                         </div>
                                     )}
@@ -377,7 +418,7 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
                     </thead>
                     <tbody>
                         {data.map((row, index) => (
-                            <tr key={'row-'+index}>
+                            <tr key={'row-' + index}>
                                 <td style={{flex: 1}}>
                                     <input 
                                         className={styles.checkbox} 
@@ -421,13 +462,10 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
                     <div className={styles.label}>Page</div>
                     <input 
                         className={styles.page} 
-                        value={currentPage}
-                        onChange={(e) => {
-                            const page = parseInt(e.target.value);
-                            if (!isNaN(page) && page >= 1 && page <= totalPages) {
-                                setCurrentPage(page);
-                            }
-                        }}
+                        value={pageInputValue} // Bind the input's value to the temporary state
+                        onChange={handlePageInputChange} // Handle input changes
+                        onBlur={handlePageInputBlur} // Handle when the user clicks away
+                        type="text" // Use text to allow for empty string
                     />
                     <div className={styles.label}>of {totalPages} pages</div>
                     <button 
@@ -443,8 +481,12 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing = 25, c
                     </button>
                 </div>
                 <div className={styles.showing}>
-                    <div className={styles.label}>Showing {data.length} from</div>
-                    <input className={styles.limit} value={showing} readOnly/>
+                    <div className={styles.label}>Showing</div>
+                    <input 
+                        className={styles.limit} 
+                        value={showingInput} // Use the new state for the input field
+                        onChange={handleShowingInputChange} // Handle changes
+                    />
                     <div className={styles.label}>out of {totalResults} total results</div>
                 </div>
             </div>

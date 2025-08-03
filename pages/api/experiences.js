@@ -48,8 +48,10 @@ export default async function handler(req, res) {
         }
 
         const total = await Experience.countDocuments(conditions);
-        const sortOptions = {};
-        sortOptions[sortBy.toString()] = sortDirection;
+        const sortOptions = {
+          [sortBy]: sortDirection,
+          '_id': sortDirection
+        };
 
         let queryBuilder = Experience.find(conditions)
           .sort(sortOptions);

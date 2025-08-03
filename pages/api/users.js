@@ -74,8 +74,10 @@ export default async function handler(req, res) {
         const total = await User.countDocuments(conditions);
 
         // Build sort object
-        const sortOptions = {};
-        sortOptions[sortBy.toString()] = sortDirection;
+        const sortOptions = {
+          [sortBy]: sortDirection,
+          '_id': sortDirection
+        };
 
         // Fetch paginated, filtered, and sorted users
         const data = await User.find(conditions)

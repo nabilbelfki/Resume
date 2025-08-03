@@ -83,6 +83,7 @@ export default async function handler(req, res) {
           date, 
           page = 1, 
           limit = 10, 
+          sortBy = 'created',
           sortOrder = 'desc',
           search = ''  // Add search parameter
       } = req.query;
@@ -97,7 +98,7 @@ export default async function handler(req, res) {
           const sortDirection = sortOrder.toString().toLowerCase() === 'asc' ? 1 : -1;
 
           // Create cache key with all parameters (include search)
-          const cacheKey = `meetings:${date || 'all'}:${page}:${limit}:${sortOrder}:${search}`;
+          const cacheKey = `meetings:${date || 'all'}:${page}:${limit}:${sortBy}:${sortOrder}:${search}`;
           
           // Check cache
           const cachedData = getCache(cacheKey);
@@ -142,6 +143,11 @@ export default async function handler(req, res) {
               ];
           }
 
+          const sortOptions = {
+            [sortBy]: sortDirection,
+            '_id': sortDirection
+          };
+
           // Get total count
           const total = await Meeting.countDocuments(conditions);
 
@@ -149,7 +155,7 @@ export default async function handler(req, res) {
           const data = await Meeting.find(conditions)
               .skip(skip)
               .limit(limitNumber)
-              .sort({ dateTime: sortDirection });
+              .sort(sortOptions);
 
           // Prepare response
           const responseData = {
@@ -159,8 +165,9 @@ export default async function handler(req, res) {
               totalPages: Math.ceil(total / limitNumber),
               currentPage: pageNumber,
               limit: limitNumber,
+              sortBy,
               sortOrder,
-              searchQuery: search  // Optionally include the search query in response
+              searchQuery: search
           };
 
           // Cache the response

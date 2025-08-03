@@ -68,6 +68,7 @@ const Experiences: React.FC = () => {
                         type: 'thumbnail',
                         alignment: 'center',
                         thumbnailBackgroundColor: [['image', 'backgroundColor']],
+                        sortable: false
                     }, 
                     { 
                         label: 'Name', 
@@ -89,7 +90,8 @@ const Experiences: React.FC = () => {
                         label:'Start', 
                         selectors: [['period', 'start']],
                         alignment: 'center',
-                        type: 'date'
+                        type: 'date',
+                        sort: true
                     },
                     { 
                         label:'End', 

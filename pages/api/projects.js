@@ -62,8 +62,10 @@ async function handleGetRequest(query, res) {
   }
 
   const total = await Project.countDocuments(conditions);
-  const sortOptions = {};
-  sortOptions[sortBy.toString()] = sortDirection;
+  const sortOptions = {
+    [sortBy]: sortDirection,
+    '_id': sortDirection
+  };
 
   let queryBuilder = Project.find(conditions)
     .sort(sortOptions);

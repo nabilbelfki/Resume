@@ -60,8 +60,10 @@ export default async function handler(req, res) {
         }
 
         const total = await Media.countDocuments(conditions);
-        const sortOptions = {};
-        sortOptions[sortBy.toString()] = sortDirection;
+        const sortOptions = {
+          [sortBy]: sortDirection,
+          '_id': sortDirection
+        };
 
         const data = await Media.find(conditions)
           .skip(skip)

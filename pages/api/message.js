@@ -101,13 +101,13 @@ async function handlePostRequest(req, res) {
   }
 }
 
-// GET handler - Fetch paginated messages
 async function handleGetRequest(req, res) {
   const { 
     page = 1, 
     limit = 10, 
+    sortBy = 'created',
     sortOrder = 'desc',
-    search = ''  // Add search parameter
+    search = ''
   } = req.query;
 
   try {
@@ -117,8 +117,8 @@ async function handleGetRequest(req, res) {
     const skip = (pageNumber - 1) * limitNumber;
     const sortDirection = sortOrder.toString().toLowerCase() === 'asc' ? 1 : -1;
 
-    // Cache setup (include search in cache key)
-    const cacheKey = `messages:${page}:${limit}:${sortOrder}:${search}`;
+    // Cache setup (include sortBy in cache key)
+    const cacheKey = `messages:${page}:${limit}:${sortBy}:${sortOrder}:${search}`;
     const cachedData = getCache(cacheKey);
     
     if (cachedData) {
@@ -154,12 +154,21 @@ async function handleGetRequest(req, res) {
       ];
     }
 
+    const sortOptions = {
+      [sortBy]: sortDirection,
+      '_id': sortDirection
+    };
+
     // Database operations
     const total = await Message.countDocuments(conditions);
     const data = await Message.find(conditions)
       .skip(skip)
       .limit(limitNumber)
-      .sort({ created: sortDirection });
+      .sort(sortOptions); // Use the enhanced sort options
+
+    // 🐛 DEBUG: Log the actual _id values to verify different results
+    console.log(`Messages fetched: ${data.length} of ${total}, sorted by ${sortBy} ${sortOrder} + _id`);
+    console.log(`First message ID: ${data[0]?._id}, Last message ID: ${data[data.length - 1]?._id}`);
 
     // Prepare response
     const responseData = {
@@ -169,8 +178,19 @@ async function handleGetRequest(req, res) {
       totalPages: Math.ceil(total / limitNumber),
       currentPage: pageNumber,
       limit: limitNumber,
+      sortBy,  // Include sortBy in response
       sortOrder,
-      searchQuery: search  // Include search query in response
+      searchQuery: search,
+      // Add debug info in development
+      ...(process.env.NODE_ENV === 'development' && {
+        debug: {
+          skip,
+          searchConditions: conditions,
+          sortOptions,
+          firstId: data[0]?._id,
+          lastId: data[data.length - 1]?._id
+        }
+      })
     };
 
     // Cache response
