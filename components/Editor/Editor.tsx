@@ -87,12 +87,12 @@ const Editor = () => {
         className={styles.editor}
       ></div>
 
-      <button
+      {/* <button
         onClick={handleSave}
         className={styles.saveButton}
       >
         Save Post
-      </button>
+      </button> */}
 
       {htmlOutput && (
         <div className={styles.outputContainer}>

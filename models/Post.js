@@ -18,6 +18,16 @@ const PostSchema = new mongoose.Schema({
   date: { type: String, required: true },
   readTime: { type: Number, required: true },
   views: { type: Number, required: true, default: 0 },
+  author: {
+    firstName: {
+      type: String,
+      required: true
+    },
+    lastName: {
+      type: String,
+      required: true
+    }
+  },
   category: { 
     type: String, 
     required: true

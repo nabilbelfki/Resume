@@ -109,6 +109,7 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
                 }
 
                 const data = await response.json();
+                console.log("Data", data.data);
                 setData(data.data);
                 setTotalResults(data.total);
                 setTotalPages(data.totalPages || 1);
@@ -173,6 +174,8 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
     };
 
     const renderCellContent = (row: Row, column: Column) => {
+        console.log("Column", column)
+        console.log("Column", row)
         const values = getText(row, column);
         if (column.type === 'thumbnail') {
             const backgroundColor = column.thumbnailBackgroundColor ? getText(row, { selectors: column.thumbnailBackgroundColor } as Column).join("") : '#8C8C8C';
@@ -207,6 +210,7 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
             const avatarUrl = column.avatar ? row[column.avatar] : null;
             const backgroundColor = stringToHexColor(content);
             const color = isColorTooDark(backgroundColor) ? '#FFFFFF' : '#4C4C4C';
+            console.log(values)
             return (
                 <>
                     <div className={styles.avatar} style={{ backgroundColor }}>

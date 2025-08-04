@@ -83,6 +83,7 @@ const ProjectSchema = new mongoose.Schema({
           height: { type: Number, required: true },
           src: { type: String, required: true },
           alt: { type: String, required: true },
+          backgroundColor: { type: String, required: true },
         },
       },
     ],

@@ -127,7 +127,9 @@ const Project: React.FC = () => {
       },
       logo: {
         name: '',
-        path: ''
+        path: '',
+        width: 0,
+        height: 0
       },
       title: '',
       description: '',
@@ -145,7 +147,45 @@ const Project: React.FC = () => {
           throw new Error('Failed to fetch project');
         }
         const data = await response.json();
-        
+
+        console.log("Data", data)
+        console.log("Width", data.client.logo.width)
+        console.log("Height", data.client.logo.height)
+
+
+        // Transform tools data for List component
+        const tools = (data.tools as ToolData[])?.map((tool: ToolData) => ({
+          name: tool.name || '',
+          color: tool.color || '',
+          slug: tool.slug || '',
+          url: tool.url || '',
+          thumbnail: {
+            name: tool.imagePath?.split('/').pop() || '',
+            path: tool.imagePath?.replace(/[^/]*$/, '') || '',
+            width: tool.width,
+            height: tool.height
+          }
+        })) || [];
+
+        // Transform languages data for List component
+        const languages = data.languages?.map((lang: any) => ({
+          name: lang.name || '',
+          color: lang.color || '',
+          percentage: lang.percentage || 0
+        })) || [];
+
+        // Transform slides data for List component
+        const slides = data.client?.slides?.map((slide: SlideData) => ({
+          name: slide.name || '',
+          color: slide.image?.backgroundColor || '',
+          thumbnail: {
+            name: slide.image?.src?.split('/').pop() || '',
+            path: slide.image?.src?.replace(/[^/]*$/, '') || '',
+            width: slide.image?.width,
+            height: slide.image?.height
+          }
+        })) || [];
+
         // Transform the data to match your form structure
         setFormData({
           name: data.name,
@@ -164,21 +204,10 @@ const Project: React.FC = () => {
           repositories: {
             github: data.repository?.url || '',
             docker: data.container?.url || '',
-            figma: '' // Add if you have this field
+            figma: '' 
           },
-          languages: data.languages || [],
-          tools: (data.tools as ToolData[])?.map((tool: ToolData) => ({
-            name: tool.name,
-            color: tool.color,
-            slug: tool.slug,
-            url: tool.url,
-            thumbnail: {
-              name: tool.imagePath?.split('/').pop() || '',
-              path: tool.imagePath?.replace(/[^/]*$/, '') || '',
-              width: tool.width,
-              height: tool.height
-            }
-          })) || [],
+          languages:languages,
+          tools: tools,
           client: {
             title: data.client?.title?.name || '',
             description: data.client?.description || '',
@@ -192,16 +221,7 @@ const Project: React.FC = () => {
               width: data.client?.logo?.width,
               height: data.client?.logo?.height
             },
-            slides: data.client?.slides?.map((slide: SlideData) => ({
-              name: slide.name,
-              color: slide.image?.backgroundColor || '', // Default value
-              thumbnail: {
-                name: slide.image?.src?.split('/').pop() || '',
-                path: slide.image?.src?.replace(/[^/]*$/, '') || '',
-                width: slide.image?.width,
-                height: slide.image?.height
-              }
-            })) || [],
+            slides: slides
           }
         });
 
@@ -283,46 +303,51 @@ const Project: React.FC = () => {
     }));
   };
 
-  const handleLanguagesChange = (items: Array<{ name: string; color: string; percentage: number }>) => {
+  const handleLanguagesChange = (items: any[]) => {
     setFormData(prev => ({
       ...prev,
-      languages: items
+      languages: items.map(item => ({
+        name: item.name,
+        color: item.color,
+        percentage: item.percentage
+      }))
     }));
   };
 
-  const handleToolsChange = (items: Array<{
-    name: string;
-    color: string;
-    thumbnail: { 
-      name: string; 
-      path: string;
-      width?: number;
-      height?: number;
-    };
-    slug: string;
-    url: string;
-  }>) => {
+
+  const handleToolsChange = (items: any[]) => {
     setFormData(prev => ({
       ...prev,
-      tools: items
+      tools: items.map(item => ({
+        name: item.name,
+        color: item.color,
+        slug: item.slug,
+        url: item.url,
+        thumbnail: {
+          name: item.thumbnail?.name || '',
+          path: item.thumbnail?.path || '',
+          width: item.thumbnail?.width,
+          height: item.thumbnail?.height
+        }
+      }))
     }));
   };
 
-  const handleClientSlidesChange = (items: Array<{
-    name: string;
-    thumbnail: { 
-      name: string; 
-      path: string;
-      width?: number;
-      height?: number;
-    };
-    color: string;
-  }>) => {
+  const handleClientSlidesChange = (items: any[]) => {
     setFormData(prev => ({
       ...prev,
       client: {
         ...prev.client,
-        slides: items
+        slides: items.map(item => ({
+          name: item.name,
+          color: item.color,
+          thumbnail: {
+            name: item.thumbnail?.name || '',
+            path: item.thumbnail?.path || '',
+            width: item.thumbnail?.width,
+            height: item.thumbnail?.height
+          }
+        }))
       }
     }));
   };
@@ -623,6 +648,7 @@ const Project: React.FC = () => {
         <label className={styles.title} style={{marginBottom: 50}}>Languages</label>
         <div style={{marginTop: 30, marginBottom: 60}}>
           <List 
+            key={`list-${formData.languages.length}`}
             fields={[
               { id: 'name', type: 'text', placeholder: 'Enter Name' },
               { id: 'color', type: 'color', placeholder: 'Enter Color' },
@@ -630,12 +656,14 @@ const Project: React.FC = () => {
             ]}
             onFieldChange={(items) => handleLanguagesChange(items)}
             columns={3}
+            initialItems={formData.languages}
           />
         </div>
 
         <label className={styles.title} style={{marginBottom: 50}}>Tools</label>
         <div style={{marginTop: 30, marginBottom: 60}}>
           <List 
+            key={`list-${formData.tools.length}`} // Unique key based on con
             fields={[
               { id: 'name', type: 'text', placeholder: 'Enter Name' },
               { id: 'color', type: 'color', placeholder: 'Enter Color' },
@@ -645,6 +673,7 @@ const Project: React.FC = () => {
             ]}
             onFieldChange={(items) => handleToolsChange(items)}
             columns={3}
+            initialItems={formData.tools}
           />
         </div>
 
@@ -675,12 +704,13 @@ const Project: React.FC = () => {
           <div className={styles.input}>
             <label>Logo</label>
             <MediaPicker 
+              key={`media-picker-${formData.client.logo.name}`} 
               style={{height: 120}}
               value={{
                 name: formData.client.logo.name,
                 path: formData.client.logo.path,
-                width: formData.client.logo.width,
-                height: formData.client.logo.height
+                width: Number(formData.client.logo.width) || 0,
+                height: Number(formData.client.logo.height) || 0
               }}
               onChange={(media) => {
                 setFormData(prev => ({
@@ -690,8 +720,8 @@ const Project: React.FC = () => {
                     logo: {
                       name: media.name,
                       path: media.path,
-                      width: media.width,
-                      height: media.height
+                      width: Number(media.width) || 0, // Force number on save
+                      height: Number(media.height) || 0 // Force number on save
                     }
                   }
                 }));
@@ -730,6 +760,7 @@ const Project: React.FC = () => {
 
         <div style={{marginTop: 30}}>
           <List 
+            key={`list-${formData.client.slides.length}`}
             fields={[
               { id: 'name', type: 'text', placeholder: 'Enter Slide Name' },
               { id: 'thumbnail', type: 'media', label: 'Thumbnail' },
@@ -737,6 +768,7 @@ const Project: React.FC = () => {
             ]}
             onFieldChange={(items) => handleClientSlidesChange(items)}
             columns={2}
+            initialItems={formData.client.slides} // Add initialItems here
           />
         </div>
       </div>

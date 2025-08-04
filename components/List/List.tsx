@@ -15,6 +15,7 @@ interface ListProps {
   fields: Field[];
   onFieldChange: (items: any[]) => void;
   columns?: 2 | 3;
+  initialItems?: any[];
 }
 
 interface RowItem {
@@ -22,11 +23,33 @@ interface RowItem {
   fields: Field[];
 }
 
-const List: React.FC<ListProps> = ({ fields, onFieldChange, columns = 2 }) => {
-  const [rows, setRows] = useState<RowItem[]>(() => [
-    { id: Date.now(), fields: fields.map(field => ({ ...field })) }
-  ]);
-
+const List: React.FC<ListProps> = ({ fields, onFieldChange, columns = 2, initialItems = [] }) => {
+  const [rows, setRows] = useState<RowItem[]>(() => {
+    if (initialItems && initialItems.length > 0) {
+      return initialItems.map((item, index) => ({
+        id: Date.now() + index,
+        fields: fields.map(field => {
+          // Special handling for thumbnail fields
+          if (field.id === 'thumbnail' && item.thumbnail) {
+            return {
+              ...field,
+              value: {
+                name: item.thumbnail.name,
+                path: item.thumbnail.path,
+                width: item.thumbnail.width,
+                height: item.thumbnail.height
+              }
+            };
+          }
+          return {
+            ...field,
+            value: item[field.id] || ''
+          };
+        })
+      }));
+    }
+    return [{ id: Date.now(), fields: fields.map(field => ({ ...field })) }];
+  });
   // Store pending changes and flush them after render
   const [pendingChanges, setPendingChanges] = useState<any[] | null>(null);
 

@@ -84,11 +84,15 @@ const Field: React.FC<{
               height: field.value?.height,
               backgroundColor: backgroundColor
             }}
-            onChange={(media) => onChange({
-              ...media,
-              width: media.width,
-              height: media.height
-            })}
+            onChange={(media) => {
+              // Return the full media object structure
+              onChange({
+                name: media.name,
+                path: media.path,
+                width: media.width,
+                height: media.height
+              });
+            }}
           />
         </div>
       );
