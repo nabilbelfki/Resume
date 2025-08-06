@@ -1,108 +1,70 @@
 'use client';
+import { Key } from './key.type'
+import icons from './icons';
+import handlers from './handlers';
 import React, { useEffect, useRef, useState } from 'react';
-import { EDITOR_JS_TOOLS } from './EditorConstants';
-import EditorJS from '@editorjs/editorjs';
 import styles from "./Editor.module.css";
-
-// Basic JSON-to-HTML converter (simplified version)
-const convertToHtml = (blocks: any[]) => {
-  return blocks.map(block => {
-    switch (block.type) {
-      case 'header':
-        return `<h${block.data.level}>${block.data.text}</h${block.data.level}>`;
-      case 'paragraph':
-        return `<p>${block.data.text}</p>`;
-      case 'image':
-        return `<img src="${block.data.file.url}" alt="${block.data.caption || ''}" style="max-width: 100%;"/>`;
-      case 'list':
-        const tag = block.data.style === 'ordered' ? 'ol' : 'ul';
-        const items = block.data.items.map((item: string) => `<li>${item}</li>`).join('');
-        return `<${tag}>${items}</${tag}>`;
-      case 'quote':
-        return `<blockquote>${block.data.text}<br/>- ${block.data.caption}</blockquote>`;
-      case 'code':
-        return `<pre><code>${block.data.code}</code></pre>`;
-      case 'embed':
-        return `<div class="embed">${block.data.embed}</div>`;
-      default:
-        return `<div>Unsupported block type: ${block.type}</div>`;
-    }
-  }).join('');
-};
+import Dropdown from '../Dropdown/Dropdown';
 
 const Editor = () => {
-  const editorRef = useRef<EditorJS | null>(null);
-  const isInitialized = useRef(false);
-  const [htmlOutput, setHtmlOutput] = useState<string>('');
-
-  const handleSave = async () => {
-    try {
-      const savedData = await editorRef.current?.save();
-      if (savedData?.blocks) {
-        const html = convertToHtml(savedData.blocks);
-        setHtmlOutput(html);
-        console.log('Generated HTML:', html);
-      }
-    } catch (error) {
-      console.error('Error saving content:', error);
-    }
-  };
-
-  useEffect(() => {
-    if (typeof window === 'undefined' || isInitialized.current) return;
-
-    const initEditor = async () => {
-      const EditorJS = (await import('@editorjs/editorjs')).default;
-      
-      if (!editorRef.current) {
-        editorRef.current = new EditorJS({
-          holder: 'editorjs',
-          // tools: EDITOR_JS_TOOLS,
-          autofocus: true,
-          placeholder: 'Start writing your blog post...',
-          inlineToolbar: true,
-          onReady: () => {
-            console.log('Editor.js is ready!');
-          },
-        });
-        isInitialized.current = true;
-      }
-    };
-
-    initEditor();
-
-    return () => {
-      if (editorRef.current && typeof editorRef.current.destroy === 'function') {
-        editorRef.current.destroy();
-        editorRef.current = null;
-        isInitialized.current = false;
-      }
-    };
-  }, []);
+  const [element, setElement] = useState<string | null>('p');
+  const buttons = [
+    'bold',
+    'italic',
+    'underline',
+    'unorderedList',
+    'orderedList',
+    'quote',
+    'leftAligned',
+    'centerAligned',
+    'rightAligned',
+    'link',
+    'warning',
+    'code',
+    'media',
+    'checkbox',
+    'table',
+    'delimiter',
+  ]
 
   return (
     <div className={styles.container}>
-      <div
-        id="editorjs"
-        className={styles.editor}
-      ></div>
-
-      {/* <button
-        onClick={handleSave}
-        className={styles.saveButton}
-      >
-        Save Post
-      </button> */}
-
-      {htmlOutput && (
-        <div className={styles.outputContainer}>
-          <h3>Blog Post Preview:</h3>
-          <div
-            className={styles.htmlOutput}
-            dangerouslySetInnerHTML={{ __html: htmlOutput }}
-          />
-        </div>
-      )}
+      <div className={styles['top-bar']}>
+        <Dropdown 
+          placeholder='Choose Element'
+          value={element}
+          onChange={(value) => {
+            setElement(value)
+          }}
+          options={[
+            {label:"Paragraph", value: "p"},
+            {label:"Header 2", value: "h2"},
+            {label:"Header 3", value: "h3"},
+            {label:"Header 4", value: "h4"},
+            {label:"Header 5", value: "h5"},
+            {label:"Header 6", value: "h6"},
+          ]}
+          style={
+            {
+              button: {
+                height: 15,
+                padding: 15
+              }
+            }
+          }
+        />
+        {buttons.map(button => (
+          <button key={'button-' + button} className={styles.button} onClick={handlers(button as Key)}>
+            {icons(button as Key)}
+          </button>
+        ))}
+      </div>
+      <div className={styles.editor}>
+        <p contentEditable="true"></p>
+      </div>
+      <div className={styles['bottom-bar']}>
+        <span className={styles['word-count']}>Word Count: 1337</span>
+      </div>
     </div>
   );
 };

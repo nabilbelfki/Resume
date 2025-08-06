@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./Dropdown.module.css";
 
 interface Option {
@@ -12,6 +12,13 @@ interface DropdownProps {
   value: string | null;
   onChange: (value: string | null) => void;
   disabled?: boolean;
+  style?: Styles;
+}
+interface Styles {
+  container?: React.CSSProperties;
+  button?: React.CSSProperties;
+  dropdown?: React.CSSProperties;
+  option?: React.CSSProperties;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({ 
@@ -19,8 +26,10 @@ const Dropdown: React.FC<DropdownProps> = ({
   options, 
   value,
   onChange,
-  disabled = false
+  disabled = false,
+  style = {},
 }) => {
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [buttonText, setButtonText] = useState(placeholder);
   const [color, setColor] = useState<'#C6C6C6' | '#4C4C4C'>(disabled ? '#C6C6C6' : '#4C4C4C');
@@ -42,6 +51,24 @@ const Dropdown: React.FC<DropdownProps> = ({
     }
   }, [value, options, placeholder, disabled]);
 
+  // useEffect to handle clicks outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // Close the dropdown if it's open and the click is outside the container
+      if (isExpanded && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsExpanded(false);
+      }
+    };
+
+    // Add the event listener when the component mounts or isExpanded changes
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Clean up the event listener when the component unmounts or isExpanded changes
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isExpanded]); // Re-run effect when isExpanded changes
+
   const handleOptionClick = (optionValue: string) => {
     if (disabled) return;
     
@@ -59,8 +86,8 @@ const Dropdown: React.FC<DropdownProps> = ({
   };
 
   return (
-    <div className={styles.container}>
-      <button 
+    <div className={styles.container} style={style.container} ref={dropdownRef}>
+      <button  style={style.button}
         className={`${styles.display} ${disabled ? styles.disabled : ''}`} 
         onClick={toggleDropdown}
         type="button" // Prevent form submission
@@ -73,9 +100,9 @@ const Dropdown: React.FC<DropdownProps> = ({
         </svg>
       </button>
       {isExpanded && !disabled && (
-        <div className={styles.dropdown}>
+        <div className={styles.dropdown} style={style.dropdown}>
           {options.map((option) => (
-            <button
+            <button style={style.option}
               key={option.value}
               className={value === option.value 
                 ? `${styles.option} ${styles.selected}` 

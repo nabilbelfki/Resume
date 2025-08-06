@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
       const {
         page = 1, 
-        limit = 25, // Set a default limit instead of 0
+        limit = 0,
         search = '', 
         sortBy = 'name',
         sortOrder = 'asc'
