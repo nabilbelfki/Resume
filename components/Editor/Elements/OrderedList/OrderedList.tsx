@@ -14,10 +14,11 @@ interface OrderedListProps {
   textAlign?: 'left' | 'center' | 'right';
   onEmptyEnter: () => void;
   onEmptyBackspace: () => void;
+  onFocus: () => void;
   focusOnItem?: number | 'last';
 }
 
-const OrderedList: React.FC<OrderedListProps> = ({ initialItems = [{ id: Date.now(), content: "", level: 0 }], textAlign = 'left', onEmptyEnter, onEmptyBackspace, focusOnItem }) => {
+const OrderedList: React.FC<OrderedListProps> = ({ initialItems = [{ id: Date.now(), content: "", level: 0 }], textAlign = 'left', onEmptyEnter, onEmptyBackspace, onFocus, focusOnItem }) => {
   const [items, setItems] = useState<ListItem[]>(initialItems);
   const [focusedId, setFocusedId] = useState<number | null>(null);
   const itemRefs = useRef<{ [key: number]: HTMLLIElement }>({});
@@ -123,6 +124,7 @@ const OrderedList: React.FC<OrderedListProps> = ({ initialItems = [{ id: Date.no
           className={styles.listItem}
           style={{ marginLeft: `${item.level * 20}px` }}
           contentEditable={true}
+          onFocus={onFocus}
           onKeyDown={(e) => handleKeyDown(e, index)}
           onBlur={(e) => handleBlur(e, index)}
         >

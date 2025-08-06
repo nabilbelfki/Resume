@@ -8,6 +8,7 @@ interface HeadingProps {
     onEnter: () => void;
     onContentUpdate: (content: string) => void;
     onDelete: () => void;
+    onFocus: () => void;
     content: string;
 }
 
@@ -18,6 +19,7 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(({
     onEnter,
     onContentUpdate,
     onDelete,
+    onFocus,
     content
 }, ref) => {
     const internalRef = useRef<HTMLHeadingElement>(null);
@@ -67,6 +69,7 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(({
             suppressContentEditableWarning={true}
             onKeyDown={handleKeyDown}
             onInput={handleInput}
+            onFocus={onFocus}
         />
     );
 });

@@ -13,16 +13,22 @@ interface UnorderedListProps {
   initialItems?: ListItem[];
   textAlign?: 'left' | 'center' | 'right';
   onEmptyEnter: () => void;
-  onEmptyBackspace: () => void; // This handler is also used for a single empty li on Enter
+  onEmptyBackspace: () => void;
+  onFocus: () => void;
+  focusOnItem?: number | 'last';
 }
 
-const UnorderedList: React.FC<UnorderedListProps> = ({ initialItems = [{ id: Date.now(), content: "", level: 0 }], textAlign = 'left', onEmptyEnter, onEmptyBackspace }) => {
+const UnorderedList: React.FC<UnorderedListProps> = ({ initialItems = [{ id: Date.now(), content: "", level: 0 }], textAlign = 'left', onEmptyEnter, onEmptyBackspace, onFocus, focusOnItem }) => {
   const [items, setItems] = useState<ListItem[]>(initialItems);
   const [focusedId, setFocusedId] = useState<number | null>(null);
   const itemRefs = useRef<{ [key: number]: HTMLLIElement }>({});
 
   useEffect(() => {
-    if (focusedId !== null && itemRefs.current[focusedId]) {
+    // This useEffect now handles both internal and external focus requests
+    if (focusOnItem === 'last' && items.length > 0) {
+        const lastItem = items[items.length - 1];
+        setFocusedId(lastItem.id);
+    } else if (focusedId !== null && itemRefs.current[focusedId]) {
       const element = itemRefs.current[focusedId];
       element.focus();
 
@@ -36,7 +42,7 @@ const UnorderedList: React.FC<UnorderedListProps> = ({ initialItems = [{ id: Dat
       }
       setFocusedId(null);
     }
-  }, [focusedId]);
+  }, [focusedId, focusOnItem, items]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLLIElement>, index: number) => {
     const isCursorAtStart = window.getSelection()?.anchorOffset === 0;
@@ -118,6 +124,7 @@ const UnorderedList: React.FC<UnorderedListProps> = ({ initialItems = [{ id: Dat
           className={styles.listItem}
           style={{ marginLeft: `${item.level * 20}px` }}
           contentEditable={true}
+          onFocus={onFocus}
           onKeyDown={(e) => handleKeyDown(e, index)}
           onBlur={(e) => handleBlur(e, index)}
         >

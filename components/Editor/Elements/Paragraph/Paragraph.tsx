@@ -10,9 +10,10 @@ interface ParagraphProps {
     onContentUpdate: (content: string) => void;
     content: string;
     onDelete: () => void; 
+    onFocus: () => void;
 }
 
-const Paragraph = React.forwardRef<HTMLParagraphElement, ParagraphProps>(({ editable, textAlign = 'left', onEnter, onContentUpdate, onDelete, content }, ref) => {
+const Paragraph = React.forwardRef<HTMLParagraphElement, ParagraphProps>(({ editable, textAlign = 'left', onEnter, onContentUpdate, onFocus, onDelete, content }, ref) => {
     
     const internalRef = useRef<HTMLParagraphElement>(null);
 
@@ -60,6 +61,7 @@ const Paragraph = React.forwardRef<HTMLParagraphElement, ParagraphProps>(({ edit
             suppressContentEditableWarning={true}
             onKeyDown={handleKeyDown}
             onInput={handleInput}
+            onFocus={onFocus}
         />
     );
 });
