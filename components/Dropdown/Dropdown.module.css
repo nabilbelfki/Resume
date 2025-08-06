@@ -68,3 +68,7 @@
 .selected:hover {
     background-color: #6bb7ff;
 }
+
+.disabled {
+    cursor: not-allowed;
+}

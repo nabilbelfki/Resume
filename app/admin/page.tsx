@@ -198,7 +198,7 @@ const SignIn: React.FC = () => {
 
   return (
     <div className={styles.background}> 
-      <div className={styles.container}>
+      <form className={styles.container} onSubmit={handleSubmit}>
           {page === 'account-created' || page === 'email-sent' ? (
             <div className={styles.verified}>
               <svg xmlns="http://www.w3.org/2000/svg" height="150" viewBox="0 0 40 40" fill="none">
@@ -272,10 +272,10 @@ const SignIn: React.FC = () => {
                 />
               )}
               {page === 'signin' && (<div className={styles[`forgot-password`]}><span style={{cursor: 'pointer'}} onClick={()=> changePage('forgot')}>Forgot Password</span></div>)}
-              <button className={styles.submit} onClick={handleSubmit}>{buttonTexts[page]}</button>
+              <button type="submit" className={styles.submit} onClick={handleSubmit}>{buttonTexts[page]}</button>
             </>
           )}
-      </div>
+      </form>
     </div>
   );
 };
