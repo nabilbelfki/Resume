@@ -1,18 +1,18 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import styles from "./ColorPicker.module.css";
 import Image from "next/image";
 
 interface ColorPickerProps {
   ID: string;
-  placeholder: string;
+  placeholder?: string;
   value: string;
   onChange: (value: string) => void;
 }
 
 const ColorPicker: React.FC<ColorPickerProps> = ({ 
   ID, 
-  placeholder, 
+  placeholder = '', 
   value, 
   onChange 
 }) => {
@@ -28,14 +28,14 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
   };
 
   return (
-    <div className={styles.container}>
-      <input 
+    <div className={`${styles.container} ${placeholder ? styles['field-included'] : '' }`}>
+      {placeholder && (<input 
         type="text" 
         id={ID}
         placeholder={placeholder}
         value={value || ''}
         readOnly
-      />
+      />)}
       <div className={styles.picker}>
         <input 
           type="color" 

@@ -1,5 +1,8 @@
+"use client";
 import React, { useState, useRef, useEffect } from 'react';
 import styles from "./Delimiter.module.css"
+import ColorPicker from '@/components/ColorPicker/ColorPicker';
+import Dropdown from "@/components/Dropdown/Dropdown";
 
 const colors = ['#d1d5db', '#3b82f6', '#ef4444', '#10b981'];
 const stylesOptions = ['solid', 'dashed', 'dotted'];
@@ -64,14 +67,14 @@ const Delimiter: React.FC<DelimiterProps> = ({
     onContentUpdate(color, newStyle, dashLength, thickness);
   };
 
-  const handleDashLengthChange = (value: number) => {
-    const newDashLength = Math.max(1, dashLength + value);
+  const handleDashLengthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newDashLength = parseFloat(e.target.value);
     setDashLength(newDashLength);
     onContentUpdate(color, style as 'solid' | 'dashed' | 'dotted', newDashLength, thickness);
   };
 
-  const handleThicknessChange = (value: number) => {
-    const newThickness = Math.max(1, thickness + value);
+  const handleThicknessChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newThickness = parseFloat(e.target.value);
     setThickness(newThickness);
     onContentUpdate(color, style as 'solid' | 'dashed' | 'dotted', dashLength, newThickness);
   };
@@ -117,62 +120,42 @@ const Delimiter: React.FC<DelimiterProps> = ({
       <div className={styles.line} style={{ ...getLineStyle() }} />
       {isToolbarVisible && (
         <div className={styles.toolbar} onClick={e => e.stopPropagation()}>
-          <div style={{ display: 'flex', gap: '0.25rem' }}>
-            {colors.map((c) => (
-              <div
-                key={c}
-                className={`${styles['color-option']} ${color === c ? styles['color-option-active'] : ''}`}
-                style={{
-                  backgroundColor: c
-                }}
-                onClick={() => handleColorChange(c)}
+          
+          <ColorPicker ID={'colorbook'} value={color} onChange={(value) => handleColorChange(value)} />
+          <Dropdown 
+            placeholder='Choose Type'
+            value={style}
+            onChange={(value) => handleStyleChange(value as 'solid' | 'dashed' | 'dotted')}
+            options={[
+              { label: 'Solid',value: 'solid' },
+              { label: 'Dashed', value: 'dashed' }
+            ]}
+            style={{
+              button: {
+                height: 40,
+                padding: 15
+              }
+            }
+            }
+          />
+          <div className={styles.number}>
+            <label htmlFor="thickness">Thickness</label>
+            <input 
+              type="number"
+              value={thickness}
+              id="thickness"
+              onChange={handleThicknessChange}
               />
-            ))}
           </div>
-          <div style={{ display: 'flex', gap: '0.25rem' }}>
-            {stylesOptions.map((s) => (
-              <button
-                key={s}
-                className={`${styles['toolbar-button']} ${style === s ? styles['toolbar-button-active'] : ''}`}
-                onClick={() => handleStyleChange(s as 'solid' | 'dashed' | 'dotted')}
-              >
-                {s}
-              </button>
-            ))}
-          </div>
-          {(style === 'dashed' || style === 'dotted') && (
-            <>
-              <div style={{ display: 'flex', gap: '0.25rem', alignItems: 'center' }}>
-                <button
-                  className={styles['toolbar-button']}
-                  onClick={() => handleDashLengthChange(-1)}
-                >
-                  -
-                </button>
-                <span style={{ color: '#fff', fontSize: '0.875rem' }}>Dash: {dashLength}</span>
-                <button
-                  className={styles['toolbar-button']}
-                  onClick={() => handleDashLengthChange(1)}
-                >
-                  +
-                </button>
-              </div>
-            </>
-          )}
-          <div style={{ display: 'flex', gap: '0.25rem', alignItems: 'center' }}>
-            <button
-              className={styles['toolbar-button']}
-              onClick={() => handleThicknessChange(-1)}
-            >
-              -
-            </button>
-            <span style={{ color: '#fff', fontSize: '0.875rem' }}>Thickness: {thickness}</span>
-            <button
-              className={styles['toolbar-button']}
-              onClick={() => handleThicknessChange(1)}
-            >
-              +
-            </button>
+          <div className={styles.number}>
+            <label htmlFor="dash">Dash</label>
+            <input 
+              type="number" 
+              id="dash" 
+              value={style === 'dashed' ? dashLength : ''}
+              disabled={ style !== 'dashed' }
+              onChange={handleDashLengthChange}
+              />
           </div>
         </div>
       )}
