@@ -64,7 +64,7 @@ const Post: React.FC = () => {
 
   return (
     <div className={styles.container}>
-        <Image src="/banner.jpg" alt="Post Banner Image" height={300} width={1200} />
+        <Image src="/images/banner.jpg" alt="Post Banner Image" height={300} width={1200} />
         <div className={styles.post}>
             <h1 className={styles.title}>{post.title}</h1>
             <div className={styles[`date-read-time-and-category`]}>

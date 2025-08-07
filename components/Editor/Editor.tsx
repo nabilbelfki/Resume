@@ -8,6 +8,12 @@ import Paragraph from './Elements/Paragraph/Paragraph';
 import Heading from './Elements/Heading/Heading';
 import OrderedList from './Elements/OrderedList/OrderedList';
 import UnorderedList from './Elements/UnorderedList/UnorderedList';
+import Anchor from './Elements/Anchor/Anchor';
+import Table from './Elements/Table/Table';
+import Warning from './Elements/Warning/Warning';
+import Quote from './Elements/Quote/Quote';
+import Delimiter from "./Elements/Delimiter/Delimiter"
+import Media from "./Elements/Media/Media"
 
 type Block = {
     id: number;
@@ -32,7 +38,7 @@ const Editor = () => {
             const elementToFocus = blockRefs.current[activeBlockId];
             if (elementToFocus) {
                 elementToFocus.focus();
-                
+
                 const selection = window.getSelection();
                 if (selection) {
                     const range = document.createRange();
@@ -95,9 +101,9 @@ const Editor = () => {
         ));
     };
 
-    const addBlockAfter = (index: number, newBlockType: string = 'p') => {
+    const addBlockAfter = (index: number, newBlockType: string = 'p', initialContent: string = '') => {
         const newBlockId = Date.now();
-        const newBlock: Block = { id: newBlockId, type: newBlockType, content: '', textAlign: 'left' };
+        const newBlock: Block = { id: newBlockId, type: newBlockType, content: initialContent, textAlign: 'left' };
         const updatedBlocks = [...blocks];
         updatedBlocks.splice(index + 1, 0, newBlock);
         setBlocks(updatedBlocks);
@@ -109,54 +115,82 @@ const Editor = () => {
     };
 
     const renderComponent = (block: Block, index: number) => {
-      const commonProps = {
-        key: block.id,
-        editable: true,
-        content: block.content,
-        onFocus: () => handleFocus(block.id),
-        onEnter: () => addBlockAfter(index),
-        onContentUpdate: (content: string) => updateBlockContent(block.id, content),
-        onDelete: () => deleteBlock(block.id),
-        textAlign: block.textAlign,
-        ref: (el: HTMLElement | null) => {
-            if (el) blockRefs.current[block.id] = el;
-            else delete blockRefs.current[block.id];
-        },
-    };
+        const commonProps = {
+            editable: true,
+            content: block.content,
+            onFocus: () => handleFocus(block.id),
+            onEnter: () => addBlockAfter(index),
+            onContentUpdate: (content: string) => updateBlockContent(block.id, content),
+            onDelete: () => deleteBlock(block.id),
+            textAlign: block.textAlign,
+            ref: (el: HTMLElement | null) => {
+                if (el) blockRefs.current[block.id] = el;
+                else delete blockRefs.current[block.id];
+            },
+        };
 
-      const handleEmptyEnter = () => {
-        addBlockAfter(index, 'p');
-      };
+        const handleEmptyEnter = () => {
+            addBlockAfter(index, 'p');
+        };
 
-      const handleEmptyBackspace = () => {
-        deleteBlock(block.id);
-      };
+        const handleEmptyBackspace = () => {
+            deleteBlock(block.id);
+        };
 
-      switch (block.type) {
-        case 'p':
-          return <Paragraph {...commonProps} />;
-        case 'h2':
-          return <Heading {...commonProps} />;
-        case 'h3':
-          return <Heading heading={3} {...commonProps} />;
-        case 'h4':
-          return <Heading heading={4} {...commonProps} />;
-        case 'h5':
-          return <Heading heading={5} {...commonProps} />;
-        case 'h6':
-          return <Heading heading={6} {...commonProps} />;
-        case 'ul':
-          return <UnorderedList {...commonProps} onEmptyEnter={handleEmptyEnter} onEmptyBackspace={handleEmptyBackspace} />;
-        case 'ol':
-          return <OrderedList {...commonProps} onEmptyEnter={handleEmptyEnter} onEmptyBackspace={handleEmptyBackspace} />;
-        default:
-          return null;
-      }
+        switch (block.type) {
+            case 'p':
+                return <Paragraph key={block.id} {...commonProps} />;
+            case 'h2':
+                return <Heading key={block.id} {...commonProps} />;
+            case 'h3':
+                return <Heading key={block.id} heading={3} {...commonProps} />;
+            case 'h4':
+                return <Heading key={block.id} heading={4} {...commonProps} />;
+            case 'h5':
+                return <Heading key={block.id} heading={5} {...commonProps} />;
+            case 'h6':
+                return <Heading key={block.id} heading={6} {...commonProps} />;
+            case 'ul':
+                return <UnorderedList key={block.id} {...commonProps} onEmptyEnter={handleEmptyEnter} onEmptyBackspace={handleEmptyBackspace} />;
+            case 'ol':
+                return <OrderedList key={block.id} {...commonProps} onEmptyEnter={handleEmptyEnter} onEmptyBackspace={handleEmptyBackspace} />;
+            case 'a':
+                return <Anchor key={block.id} {...commonProps} />;
+            case 'table':
+                return <Table key={block.id} {...commonProps} />;
+            case 'quote':
+                return <Quote key={block.id} {...commonProps} />;
+            case 'warning':
+                return <Warning key={block.id} {...commonProps} />;
+            case 'delimiter':
+                return <Delimiter key={block.id} {...commonProps} />;
+            case 'media':
+                let mediaValue;
+                try {
+                    mediaValue = block.content ? JSON.parse(block.content) : { name: '', path: '' };
+                } catch {
+                    mediaValue = { name: '', path: '' };
+                }
+                return <Media 
+                    key={block.id} 
+                    value={mediaValue}
+                    onChange={(value) => updateBlockContent(block.id, JSON.stringify(value))}
+                    // onFocus={() => handleFocus(block.id)}
+                    onDelete={() => deleteBlock(block.id)}
+                    ref={(el: HTMLElement | null) => {
+                        if (el) blockRefs.current[block.id] = el;
+                        else delete blockRefs.current[block.id];
+                    }}
+                />;
+            default:
+                return null;
+        }
     };
     
-    const addBlock = (type: string) => {
-        const newBlock: Block = { id: Date.now(), type, content: '', textAlign: 'left' };
+    const addBlock = (type: string, content: string = '') => {
+        const newBlock: Block = { id: Date.now(), type, content, textAlign: 'left' };
         setBlocks([...blocks, newBlock]);
+        setActiveBlockId(newBlock.id);
     };
 
     const createHandler = (key: Key) => {
@@ -180,17 +214,59 @@ const Editor = () => {
                     addBlock('ol');
                 }
             },
-            quote: () => {},
+            quote: () => {
+                const index = blocks.findIndex(block => block.id === activeBlockId);
+                if (index !== -1) {
+                    addBlockAfter(index, 'quote');
+                } else {
+                    addBlock('quote');
+                }
+            },
             leftAligned: () => handleAlignment('left'),
             centerAligned: () => handleAlignment('center'),
             rightAligned: () => handleAlignment('right'),
-            link: () => {},
-            warning: () => {},
-            code: () => {},
-            media: () => {},
-            checkbox: () => {},
-            table: () => {},
-            delimiter: () => {},
+            link: () => {
+                const url = window.prompt('Enter the URL:');
+                if (url) {
+                    document.execCommand('createLink', false, url);
+                }
+            },
+            warning: () => {
+                const index = blocks.findIndex(block => block.id === activeBlockId);
+                if (index !== -1) {
+                    addBlockAfter(index, 'warning');
+                } else {
+                    addBlock('warning');
+                }
+            },
+            code: () => { },
+            media: () => {
+                const index = blocks.findIndex(block => block.id === activeBlockId);
+                const initialContent = JSON.stringify({ name: '', path: '', backgroundColor: '' });
+                if (index !== -1) {
+                    addBlockAfter(index, 'media', initialContent);
+                } else {
+                    addBlock('media', initialContent);
+                }
+            },
+            checkbox: () => { },
+            table: () => { // Updated table handler to add a default 2x2 table
+                const initialTableData = JSON.stringify([['', ''], ['', '']]);
+                const index = blocks.findIndex(block => block.id === activeBlockId);
+                if (index !== -1) {
+                    addBlockAfter(index, 'table', initialTableData);
+                } else {
+                    addBlock('table', initialTableData);
+                }
+            },
+            delimiter: () => {
+                const index = blocks.findIndex(block => block.id === activeBlockId);
+                if (index !== -1) {
+                    addBlockAfter(index, 'delimiter');
+                } else {
+                    addBlock('delimiter');
+                }
+            },
         }[key];
     };
 
@@ -200,7 +276,7 @@ const Editor = () => {
                 <Dropdown
                     placeholder='Choose Element'
                     value={activeBlock ? activeBlock.type : 'p'}
-                    onChange={(value) => handleElementChange(value)}
+                    onChange={(value) => handleElementChange(value || 'p')}
                     disabled={!isParagraphOrHeading}
                     options={[
                         { label: "Paragraph", value: "p" },
@@ -220,7 +296,7 @@ const Editor = () => {
                     }
                 />
                 {buttons.map(button => (
-                    <button key={'button-' + button} className={styles.button} onClick={createHandler(button as Key)}>
+                    <button key={'button-' + button} className={styles.button} onMouseDown={(e) => { e.preventDefault(); createHandler(button as Key)(); }}>
                         {icons(button as Key)}
                     </button>
                 ))}

@@ -21,7 +21,7 @@ export default async function handler(req, res) {
         console.log("Fetching media documents");
         const { 
           page = 1, 
-          limit = 25, 
+          limit = 0, 
           search = '',
           type = '',
           sortBy = 'created', 

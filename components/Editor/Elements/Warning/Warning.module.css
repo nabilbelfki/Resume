@@ -1,0 +1,30 @@
+.warning {
+    font-style: italic;
+    color: #131313;
+    border-left: 4px solid #ffee00;
+    padding: 1rem 1rem 1rem 1.5rem;
+    margin: 1.5rem 0;
+    position: relative;
+    line-height: 1.5;
+    font-size: 1.2rem;
+    cursor: text;
+    transition: all 0.2s ease-in-out;
+    border-radius: 4px;
+    background-color: #fff9a6;
+    outline: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .text {
+    outline: none;
+    width: 100%;
+  }

@@ -1,0 +1,29 @@
+.table {
+  font-family: Inter, sans-serif;
+  border: none;
+  outline: none;
+  width: 100%;
+  background-color: #FFFFFF;
+}
+
+.table td {
+  background-color: #c6c6c6;
+  height: 30px;
+  outline: none;
+}
+
+.table tr:first-child td:first-child {
+  border-top-left-radius: 5px;
+}
+
+.table tr:first-child td:last-child {
+  border-top-right-radius: 5px;
+}
+
+.table tr:last-child td:first-child {
+  border-bottom-left-radius: 5px;
+}
+
+.table tr:last-child td:last-child {
+  border-bottom-right-radius: 5px;
+}

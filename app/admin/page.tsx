@@ -76,7 +76,8 @@ const SignIn: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     if (!validateForm()) return;
     
     setLoading(true);
@@ -272,7 +273,7 @@ const SignIn: React.FC = () => {
                 />
               )}
               {page === 'signin' && (<div className={styles[`forgot-password`]}><span style={{cursor: 'pointer'}} onClick={()=> changePage('forgot')}>Forgot Password</span></div>)}
-              <button type="submit" className={styles.submit} onClick={handleSubmit}>{buttonTexts[page]}</button>
+              <button type="submit" className={styles.submit}>{buttonTexts[page]}</button>
             </>
           )}
       </form>

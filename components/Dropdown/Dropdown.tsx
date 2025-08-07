@@ -40,10 +40,10 @@ const Dropdown: React.FC<DropdownProps> = ({
       setButtonText(placeholder);
       setColor(disabled ? '#C6C6C6' : '#C6C6C6');
     } else {
-      console.log('Value', value)
+      // console.log('Value', value)
 
-      const selectedOption = options.find(option => {console.log(option.value);return option.value === value});
-      console.log(selectedOption)
+      const selectedOption = options.find(option => option.value === value);
+      // console.log(selectedOption)
       if (selectedOption) {
         setButtonText(selectedOption.label);
         setColor(disabled ? '#C6C6C6' : '#4C4C4C');

@@ -1,0 +1,44 @@
+.container {
+  width: 100%;
+  background-color: #c6c6c6;
+  min-height: 300px;
+  position: relative;
+}
+
+.no-media {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.media {
+  cursor: pointer;
+  width: 100%;
+  min-height: 300px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.media img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.remove {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    transform: translateX(50%);
+    opacity: 1;
+    border: none;
+    background-color: unset;
+    cursor: pointer;
+}
+
+
+.remove:hover path {
+  fill: #FFFFFF;
+}

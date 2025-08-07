@@ -167,7 +167,7 @@ export interface Experiences {
     action: (ids: string[]) => void
   }
 
-  export type MediaType = 'Image' | 'Video' | 'Sound';
+  export type MediaType = 'Image' | 'Video' | 'Sound' | null;
 
   export interface Media {
       _id?: string; // Optional for MongoDB documents

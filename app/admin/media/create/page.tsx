@@ -55,7 +55,7 @@ const Media: React.FC = () => {
       // Create new FormData object
       const formDataToSend = new FormData();
       formDataToSend.append('file', formData.file);
-      formDataToSend.append('type', formData.type);
+      formDataToSend.append('type', formData.type || 'Image');
       formDataToSend.append('description', formData.description);
       console.log(formDataToSend)
       // Debug: Log FormData contents
@@ -114,7 +114,7 @@ const Media: React.FC = () => {
           value={{
             name: formData.name,
             path: formData.path,
-            type: formData.type
+            type: formData.type || 'Image'
           }}
           onChange={(media) => {
             // Get file extension to determine type
