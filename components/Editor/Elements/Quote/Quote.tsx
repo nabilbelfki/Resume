@@ -14,7 +14,7 @@ interface QuoteProps {
 const Quote = React.forwardRef<HTMLSpanElement, QuoteProps>(({
   editable,
   content,
-  textAlign = 'left',
+  textAlign = 'center',
   onFocus,
   onContentUpdate,
   onDelete,

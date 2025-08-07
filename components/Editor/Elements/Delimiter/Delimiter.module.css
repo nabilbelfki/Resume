@@ -39,9 +39,14 @@
 
 .number {
   width: min-content;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 2px;
 }
 .number label {
-  font-size: 12px;
+  font-size: 11px;
   color: #4c4c4c;
   font-weight: 400;
 }
@@ -54,6 +59,17 @@
   border: solid 1.6px #c6c6c6;
   border-radius: 5px;
   width: 70px;
-  height: 25px;
+  height: 27px;
   text-align: center;
+}
+
+.delete {
+  border: solid 1.6px #c6c6c6;
+  border-radius: 5px;
+  height: 100%;
+  fill: #4c4c4c;
+}
+
+.delete:hover {
+  background-color: #C6C6C6;
 }
