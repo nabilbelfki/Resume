@@ -13,6 +13,7 @@ import Table from './Elements/Table/Table';
 import Warning from './Elements/Warning/Warning';
 import Quote from './Elements/Quote/Quote';
 import Delimiter from "./Elements/Delimiter/Delimiter"
+import Checkbox from "./Elements/Checkbox/Checkbox"
 import Media from "./Elements/Media/Media"
 
 type Block = {
@@ -164,6 +165,8 @@ const Editor = () => {
                 return <Warning key={block.id} {...commonProps} />;
             case 'delimiter':
                 return <Delimiter key={block.id} {...commonProps} />;
+            case 'checkbox':
+                return <Checkbox key={block.id} {...commonProps}  onEmptyEnter={handleEmptyEnter} onEmptyBackspace={handleEmptyBackspace} />;
             case 'media':
                 let mediaValue;
                 try {
@@ -249,7 +252,14 @@ const Editor = () => {
                     addBlock('media', initialContent);
                 }
             },
-            checkbox: () => { },
+            checkbox: () => {
+                const index = blocks.findIndex(block => block.id === activeBlockId);
+                if (index !== -1) {
+                    addBlockAfter(index, 'checkbox');
+                } else {
+                    addBlock('checkbox');
+                }
+            },
             table: () => { // Updated table handler to add a default 2x2 table
                 const initialTableData = JSON.stringify([['', ''], ['', '']]);
                 const index = blocks.findIndex(block => block.id === activeBlockId);
