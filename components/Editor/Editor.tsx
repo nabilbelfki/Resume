@@ -103,7 +103,7 @@ const Editor = () => {
 
     const addBlockAfter = (index: number, newBlockType: string = 'p', initialContent: string = '') => {
         const newBlockId = Date.now();
-        const newBlock: Block = { id: newBlockId, type: newBlockType, content: initialContent, textAlign: 'left' };
+        const newBlock: Block = { id: newBlockId, type: newBlockType, content: initialContent, textAlign: newBlockType === 'quote' ? 'center' : 'left' };
         const updatedBlocks = [...blocks];
         updatedBlocks.splice(index + 1, 0, newBlock);
         setBlocks(updatedBlocks);
@@ -188,7 +188,7 @@ const Editor = () => {
     };
     
     const addBlock = (type: string, content: string = '') => {
-        const newBlock: Block = { id: Date.now(), type, content, textAlign: 'left' };
+        const newBlock: Block = { id: Date.now(), type, content, textAlign: type === 'quote' ? 'center' : 'left' };
         setBlocks([...blocks, newBlock]);
         setActiveBlockId(newBlock.id);
     };

@@ -5,13 +5,14 @@
 }
 
 .editor {
-  height: 400px;
+  height: 700px;
   padding: 10px;
   background-color: #fff;
   border-left: solid 0.6px #C6C6C6;
   border-right: solid 0.6px #C6C6C6;
   font-family: Inter, sans-serif;
-  overflow-y: auto;
+  overflow: visible;
+  /* overflow-y: auto; */
 }
 
 .top-bar {

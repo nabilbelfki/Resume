@@ -33,6 +33,7 @@
   display: flex;
   align-items: center;
   outline: none;
+  overflow: visible;
 }
 
 .toolbar {
@@ -51,8 +52,13 @@
   border: solid 1.6px #C6C6C6;
   border-radius: 8px;
   height: 80px;
+  /* flex-wrap: wrap; */
   z-index: 10;
 }
+
+/* .cell-properties {
+  flex-basis: 100%;
+} */
 
 .color {
     display: flex;
@@ -183,3 +189,11 @@
   background-color: #C6C6C6;
 }
 
+.cell {
+  outline: none;
+}
+
+.focused td.selected {
+    outline: 2px solid #0066ff;
+    outline-offset: -1px;
+}
