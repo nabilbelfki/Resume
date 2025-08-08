@@ -15,6 +15,7 @@ import Quote from './Elements/Quote/Quote';
 import Delimiter from "./Elements/Delimiter/Delimiter"
 import Checkbox from "./Elements/Checkbox/Checkbox"
 import Media from "./Elements/Media/Media"
+import Code from './Elements/Code/Code';
 
 type Block = {
     id: number;
@@ -165,6 +166,8 @@ const Editor = () => {
                 return <Warning key={block.id} {...commonProps} />;
             case 'delimiter':
                 return <Delimiter key={block.id} {...commonProps} />;
+            case 'code':
+                return <Code key={block.id} {...commonProps} />;
             case 'checkbox':
                 return <Checkbox key={block.id} {...commonProps}  onEmptyEnter={handleEmptyEnter} onEmptyBackspace={handleEmptyBackspace} />;
             case 'media':
@@ -242,7 +245,14 @@ const Editor = () => {
                     addBlock('warning');
                 }
             },
-            code: () => { },
+            code: () => {
+                const index = blocks.findIndex(block => block.id === activeBlockId);
+                if (index !== -1) {
+                    addBlockAfter(index, 'code');
+                } else {
+                    addBlock('code');
+                }
+            },
             media: () => {
                 const index = blocks.findIndex(block => block.id === activeBlockId);
                 const initialContent = JSON.stringify({ name: '', path: '', backgroundColor: '' });
