@@ -3,6 +3,36 @@ import styles from "./Table.module.css";
 import Dropdown from "@/components/Dropdown/Dropdown";
 import ColorPicker from "@/components/ColorPicker/ColorPicker";
 
+interface Cell {
+    text: {
+        family: string;
+        size: number;
+        weight: number;
+        color: string;
+        textAlign: 'left' | 'center' | 'right';
+    },
+    color: string;
+    padding: number;
+    border: {
+        type: 'solid' | 'dashed';
+        dash?: number;
+        color: string;
+        sides: {
+            top: boolean;
+            left: boolean;
+            right: boolean;
+            bottom: boolean;
+        }
+        thickness: number;
+        radius: {
+            topLeft: number;
+            topRight: number;
+            bottomLeft: number;
+            bottomRight: number;
+        }
+    }
+}
+
 interface Properties {
     rows: number;
     columns: number;
@@ -61,6 +91,8 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
     onDelete,
     onEnter
 }, ref) => {
+    const radiusRef = useRef<HTMLDivElement>(null);
+    const [isRadii, setIsRadii] = useState(false);
     const internalRef = useRef<HTMLTableElement>(null);
     const [isToolbarVisible, setIsToolbarVisible] = useState(false);
     const [properties, setProperties] = useState<Properties>({
@@ -91,6 +123,23 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
     })
     const [tableData, setTableData] = useState<string[][]>(deserializeTableData(content));
 
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            // Close the dropdown if it's open and the click is outside the container
+            if (isRadii && radiusRef.current && !radiusRef.current.contains(event.target as Node)) {
+                setIsRadii(false);
+            }
+        };
+
+        // Add the event listener when the component mounts or isExpanded changes
+        document.addEventListener("mousedown", handleClickOutside);
+
+        // Clean up the event listener when the component unmounts or isExpanded changes
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isRadii]); // Re-run effect when isExpanded changes
+
     // Update internal state when content prop changes
     useEffect(() => {
         setTableData(deserializeTableData(content));
@@ -100,21 +149,6 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
     const handleCellInput = (e: React.FormEvent<HTMLTableCellElement>, rowIndex: number, colIndex: number) => {
         const newTableData = [...tableData];
         newTableData[rowIndex][colIndex] = e.currentTarget.innerHTML;
-        setTableData(newTableData);
-        onContentUpdate(serializeTableData(newTableData));
-    };
-
-    // Add a new row to the table
-    const addRow = () => {
-        const newRow = Array(tableData[0]?.length || 1).fill('');
-        const newTableData = [...tableData, newRow];
-        setTableData(newTableData);
-        onContentUpdate(serializeTableData(newTableData));
-    };
-
-    // Add a new column to the table
-    const addColumn = () => {
-        const newTableData = tableData.map(row => [...row, '']);
         setTableData(newTableData);
         onContentUpdate(serializeTableData(newTableData));
     };
@@ -133,18 +167,65 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
     };
 
     const handleRowChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const rows = parseFloat(e.target.value);
+        let newRowCount = parseInt(e.target.value, 10);
+        if (newRowCount < 1) newRowCount = 1;
+        const currentRowCount = properties.rows;
+        const difference = newRowCount - currentRowCount;
+        
+        // Update table data first
+        if (difference > 0) {
+            // Add rows to the end
+            setTableData(prevData => {
+                const newRows = Array(difference).fill(null).map(() => 
+                    Array(prevData[0]?.length || 1).fill('')
+                );
+                const updatedData = [...prevData, ...newRows];
+                onContentUpdate(serializeTableData(updatedData));
+                return updatedData;
+            });
+        } else if (difference < 0) {
+            // Remove rows from the end
+            setTableData(prevData => {
+                const updatedData = prevData.slice(0, newRowCount);
+                onContentUpdate(serializeTableData(updatedData));
+                return updatedData;
+            });
+        }
+        
+        // Then update properties
         setProperties(prev => ({
             ...prev,
-            rows: rows,
+            rows: newRowCount,
         }));
     };
 
     const handleColumnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const columns = parseFloat(e.target.value);
+        let newColumnCount = parseInt(e.target.value, 10);
+        if (newColumnCount < 1) newColumnCount = 1;
+        const currentColumnCount = properties.columns;
+        const difference = newColumnCount - currentColumnCount;
+        
+        // Update table data first
+        if (difference > 0) {
+            // Add columns to the end
+            setTableData(prevData => {
+                const updatedData = prevData.map(row => [...row, ...Array(difference).fill('')]);
+                onContentUpdate(serializeTableData(updatedData));
+                return updatedData;
+            });
+        } else if (difference < 0) {
+            // Remove columns from the end
+            setTableData(prevData => {
+                const updatedData = prevData.map(row => row.slice(0, newColumnCount));
+                onContentUpdate(serializeTableData(updatedData));
+                return updatedData;
+            });
+        }
+        
+        // Then update properties
         setProperties(prev => ({
             ...prev,
-            columns: columns,
+            columns: newColumnCount,
         }));
     };
 
@@ -206,6 +287,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
                     onChange={handleRowChange}
                     type="number"
                     id="rows"
+                    min="1"
                     />
                 </div>
                 <div className={styles.columns}>
@@ -215,6 +297,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
                     onChange={handleColumnChange}
                     type="number" 
                     id="columns"
+                    min="1"
                     />
                 </div>
                 <div className={styles['text-properties']}>
@@ -354,17 +437,34 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
                                 id="dash"
                             />
                         </div>
-                        <div className={styles.number}>
-                            <label htmlFor="radius">Radius</label>
-                            <input 
-                                type="number"
-                                id="radius"
-                            />
+                        <div className={`${styles.number} ${styles.radius}`}>
+                            {isRadii ? (
+                                <div className={styles.corners} ref={radiusRef}>
+                                    <input type="number" />
+                                    <input type="number" />
+                                    <input type="number" />
+                                    <input type="number" />
+                                </div>
+                            ) : (<>
+                                <label htmlFor="radius">Radius</label>
+                                <div className={styles.icon} onClick={()=> setIsRadii(true)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 13 13" fill="none">
+                                        <path d="M4.8 0C4.91046 0 5 0.0895431 5 0.2V1.8C5 1.91046 4.91046 2 4.8 2H2.2C2.08954 2 2 2.08954 2 2.2V4.8C2 4.91046 1.91046 5 1.8 5H0.2C0.0895431 5 0 4.91046 0 4.8V0.2C0 0.0895429 0.089543 0 0.2 0H4.8Z" fill="#4C4C4C"/>
+                                        <path d="M12.8 0C12.9105 0 13 0.089543 13 0.2V4.8C13 4.91046 12.9105 5 12.8 5H11.2C11.0895 5 11 4.91046 11 4.8V2.2C11 2.08954 10.9105 2 10.8 2H8.2C8.08954 2 8 1.91046 8 1.8V0.2C8 0.0895431 8.08954 0 8.2 0H12.8Z" fill="#4C4C4C"/>
+                                        <path d="M13 12.8C13 12.9105 12.9105 13 12.8 13H8.2C8.08954 13 8 12.9105 8 12.8V11.2C8 11.0895 8.08954 11 8.2 11H10.8C10.9105 11 11 10.9105 11 10.8V8.2C11 8.08954 11.0895 8 11.2 8H12.8C12.9105 8 13 8.08954 13 8.2V12.8Z" fill="#4C4C4C"/>
+                                        <path d="M2 10.8C2 10.9105 2.08954 11 2.2 11H4.8C4.91046 11 5 11.0895 5 11.2V12.8C5 12.9105 4.91046 13 4.8 13H0.2C0.0895429 13 0 12.9105 0 12.8V8.2C0 8.08954 0.0895431 8 0.2 8H1.8C1.91046 8 2 8.08954 2 8.2V10.8Z" fill="#4C4C4C"/>
+                                    </svg>
+                                </div>
+                                <input 
+                                    type="number"
+                                    id="radius"
+                                />
+                            </>)}
                         </div>
                     </div>
                 </div>
                 <button className={styles.delete} onClick={onDelete}>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" height={25}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" height={30}>
                     <path d="M232.7 69.9C237.1 56.8 249.3 48 263.1 48L377 48C390.8 48 403 56.8 407.4 69.9L416 96L512 96C529.7 96 544 110.3 544 128C544 145.7 529.7 160 512 160L128 160C110.3 160 96 145.7 96 128C96 110.3 110.3 96 128 96L224 96L232.7 69.9zM128 208L512 208L512 512C512 547.3 483.3 576 448 576L192 576C156.7 576 128 547.3 128 512L128 208zM216 272C202.7 272 192 282.7 192 296L192 488C192 501.3 202.7 512 216 512C229.3 512 240 501.3 240 488L240 296C240 282.7 229.3 272 216 272zM320 272C306.7 272 296 282.7 296 296L296 488C296 501.3 306.7 512 320 512C333.3 512 344 501.3 344 488L344 296C344 282.7 333.3 272 320 272zM424 272C410.7 272 400 282.7 400 296L400 488C400 501.3 410.7 512 424 512C437.3 512 448 501.3 448 488L448 296C448 282.7 437.3 272 424 272z"/>
                     </svg>
                 </button>

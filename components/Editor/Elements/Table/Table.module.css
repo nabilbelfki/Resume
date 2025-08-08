@@ -149,6 +149,28 @@
     align-items: center;
 }
 
+.radius {
+  position: relative;
+}
+
+.radius .icon {
+  position: absolute;
+  top: -2;
+  right: 22;
+}
+
+.corners {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.corners input{ 
+ height: 20px;
+ width: 40px;
+ text-align: right;
+}
+
 .delete {
   border: solid 1.6px #c6c6c6;
   border-radius: 5px;
@@ -160,3 +182,4 @@
 .delete:hover {
   background-color: #C6C6C6;
 }
+
