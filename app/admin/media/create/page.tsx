@@ -19,6 +19,7 @@ const Media: React.FC = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [validationErrors, setValidationErrors] = useState<Record<string, boolean>>({});
 
   const breadcrumbs: breadcrumb[] = [
     { label: 'Media', href: '/admin/media' },
@@ -27,12 +28,12 @@ const Media: React.FC = () => {
   ];
 
   useEffect(() => {
-  return () => {
-    if (formData.path.startsWith('blob:')) {
-      URL.revokeObjectURL(formData.path);
-    }
-  };
-}, [formData.path]);
+    return () => {
+      if (formData.path.startsWith('blob:')) {
+        URL.revokeObjectURL(formData.path);
+      }
+    };
+  }, [formData.path]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -40,12 +41,31 @@ const Media: React.FC = () => {
       ...prev,
       [id]: value
     }));
+    // Clear validation error when user types
+    if (validationErrors[id]) {
+      setValidationErrors(prev => ({ ...prev, [id]: false }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
+
+        // Validate required fields
+    const errors: Record<string, boolean> = {};
+    if (!formData.name) errors.name = true;
+    if (!formData.type) errors.type = true;
+    if (!formData.description) errors.description = true;
+    if (!formData.file) errors.file = true;
+
+    setValidationErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
+      setIsSubmitting(false);
+      setError('Please fill all required fields');
+      return;
+    }
 
     try {
       if (!formData.file) {
@@ -108,7 +128,7 @@ const Media: React.FC = () => {
           {isSubmitting ? 'Uploading...' : 'Upload Media'}
         </button>
       </div>
-      {error && <div className={styles.error}>{error}</div>}
+      {/* {error && <div className={styles.error}>{error}</div>} */}
       <div className={styles.content}>
         <Upload 
           value={{
@@ -146,7 +166,13 @@ const Media: React.FC = () => {
                 size: media.size || 0
               }));
             }
+
+            // Clear validation error when value is selected
+            if (validationErrors.file) {
+              setValidationErrors(prev => ({ ...prev, file: false }));
+            }
           }}
+          style={{ border: validationErrors.file ? '1.6px solid red' : '' }}
         />
         <label className={styles.title}>General Information</label>
         <div className={styles.grid}>
@@ -159,6 +185,7 @@ const Media: React.FC = () => {
               value={formData.name}
               onChange={handleInputChange}
               required
+              style={{ border: validationErrors.name ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -177,6 +204,15 @@ const Media: React.FC = () => {
                   ...prev,
                   type: value as 'Image' | 'Video' | 'Sound'
                 }))
+                // Clear validation error when value is selected
+                if (validationErrors.type) {
+                  setValidationErrors(prev => ({ ...prev, type: false }));
+                }
+              }}
+              style={{
+                button: {
+                  border: validationErrors.type ? '1.6px solid red' : '' 
+                }
               }}
             />
           </div>
@@ -198,10 +234,18 @@ const Media: React.FC = () => {
             id="description"
             placeholder="Enter Description"
             value={formData.description}
-            onChange={(e) => setFormData(prev => ({
-              ...prev,
-              description: e.target.value
-            }))}
+            onChange={(e) => {
+              setFormData(prev => ({
+                ...prev,
+                description: e.target.value
+              }))
+              // Clear validation error when value is selected
+              if (validationErrors.description) {
+                setValidationErrors(prev => ({ ...prev, description: false }));
+              }
+            }
+            }
+            style={{ border: validationErrors.description ? '1.6px solid red' : '' }}
           />
         </div>
       </div>

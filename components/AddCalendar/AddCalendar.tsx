@@ -31,8 +31,10 @@ const AddCalendar: React.FC<AddCalendarProps> = ({ dateTime }) => {
 
   return (
     <div className={styles["add-calendar"]} onClick={handleAddToCalendar}>
-      {screenWidth <= mobileWidth && (<Image src="/images/calendar-binding-horizontal.svg" className={styles[`horizontal-binding`]} alt="Calendar Binding" width="94" height="108" />)}      
-      {screenWidth > mobileWidth && (<Image src="/images/calendar-binding.svg" className={styles[`vertical-binding`]} alt="Calendar Binding" width="94" height="108" />)}      
+      {/* {screenWidth <= mobileWidth && ( */}
+        <Image src="/images/calendar-binding-horizontal.svg" className={styles[`horizontal-binding`]} alt="Calendar Binding" width="94" height="108" />
+        {/* )}       */}
+      {/* {screenWidth > mobileWidth && (<Image src="/images/calendar-binding.svg" className={styles[`vertical-binding`]} alt="Calendar Binding" width="94" height="108" />)}       */}
       <div className={styles.text}>Add this Event to your Calendar Application</div>
     </div>
   );

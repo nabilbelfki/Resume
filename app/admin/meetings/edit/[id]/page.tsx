@@ -37,6 +37,7 @@ const Meeting: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [validationErrors, setValidationErrors] = useState<Record<string, boolean>>({});
     
       useEffect(() => {
         const fetchData = async () => {
@@ -96,6 +97,10 @@ const Meeting: React.FC = () => {
       ...prev,
       [id]: value
     }));
+    // Clear validation error when user types
+    if (validationErrors[id]) {
+      setValidationErrors(prev => ({ ...prev, [id]: false }));
+    }
   };
 
   const resendInvitation = async () => {
@@ -168,15 +173,27 @@ const Meeting: React.FC = () => {
     setIsSubmitting(true);
     setError(null);
 
-    try {
-      // Validate required fields
-      if (!formData.firstName || !formData.lastName || !formData.email || !formData.date || !formData.time) {
-        throw new Error('Please fill all required fields');
-      }
+    
+    // Validate required fields
+    const errors: Record<string, boolean> = {};
+    if (!formData.firstName) errors.firstName = true;
+    if (!formData.lastName) errors.lastName = true;
+    if (!formData.email) errors.email = true;
+    if (!formData.date) errors.date = true;
+    if (!formData.time) errors.time = true;
 
+    setValidationErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
+      setIsSubmitting(false);
+      setError('Please fill all required fields');
+      return;
+    }
+
+    try {
       // Combine date and time into ISO string format
       const [year, month, day] = formData.date.split('-');
-      const [hours, minutes, seconds] = formData.time.split(':');
+      const [hours, minutes, seconds] = formData.time?.split(':') || ['', '', ''];
       
       const dateTime = new Date(
         Date.UTC(
@@ -291,7 +308,7 @@ const Meeting: React.FC = () => {
           </button>
         )}
       </div>
-      {error && <div className={styles.error}>{error}</div>}
+      {/* {error && <div className={styles.error}>{error}</div>} */}
       <div className={styles.content}>
         <label className={styles.title}>General Information</label>
         <div className={styles.grid}>
@@ -304,6 +321,7 @@ const Meeting: React.FC = () => {
               value={formData.firstName}
               onChange={handleInputChange}
               required
+              style={{ border: validationErrors.firstName ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -315,6 +333,7 @@ const Meeting: React.FC = () => {
               value={formData.lastName}
               onChange={handleInputChange}
               required
+              style={{ border: validationErrors.lastName ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -326,6 +345,7 @@ const Meeting: React.FC = () => {
               value={formData.email}
               onChange={handleInputChange}
               required
+              style={{ border: validationErrors.email ? '1.6px solid red' : '' }}
             />
             <button className={styles['input-button']} onClick={resendInvitation}>Resend</button>
           </div>
@@ -361,6 +381,15 @@ const Meeting: React.FC = () => {
                   ...prev,
                   time: value
                 }))
+                // Clear validation error when value is selected
+                if (validationErrors.time) {
+                  setValidationErrors(prev => ({ ...prev, time: false }));
+                }
+              }}
+              style={{
+                button: {
+                  border: validationErrors.time ? '1.6px solid red' : '' 
+                }
               }}
             />
           </div>
@@ -373,6 +402,7 @@ const Meeting: React.FC = () => {
               value={formData.date}
               onChange={handleInputChange}
               required
+              style={{ border: validationErrors.date ? '1.6px solid red' : '' }}
             />
           </div>
         </div>

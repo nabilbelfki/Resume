@@ -38,7 +38,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     // Update button text when value changes
     if (value === null) {
       setButtonText(placeholder);
-      setColor(disabled ? '#C6C6C6' : '#C6C6C6');
+      setColor(disabled ? '#C6C6C6' : '#4C4C4C');
     } else {
       // console.log('Value', value)
 
@@ -87,7 +87,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   return (
     <div className={styles.container} style={style.container} ref={dropdownRef}>
-      <button  style={style.button}
+      <button style={style.button}
         className={`${styles.display} ${disabled ? styles.disabled : ''}`} 
         onClick={toggleDropdown}
         type="button" // Prevent form submission

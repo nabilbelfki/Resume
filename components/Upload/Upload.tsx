@@ -1,29 +1,31 @@
 import React, { useState, useRef } from "react";
 import Image from "next/image";
 import styles from "./Upload.module.css";
-import { Media } from "@/lib/types";
+import { Media, MediaType } from "@/lib/types";
 
 // In your Upload component's interface:
 interface UploadProps {
   value?: {
     name: string;
     path: string;
-    type?: 'Image' | 'Video' | 'Sound';
+    type?: MediaType;
   };
   onChange: (media: { 
     name: string; 
     path: string;
     size?: number;
     description?: string;
-    type?: 'Image' | 'Video' | 'Sound';
+    type?: MediaType;
     file?: File;
   }) => void;
   backgroundColor?: string;
+  style?: React.CSSProperties;
 }
 
 const Upload: React.FC<UploadProps> = ({ 
   value, 
-  onChange
+  onChange,
+  style = {}
 }) => {
   const uploadFileRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -53,6 +55,7 @@ const Upload: React.FC<UploadProps> = ({
   };
 
   const handleUploadClick = () => {
+    if (!isUploading)
     uploadFileRef.current?.click();
   };
 
@@ -86,7 +89,8 @@ const Upload: React.FC<UploadProps> = ({
     <div className={styles.container}>
       <div 
         className={styles.thumbnail} 
-        style={{ backgroundColor: '#FFFFFF' }}
+        style={{ ...style, backgroundColor: '#FFFFFF' }}
+        onClick={handleUploadClick}
       >
         {isUploading ? (
           <div className={styles.loading}>Uploading...</div>
@@ -137,13 +141,13 @@ const Upload: React.FC<UploadProps> = ({
                     <circle cx="4.23888" cy="1.84612" r="0.461538" fill="#727272"/>
                 </svg></div>)}
             </div>
-            <button 
+            {/* <button 
                 className={styles.edit} 
                 onClick={handleUploadClick}
                 disabled={isUploading}
             >
                 {value?.path ? 'Change' : 'Upload'}
-            </button>
+            </button> */}
             <input 
                 ref={uploadFileRef} 
                 type="file"
