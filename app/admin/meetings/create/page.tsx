@@ -30,7 +30,6 @@ const Meeting: React.FC = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [validationErrors, setValidationErrors] = useState<Record<string, boolean>>({});
 
   const breadcrumbs: breadcrumb[] = [
@@ -68,7 +67,6 @@ const Meeting: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError(null);
 
     // Validate required fields
     const errors: Record<string, boolean> = {};
@@ -82,7 +80,6 @@ const Meeting: React.FC = () => {
 
     if (Object.keys(errors).length > 0) {
       setIsSubmitting(false);
-      setError('Please fill all required fields');
       return;
     }
 
@@ -169,7 +166,6 @@ const Meeting: React.FC = () => {
       }
     } catch (err) {
       console.error('Error creating meeting:', err);
-      setError(err instanceof Error ? err.message : 'Failed to create meeting');
     } finally {
       setIsSubmitting(false);
     }

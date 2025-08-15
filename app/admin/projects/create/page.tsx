@@ -113,6 +113,7 @@ const Project: React.FC = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [validationErrors, setValidationErrors] = useState<Record<string, boolean>>({});
 
   const breadcrumbs: breadcrumb[] = [
     { label: 'Projects', href: '/admin/projects' },
@@ -123,6 +124,11 @@ const Project: React.FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     
+    // Clear validation error when user types
+    if (validationErrors[id]) {
+      setValidationErrors(prev => ({ ...prev, [id]: false }));
+    }
+
     if (id.startsWith('repositories')) {
       const field = id.replace('repositories', '').toLowerCase();
       setFormData(prev => ({
@@ -169,6 +175,9 @@ const Project: React.FC = () => {
         backgroundColor: media.backgroundColor
       }
     }));
+    if (validationErrors.thumbnail) {
+      setValidationErrors(prev => ({ ...prev, thumbnail: false }));
+    }
   };
 
   const handleLanguagesChange = (items: Array<{ name: string; color: string; percentage: number }>) => {
@@ -176,6 +185,9 @@ const Project: React.FC = () => {
       ...prev,
       languages: items
     }));
+    if (validationErrors.languages) {
+      setValidationErrors(prev => ({ ...prev, languages: false }));
+    }
   };
 
   const handleToolsChange = (items: Array<{
@@ -194,6 +206,9 @@ const Project: React.FC = () => {
       ...prev,
       tools: items
     }));
+    if (validationErrors.tools) {
+      setValidationErrors(prev => ({ ...prev, tools: false }));
+    }
   };
 
   const handleClientSlidesChange = (items: Array<{
@@ -213,6 +228,9 @@ const Project: React.FC = () => {
         slides: items
       }
     }));
+    if (validationErrors.clientSlides) {
+      setValidationErrors(prev => ({ ...prev, clientSlides: false }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -220,8 +238,35 @@ const Project: React.FC = () => {
     setIsSubmitting(true);
     setError(null);
 
-    try {
+    // Validate required fields
+    const errors: Record<string, boolean> = {};
+    if (!formData.name.trim()) errors.name = true;
+    if (!formData.slug.trim()) errors.slug = true;
+    if (!formData.url.trim()) errors.url = true;
+    if (!formData.duration.trim()) errors.duration = true;
+    if (!formData.startDate) errors.startDate = true;
+    if (!formData.endDate) errors.endDate = true;
+    if (!formData.description.trim()) errors.description = true;
+    if (!formData.repositories.github) errors.repositoriesGithub = true;
+    if (!formData.repositories.docker) errors.repositoriesDocker = true;
+    if (!thumbnail.path) errors.thumbnail = true;
+    if (formData.languages.length === 0) errors.languages = true;
+    if (formData.tools.length === 0) errors.tools = true;
+    if (!formData.client.title.trim()) errors.clientTitle = true;
+    if (!formData.client.location.latitude) errors.clientLatitude = true;
+    if (!formData.client.location.longitude) errors.clientLongitude = true;
+    if (!formData.client.description.trim()) errors.clientDescription = true;
+    if (formData.client.slides.length === 0) errors.clientSlides = true;
 
+    setValidationErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
+      setIsSubmitting(false);
+      setError('Please fill all required fields');
+      return;
+    }
+
+    try {
       const finalFormData = {
         name: formData.name,
         duration: formData.duration,
@@ -287,7 +332,7 @@ const Project: React.FC = () => {
         }
       };
 
-      console.log("Submitting data:", finalFormData);  // For debugging
+      console.log("Submitting data:", finalFormData);
 
       const response = await fetch('/api/projects', {
         method: 'POST',
@@ -341,6 +386,7 @@ const Project: React.FC = () => {
           <ThumbnailUpload 
             value={thumbnail}
             onChange={handleThumbnailChange}
+            style={{ border: validationErrors.thumbnail ? '1.6px solid red' : '' }}
           />
         </div>
         <label className={styles.title}>General Information</label>
@@ -354,6 +400,7 @@ const Project: React.FC = () => {
               value={formData.name}
               onChange={handleInputChange}
               required
+              style={{ border: validationErrors.name ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -364,6 +411,7 @@ const Project: React.FC = () => {
               placeholder="Enter Slug" 
               value={formData.slug}
               onChange={handleInputChange}
+              style={{ border: validationErrors.slug ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -374,6 +422,7 @@ const Project: React.FC = () => {
               placeholder="Enter URL" 
               value={formData.url}
               onChange={handleInputChange}
+              style={{ border: validationErrors.url ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -384,6 +433,7 @@ const Project: React.FC = () => {
               placeholder="Enter Duration" 
               value={formData.duration}
               onChange={handleInputChange}
+              style={{ border: validationErrors.duration ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -395,6 +445,7 @@ const Project: React.FC = () => {
               value={formData.startDate}
               onChange={handleInputChange}
               required
+              style={{ border: validationErrors.startDate ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -405,6 +456,7 @@ const Project: React.FC = () => {
               placeholder="Enter End Date" 
               value={formData.endDate}
               onChange={handleInputChange}
+              style={{ border: validationErrors.endDate ? '1.6px solid red' : '' }}
             />
           </div>
         </div>
@@ -416,6 +468,7 @@ const Project: React.FC = () => {
             placeholder="Enter Description"
             value={formData.description}
             onChange={handleInputChange}
+            style={{ border: validationErrors.description ? '1.6px solid red' : '' }}
           />
         </div>
 
@@ -442,6 +495,7 @@ const Project: React.FC = () => {
               placeholder="Enter GitHub URL" 
               value={formData.repositories.github}
               onChange={handleInputChange}
+              style={{ border: validationErrors.repositoriesGithub ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -452,6 +506,7 @@ const Project: React.FC = () => {
               placeholder="Enter Docker URL" 
               value={formData.repositories.docker}
               onChange={handleInputChange}
+              style={{ border: validationErrors.repositoriesDocker ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -476,6 +531,7 @@ const Project: React.FC = () => {
             ]}
             onFieldChange={(items) => handleLanguagesChange(items)}
             columns={3}
+            // style={{ border: validationErrors.languages ? '1.6px solid red' : '' }}
           />
         </div>
 
@@ -491,6 +547,7 @@ const Project: React.FC = () => {
             ]}
             onFieldChange={(items) => handleToolsChange(items)}
             columns={3}
+            // style={{ border: validationErrors.tools ? '1.6px solid red' : '' }}
           />
         </div>
 
@@ -505,6 +562,7 @@ const Project: React.FC = () => {
                 placeholder="Enter Latitude" 
                 value={formData.client.location.latitude}
                 onChange={handleInputChange}
+                style={{ border: validationErrors.clientLatitude ? '1.6px solid red' : '' }}
               />
             </div>
             <div className={styles.input}>
@@ -515,6 +573,7 @@ const Project: React.FC = () => {
                 placeholder="Enter Longitude" 
                 value={formData.client.location.longitude}
                 onChange={handleInputChange}
+                style={{ border: validationErrors.clientLongitude ? '1.6px solid red' : '' }}
               />
             </div>
           </div>
@@ -552,6 +611,7 @@ const Project: React.FC = () => {
               placeholder="Enter Title" 
               value={formData.client.title}
               onChange={handleInputChange}
+              style={{ border: validationErrors.clientTitle ? '1.6px solid red' : '' }}
             />
           </div>
         </div>
@@ -570,7 +630,11 @@ const Project: React.FC = () => {
                   description: e.target.value
                 }
               }));
+              if (validationErrors.clientDescription) {
+                setValidationErrors(prev => ({ ...prev, clientDescription: false }));
+              }
             }}
+            style={{ border: validationErrors.clientDescription ? '1.6px solid red' : '' }}
           />
         </div>
 
@@ -583,6 +647,7 @@ const Project: React.FC = () => {
             ]}
             onFieldChange={(items) => handleClientSlidesChange(items)}
             columns={2}
+            // style={{ border: validationErrors.clientSlides ? '1.6px solid red' : '' }}
           />
         </div>
       </div>

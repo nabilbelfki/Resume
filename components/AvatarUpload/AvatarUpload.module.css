@@ -17,6 +17,7 @@
     align-items: center;
     border-radius: 50%;
     border: solid 2px #575757;
+    cursor: pointer;
 }
 
 .initials {

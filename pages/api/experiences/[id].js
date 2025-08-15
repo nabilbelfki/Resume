@@ -85,7 +85,7 @@ async function handlePutRequest(id, req, res) {
       period: {
         title: body.period?.title || '',
         start: new Date(body.period.start),
-        end: body.period?.end ? new Date(body.period.end) : null,
+        ...(body.period?.end && { end: new Date(body.period.end) }),
       },
       color: {
         line: body.color?.line || '',

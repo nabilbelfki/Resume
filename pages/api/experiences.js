@@ -129,7 +129,7 @@ export default async function handler(req, res) {
             period: {
               title: period?.title || '',
               start: new Date(period.start),
-              end: period?.end ? new Date(period.end) : null,
+              ...(period?.end && { end: new Date(period.end) }),
             },
             color: {
               line: color?.line || '',

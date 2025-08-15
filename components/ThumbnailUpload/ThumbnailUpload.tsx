@@ -17,13 +17,15 @@ interface ThumbnailUploadProps {
     backgroundColor?: string; // Add background color
   }) => void;
   backgroundColor?: string; // Optional prop to override
+  style?: React.CSSProperties;
 }
 
 
 const ThumbnailUpload: React.FC<ThumbnailUploadProps> = ({ 
   value, 
   onChange,
-  backgroundColor 
+  backgroundColor,
+  style = {}
 }) => {
     const [showMediaPicker, setShowMediaPicker] = useState(false);
 
@@ -57,7 +59,8 @@ const ThumbnailUpload: React.FC<ThumbnailUploadProps> = ({
             />
             <div 
                 className={styles.thumbnail} 
-                style={{ backgroundColor: thumbnailBgColor }}
+                style={{ ...style, backgroundColor: thumbnailBgColor }}
+                onClick={()=>setShowMediaPicker(true)}
             >
                 {value?.name ? 
                 (
@@ -109,7 +112,7 @@ const ThumbnailUpload: React.FC<ThumbnailUploadProps> = ({
                     <circle cx="4.23888" cy="1.84612" r="0.461538" fill="#727272"/>
                 </svg></div>)}
             </div>
-            <button className={styles.edit} onClick={()=>setShowMediaPicker(true)}>Edit</button>
+            {/* <button className={styles.edit} onClick={()=>setShowMediaPicker(true)}>Edit</button> */}
         </div>
     );
 };  

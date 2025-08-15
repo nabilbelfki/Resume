@@ -56,6 +56,7 @@ const User: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [validationErrors, setValidationErrors] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -153,6 +154,9 @@ const User: React.FC = () => {
         }
       });
     }
+    if (validationErrors[id]) {
+      setValidationErrors(prev => ({ ...prev, [id]: false }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -160,11 +164,28 @@ const User: React.FC = () => {
     setIsSubmitting(true);
     setError(null);
 
+    // Validate required fields
+    const errors: Record<string, boolean> = {};
+    if (!formData.firstName) errors.firstName = true;
+    if (!formData.lastName) errors.lastName = true;
+    if (!formData.username) errors.username = true;
+    if (!formData.email) errors.email = true;
+    if (!formData.birthday) errors.birthday = true;
+    if (!formData.phoneNumber) errors.phoneNumber = true;
+    if (!formData.address?.addressOne) errors.addressOne = true;
+    if (!formData.address?.city) errors.city = true;
+    if (!formData.address?.state) errors.state = true;
+    if (!formData.address?.zipCode) errors.zipCode = true;
+    if (!formData.address?.country) errors.country = true;
+
+    setValidationErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      // Basic validation
-      if (!formData.username || !formData.firstName || !formData.lastName || !formData.email) {
-        throw new Error('Username, first name, last name, and email are required');
-      }
 
       const dataToSend = {
         ...formData,
@@ -283,7 +304,7 @@ const User: React.FC = () => {
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.content}>
         <AvatarUpload 
-        initials={initials}
+          initials={initials}
           value={formData.image}
           onChange={handleAvatarChange}
         />
@@ -298,6 +319,7 @@ const User: React.FC = () => {
               value={formData.firstName}
               onChange={handleInputChange}
               required
+              style={{ border: validationErrors.firstName ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -309,6 +331,7 @@ const User: React.FC = () => {
               value={formData.lastName}
               onChange={handleInputChange}
               required
+              style={{ border: validationErrors.lastName ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -320,6 +343,7 @@ const User: React.FC = () => {
               value={formData.username}
               onChange={handleInputChange}
               required
+              style={{ border: validationErrors.username ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -331,6 +355,7 @@ const User: React.FC = () => {
               value={formData.email}
               onChange={handleInputChange}
               required
+              style={{ border: validationErrors.email ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -341,6 +366,7 @@ const User: React.FC = () => {
               placeholder="Enter Birthday" 
               value={formData.birthday}
               onChange={handleInputChange}
+              style={{ border: validationErrors.birthday ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -351,6 +377,7 @@ const User: React.FC = () => {
               placeholder="Enter Phone Number" 
               value={formData.phoneNumber}
               onChange={handleInputChange}
+              style={{ border: validationErrors.phoneNumber ? '1.6px solid red' : '' }}
             />
           </div>
         </div>
@@ -365,6 +392,7 @@ const User: React.FC = () => {
               placeholder="Enter Address One" 
               value={formData.address?.addressOne || ''}
               onChange={handleInputChange}
+              style={{ border: validationErrors.addressOne ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -385,6 +413,7 @@ const User: React.FC = () => {
               placeholder="Enter City" 
               value={formData.address?.city || ''}
               onChange={handleInputChange}
+              style={{ border: validationErrors.city ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -395,6 +424,7 @@ const User: React.FC = () => {
               placeholder="Enter State" 
               value={formData.address?.state || ''}
               onChange={handleInputChange}
+              style={{ border: validationErrors.state ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -405,6 +435,7 @@ const User: React.FC = () => {
               placeholder="Enter Zip Code" 
               value={formData.address?.zipCode || ''}
               onChange={handleInputChange}
+              style={{ border: validationErrors.zipCode ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -415,6 +446,7 @@ const User: React.FC = () => {
               placeholder="Enter Country" 
               value={formData.address?.country || ''}
               onChange={handleInputChange}
+              style={{ border: validationErrors.country ? '1.6px solid red' : '' }}
             />
           </div>
         </div>

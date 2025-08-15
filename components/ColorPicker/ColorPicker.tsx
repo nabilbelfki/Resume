@@ -8,13 +8,15 @@ interface ColorPickerProps {
   placeholder?: string;
   value: string;
   onChange: (value: string) => void;
+  style?: React.CSSProperties;
 }
 
 const ColorPicker: React.FC<ColorPickerProps> = ({ 
   ID, 
   placeholder = '', 
   value, 
-  onChange 
+  onChange,
+  style = {}
 }) => {
   const colorInputRef = useRef<HTMLInputElement>(null);
 
@@ -24,11 +26,14 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
 
   const handleColorInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newHexColor = event.target.value;
-    onChange(newHexColor);
+    onChange(newHexColor.toUpperCase());
   };
 
   return (
-    <div className={`${styles.container} ${placeholder ? styles['field-included'] : '' }`}>
+    <div 
+      className={`${styles.container} ${placeholder ? styles['field-included'] : '' }`}
+      style={style}
+    >
       {placeholder && (<input 
         type="text" 
         id={ID}

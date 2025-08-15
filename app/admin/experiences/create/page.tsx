@@ -34,7 +34,7 @@ interface ExperienceData {
   period: {
     title: string;
     start: string;
-    end: string;
+    end?: string;
   },
   color: {
     line: string;
@@ -111,7 +111,7 @@ const Experience: React.FC = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [validationErrors, setValidationErrors] = useState<Record<string, boolean>>({});
 
   const breadcrumbs: breadcrumb[] = [
     { label: 'Experiences', href: '/admin/experiences' },
@@ -122,6 +122,11 @@ const Experience: React.FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     
+    // Clear validation error when user types
+    if (validationErrors[id]) {
+      setValidationErrors(prev => ({ ...prev, [id]: false }));
+    }
+
     if (id.startsWith('logoOpened')) {
       const field = id.replace('logoOpened', '').toLowerCase();
       setFormData(prev => ({
@@ -134,6 +139,13 @@ const Experience: React.FC = () => {
           }
         }
       }));
+      // Clear logo dimension validation errors
+      if (field === 'width' && validationErrors.logoOpenedWidth) {
+        setValidationErrors(prev => ({ ...prev, logoOpenedWidth: false }));
+      }
+      if (field === 'height' && validationErrors.logoOpenedHeight) {
+        setValidationErrors(prev => ({ ...prev, logoOpenedHeight: false }));
+      }
     } else if (id.startsWith('logoClosed')) {
       const field = id.replace('logoClosed', '').toLowerCase();
       setFormData(prev => ({
@@ -146,15 +158,30 @@ const Experience: React.FC = () => {
           }
         }
       }));
+      // Clear logo dimension validation errors
+      if (field === 'width' && validationErrors.logoClosedWidth) {
+        setValidationErrors(prev => ({ ...prev, logoClosedWidth: false }));
+      }
+      if (field === 'height' && validationErrors.logoClosedHeight) {
+        setValidationErrors(prev => ({ ...prev, logoClosedHeight: false }));
+      }
     } else if (id === 'periodStart' || id === 'periodEnd' || id === 'periodTitle') {
+      const field = id === 'periodStart' ? 'start' : 
+                  id === 'periodEnd' ? 'end' : 'title';
       setFormData(prev => ({
         ...prev,
         period: {
           ...prev.period,
-          [id === 'periodStart' ? 'start' : 
-           id === 'periodEnd' ? 'end' : 'title']: value
+          [field]: value
         }
       }));
+      // Clear period validation errors
+      if (field === 'start' && validationErrors.periodStart) {
+        setValidationErrors(prev => ({ ...prev, periodStart: false }));
+      }
+      if (field === 'title' && validationErrors.periodTitle) {
+        setValidationErrors(prev => ({ ...prev, periodTitle: false }));
+      }
     } else {
       setFormData(prev => ({
         ...prev,
@@ -164,6 +191,7 @@ const Experience: React.FC = () => {
   };
 
   const handleColorChange = (field: string, value: string) => {
+    let validatorKey = `${field}Color`;
     if (field.includes('.')) {
       const [parent, child] = field.split('.') as [keyof ExperienceData['color'], string];
       setFormData(prev => ({
@@ -176,6 +204,7 @@ const Experience: React.FC = () => {
           }
         }
       }));
+      validatorKey = child === 'text' ? 'descriptionColor': 'descriptionBackgroundColor';
     } else {
       setFormData(prev => ({
         ...prev,
@@ -185,12 +214,23 @@ const Experience: React.FC = () => {
         }
       }));
     }
+    // Clear validation error when user types
+    if (validationErrors[validatorKey]) {
+      setValidationErrors(prev => ({ ...prev, [validatorKey]: false }));
+    }
   };
 
   const handleFrontLogoChange = (media: { name: string; path: string; backgroundColor?: string }) => {
     setFrontLogo(media);
+    if (validationErrors.frontLogo) {
+      setValidationErrors(prev => ({ ...prev, frontLogo: false }));
+    }
+
     if (isFrontAndBackSame) {
       setBackLogo(media);
+      if (validationErrors.backLogo) {
+        setValidationErrors(prev => ({ ...prev, backLogo: false }));
+      }
       setFormData(prev => ({
         ...prev,
         logo: {
@@ -226,6 +266,9 @@ const Experience: React.FC = () => {
 
   const handleBackLogoChange = (media: { name: string; path: string; backgroundColor?: string }) => {
     setBackLogo(media);
+    if (validationErrors.backLogo) {
+      setValidationErrors(prev => ({ ...prev, backLogo: false }));
+    }
     setFormData(prev => ({
       ...prev,
       logo: {
@@ -265,7 +308,41 @@ const Experience: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError(null);
+
+    // Validate required fields
+    const errors: Record<string, boolean> = {};
+    if (!formData.name.trim()) errors.name = true;
+    if (!formData.title.trim()) errors.title = true;
+    if (!formData.type) errors.type = true;
+    if (!formData.location.trim()) errors.location = true;
+    if (!formData.level) errors.level = true;
+    if (!formData.description.trim()) errors.description = true;
+    if (!formData.period.title) errors.periodTitle = true;
+    if (!formData.period.start) errors.periodStart = true;
+    if (!formData.logo.opened.width) errors.logoOpenedWidth = true;
+    if (!formData.logo.closed.width) errors.logoClosedWidth = true;
+    if (!formData.logo.opened.height) errors.logoOpenedHeight = true;
+    if (!formData.logo.closed.height) errors.logoClosedHeight = true;
+    if (!frontLogo.path) errors.frontLogo = true;
+    if (!isFrontAndBackSame && !backLogo.path) errors.backLogo = true;
+    if (!formData.color.line) errors.lineColor = true;
+    if (!formData.color.name) errors.nameColor = true;
+    if (!formData.color.title) errors.titleColor = true;
+    if (formData.subtitle && !formData.color.subtitle) errors.subtitleColor = true;
+    if (!formData.color.type) errors.typeColor = true;
+    if (!formData.color.date) errors.dateColor = true;
+    if (!formData.color.location) errors.locationColor = true;
+    if (!formData.color.background) errors.backgroundColor = true;
+    if (!formData.color.details) errors.detailsColor = true;
+    if (!formData.color.description.text) errors.descriptionColor = true;
+    if (!formData.color.description.background) errors.descriptionBackgroundColor = true;
+
+    setValidationErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       if (!formData.name || !formData.title || !formData.period.start) {
@@ -295,6 +372,12 @@ const Experience: React.FC = () => {
         }
       };
 
+      // Remove period.end if it's empty
+      if (!finalFormData.period.end) {
+        const { end, ...periodWithoutEnd } = finalFormData.period;
+        finalFormData.period = periodWithoutEnd;
+      }
+
       const response = await fetch('/api/experiences', {
         method: 'POST',
         headers: {
@@ -311,7 +394,6 @@ const Experience: React.FC = () => {
       window.location.href = '/admin/experiences';
     } catch (err) {
       console.error('Error submitting form:', err);
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
     } finally {
       setIsSubmitting(false);
     }
@@ -340,7 +422,6 @@ const Experience: React.FC = () => {
           {isSubmitting ? 'Saving...' : 'Save Changes'}
         </button>
       </div>
-      {error && <div className={styles.error}>{error}</div>}
       <div className={styles.content}>
         <div className={styles['front-and-back']}>
           <div className={styles.avatarContainer}>
@@ -348,6 +429,7 @@ const Experience: React.FC = () => {
             <ThumbnailUpload 
               value={frontLogo}
               onChange={handleFrontLogoChange}
+              style={{ border: validationErrors.frontLogo ? '1.6px solid red' : '' }}
             />
           </div>
           {!isFrontAndBackSame && (
@@ -356,6 +438,7 @@ const Experience: React.FC = () => {
               <ThumbnailUpload  
                 value={backLogo}
                 onChange={handleBackLogoChange}
+                style={{ border: validationErrors.backLogo ? '1.6px solid red' : '' }}
               />
             </div>
           )}
@@ -380,6 +463,7 @@ const Experience: React.FC = () => {
               value={formData.name}
               onChange={handleInputChange}
               required
+              style={{ border: validationErrors.name ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -391,6 +475,7 @@ const Experience: React.FC = () => {
               value={formData.title}
               onChange={handleInputChange}
               required
+              style={{ border: validationErrors.title ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -417,6 +502,15 @@ const Experience: React.FC = () => {
                   ...prev,
                   type: value
                 }))
+                // Clear validation error when value is selected
+                if (validationErrors.type) {
+                  setValidationErrors(prev => ({ ...prev, type: false }));
+                }
+              }}
+              style={{ 
+                button: {
+                  border: validationErrors.type ? '1.6px solid red' : '' 
+                }
               }}
             />
           </div>
@@ -428,6 +522,7 @@ const Experience: React.FC = () => {
               placeholder="Enter Location" 
               value={formData.location}
               onChange={handleInputChange}
+              style={{ border: validationErrors.location ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -438,6 +533,7 @@ const Experience: React.FC = () => {
               placeholder="Enter Level" 
               value={formData.level}
               onChange={handleInputChange}
+              style={{ border: validationErrors.level ? '1.6px solid red' : '' }}
             />
           </div>
         </div>
@@ -449,6 +545,7 @@ const Experience: React.FC = () => {
             placeholder="Enter Description"
             value={formData.description}
             onChange={handleInputChange}
+            style={{ border: validationErrors.description ? '1.6px solid red' : '' }}
           />
         </div>
 
@@ -462,6 +559,7 @@ const Experience: React.FC = () => {
               placeholder="Enter Title" 
               value={formData.period.title}
               onChange={handleInputChange}
+              style={{ border: validationErrors.periodTitle ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -472,6 +570,7 @@ const Experience: React.FC = () => {
               value={formData.period.start}
               onChange={handleInputChange}
               required
+              style={{ border: validationErrors.periodStart ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -494,6 +593,7 @@ const Experience: React.FC = () => {
               placeholder="Enter Width" 
               value={formData.logo.opened.width}
               onChange={handleInputChange}
+              style={{ border: validationErrors.logoOpenedWidth ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -504,6 +604,7 @@ const Experience: React.FC = () => {
               placeholder="Enter Width" 
               value={formData.logo.closed.width}
               onChange={handleInputChange}
+              style={{ border: validationErrors.logoClosedWidth ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -514,6 +615,7 @@ const Experience: React.FC = () => {
               placeholder="Enter Height" 
               value={formData.logo.opened.height}
               onChange={handleInputChange}
+              style={{ border: validationErrors.logoOpenedHeight ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -524,6 +626,7 @@ const Experience: React.FC = () => {
               placeholder="Enter Height" 
               value={formData.logo.closed.height}
               onChange={handleInputChange}
+              style={{ border: validationErrors.logoClosedHeight ? '1.6px solid red' : '' }}
             />
           </div>
         </div>
@@ -537,6 +640,7 @@ const Experience: React.FC = () => {
               placeholder="Enter Line Color"
               value={formData.color.line}
               onChange={(value) => handleColorChange('line', value)}
+              style={{ border: validationErrors.lineColor ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -546,6 +650,7 @@ const Experience: React.FC = () => {
               placeholder="Enter Name Color"
               value={formData.color.name}
               onChange={(value) => handleColorChange('name', value)}
+              style={{ border: validationErrors.nameColor ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -555,6 +660,7 @@ const Experience: React.FC = () => {
               placeholder="Enter Type Color"
               value={formData.color.type}
               onChange={(value) => handleColorChange('type', value)}
+              style={{ border: validationErrors.typeColor ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -564,6 +670,7 @@ const Experience: React.FC = () => {
               placeholder="Enter Title Color"
               value={formData.color.title}
               onChange={(value) => handleColorChange('title', value)}
+              style={{ border: validationErrors.titleColor ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -573,6 +680,7 @@ const Experience: React.FC = () => {
               placeholder="Enter Subtitle Color"
               value={formData.color.subtitle}
               onChange={(value) => handleColorChange('subtitle', value)}
+              style={{ border: validationErrors.subtitleColor ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -582,6 +690,7 @@ const Experience: React.FC = () => {
               placeholder="Enter Date Color"
               value={formData.color.date}
               onChange={(value) => handleColorChange('date', value)}
+              style={{ border: validationErrors.dateColor ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -591,6 +700,7 @@ const Experience: React.FC = () => {
               placeholder="Enter Location Color"
               value={formData.color.location}
               onChange={(value) => handleColorChange('location', value)}
+              style={{ border: validationErrors.locationColor ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -600,6 +710,7 @@ const Experience: React.FC = () => {
               placeholder="Enter Background Color"
               value={formData.color.background}
               onChange={(value) => handleColorChange('background', value)}
+              style={{ border: validationErrors.backgroundColor ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -609,6 +720,7 @@ const Experience: React.FC = () => {
               placeholder="Enter Details Color"
               value={formData.color.details}
               onChange={(value) => handleColorChange('details', value)}
+              style={{ border: validationErrors.detailsColor ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -618,6 +730,7 @@ const Experience: React.FC = () => {
               placeholder="Enter Description Text Color"
               value={formData.color.description.text}
               onChange={(value) => handleColorChange('description.text', value)}
+              style={{ border: validationErrors.descriptionColor ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -627,6 +740,7 @@ const Experience: React.FC = () => {
               placeholder="Enter Description Background Color"
               value={formData.color.description.background}
               onChange={(value) => handleColorChange('description.background', value)}
+              style={{ border: validationErrors.descriptionBackgroundColor ? '1.6px solid red' : '' }}
             />
           </div>
         </div>

@@ -51,6 +51,7 @@ const Skill: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [validationErrors, setValidationErrors] = useState<Record<string, boolean>>({});
   
     useEffect(() => {
       const fetchData = async () => {
@@ -65,6 +66,7 @@ const Skill: React.FC = () => {
           }
 
           const data = await response.json();
+          console.log("Data", data);
           setFormData({
             type: data.type || '',
             name: data.name || '',
@@ -138,6 +140,9 @@ const Skill: React.FC = () => {
       });
     }
     console.log(formData);
+    if (validationErrors[id]) {
+      setValidationErrors(prev => ({ ...prev, [id]: false }));
+    }
   };
 
   const handleThumbnailChange = (media: { name: string; path: string }) => {
@@ -183,14 +188,28 @@ const Skill: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!formData.image.name) {
-      alert("Please select a thumbnail");
-      return;
-    }
-
     setIsSubmitting(true);
     setError(null);
+
+    // Validate required fields
+    const errors: Record<string, boolean> = {};
+    if (!formData.name) errors.name = true;
+    if (!formData.type) errors.type = true;
+    if (!formData.status) errors.status = true;
+    if (!formData.image.name) errors.imageName = true;
+    if (!formData.image.height) errors.height = true;
+    if (!formData.image.width) errors.width = true;
+    if (!formData.image.backgroundColor) errors.imageBackgroundColor = true;
+    if (!formData.description.backgroundColor) errors.descriptionBackgroundColor = true;
+    if (!formData.description.color) errors.descriptionColor = true;
+    if (!formData.description.text) errors.descriptionText = true;
+
+    setValidationErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       // Prepare the data to send
@@ -263,7 +282,7 @@ const Skill: React.FC = () => {
           onClick={handleDelete}
           disabled={isSubmitting}
         >
-          {isSubmitting ? 'Deleting...' : 'Delete User'}
+          {isSubmitting ? 'Deleting...' : 'Delete Skill'}
         </button>
       </div>
       {error && <div className={styles.error}>{error}</div>}
@@ -284,7 +303,11 @@ const Skill: React.FC = () => {
                 backgroundColor: media.backgroundColor || prev.image.backgroundColor
               }
             }));
+            if (validationErrors.imageName) {
+              setValidationErrors(prev => ({ ...prev, imageName: false }));
+            }
           }}
+          style={{ border: validationErrors.imageName ? '1.6px solid red' : '' }}
         />
         <label className={styles.title}>General Information</label>
         <div className={styles.grid}>
@@ -297,6 +320,7 @@ const Skill: React.FC = () => {
               value={formData.name}
               onChange={handleInputChange}
               required
+              style={{ border: validationErrors.name ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -311,7 +335,17 @@ const Skill: React.FC = () => {
                 {label:'Miscellaneous', value: 'miscellaneous'},
               ]}
               value={formData.type}
-              onChange={(value) => setFormData({...formData, type: value})}
+              onChange={(value) => {
+                setFormData({...formData, type: value})
+                if (validationErrors.type) {
+                  setValidationErrors(prev => ({ ...prev, type: false }));
+                }
+              }}
+              style={{ 
+                button: {
+                  border: validationErrors.type ? '1.6px solid red' : '' 
+                }
+              }}
             />
           </div>
           <div className={styles.input}>
@@ -320,7 +354,17 @@ const Skill: React.FC = () => {
               placeholder='Choose Status' 
               options={[{label:'Active', value: 'Active'}, {label:'Inactive', value: 'Inactive'}]}
               value={formData.status}
-              onChange={(value) => setFormData({...formData, status: value})}
+              onChange={(value) => {
+                setFormData({...formData, status: value})
+                if (validationErrors.status) {
+                  setValidationErrors(prev => ({ ...prev, status: false }));
+                }
+              }}
+              style={{ 
+                button: {
+                  border: validationErrors.status ? '1.6px solid red' : '' 
+                }
+              }}
             />
           </div>
         </div>
@@ -335,6 +379,7 @@ const Skill: React.FC = () => {
               placeholder="Enter Height" 
               value={formData.image?.height || ''}
               onChange={handleInputChange}
+              style={{ border: validationErrors.height ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -345,6 +390,7 @@ const Skill: React.FC = () => {
               placeholder="Enter Width" 
               value={formData.image?.width || ''}
               onChange={handleInputChange}
+              style={{ border: validationErrors.width ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -353,13 +399,19 @@ const Skill: React.FC = () => {
                 ID="image-background-color" 
                 placeholder="Enter Background Color"
                 value={formData.image.backgroundColor}
-                onChange={(value) => setFormData({
-                  ...formData, 
-                  image: {
-                    ...formData.image,
-                    backgroundColor: value
+                onChange={(value) => {
+                  setFormData({
+                    ...formData, 
+                    image: {
+                      ...formData.image,
+                      backgroundColor: value
+                    }
+                  })
+                  if (validationErrors.imageBackgroundColor) {
+                    setValidationErrors(prev => ({ ...prev, imageBackgroundColor: false }));
                   }
-                })}
+                }}    
+                style={{ border: validationErrors.imageBackgroundColor ? '1.6px solid red' : '' }}
               />
             </div>
         </div>
@@ -371,13 +423,19 @@ const Skill: React.FC = () => {
             <ColorPicker 
               ID="description-background-color" placeholder="Enter Background Color"
               value={formData.description.backgroundColor}
-              onChange={(value) => setFormData({
-                ...formData, 
-                description: {
-                  ...formData.description,
-                  backgroundColor: value
+              onChange={(value) => {
+                setFormData({
+                  ...formData, 
+                  description: {
+                    ...formData.description,
+                    backgroundColor: value
+                  }
+                })
+                if (validationErrors.descriptionBackgroundColor) {
+                  setValidationErrors(prev => ({ ...prev, descriptionBackgroundColor: false }));
                 }
-              })}
+              }}    
+              style={{ border: validationErrors.descriptionBackgroundColor ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -386,13 +444,19 @@ const Skill: React.FC = () => {
               ID="description-color" 
               placeholder="Enter Color"
               value={formData.description.color}
-              onChange={(value) => setFormData({
-                ...formData, 
-                description: {
-                  ...formData.description,
-                  color: value
+              onChange={(value) =>  {
+                setFormData({
+                  ...formData, 
+                  description: {
+                    ...formData.description,
+                    color: value
+                  }
+                })
+                if (validationErrors.descriptionColor) {
+                  setValidationErrors(prev => ({ ...prev, descriptionColor: false }));
                 }
-              })}
+              }}    
+              style={{ border: validationErrors.descriptionColor ? '1.6px solid red' : '' }}
             />
           </div>
         </div>
@@ -403,13 +467,19 @@ const Skill: React.FC = () => {
             id="description"
             placeholder="Enter Description"
             value={formData.description.text}
-            onChange={(e) => setFormData({
-              ...formData,
-              description: {
-                ...formData.description,
-                text: e.target.value
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                description: {
+                  ...formData.description,
+                  text: e.target.value
+                }
+              })
+              if (validationErrors.descriptionText) {
+                setValidationErrors(prev => ({ ...prev, descriptionText: false }));
               }
-            })}
+            }}
+            style={{ border: validationErrors.descriptionText ? '1.6px solid red' : '' }}
           />
         </div>
       </div>

@@ -24,7 +24,7 @@ const Message: React.FC = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [validationErrors, setValidationErrors] = useState<Record<string, boolean>>({});
 
   const breadcrumbs: breadcrumb[] = [
     { label: 'Message', href: '/admin/messages' },
@@ -38,19 +38,32 @@ const Message: React.FC = () => {
       ...prev,
       [id]: value
     }));
+    // Clear validation error when user types
+    if (validationErrors[id]) {
+      setValidationErrors(prev => ({ ...prev, [id]: false }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError(null);
+
+    // Validate required fields
+    const errors: Record<string, boolean> = {};
+    if (!formData.firstName) errors.firstName = true;
+    if (!formData.lastName) errors.lastName = true;
+    if (!formData.email) errors.email = true;
+    if (!formData.message) errors.message = true;
+
+    setValidationErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
+      setIsSubmitting(false);
+      return;
+    }
+
 
     try {
-      // Validate required fields
-      if (!formData.firstName || !formData.lastName || !formData.email || !formData.message) {
-        alert('Please fill all required fields');
-      }
-
       const messageToken = await executeRecaptcha("contact_form");
 
       // Prepare the request body
@@ -81,7 +94,6 @@ const Message: React.FC = () => {
 
     } catch (err) {
       console.error('Error creating meeting:', err);
-      setError(err instanceof Error ? err.message : 'Failed to create meeting');
     } finally {
       setIsSubmitting(false);
     }
@@ -110,7 +122,7 @@ const Message: React.FC = () => {
           {isSubmitting ? 'Saving...' : 'Save Changes'}
         </button>
       </div>
-      {error && <div className={styles.error}>{error}</div>}
+      {/* {error && <div className={styles.error}>{error}</div>} */}
       <div className={styles.content}>
         <label className={styles.title}>General Information</label>
         <div className={styles.grid}>
@@ -123,6 +135,7 @@ const Message: React.FC = () => {
               value={formData.firstName}
               onChange={handleInputChange}
               required
+              style={{ border: validationErrors.firstName ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -134,6 +147,7 @@ const Message: React.FC = () => {
               value={formData.lastName}
               onChange={handleInputChange}
               required
+              style={{ border: validationErrors.lastName ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -145,6 +159,7 @@ const Message: React.FC = () => {
               value={formData.email}
               onChange={handleInputChange}
               required
+              style={{ border: validationErrors.email ? '1.6px solid red' : '' }}
             />
           </div>
         </div>
@@ -155,10 +170,17 @@ const Message: React.FC = () => {
             id="notes"
             placeholder="Enter Description"
             value={formData.message}
-            onChange={(e) => setFormData(prev => ({
-              ...prev,
-              message: e.target.value
-            }))}
+            onChange={(e) => {
+              setFormData(prev => ({
+                ...prev,
+                message: e.target.value
+              }))
+              // Clear validation error when value is selected
+              if (validationErrors.message) {
+                setValidationErrors(prev => ({ ...prev, message: false }));
+              }
+            }}
+            style={{ border: validationErrors.message ? '1.6px solid red' : '' }}
           />
         </div>
       </div>

@@ -35,8 +35,7 @@ const Meeting: React.FC = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+    // const [loading, setLoading] = useState(false);
     const [validationErrors, setValidationErrors] = useState<Record<string, boolean>>({});
     
       useEffect(() => {
@@ -44,7 +43,7 @@ const Meeting: React.FC = () => {
           if (!id) return;
   
           try {
-            setLoading(true);
+            // setLoading(true);
             const response = await fetch(`/api/meetings/${id}`);
   
             if (!response.ok) {
@@ -75,10 +74,9 @@ const Meeting: React.FC = () => {
             })
             
           } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to fetch data');
             console.error('Error fetching meeting:', err);
           } finally {
-            setLoading(false);
+            // setLoading(false);
           }
         };
   
@@ -162,7 +160,6 @@ const Meeting: React.FC = () => {
         });
     } catch (err) {
       console.error('Error creating meeting:', err);
-      setError(err instanceof Error ? err.message : 'Failed to create meeting');
     } finally {
       setIsSubmitting(false);
     }
@@ -171,7 +168,6 @@ const Meeting: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError(null);
 
     
     // Validate required fields
@@ -186,7 +182,6 @@ const Meeting: React.FC = () => {
 
     if (Object.keys(errors).length > 0) {
       setIsSubmitting(false);
-      setError('Please fill all required fields');
       return;
     }
 
@@ -240,7 +235,6 @@ const Meeting: React.FC = () => {
       window.location.href = '/admin/meetings';
     } catch (err) {
       console.error('Error updating meeting:', err);
-      setError(err instanceof Error ? err.message : 'Failed to update meeting');
     } finally {
       setIsSubmitting(false);
     }
@@ -254,7 +248,6 @@ const Meeting: React.FC = () => {
     }
 
     setIsSubmitting(true);
-    setError(null);
 
     try {
       const response = await fetch(`/api/meetings/${id}`, {
@@ -270,7 +263,6 @@ const Meeting: React.FC = () => {
       window.location.href = '/admin/meetings';
     } catch (err) {
       console.error('Error deleting experience:', err);
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
     } finally {
       setIsSubmitting(false);
     }

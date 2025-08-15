@@ -121,6 +121,7 @@ export default async function handler(req, res) {
           // Create new skill document
           const newSkill = new Skill({
             type,
+            status,
             name,
             image: {
               name: image.name || '',

@@ -18,7 +18,6 @@ const Media: React.FC = () => {
     file: undefined
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [validationErrors, setValidationErrors] = useState<Record<string, boolean>>({});
 
   const breadcrumbs: breadcrumb[] = [
@@ -50,7 +49,6 @@ const Media: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError(null);
 
         // Validate required fields
     const errors: Record<string, boolean> = {};
@@ -63,7 +61,6 @@ const Media: React.FC = () => {
 
     if (Object.keys(errors).length > 0) {
       setIsSubmitting(false);
-      setError('Please fill all required fields');
       return;
     }
 
@@ -99,7 +96,6 @@ const Media: React.FC = () => {
       window.location.href = '/admin/media';
     } catch (err) {
       console.error('Upload error:', err);
-      setError(err instanceof Error ? err.message : 'Upload failed');
     } finally {
       setIsSubmitting(false);
     }

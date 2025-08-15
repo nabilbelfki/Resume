@@ -22,7 +22,6 @@ const Media: React.FC = () => {
     file: undefined
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [validationErrors, setValidationErrors] = useState<Record<string, boolean>>({});
 
@@ -53,7 +52,6 @@ const Media: React.FC = () => {
           setIsEditing(true);
         } catch (error) {
           console.error('Error fetching media:', error);
-          setError('Failed to load media data');
         }
       };
       fetchMedia();
@@ -84,7 +82,6 @@ const Media: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError(null);
 
     // Validate required fields
     const errors: Record<string, boolean> = {};
@@ -97,7 +94,6 @@ const Media: React.FC = () => {
 
     if (Object.keys(errors).length > 0) {
       setIsSubmitting(false);
-      setError('Please fill all required fields');
       return;
     }
 
@@ -155,7 +151,6 @@ const Media: React.FC = () => {
       }
     } catch (err) {
       console.error('Error:', err);
-      setError(err instanceof Error ? err.message : 'Operation failed');
     } finally {
       setIsSubmitting(false);
     }
@@ -169,7 +164,6 @@ const Media: React.FC = () => {
     }
 
     setIsSubmitting(true);
-    setError(null);
 
     try {
       const response = await fetch(`/api/media/${id}`, {
@@ -185,7 +179,6 @@ const Media: React.FC = () => {
       router.push('/admin/media');
     } catch (err) {
       console.error('Delete error:', err);
-      setError(err instanceof Error ? err.message : 'Delete failed');
     } finally {
       setIsSubmitting(false);
     }
