@@ -245,6 +245,7 @@ const Project: React.FC = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [validationErrors, setValidationErrors] = useState<Record<string, boolean>>({});
 
   const breadcrumbs: breadcrumb[] = [
     { label: 'Projects', href: '/admin/projects' },
@@ -255,6 +256,11 @@ const Project: React.FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     
+    // Clear validation error when user types
+    if (validationErrors[id]) {
+      setValidationErrors(prev => ({ ...prev, [id]: false }));
+    }
+
     if (id.startsWith('repositories')) {
       const field = id.replace('repositories', '').toLowerCase();
       setFormData(prev => ({
@@ -301,36 +307,49 @@ const Project: React.FC = () => {
         backgroundColor: media.backgroundColor
       }
     }));
+    if (validationErrors.thumbnail) {
+      setValidationErrors(prev => ({ ...prev, thumbnail: false }));
+    }
   };
 
   const handleLanguagesChange = (items: any[]) => {
     setFormData(prev => ({
       ...prev,
-      languages: items.map(item => ({
-        name: item.name,
-        color: item.color,
-        percentage: item.percentage
-      }))
+      languages: items
     }));
+    
+    // Clear validation errors
+    setValidationErrors(prev => {
+      const newErrors = {...prev};
+      items.forEach((item, index) => {
+        if (item.name) delete newErrors[`languages[${index}].name`];
+        if (item.color) delete newErrors[`languages[${index}].color`];
+        if (item.percentage) delete newErrors[`languages[${index}].percentage`];
+      });
+      return newErrors;
+    });
   };
-
 
   const handleToolsChange = (items: any[]) => {
     setFormData(prev => ({
       ...prev,
-      tools: items.map(item => ({
-        name: item.name,
-        color: item.color,
-        slug: item.slug,
-        url: item.url,
-        thumbnail: {
-          name: item.thumbnail?.name || '',
-          path: item.thumbnail?.path || '',
-          width: item.thumbnail?.width,
-          height: item.thumbnail?.height
-        }
-      }))
+      tools: items
     }));
+    
+    // Clear validation errors
+    setValidationErrors(prev => {
+      const newErrors = {...prev};
+      items.forEach((item, index) => {
+        if (item.name) delete newErrors[`tools[${index}].name`];
+        if (item.color) delete newErrors[`tools[${index}].color`];
+        if (item.slug) delete newErrors[`tools[${index}].slug`];
+        if (item.url) delete newErrors[`tools[${index}].url`];
+        if (item.thumbnail?.path) delete newErrors[`tools[${index}].thumbnail.image`];
+        if (item.thumbnail?.width) delete newErrors[`tools[${index}].thumbnail.width`];
+        if (item.thumbnail?.height) delete newErrors[`tools[${index}].thumbnail.height`];
+      });
+      return newErrors;
+    });
   };
 
   const handleClientSlidesChange = (items: any[]) => {
@@ -338,24 +357,124 @@ const Project: React.FC = () => {
       ...prev,
       client: {
         ...prev.client,
-        slides: items.map(item => ({
-          name: item.name,
-          color: item.color,
-          thumbnail: {
-            name: item.thumbnail?.name || '',
-            path: item.thumbnail?.path || '',
-            width: item.thumbnail?.width,
-            height: item.thumbnail?.height
-          }
-        }))
+        slides: items
       }
     }));
+    
+    // Clear validation errors
+    setValidationErrors(prev => {
+      const newErrors = {...prev};
+      items.forEach((item, index) => {
+        if (item.name) delete newErrors[`client.slides[${index}].name`];
+        if (item.color) delete newErrors[`client.slides[${index}].color`];
+        if (item.thumbnail?.path) delete newErrors[`client.slides[${index}].thumbnail.image`];
+        if (item.thumbnail?.width) delete newErrors[`client.slides[${index}].thumbnail.width`];
+        if (item.thumbnail?.height) delete newErrors[`client.slides[${index}].thumbnail.height`];
+      });
+      return newErrors;
+    });
+  };
+
+  const getListErrors = (listName: 'client.slides' | 'languages' | 'tools', items: any[]) => {
+    const fieldNames: Record<'client.slides' | 'languages' | 'tools', string[]> = {
+      'client.slides': [
+        'name',
+        'color',
+        'thumbnail.image',
+        'thumbnail.width',
+        'thumbnail.height'
+      ],
+      languages: [
+        'name',
+        'color',
+        'percentage'
+      ],
+      tools: [
+        'name',
+        'color',
+        'slug',
+        'url',
+        'thumbnail.image',
+        'thumbnail.width',
+        'thumbnail.height'
+      ]
+    };
+
+    return items.map((item, index) => {
+      const fieldErrors: Record<string, boolean> = {};
+      fieldNames[listName].forEach((fieldName) => {
+        const errorKey = `${listName}[${index}].${fieldName}`;
+        if (validationErrors[errorKey]) {
+          fieldErrors[fieldName] = true;
+        }
+      });
+      return fieldErrors;
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
+
+    // Validate required fields
+    const errors: Record<string, boolean> = {};
+    if (!formData.name.trim()) errors.name = true;
+    if (!formData.slug.trim()) errors.slug = true;
+    if (!formData.url.trim()) errors.url = true;
+    if (!formData.duration.trim()) errors.duration = true;
+    if (!formData.startDate) errors.startDate = true;
+    if (!formData.endDate) errors.endDate = true;
+    if (!formData.description.trim()) errors.description = true;
+    if (!formData.repositories.github) errors.repositoriesGithub = true;
+    if (!formData.repositories.docker) errors.repositoriesDocker = true;
+    if (!formData.views) errors.views = true;
+    if (!thumbnail.path) errors.thumbnail = true;
+
+    // Validate languages
+    formData.languages.forEach((lang, index) => {
+      if (!lang?.name?.trim()) errors[`languages[${index}].name`] = true;
+      if (!lang?.color?.trim()) errors[`languages[${index}].color`] = true;
+      if (!lang?.percentage) errors[`languages[${index}].percentage`] = true;
+    });
+
+    // Validate tools
+    formData.tools.forEach((tool, index) => {
+      if (!tool.name) errors[`tools[${index}].name`] = true;
+      if (!tool.slug) errors[`tools[${index}].slug`] = true;
+      if (!tool.url) errors[`tools[${index}].url`] = true;
+      if (!tool.color) errors[`tools[${index}].color`] = true;
+      if (!tool.thumbnail?.path) errors[`tools[${index}].thumbnail.image`] = true;
+      if (!tool.thumbnail?.width) errors[`tools[${index}].thumbnail.width`] = true;
+      if (!tool.thumbnail?.height) errors[`tools[${index}].thumbnail.height`] = true;
+    });
+    
+    // Validate client fields
+    if (!formData.client.title.trim()) errors.clientTitle = true;
+    if (!formData.client.location.latitude) errors.clientLatitude = true;
+    if (!formData.client.location.longitude) errors.clientLongitude = true;
+    if (!formData.client.description.trim()) errors.clientDescription = true;
+
+    // Validate client logo
+    if (!formData.client.logo.name) errors.clientImage = true;
+    if (!formData.client.logo.width) errors.clientWidth = true;
+    if (!formData.client.logo.height) errors.clientHeight = true;
+
+    // Validate slides
+    formData.client.slides.forEach((slide, index) => {
+      if (!slide.name) errors[`client.slides[${index}].name`] = true;
+      if (!slide.color) errors[`client.slides[${index}].color`] = true;
+      if (!slide.thumbnail?.path) errors[`client.slides[${index}].thumbnail.image`] = true;
+      if (!slide.thumbnail?.width) errors[`client.slides[${index}].thumbnail.width`] = true;
+      if (!slide.thumbnail?.height) errors[`client.slides[${index}].thumbnail.height`] = true;
+    });
+
+    setValidationErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
 
@@ -520,6 +639,7 @@ const Project: React.FC = () => {
           <ThumbnailUpload 
             value={thumbnail}
             onChange={handleThumbnailChange}
+            style={{ border: validationErrors.thumbnail ? '1.6px solid red' : '' }}
           />
         </div>
         <label className={styles.title}>General Information</label>
@@ -533,6 +653,7 @@ const Project: React.FC = () => {
               value={formData.name}
               onChange={handleInputChange}
               required
+              style={{ border: validationErrors.name ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -543,6 +664,7 @@ const Project: React.FC = () => {
               placeholder="Enter Slug" 
               value={formData.slug}
               onChange={handleInputChange}
+              style={{ border: validationErrors.slug ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -553,6 +675,7 @@ const Project: React.FC = () => {
               placeholder="Enter URL" 
               value={formData.url}
               onChange={handleInputChange}
+              style={{ border: validationErrors.url ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -563,6 +686,7 @@ const Project: React.FC = () => {
               placeholder="Enter Duration" 
               value={formData.duration}
               onChange={handleInputChange}
+              style={{ border: validationErrors.duration ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -574,6 +698,7 @@ const Project: React.FC = () => {
               value={formData.startDate}
               onChange={handleInputChange}
               required
+              style={{ border: validationErrors.startDate ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -584,6 +709,7 @@ const Project: React.FC = () => {
               placeholder="Enter End Date" 
               value={formData.endDate}
               onChange={handleInputChange}
+              style={{ border: validationErrors.endDate ? '1.6px solid red' : '' }}
             />
           </div>
         </div>
@@ -595,6 +721,7 @@ const Project: React.FC = () => {
             placeholder="Enter Description"
             value={formData.description}
             onChange={handleInputChange}
+            style={{ border: validationErrors.description ? '1.6px solid red' : '' }}
           />
         </div>
 
@@ -607,6 +734,7 @@ const Project: React.FC = () => {
               placeholder="Enter Views" 
               value={formData.views}
               onChange={handleInputChange}
+              style={{ border: validationErrors.views ? '1.6px solid red' : '' }}
             />
           </div>
         </div>
@@ -621,6 +749,7 @@ const Project: React.FC = () => {
               placeholder="Enter GitHub URL" 
               value={formData.repositories.github}
               onChange={handleInputChange}
+              style={{ border: validationErrors.repositoriesGithub ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -631,6 +760,7 @@ const Project: React.FC = () => {
               placeholder="Enter Docker URL" 
               value={formData.repositories.docker}
               onChange={handleInputChange}
+              style={{ border: validationErrors.repositoriesDocker ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
@@ -657,13 +787,14 @@ const Project: React.FC = () => {
             onFieldChange={(items) => handleLanguagesChange(items)}
             columns={3}
             initialItems={formData.languages}
+            fieldErrors={getListErrors('languages', formData.languages)}
           />
         </div>
 
         <label className={styles.title} style={{marginBottom: 50}}>Tools</label>
         <div style={{marginTop: 30, marginBottom: 60}}>
           <List 
-            key={`list-${formData.tools.length}`} // Unique key based on con
+            key={`list-${formData.tools.length}`}
             fields={[
               { id: 'name', type: 'text', placeholder: 'Enter Name' },
               { id: 'color', type: 'color', placeholder: 'Enter Color' },
@@ -674,6 +805,7 @@ const Project: React.FC = () => {
             onFieldChange={(items) => handleToolsChange(items)}
             columns={3}
             initialItems={formData.tools}
+            fieldErrors={getListErrors('tools', formData.tools)}
           />
         </div>
 
@@ -688,6 +820,7 @@ const Project: React.FC = () => {
                 placeholder="Enter Latitude" 
                 value={formData.client.location.latitude}
                 onChange={handleInputChange}
+              style={{ border: validationErrors.clientLatitude ? '1.6px solid red' : '' }}
               />
             </div>
             <div className={styles.input}>
@@ -698,6 +831,7 @@ const Project: React.FC = () => {
                 placeholder="Enter Longitude" 
                 value={formData.client.location.longitude}
                 onChange={handleInputChange}
+              style={{ border: validationErrors.clientLongitude ? '1.6px solid red' : '' }}
               />
             </div>
           </div>
@@ -720,12 +854,22 @@ const Project: React.FC = () => {
                     logo: {
                       name: media.name,
                       path: media.path,
-                      width: Number(media.width) || 0, // Force number on save
-                      height: Number(media.height) || 0 // Force number on save
+                      width: Number(media.width) || 0,
+                      height: Number(media.height) || 0
                     }
                   }
                 }));
+                setValidationErrors(prev => {
+                  const newErrors = {...prev};
+                  if (media.path) delete newErrors.clientImage;
+                  if (media.width) delete newErrors.clientWidth;
+                  if (media.height) delete newErrors.clientHeight;
+                  return newErrors;
+                });
               }}
+              invalidMedia={validationErrors.clientImage}
+              invalidWidth={validationErrors.clientWidth}
+              invalidHeight={validationErrors.clientHeight}
             />
           </div>
           <div className={styles.input}>
@@ -736,6 +880,7 @@ const Project: React.FC = () => {
               placeholder="Enter Title" 
               value={formData.client.title}
               onChange={handleInputChange}
+              style={{ border: validationErrors.clientTitle ? '1.6px solid red' : '' }}
             />
           </div>
         </div>
@@ -754,7 +899,11 @@ const Project: React.FC = () => {
                   description: e.target.value
                 }
               }));
+              if (validationErrors.clientDescription) {
+                setValidationErrors(prev => ({ ...prev, clientDescription: false }));
+              }
             }}
+            style={{ border: validationErrors.clientDescription ? '1.6px solid red' : '' }}
           />
         </div>
 
@@ -768,7 +917,8 @@ const Project: React.FC = () => {
             ]}
             onFieldChange={(items) => handleClientSlidesChange(items)}
             columns={2}
-            initialItems={formData.client.slides} // Add initialItems here
+            initialItems={formData.client.slides}
+            fieldErrors={getListErrors('client.slides', formData.client.slides)}
           />
         </div>
       </div>

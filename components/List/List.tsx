@@ -87,7 +87,6 @@ const List: React.FC<ListProps> = ({
     });
   }, [rows.length, fields]);
 
-  // In List.tsx
   const handleAdd = useCallback((index: number) => {
     const newId = Date.now();
     setRows(prevRows => {
@@ -99,7 +98,8 @@ const List: React.FC<ListProps> = ({
         fields: fields.map(field => ({
           ...field,
           value: field.type === 'number' ? 0 : 
-                field.type === 'object' ? { name: '', path: '' } : ''
+                field.type === 'media' ? { name: '', path: '', width: 0, height: 0 } : 
+                ''
         }))
       };
       newRows.splice(index + 1, 0, newRow);

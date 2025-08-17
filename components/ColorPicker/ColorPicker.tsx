@@ -32,6 +32,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
   return (
     <div 
       className={`${styles.container} ${placeholder ? styles['field-included'] : '' }`}
+      onClick={handleColorWheelClick}
       style={style}
     >
       {placeholder && (<input 
@@ -50,7 +51,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
           className={styles['hidden-color-input']}
         />
       </div>
-      <div className={styles['color-wheel']} onClick={handleColorWheelClick}>
+      <div className={styles['color-wheel']}>
         {value ? (
           <div 
             className={styles['color-swatch']}

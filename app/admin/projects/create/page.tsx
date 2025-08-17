@@ -297,8 +297,8 @@ const Project: React.FC = () => {
   };
 
   // Helper to transform errors for the List component
-  const getListErrors = (listName: string, items: any[]) => {
-    const fieldNames = {
+  const getListErrors = (listName: 'client.slides' | 'languages' | 'tools', items: any[]) => {
+    const fieldNames: Record<'client.slides' | 'languages' | 'tools', string[]> = {
       'client.slides': [
         'name',
         'color',
@@ -350,6 +350,7 @@ const Project: React.FC = () => {
     if (!formData.description.trim()) errors.description = true;
     if (!formData.repositories.github) errors.repositoriesGithub = true;
     if (!formData.repositories.docker) errors.repositoriesDocker = true;
+    if (!formData.views) errors.views = true;
     if (!thumbnail.path) errors.thumbnail = true;
 
     console.log("Languages", formData.languages)
@@ -609,6 +610,7 @@ const Project: React.FC = () => {
               placeholder="Enter Views" 
               value={formData.views}
               onChange={handleInputChange}
+              style={{ border: validationErrors.views ? '1.6px solid red' : '' }}
             />
           </div>
         </div>
