@@ -17,16 +17,19 @@ interface RowItem {
   fields: field[];
 }
 
-const Row: React.FC<{ 
-  row: RowItem; 
+interface RowProps {
+  row: RowItem;
   index: number;
   columns: number;
   disableDelete: boolean;
-  onAdd: (index: number) => void; 
+  onAdd: (index: number) => void;
   onDelete: (index: number) => void;
   onFieldChange: (rowId: number, fieldId: string, value: any) => void;
-  moveRow: (dragIndex: number, hoverIndex: number) => void; // Add moveRow prop
-}> = React.memo(({ 
+  moveRow: (dragIndex: number, hoverIndex: number) => void;
+  rowErrors: Record<string, boolean>;
+}
+
+const Row: React.FC<RowProps> = React.memo(({ 
   row, 
   index, 
   columns, 
@@ -34,7 +37,8 @@ const Row: React.FC<{
   onAdd, 
   onDelete, 
   onFieldChange,
-  moveRow
+  moveRow,
+  rowErrors
 }) => {
   const rowRef = React.useRef<HTMLDivElement>(null);
   const dragHandleRef = React.useRef<HTMLDivElement>(null);
@@ -107,13 +111,15 @@ const Row: React.FC<{
             const colorField = row.fields.find(f => f.id === 'color');
             const backgroundColor = colorField?.value;
             
-            return (
-                <Field
+             return (
+              <Field
                 key={field.id}
                 field={field}
                 onChange={(value) => onFieldChange(row.id, field.id, value)}
                 backgroundColor={field.type === 'media' ? backgroundColor : undefined}
-                />
+                hasError={rowErrors[field.id]}
+                fieldErrors={rowErrors}
+              />
             );
             })}
         </div>

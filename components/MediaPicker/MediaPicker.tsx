@@ -7,6 +7,9 @@ import Media from "@/components/Media/Media";
 
 // MediaPicker.tsx
 interface MediaPickerProps {
+  invalidHeight: boolean;
+  invalidWidth: boolean;
+  invalidMedia: boolean;
   value?: {
     name: string;
     path: string;
@@ -29,7 +32,10 @@ const MediaPicker: React.FC<MediaPickerProps> = ({
   value, 
   onChange,
   backgroundColor,
-  style
+  style,
+  invalidHeight,
+  invalidWidth,
+  invalidMedia
 }) => {
     const [dimensions, setDimensions] = useState({
         width: value?.width || 0,
@@ -74,6 +80,21 @@ const MediaPicker: React.FC<MediaPickerProps> = ({
     // Determine the background color to use
     const thumbnailBgColor = backgroundColor || value?.backgroundColor || '#ffffff';
 
+    const widthBorderStyle = {
+        borderTop: invalidWidth ? '1.6px solid red' : '',
+        borderLeft: !invalidMedia && invalidWidth ? '1.6px solid red' : '',
+        borderRight: invalidWidth ? '1.6px solid red' : '',
+        borderBottom: invalidWidth ? '1.6px solid red' : '',
+    }
+    
+    const heightBorderStyle = {
+        borderTop: !invalidWidth && invalidHeight ? '1.6px solid red' : '',
+        borderLeft: !invalidMedia && invalidHeight ? '1.6px solid red' : '',
+        borderRight: invalidHeight ? '1.6px solid red' : '',
+        borderBottom: invalidHeight ? '1.6px solid red' : '',
+    }
+
+
     return (
         <div className={styles.container} style={style}>
             <Media 
@@ -84,7 +105,7 @@ const MediaPicker: React.FC<MediaPickerProps> = ({
             />
             <div 
                 className={styles.thumbnail} 
-                style={{ backgroundColor: thumbnailBgColor }}
+                style={{ backgroundColor: thumbnailBgColor, border: invalidMedia ? 'solid 1.6px red' : '' }}
                 onClick={()=>setShowMediaPicker(true)}
             >
                 {value?.name ? 
@@ -140,7 +161,7 @@ const MediaPicker: React.FC<MediaPickerProps> = ({
                 </div>)}
             </div>
             <div className={styles['width-and-height']}>
-                <div className={styles.width}>
+                <div className={styles.width} style={widthBorderStyle}>
                     <input 
                         type="number" 
                         placeholder="W" 
@@ -148,7 +169,7 @@ const MediaPicker: React.FC<MediaPickerProps> = ({
                         onChange={(e) => handleDimensionChange('width', Number(e.target.value))}
                     />
                 </div>
-                <div className={styles.height}>
+                <div className={styles.height} style={heightBorderStyle}>
                     <input 
                         type="number" 
                         placeholder="H" 

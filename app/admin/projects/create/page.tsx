@@ -6,7 +6,6 @@ import { Breadcrumb as breadcrumb} from "@/lib/types";
 import List from "@/components/List/List";
 import ThumbnailUpload from "@/components/ThumbnailUpload/ThumbnailUpload"
 import MediaPicker from "@/components/MediaPicker/MediaPicker";
-import Languages from "@/components/Languages/Languages";
 
 interface ProjectData {
   name: string;
@@ -94,8 +93,27 @@ const Project: React.FC = () => {
       docker: '',
       figma: ''
     },
-    languages: [],
-    tools: [],
+    languages: [
+      {
+        name: '',
+        percentage: 0,
+        color: ''
+      }
+    ],
+    tools: [
+      {
+        name: '',
+        color: '',
+        slug: '',
+        url: '',
+        thumbnail: {
+          name: '',
+          path: '',
+          width: 0,
+          height: 0,
+        }
+      }
+    ],
     client: {
       location: {
         latitude: 0,
@@ -107,12 +125,22 @@ const Project: React.FC = () => {
       },
       title: '',
       description: '',
-      slides: []
+      slides: [
+        {
+          name: '',
+          thumbnail: {
+            name: '',
+            path: '',
+            width: 0,
+            height: 0,
+          },
+          color: ''
+        }
+      ]
     }
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [validationErrors, setValidationErrors] = useState<Record<string, boolean>>({});
 
   const breadcrumbs: breadcrumb[] = [
@@ -180,63 +208,136 @@ const Project: React.FC = () => {
     }
   };
 
-  const handleLanguagesChange = (items: Array<{ name: string; color: string; percentage: number }>) => {
+  const handleLanguagesChange = (items: any[]) => {
+    const rowsToSave = items.length > 0 ? items : [{
+      name: '',
+      color: '',
+      percentage: 0
+    }];
+    
     setFormData(prev => ({
       ...prev,
-      languages: items
+      languages: rowsToSave
     }));
-    if (validationErrors.languages) {
-      setValidationErrors(prev => ({ ...prev, languages: false }));
-    }
+    
+    // Clear validation errors only for the changed fields in this list
+    setValidationErrors(prev => {
+      const newErrors = {...prev};
+      items.forEach((item, index) => {
+        if (item.name) delete newErrors[`languages[${index}].name`];
+        if (item.color) delete newErrors[`languages[${index}].color`];
+        if (item.percentage) delete newErrors[`languages[${index}].percentage`];
+      });
+      return newErrors;
+    });
   };
 
-  const handleToolsChange = (items: Array<{
-    name: string;
-    color: string;
-    thumbnail: { 
-      name: string; 
-      path: string;
-      width?: number;
-      height?: number;
-    };
-    slug: string;
-    url: string;
-  }>) => {
+  const handleToolsChange = (items: any[]) => {
+    const rowsToSave = items.length > 0 ? items : [{
+      name: '',
+      color: '',
+      thumbnail: { name: '', path: '' },
+      slug: '',
+      url: ''
+    }];
+    
     setFormData(prev => ({
       ...prev,
-      tools: items
+      tools: rowsToSave
     }));
-    if (validationErrors.tools) {
-      setValidationErrors(prev => ({ ...prev, tools: false }));
-    }
+    
+    // Clear validation errors only for the changed fields in this list
+    setValidationErrors(prev => {
+      const newErrors = {...prev};
+      items.forEach((item, index) => {
+        if (item.name) delete newErrors[`tools[${index}].name`];
+        if (item.color) delete newErrors[`tools[${index}].color`];
+        if (item.slug) delete newErrors[`tools[${index}].slug`];
+        if (item.url) delete newErrors[`tools[${index}].url`];
+        // Clear all thumbnail-related errors if path exists
+        if (item.thumbnail?.path) delete newErrors[`tools[${index}].thumbnail.image`];
+        if (item.thumbnail?.width) delete newErrors[`tools[${index}].thumbnail.width`];
+        if (item.thumbnail?.height) delete newErrors[`tools[${index}].thumbnail.height`];
+        // if (item?.thumbnail.length === 0) delete newErrors[`tools[${index}].thumbnail`];
+        
+      });
+      return newErrors;
+    });
   };
 
-  const handleClientSlidesChange = (items: Array<{
-    name: string;
-    thumbnail: { 
-      name: string; 
-      path: string;
-      width?: number;
-      height?: number;
-    };
-    color: string;
-  }>) => {
+  const handleClientSlidesChange = (items: any[]) => {
+    const rowsToSave = items.length > 0 ? items : [{
+      name: '',
+      thumbnail: { name: '', path: '' },
+      color: ''
+    }];
+    
     setFormData(prev => ({
       ...prev,
       client: {
         ...prev.client,
-        slides: items
+        slides: rowsToSave
       }
     }));
-    if (validationErrors.clientSlides) {
-      setValidationErrors(prev => ({ ...prev, clientSlides: false }));
-    }
+    
+    // Clear validation errors only for the changed fields in this list
+    setValidationErrors(prev => {
+      const newErrors = {...prev};
+      items.forEach((item, index) => {
+        if (item.name) delete newErrors[`client.slides[${index}].name`];
+        if (item.color) delete newErrors[`client.slides[${index}].color`];
+        // Clear all thumbnail-related errors if path exists
+        if (item.thumbnail?.path) delete newErrors[`client.slides[${index}].thumbnail.image`];
+        if (item.thumbnail?.width) delete newErrors[`client.slides[${index}].thumbnail.width`];
+        if (item.thumbnail?.height) delete newErrors[`client.slides[${index}].thumbnail.height`];
+        // if (item?.thumbnail.length === 0) delete newErrors[`client.slides[${index}].thumbnail`];
+      });
+      return newErrors;
+    });
+  };
+
+  // Helper to transform errors for the List component
+  const getListErrors = (listName: string, items: any[]) => {
+    const fieldNames = {
+      'client.slides': [
+        'name',
+        'color',
+        'thumbnail.image',
+        'thumbnail.width',
+        'thumbnail.height'
+      ],
+      languages: [
+        'name',
+        'color',
+        'percentage'
+      ],
+      tools: [
+        'name',
+        'color',
+        'slug',
+        'url',
+        'thumbnail.image',
+        'thumbnail.width',
+        'thumbnail.height'
+      ]
+    };
+
+    return items.map((item, index) => {
+      const fieldErrors: Record<string, boolean> = {};
+      fieldNames[listName].forEach((fieldName) => {
+        const errorKey = `${listName}[${index}].${fieldName}`;
+        if (validationErrors[errorKey]) {
+          // Map the error to a simpler key for the field component
+          fieldErrors[fieldName] = true;
+        }
+      });
+      return fieldErrors;
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError(null);
 
     // Validate required fields
     const errors: Record<string, boolean> = {};
@@ -250,19 +351,47 @@ const Project: React.FC = () => {
     if (!formData.repositories.github) errors.repositoriesGithub = true;
     if (!formData.repositories.docker) errors.repositoriesDocker = true;
     if (!thumbnail.path) errors.thumbnail = true;
-    if (formData.languages.length === 0) errors.languages = true;
-    if (formData.tools.length === 0) errors.tools = true;
+
+    console.log("Languages", formData.languages)
+    formData.languages.forEach((lang, index) => {
+      if (!lang?.name?.trim()) errors[`languages[${index}].name`] = true;
+      if (!lang?.color?.trim()) errors[`languages[${index}].color`] = true;
+      if (!lang?.percentage) errors[`languages[${index}].percentage`] = true;
+    });
+
+    console.log("Tools", formData.tools)
+    formData.tools.forEach((tool, index) => {
+      if (!tool.name) errors[`tools[${index}].name`] = true;
+      if (!tool.slug) errors[`tools[${index}].slug`] = true;
+      if (!tool.url) errors[`tools[${index}].url`] = true;
+      if (!tool.color) errors[`tools[${index}].color`] = true;
+      if (!tool.thumbnail?.path) errors[`tools[${index}].thumbnail.image`] = true;
+      if (!tool.thumbnail?.width) errors[`tools[${index}].thumbnail.width`] = true;
+      if (!tool.thumbnail?.height) errors[`tools[${index}].thumbnail.height`] = true;
+    });
+    
     if (!formData.client.title.trim()) errors.clientTitle = true;
     if (!formData.client.location.latitude) errors.clientLatitude = true;
     if (!formData.client.location.longitude) errors.clientLongitude = true;
     if (!formData.client.description.trim()) errors.clientDescription = true;
-    if (formData.client.slides.length === 0) errors.clientSlides = true;
+
+    if (!formData.client.logo.name) errors.clientImage = true;
+    if (!formData.client.logo.width) errors.clientWidth = true;
+    if (!formData.client.logo.height) errors.clientHeight = true;
+
+    console.log("Slides", formData.client.slides)
+    formData.client.slides.forEach((slide, index) => {
+      if (!slide.name) errors[`client.slides[${index}].name`] = true;
+      if (!slide.color) errors[`client.slides[${index}].color`] = true;
+      if (!slide.thumbnail?.path) errors[`client.slides[${index}].thumbnail.image`] = true;
+      if (!slide.thumbnail?.width) errors[`client.slides[${index}].thumbnail.width`] = true;
+      if (!slide.thumbnail?.height) errors[`client.slides[${index}].thumbnail.height`] = true;
+    });
 
     setValidationErrors(errors);
 
     if (Object.keys(errors).length > 0) {
       setIsSubmitting(false);
-      setError('Please fill all required fields');
       return;
     }
 
@@ -350,7 +479,6 @@ const Project: React.FC = () => {
       window.location.href = '/admin/projects';
     } catch (err) {
       console.error('Error submitting form:', err);
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
     } finally {
       setIsSubmitting(false);
     }
@@ -379,7 +507,7 @@ const Project: React.FC = () => {
           {isSubmitting ? 'Saving...' : 'Save Changes'}
         </button>
       </div>
-      {error && <div className={styles.error}>{error}</div>}
+      {/* {error && <div className={styles.error}>{error}</div>} */}
       <div className={styles.content}>
         <div className={styles.avatarContainer}>
           <label>Thumbnail</label>
@@ -531,7 +659,7 @@ const Project: React.FC = () => {
             ]}
             onFieldChange={(items) => handleLanguagesChange(items)}
             columns={3}
-            // style={{ border: validationErrors.languages ? '1.6px solid red' : '' }}
+            fieldErrors={getListErrors('languages', formData.languages)}
           />
         </div>
 
@@ -547,7 +675,7 @@ const Project: React.FC = () => {
             ]}
             onFieldChange={(items) => handleToolsChange(items)}
             columns={3}
-            // style={{ border: validationErrors.tools ? '1.6px solid red' : '' }}
+            fieldErrors={getListErrors('tools', formData.tools)}
           />
         </div>
 
@@ -600,7 +728,17 @@ const Project: React.FC = () => {
                     }
                   }
                 }));
+                setValidationErrors(prev => {
+                  const newErrors = {...prev};
+                  if (media.path) delete newErrors.clientImage;
+                  if (media.width) delete newErrors.clientWidth;
+                  if (media.height) delete newErrors.clientHeight;
+                  return newErrors;
+                });
               }}
+              invalidHeight={validationErrors.clientHeight}
+              invalidWidth={validationErrors.clientWidth}
+              invalidMedia={validationErrors.clientImage}
             />
           </div>
           <div className={styles.input}>
@@ -647,7 +785,7 @@ const Project: React.FC = () => {
             ]}
             onFieldChange={(items) => handleClientSlidesChange(items)}
             columns={2}
-            // style={{ border: validationErrors.clientSlides ? '1.6px solid red' : '' }}
+            fieldErrors={getListErrors('client.slides', formData.client.slides)}
           />
         </div>
       </div>

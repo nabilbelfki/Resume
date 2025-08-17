@@ -13,15 +13,25 @@ interface FieldProps {
   value?: any;
 }
 
-const Field: React.FC<{
+interface FieldComponentProps {
   field: FieldProps;
   onChange: (value: any) => void;
   backgroundColor?: string;
-}> = React.memo(({ field, onChange, backgroundColor }) => {
+  hasError?: boolean;
+  fieldErrors?: Record<string, boolean>; // Add this new prop
+}
+
+const Field: React.FC<FieldComponentProps> = React.memo(({ 
+  field, 
+  onChange, 
+  backgroundColor, 
+  hasError,
+  fieldErrors = {}
+}) => {
   const commonProps = {
     value: field.value || '',
     placeholder: field.placeholder || field.label || '',
-    onChange: (value: any) => onChange(value), // Add onChange to commonProps
+    onChange: (value: any) => onChange(value),
   };
 
   switch (field.type) {
@@ -33,6 +43,7 @@ const Field: React.FC<{
           value={commonProps.value}
           placeholder={commonProps.placeholder}
           onChange={(e) => onChange(e.target.value)}
+          style={{ border: hasError ? '1.6px solid red' : '' }}
         />
       );
     case 'number':
@@ -43,6 +54,7 @@ const Field: React.FC<{
           value={commonProps.value}
           placeholder={commonProps.placeholder}
           onChange={(e) => onChange(Number(e.target.value))}
+          style={{ border: hasError ? '1.6px solid red' : '' }}
         />
       );
     case 'date':
@@ -53,6 +65,7 @@ const Field: React.FC<{
           value={commonProps.value}
           placeholder={commonProps.placeholder}
           onChange={(e) => onChange(e.target.value)}
+          style={{ border: hasError ? '1.6px solid red' : '' }}
         />
       );
     case 'color':
@@ -62,6 +75,7 @@ const Field: React.FC<{
           value={commonProps.value}
           placeholder={commonProps.placeholder}
           onChange={commonProps.onChange}
+          style={{ outline: hasError ? '1.6px solid red' : '' }}
         />
       );
     case 'dropdown':
@@ -71,6 +85,11 @@ const Field: React.FC<{
           value={commonProps.value}
           placeholder={commonProps.placeholder}
           onChange={commonProps.onChange}
+          style={{
+            button: {
+              border: hasError ? '1.6px solid red' : '' 
+            } 
+          }}
         />
       );
     case 'media':
@@ -85,7 +104,6 @@ const Field: React.FC<{
               backgroundColor: backgroundColor
             }}
             onChange={(media) => {
-              // Return the full media object structure
               onChange({
                 name: media.name,
                 path: media.path,
@@ -93,6 +111,9 @@ const Field: React.FC<{
                 height: media.height
               });
             }}
+            invalidMedia={fieldErrors['thumbnail.image']}
+            invalidWidth={fieldErrors['thumbnail.width']}
+            invalidHeight={fieldErrors['thumbnail.height']}
           />
         </div>
       );

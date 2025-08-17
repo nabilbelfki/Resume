@@ -17,7 +17,7 @@ body {
 }
 
 .experience-and-skills {
-  background-color: #fff;
+  background-color: #f3f3f3;
 }
 
 .skills-display {
@@ -150,7 +150,7 @@ body {
 }
 
 .contact-and-schedule-meeting {
-  background-color: #f3f3f3;
+  background-color: #dbdbdb;
   display: flex;
   justify-content: center;
   align-items: center;

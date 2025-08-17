@@ -16,6 +16,7 @@ interface ListProps {
   onFieldChange: (items: any[]) => void;
   columns?: 2 | 3;
   initialItems?: any[];
+  fieldErrors?: Array<Record<string, boolean>>;
 }
 
 interface RowItem {
@@ -23,7 +24,14 @@ interface RowItem {
   fields: Field[];
 }
 
-const List: React.FC<ListProps> = ({ fields, onFieldChange, columns = 2, initialItems = [] }) => {
+const List: React.FC<ListProps> = ({ 
+  fields, 
+  onFieldChange, 
+  columns = 2, 
+  initialItems = [], 
+  fieldErrors = []
+}) => {
+  console.log("Errors", fieldErrors);
   const [rows, setRows] = useState<RowItem[]>(() => {
     if (initialItems && initialItems.length > 0) {
       return initialItems.map((item, index) => ({
@@ -60,22 +68,55 @@ const List: React.FC<ListProps> = ({ fields, onFieldChange, columns = 2, initial
     }
   }, [pendingChanges, onFieldChange]);
 
+  const handleDelete = useCallback((index: number) => {
+    if (rows.length <= 1) return;
+    setRows(prevRows => {
+      const newRows = prevRows.filter((_, i) => i !== index);
+      
+      // Send updated rows to parent
+      const items = newRows.map(row => {
+        const item: any = {};
+        row.fields.forEach(field => {
+          item[field.id] = field.value;
+        });
+        return item;
+      });
+      setPendingChanges(items);
+      
+      return newRows;
+    });
+  }, [rows.length, fields]);
+
+  // In List.tsx
   const handleAdd = useCallback((index: number) => {
     const newId = Date.now();
-    setRows((prevRows) => {
+    setRows(prevRows => {
       const newRows = [...prevRows];
-      newRows.splice(index + 1, 0, {
+      
+      // Create new row with properly initialized empty values
+      const newRow = {
         id: newId,
-        fields: fields.map(field => ({ ...field }))
+        fields: fields.map(field => ({
+          ...field,
+          value: field.type === 'number' ? 0 : 
+                field.type === 'object' ? { name: '', path: '' } : ''
+        }))
+      };
+      newRows.splice(index + 1, 0, newRow);
+      
+      // Immediately send updated rows to parent
+      const items = newRows.map(row => {
+        const item: any = {};
+        row.fields.forEach(field => {
+          item[field.id] = field.value;
+        });
+        return item;
       });
+      setPendingChanges(items);
+      
       return newRows;
     });
   }, [fields]);
-
-  const handleDelete = useCallback((index: number) => {
-    if (rows.length <= 1) return;
-    setRows((prevRows) => prevRows.filter((_, i) => i !== index));
-  }, [rows.length]);
 
   const handleFieldChange = useCallback((rowId: number, fieldId: string, value: any) => {
     setRows(prevRows => {
@@ -92,12 +133,15 @@ const List: React.FC<ListProps> = ({ fields, onFieldChange, columns = 2, initial
           : row
       );
       
-      // Convert rows to the format expected by onFieldChange
-      const items = updatedRows.map(row => 
-        row.fields.reduce((acc, field) => ({ ...acc, [field.id]: field.value }), {})
-      );
+      // Convert ALL rows to items, including empty ones
+      const items = updatedRows.map(row => {
+        const item: any = {};
+        row.fields.forEach(field => {
+          item[field.id] = field.value;
+        });
+        return item;
+      });
       
-      // Schedule the update for after render
       setPendingChanges(items);
       return updatedRows;
     });
@@ -126,6 +170,7 @@ const List: React.FC<ListProps> = ({ fields, onFieldChange, columns = 2, initial
           onDelete={handleDelete}
           onFieldChange={handleFieldChange}
           moveRow={moveRow}
+          rowErrors={fieldErrors[index] || {}}
         />
       ))}
     </div>
