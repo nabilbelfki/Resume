@@ -87,7 +87,6 @@ const Media: React.FC<MediaProps> = ({ type = null, isOpen, close, onSelect }) =
 
    const handleSelectMedia = () => {
     if (selectedMedia) {
-      console.log("Selected Media", selectedMedia)
       // Extract path without filename
       const path = selectedMedia.url.substring(0, selectedMedia.url.lastIndexOf('/') + 1);
       
@@ -107,7 +106,6 @@ const Media: React.FC<MediaProps> = ({ type = null, isOpen, close, onSelect }) =
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      // console.log(data);
       if (data.error) {
         throw new Error(data.error);
       }
@@ -125,7 +123,6 @@ const Media: React.FC<MediaProps> = ({ type = null, isOpen, close, onSelect }) =
     setError(null);
     try {
       const imageData = await fetchImagePaths();
-      console.log("imageData: ", imageData);
 
       const items = imageData.slice(0, 7).map((item, index) => ({
         id: `item-${index}`,
@@ -140,7 +137,6 @@ const Media: React.FC<MediaProps> = ({ type = null, isOpen, close, onSelect }) =
       setMediaItems(items);
       setHasMore(imageData.length > items.length);
       if (items.length > 0) {
-        console.log("Item", items[0])
         setSelectedMedia(items[0]);
       } else {
         setError('No images found in the /images directory');
@@ -261,7 +257,6 @@ const Media: React.FC<MediaProps> = ({ type = null, isOpen, close, onSelect }) =
       }
 
       const result = await response.json();
-      console.log('Upload successful:', result);
       // Refresh the list after a successful upload
       setIsUploading(false);
       loadInitialItems();

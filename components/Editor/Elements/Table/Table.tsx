@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, { useRef, useEffect, useState, useCallback, KeyboardEvent } from "react";
 import styles from "./Table.module.css";
 import Dropdown from "@/components/Dropdown/Dropdown";
 import ColorPicker from "@/components/ColorPicker/ColorPicker";
@@ -72,6 +72,8 @@ interface TableProps {
     editable: boolean;
     content: string;
     onFocus: () => void;
+    onArrowUp?: () => void;
+    onArrowDown?: () => void;
     onContentUpdate: (content: string) => void;
     onDelete: () => void;
     onEnter: () => void;
@@ -135,7 +137,9 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
     onFocus,
     onContentUpdate,
     onDelete,
-    onEnter
+    onEnter,
+    onArrowUp = () => {},
+    onArrowDown = () => {}
 }, ref) => {
     const radiusRef = useRef<HTMLDivElement>(null);
     const [isRadii, setIsRadii] = useState(false);
@@ -303,6 +307,126 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
     const getCell = useCallback((row: number, col: number) => {
         return tableData[row]?.cells[col];
     }, [tableData]);
+
+    const lastCursorOffset = useRef<number>(0);
+    const cellRefs = useRef<{ [key: string]: HTMLTableCellElement }>({});
+
+    // Save cursor position
+    const saveCursorOffset = () => {
+        const selection = window.getSelection();
+        if (!selection || selection.rangeCount === 0) return;
+        
+        const range = selection.getRangeAt(0);
+        if (!range.collapsed) return;
+        
+        lastCursorOffset.current = range.startOffset;
+    };
+
+    // Restore cursor position
+    const restoreCursorOffset = (element: HTMLElement, offset: number) => {
+        const selection = window.getSelection();
+        if (!selection) return;
+
+        const textContent = element.textContent || '';
+        const adjustedOffset = Math.min(offset, textContent.length);
+        
+        const range = document.createRange();
+        const textNode = findFirstTextNode(element);
+        
+        if (textNode) {
+            range.setStart(textNode, adjustedOffset);
+            range.collapse(true);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+    };
+
+    // Helper to find first text node
+    const findFirstTextNode = (node: Node): Text | null => {
+        if (node.nodeType === Node.TEXT_NODE) return node as Text;
+        
+        for (let i = 0; i < node.childNodes.length; i++) {
+            const found = findFirstTextNode(node.childNodes[i]);
+            if (found) return found;
+        }
+        
+        return null;
+    };
+
+    // Handle cell navigation with arrow keys
+    const handleCellKeyDown = (e: KeyboardEvent<HTMLTableCellElement>, rowIndex: number, colIndex: number) => {
+        saveCursorOffset();
+
+        if (!editable) return;
+
+        switch (e.key) {
+            case 'ArrowUp':
+                e.preventDefault();
+                console.log(rowIndex)
+                if (rowIndex > 0) {
+                    navigateToCell(rowIndex - 1, colIndex);
+                } else {
+                    console.log("Changing")
+                    onArrowUp()
+                }
+                break;
+            case 'ArrowDown':
+                e.preventDefault();
+                if (rowIndex < tableData.length - 1) {
+                    navigateToCell(rowIndex + 1, colIndex);
+                } else {
+                    onArrowDown()
+                }
+                break;
+            case 'ArrowLeft':
+                e.preventDefault();
+                if (colIndex > 0) {
+                    navigateToCell(rowIndex, colIndex - 1);
+                }
+                break;
+            case 'ArrowRight':
+                e.preventDefault();
+                if (colIndex < tableData[0]?.cells.length - 1) {
+                    navigateToCell(rowIndex, colIndex + 1);
+                }
+                break;
+            case 'Enter':
+                e.preventDefault();
+                onEnter();
+                break;
+            case 'Tab':
+                e.preventDefault();
+                if (e.shiftKey) {
+                    // Shift+Tab - move left or up
+                    if (colIndex > 0) {
+                        navigateToCell(rowIndex, colIndex - 1);
+                    } else if (rowIndex > 0) {
+                        navigateToCell(rowIndex - 1, tableData[0].cells.length - 1);
+                    }
+                } else {
+                    // Tab - move right or down
+                    if (colIndex < tableData[0]?.cells.length - 1) {
+                        navigateToCell(rowIndex, colIndex + 1);
+                    } else if (rowIndex < tableData.length - 1) {
+                        navigateToCell(rowIndex + 1, 0);
+                    }
+                }
+                break;
+        }
+    };
+
+    // Navigate to specific cell
+    const navigateToCell = (row: number, col: number) => {
+        const cellId = `${row}-${col}`;
+        const cellElement = cellRefs.current[cellId];
+        
+        if (cellElement) {
+            setSelectedCells([{row, col}]);
+            lastSelectedRef.current = {row, col};
+            cellElement.focus();
+            restoreCursorOffset(cellElement, lastCursorOffset.current);
+        }
+    };
 
     // Handle cell click
     const handleCellClick = (e: React.MouseEvent, rowIndex: number, colIndex: number) => {
@@ -515,8 +639,50 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
         (internalRef as React.MutableRefObject<HTMLTableElement | null>).current = el;
     };
 
+    const renderCell = (row: Record, rowIndex: number, cell: Cell, colIndex: number) => {
+        const isSelected = selectedCells.some(
+            c => c.row === rowIndex && c.col === colIndex
+        );
+        const cellId = `${rowIndex}-${colIndex}`;
+
+        return (
+            <td
+                key={colIndex}
+                ref={el => {
+                    if (el) cellRefs.current[cellId] = el;
+                    else delete cellRefs.current[cellId];
+                }}
+                className={`${styles.cell} ${isSelected ? styles.selected : ''}`}
+                contentEditable={editable}
+                suppressContentEditableWarning={true}
+                onInput={(e) => handleCellInput(e, rowIndex, colIndex)}
+                onClick={(e) => handleCellClick(e, rowIndex, colIndex)}
+                onKeyDown={(e) => handleCellKeyDown(e, rowIndex, colIndex)}
+                style={{
+                    backgroundColor: cell.color,
+                    padding: `${cell.padding}px`,
+                    borderColor: cell.border.color,
+                    borderStyle: cell.border.type,
+                    borderWidth: `${cell.border.thickness}px`,
+                    borderTopWidth: cell.border.sides.top ? `${cell.border.thickness}px` : '0',
+                    borderRightWidth: cell.border.sides.right ? `${cell.border.thickness}px` : '0',
+                    borderBottomWidth: cell.border.sides.bottom ? `${cell.border.thickness}px` : '0',
+                    borderLeftWidth: cell.border.sides.left ? `${cell.border.thickness}px` : '0',
+                    borderRadius: `${cell.border.radius.topLeft}px ${cell.border.radius.topRight}px ${cell.border.radius.bottomRight}px ${cell.border.radius.bottomLeft}px`,
+                    fontFamily: cell.text.family,
+                    fontSize: `${cell.text.size}px`,
+                    color: cell.text.color,
+                    textAlign: cell.text.textAlign,
+                }}
+            />
+        );
+    };
+
     return (
-        <div className={styles.container} onFocus={onFocus}>
+        <div 
+            className={styles.container} 
+            onFocus={onFocus}
+        >
             <table
                 ref={refToUse}
                 className={`${styles.table} ${isToolbarVisible ? styles.focused : ''}`}
@@ -525,38 +691,9 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
                 <tbody>
                     {tableData.map((row, rowIndex) => (
                         <tr key={rowIndex}>
-                            {row.cells.map((cell, colIndex) => {
-                                const isSelected = selectedCells.some(
-                                    c => c.row === rowIndex && c.col === colIndex
-                                );
-                                return (
-                                    <td
-                                        key={colIndex}
-                                        className={`${styles.cell} ${isSelected ? styles.selected : ''}`}
-                                        contentEditable={editable}
-                                        suppressContentEditableWarning={true}
-                                        onInput={(e) => handleCellInput(e, rowIndex, colIndex)}
-                                        onClick={(e) => handleCellClick(e, rowIndex, colIndex)}
-                                        style={{
-                                            backgroundColor: cell.color,
-                                            padding: `${cell.padding}px`,
-                                            borderColor: cell.border.color,
-                                            borderStyle: cell.border.type,
-                                            borderWidth: `${cell.border.thickness}px`,
-                                            borderTopWidth: cell.border.sides.top ? `${cell.border.thickness}px` : '0',
-                                            borderRightWidth: cell.border.sides.right ? `${cell.border.thickness}px` : '0',
-                                            borderBottomWidth: cell.border.sides.bottom ? `${cell.border.thickness}px` : '0',
-                                            borderLeftWidth: cell.border.sides.left ? `${cell.border.thickness}px` : '0',
-                                            borderRadius: `${cell.border.radius.topLeft}px ${cell.border.radius.topRight}px ${cell.border.radius.bottomRight}px ${cell.border.radius.bottomLeft}px`,
-                                            fontFamily: cell.text.family,
-                                            fontSize: `${cell.text.size}px`,
-                                            // fontWeight: cell.text.weight,
-                                            color: cell.text.color,
-                                            textAlign: cell.text.textAlign,
-                                        }}
-                                    />
-                                );
-                            })}
+                            {row.cells.map((cell, colIndex) => 
+                                renderCell(row, rowIndex, cell, colIndex)
+                            )}
                         </tr>
                     ))}
                 </tbody>

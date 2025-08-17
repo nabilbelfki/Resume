@@ -30,28 +30,107 @@ const Editor = () => {
     ]);
     const [activeBlockId, setActiveBlockId] = useState<number>(blocks[0].id);
     const blockRefs = useRef<{ [key: number]: HTMLElement }>({});
+    const [wordCount, setWordCount] = useState(0);
 
     // Determine if the dropdown should be enabled
     const activeBlock = blocks.find(block => block.id === activeBlockId);
     const isParagraphOrHeading = activeBlock && ['p', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(activeBlock.type);
 
+    const [focusPosition, setFocusPosition] = useState<'start' | 'end'>('start');
+
+    const handleArrowNavigation = (direction: 'up' | 'down', blockId: number) => {
+        const currentIndex = blocks.findIndex(block => block.id === blockId);
+        
+        if (direction === 'up' && currentIndex > 0) {
+            setFocusPosition('end'); // When going up, focus at end of previous block
+            setActiveBlockId(blocks[currentIndex - 1].id);
+        } else if (direction === 'down' && currentIndex < blocks.length - 1) {
+            setFocusPosition('start'); // When going down, focus at start of next block
+            setActiveBlockId(blocks[currentIndex + 1].id);
+        }
+    };
+
+    useEffect(() => {
+        const newWordCount = calculateTotalWordCount(blocks);
+        setWordCount(newWordCount);
+    }, [blocks]);
+
+    const countWords = (html: string): number => {
+        // Create a temporary div element to parse HTML
+        const temp = document.createElement('div');
+        temp.innerHTML = html;
+        
+        // Get text content and clean it up
+        const text = temp.textContent || '';
+        
+        // Split into words and filter out empty strings
+        const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+        
+        return words.length;
+    };
+
+    const calculateTotalWordCount = (blocks: Block[]): number => {
+        return blocks.reduce((total, block) => {
+            // Skip certain block types that shouldn't contribute to word count
+            const excludedTypes = ['table', 'delimiter', 'media', 'code'];
+            if (excludedTypes.includes(block.type)) {
+                return total;
+            }
+            
+            // Special handling for checkbox items
+            if (block.type === 'checkbox') {
+                try {
+                    const items = JSON.parse(block.content) as CheckboxItem[];
+                    return total + items.reduce((sum, item) => sum + countWords(item.content), 0);
+                } catch {
+                    return total + countWords(block.content);
+                }
+            }
+            
+            // Special handling for table content (if you want to count table text)
+            if (block.type === 'table') {
+                try {
+                    const tableData = JSON.parse(block.content) as Record[];
+                    return total + tableData.reduce((sum, record) => 
+                    sum + record.cells.reduce((cellSum, cell) => 
+                        cellSum + countWords(cell.text.value), 0), 0);
+                } catch {
+                    return total;
+                }
+            }
+            
+            // Default case - count words in the content
+            return total + countWords(block.content);
+        }, 0);
+    };
+
+    // Updated focus effect
     useEffect(() => {
         if (activeBlockId !== null) {
             const elementToFocus = blockRefs.current[activeBlockId];
             if (elementToFocus) {
                 elementToFocus.focus();
-
+                
                 const selection = window.getSelection();
                 if (selection) {
                     const range = document.createRange();
-                    range.selectNodeContents(elementToFocus);
-                    range.collapse(false);
+                    
+                    if (focusPosition === 'start') {
+                        // Focus at start
+                        range.selectNodeContents(elementToFocus);
+                        range.collapse(true);
+                    } else {
+                        // Focus at end
+                        range.selectNodeContents(elementToFocus);
+                        range.collapse(false);
+                    }
+                    
                     selection.removeAllRanges();
                     selection.addRange(range);
                 }
             }
         }
-    }, [activeBlockId]);
+    }, [activeBlockId, focusPosition]);
 
     const deleteBlock = (id: number) => {
         const blockIndex = blocks.findIndex(block => block.id === id);
@@ -97,6 +176,18 @@ const Editor = () => {
         ));
     };
 
+    const handleEditorClick = () => {
+        console.log("Editor Clicked");
+        // const nonEscapableBlocks = ['table', 'delimiter', 'media', 'code'];
+        // let lastBlock = blocks[blocks.length - 1];
+        // if (nonEscapableBlocks.includes(lastBlock.type)) {
+        //     addBlock('p');
+        //     lastBlock = blocks[blocks.length - 1];
+        // }
+        // console.log(lastBlock.id)
+        // setActiveBlockId(lastBlock.id);
+    }
+
     const updateBlockContent = (id: number, content: string) => {
         setBlocks(blocks.map(block =>
             block.id === id ? { ...block, content } : block
@@ -121,6 +212,8 @@ const Editor = () => {
             editable: true,
             content: block.content,
             onFocus: () => handleFocus(block.id),
+            onArrowUp: () => handleArrowNavigation('up', block.id),
+            onArrowDown: () => handleArrowNavigation('down', block.id),
             onEnter: () => addBlockAfter(index),
             onContentUpdate: (content: string) => updateBlockContent(block.id, content),
             onDelete: () => deleteBlock(block.id),
@@ -291,7 +384,9 @@ const Editor = () => {
     };
 
     return (
-        <div className={styles.container}>
+         <div 
+            className={styles.container}
+        >
             <div className={styles['top-bar']}>
                 <Dropdown
                     placeholder='Choose Element'
@@ -321,11 +416,14 @@ const Editor = () => {
                     </button>
                 ))}
             </div>
-            <div className={styles.editor}>
+            <div 
+                className={styles.editor}
+                onClick={() => handleEditorClick()}
+            >
                 {blocks.map((block, index) => renderComponent(block, index))}
             </div>
             <div className={styles['bottom-bar']}>
-                <span className={styles['word-count']}>Word Count: 1337</span>
+                <span className={styles['word-count']}>Word Count: {wordCount.toLocaleString()}</span>
             </div>
         </div>
     );

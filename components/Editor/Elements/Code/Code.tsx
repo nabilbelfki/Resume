@@ -17,6 +17,9 @@ interface CodeProps {
   editable?: boolean;
   onFocus?: () => void;
   onBlur?: (code: string) => void;
+  onArrowUp?: () => void;
+  onDelete?: () => void;
+  onArrowDown?: () => void;
 }
 
 const supportedLanguages = [
@@ -36,6 +39,9 @@ const Code: React.FC<CodeProps> = ({
   editable = true,
   onFocus = () => {},
   onBlur = () => {},
+  onArrowUp = () => {},
+  onArrowDown = () => {},
+  onDelete = () => {},
 }) => {
   const [code, setCode] = useState(initialCode);
   const [language, setLanguage] = useState<Language>(initialLanguage);
@@ -187,6 +193,60 @@ const Code: React.FC<CodeProps> = ({
 
         editor.onDidBlurEditorText(() => {
           onBlur(editor.getValue());
+        });
+
+        // Handle cursor position changes for arrow key navigation
+        editor.onDidChangeCursorPosition((e: any) => {
+          const position = e.position;
+          const model = editor.getModel();
+          const lineCount = model.getLineCount();
+          
+          // Check if we're at the first line and need to navigate up
+          if (position.lineNumber === 1) {
+            const firstLineContent = model.getLineContent(1);
+            const isAtStart = position.column === 1;
+            
+            // Add custom logic here if needed for first line navigation
+          }
+          
+          // Check if we're at the last line and need to navigate down
+          if (position.lineNumber === lineCount) {
+            const lastLineContent = model.getLineContent(lineCount);
+            const isAtEnd = position.column > lastLineContent.length;
+            
+            // Add custom logic here if needed for last line navigation
+          }
+        });
+
+        // Handle keydown events for arrow key navigation
+        editor.onKeyDown((e: any) => {
+          const position = editor.getPosition();
+          const model = editor.getModel();
+          const lineCount = model.getLineCount();
+          
+          // Arrow Up at first line
+          if (e.keyCode === monaco.KeyCode.UpArrow && position.lineNumber === 1) {
+            onArrowUp();
+            e.preventDefault();
+          }
+          
+          // Arrow Down at last line
+          if (e.keyCode === monaco.KeyCode.DownArrow && position.lineNumber === lineCount) {
+            onArrowDown();
+            e.preventDefault();
+          }
+
+          // Backspace when editor is empty
+          if (e.keyCode === monaco.KeyCode.Backspace) {
+            const currentValue = editor.getValue();
+            console.log("Editor Content", currentValue);
+            const isEditorEmpty = currentValue === '';
+            
+            if (isEditorEmpty) {
+              onDelete();
+              e.preventDefault();
+            }
+          }
         });
 
         // Force focus after creation

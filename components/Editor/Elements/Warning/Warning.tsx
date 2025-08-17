@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState } from "react";
-import styles from "./Warning.module.css"
+import React, { useRef, useEffect } from "react";
+import styles from "./Warning.module.css";
 
 interface WarningProps {
   editable: boolean;
@@ -9,6 +9,8 @@ interface WarningProps {
   onContentUpdate: (content: string) => void;
   onDelete: () => void;
   onEnter: () => void;
+  onArrowUp: () => void;
+  onArrowDown: () => void;
 }
 
 const Warning = React.forwardRef<HTMLDivElement, WarningProps>(({
@@ -18,31 +20,103 @@ const Warning = React.forwardRef<HTMLDivElement, WarningProps>(({
   onFocus,
   onContentUpdate,
   onDelete,
-  onEnter
+  onEnter,
+  onArrowUp,
+  onArrowDown
 }, ref) => {
   const internalRef = useRef<HTMLDivElement>(null);
 
-  // Sync content with the internal ref
   useEffect(() => {
-    // We only update if the content prop is different from the current innerHTML
-    // to avoid an infinite loop and to allow the user to type.
     if (internalRef.current && content !== internalRef.current.innerHTML) {
       internalRef.current.innerHTML = content;
     }
   }, [content]);
 
+  const isCursorAtTopOfElement = (): boolean => {
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0 || !internalRef.current) return false;
+    
+    const range = selection.getRangeAt(0);
+    if (!range.collapsed) return false;
+    
+    const cursorRect = range.getBoundingClientRect();
+    if (cursorRect.height === 0) return false;
+    
+    const textNodes: Text[] = [];
+    const walker = document.createTreeWalker(
+      internalRef.current,
+      NodeFilter.SHOW_TEXT,
+      null
+    );
+    
+    let node;
+    while (node = walker.nextNode()) {
+      textNodes.push(node as Text);
+    }
+    
+    if (textNodes.length === 0) return false;
+    
+    const firstRange = document.createRange();
+    firstRange.selectNodeContents(textNodes[0]);
+    firstRange.collapse(true);
+    const firstLineRect = firstRange.getBoundingClientRect();
+    
+    return cursorRect.top <= firstLineRect.bottom;
+  };
+
+  const isCursorAtBottomOfElement = (): boolean => {
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0 || !internalRef.current) return false;
+    
+    const range = selection.getRangeAt(0);
+    if (!range.collapsed) return false;
+    
+    const cursorRect = range.getBoundingClientRect();
+    if (cursorRect.height === 0) return false;
+    
+    const textNodes: Text[] = [];
+    const walker = document.createTreeWalker(
+      internalRef.current,
+      NodeFilter.SHOW_TEXT,
+      null
+    );
+    
+    let node;
+    while (node = walker.nextNode()) {
+      textNodes.push(node as Text);
+    }
+    
+    if (textNodes.length === 0) return false;
+    
+    const lastRange = document.createRange();
+    lastRange.selectNodeContents(textNodes[textNodes.length - 1]);
+    lastRange.collapse(false);
+    const lastLineRect = lastRange.getBoundingClientRect();
+    
+    return cursorRect.bottom >= lastLineRect.top;
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    // Handle Enter key to create a new block
     if (e.key === 'Enter') {
       e.preventDefault();
       onEnter();
     } 
-    // Handle Backspace key to delete the block if it's empty
     else if (e.key === 'Backspace') {
-      const isCursorAtStart = window.getSelection()?.anchorOffset === 0;
-      if (e.currentTarget.textContent?.trim() === '' && isCursorAtStart) {
+      if (e.currentTarget.textContent?.trim() === '') {
         e.preventDefault();
         onDelete();
+      }
+    }
+    else if (e.key === 'ArrowUp') {
+      if (isCursorAtTopOfElement()) {
+        e.preventDefault();
+        onArrowUp();
+      }
+    }
+    else if (e.key === 'ArrowDown') {
+      if (isCursorAtBottomOfElement()) {
+        e.preventDefault();
+        onArrowDown();
       }
     }
   };
@@ -52,13 +126,12 @@ const Warning = React.forwardRef<HTMLDivElement, WarningProps>(({
   };
 
   const refToUse = (el: HTMLDivElement | null) => {
-    // This function ensures both the external ref and the internal ref are set
     if (typeof ref === 'function') {
       ref(el);
     } else if (ref) {
       (ref as React.MutableRefObject<HTMLDivElement | null>).current = el;
     }
-    (internalRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
+    internalRef.current = el;
   };
 
   return (
@@ -79,9 +152,7 @@ const Warning = React.forwardRef<HTMLDivElement, WarningProps>(({
         onFocus={onFocus}
         suppressContentEditableWarning={true}
         style={{ textAlign }}
-      >
-
-      </div>
+      />
     </div>
   );
 });

@@ -1,6 +1,4 @@
-// in OrderedList.tsx
-
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, forwardRef } from "react";
 import styles from "./OrderedList.module.css";
 
 interface ListItem {
@@ -15,38 +13,98 @@ interface OrderedListProps {
   onEmptyEnter: () => void;
   onEmptyBackspace: () => void;
   onFocus: () => void;
+  onArrowUp: () => void;
+  onArrowDown: () => void;
   focusOnItem?: number | 'last';
+  content?: string;
+  onContentUpdate?: (content: string) => void;
 }
 
-const OrderedList: React.FC<OrderedListProps> = ({ initialItems = [{ id: Date.now(), content: "", level: 0 }], textAlign = 'left', onEmptyEnter, onEmptyBackspace, onFocus, focusOnItem }) => {
+const OrderedList = forwardRef<HTMLOListElement, OrderedListProps>(({ 
+  initialItems = [{ id: Date.now(), content: "", level: 0 }], 
+  textAlign = 'left', 
+  onEmptyEnter, 
+  onEmptyBackspace, 
+  onFocus, 
+  onArrowUp,
+  onArrowDown,
+  focusOnItem,
+  content,
+  onContentUpdate
+}, ref) => {
   const [items, setItems] = useState<ListItem[]>(initialItems);
   const [focusedId, setFocusedId] = useState<number | null>(null);
   const itemRefs = useRef<{ [key: number]: HTMLLIElement }>({});
+  const internalRef = useRef<HTMLOListElement>(null);
+  const lastCursorOffset = useRef<number>(0);
+
+  const refToUse = (el: HTMLOListElement | null) => {
+    if (typeof ref === 'function') {
+      ref(el);
+    } else if (ref) {
+      (ref as React.MutableRefObject<HTMLOListElement | null>).current = el;
+    }
+    internalRef.current = el;
+  };
+
+  const saveCursorOffset = () => {
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) return;
+    
+    const range = selection.getRangeAt(0);
+    if (!range.collapsed) return;
+    
+    lastCursorOffset.current = range.startOffset;
+  };
+
+  const restoreCursorOffset = (element: HTMLElement, offset: number) => {
+    const selection = window.getSelection();
+    if (!selection) return;
+
+    const textContent = element.textContent || '';
+    const adjustedOffset = Math.min(offset, textContent.length);
+    
+    const range = document.createRange();
+    const textNode = findFirstTextNode(element);
+    
+    if (textNode) {
+      range.setStart(textNode, adjustedOffset);
+      range.collapse(true);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+  };
+
+  const findFirstTextNode = (node: Node): Text | null => {
+    if (node.nodeType === Node.TEXT_NODE) return node as Text;
+    
+    for (let i = 0; i < node.childNodes.length; i++) {
+      const found = findFirstTextNode(node.childNodes[i]);
+      if (found) return found;
+    }
+    
+    return null;
+  };
 
   useEffect(() => {
-    // This useEffect now handles both internal and external focus requests
     if (focusOnItem === 'last' && items.length > 0) {
-        const lastItem = items[items.length - 1];
-        setFocusedId(lastItem.id);
+      const lastItem = items[items.length - 1];
+      setFocusedId(lastItem.id);
     } else if (focusedId !== null && itemRefs.current[focusedId]) {
       const element = itemRefs.current[focusedId];
       element.focus();
-
-      const selection = window.getSelection();
-      if (selection) { 
-        const range = document.createRange();
-        range.selectNodeContents(element);
-        range.collapse(false);
-        selection.removeAllRanges();
-        selection.addRange(range);
-      }
+      restoreCursorOffset(element, lastCursorOffset.current);
       setFocusedId(null);
     }
   }, [focusedId, focusOnItem, items]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLLIElement>, index: number) => {
+    const itemId = items[index].id;
     const isCursorAtStart = window.getSelection()?.anchorOffset === 0;
     const isContentEmpty = e.currentTarget.textContent?.trim() === '';
+
+    // Save cursor position before any navigation
+    saveCursorOffset();
 
     // Handle Backspace on a single empty li
     if (e.key === 'Backspace' && isContentEmpty && isCursorAtStart) {
@@ -55,7 +113,6 @@ const OrderedList: React.FC<OrderedListProps> = ({ initialItems = [{ id: Date.no
         onEmptyBackspace();
         return;
       }
-      // If there are multiple items, remove the current one and focus on the previous
       e.preventDefault();
       const newItems = items.filter((_, i) => i !== index);
       setItems(newItems);
@@ -69,13 +126,11 @@ const OrderedList: React.FC<OrderedListProps> = ({ initialItems = [{ id: Date.no
     if (e.key === 'Enter') {
       e.preventDefault();
       
-      // If a single empty li, delete the whole block and add a paragraph
       if (isContentEmpty && items.length === 1) {
           onEmptyBackspace();
           return;
       }
 
-      // If an empty li in a list with more than one item, remove the li and add a paragraph
       if (isContentEmpty && items.length > 1) {
         const newItems = items.filter((_, i) => i !== index);
         setItems(newItems);
@@ -83,23 +138,44 @@ const OrderedList: React.FC<OrderedListProps> = ({ initialItems = [{ id: Date.no
         return;
       }
       
-      // Default behavior: add a new li
       const newId = Date.now();
       const newItems = [...items];
       newItems.splice(index + 1, 0, { id: newId, content: '', level: items[index].level });
       setItems(newItems);
       setFocusedId(newId);
-    } else if (e.key === 'Tab') {
-        e.preventDefault();
-        const newItems = [...items];
-        if (e.shiftKey) {
-          if (newItems[index].level > 0) {
-              newItems[index].level -= 1;
-          }
-        } else {
-          newItems[index].level += 1;
+    } 
+    // Handle Tab for indentation
+    else if (e.key === 'Tab') {
+      e.preventDefault();
+      const newItems = [...items];
+      if (e.shiftKey) {
+        if (newItems[index].level > 0) {
+            newItems[index].level -= 1;
         }
-        setItems(newItems);
+      } else {
+        newItems[index].level += 1;
+      }
+      setItems(newItems);
+    }
+    // Handle Arrow Up
+    else if (e.key === 'ArrowUp') {
+      if (index === 0) {
+        e.preventDefault();
+        onArrowUp();
+      } else {
+        e.preventDefault();
+        setFocusedId(items[index - 1].id);
+      }
+    }
+    // Handle Arrow Down
+    else if (e.key === 'ArrowDown') {
+      if (index === items.length - 1) {
+        e.preventDefault();
+        onArrowDown();
+      } else {
+        e.preventDefault();
+        setFocusedId(items[index + 1].id);
+      }
     }
   };
 
@@ -110,7 +186,11 @@ const OrderedList: React.FC<OrderedListProps> = ({ initialItems = [{ id: Date.no
   };
 
   return (
-    <ol className={styles.list} style={{ textAlign }}>
+    <ol 
+      ref={refToUse}
+      className={styles.list} 
+      style={{ textAlign }}
+    >
       {items.map((item, index) => (
         <li
           key={item.id}
@@ -133,6 +213,7 @@ const OrderedList: React.FC<OrderedListProps> = ({ initialItems = [{ id: Date.no
       ))}
     </ol>
   );
-};
+});
 
+OrderedList.displayName = "OrderedList";
 export default OrderedList;

@@ -8,66 +8,27 @@ import Dropdown from "@/components/Dropdown/Dropdown";
 import BannerUpload from "@/components/BannerUpload/BannerUpload";
 import Editor from "@/components/Editor/Editor";
 
-interface ProjectData {
-  name: string;
-  slug: string;
-  url: string;
-  duration: string;
-  startDate: string;
-  endDate: string;
+interface PostData {
+  title: string;
+  date: string;
+  readTime: number;
   views: number;
-  description: string;
+  category: string;
+  status: "Draft" | "Published" | "Archived";
+  visibility: "Public" | "Private" | null;
+  content: string[];
   thumbnail: {
     name: string;
     path: string;
     backgroundColor?: string;
-  };
-  repositories: {
-    github: string;
-    docker: string;
-    figma: string;
-  };
-  languages: Array<{
+  },
+  banner: {
     name: string;
-    color: string;
-    percentage: number;
-  }>;
-  tools: Array<{
-    name: string;
-    color: string;
-    slug: string;
-    url: string;
-    thumbnail: {
-      name: string;
-      path: string;
-      width?: number;
-      height?: number;
-    };
-  }>;
-  client: {
-    location: {
-      latitude: number;
-      longitude: number;
-    };
-    logo: {
-      name: string;
-      path: string;
-      width?: number;
-      height?: number;
-    };
-    title: string;
-    description: string;
-    slides: Array<{
-      name: string;
-      thumbnail: {
-        name: string;
-        path: string;
-        width?: number;
-        height?: number;
-      };
-      color: string;
-    }>;
-  };
+    path: string;
+    backgroundColor?: string;
+  },
+  slug: string;
+  tags: string[];
 }
 
 const Project: React.FC = () => {
@@ -75,40 +36,33 @@ const Project: React.FC = () => {
     name: '', 
     path: '' 
   });
+
+  const [banner, setBanner] = useState<{ name: string; path: string; backgroundColor?: string }>({ 
+    name: '', 
+    path: '' 
+  });
   
-  const [formData, setFormData] = useState<ProjectData>({
-    name: '',
-    slug: '',
-    url: '',
-    duration: '',
-    startDate: '',
-    endDate: '',
+  const [formData, setFormData] = useState<PostData>({
+    title: '',
+    date: '',
+    readTime: 0,
     views: 0,
-    description: '',
+    category: '',
+    status: "Draft",
+    visibility: 'Public',
+    content: [],
     thumbnail: {
       name: '',
       path: '',
+      backgroundColor: '',
     },
-    repositories: {
-      github: '',
-      docker: '',
-      figma: ''
+    banner: {
+      name: '',
+      path: '',
+      backgroundColor: '',
     },
-    languages: [],
-    tools: [],
-    client: {
-      location: {
-        latitude: 0,
-        longitude: 0
-      },
-      logo: {
-        name: '',
-        path: ''
-      },
-      title: '',
-      description: '',
-      slides: []
-    }
+    slug: '',
+    tags: []
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -122,41 +76,12 @@ const Project: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
-    
-    if (id.startsWith('repositories')) {
-      const field = id.replace('repositories', '').toLowerCase();
-      setFormData(prev => ({
-        ...prev,
-        repositories: {
-          ...prev.repositories,
-          [field]: value
-        }
-      }));
-    } else if (id === 'clientLatitude' || id === 'clientLongitude') {
-      setFormData(prev => ({
-        ...prev,
-        client: {
-          ...prev.client,
-          location: {
-            ...prev.client.location,
-            [id === 'clientLatitude' ? 'latitude' : 'longitude']: Number(value)
-          }
-        }
-      }));
-    } else if (id === 'clientTitle') {
-      setFormData(prev => ({
-        ...prev,
-        client: {
-          ...prev.client,
-          title: value
-        }
-      }));
-    } else {
-      setFormData(prev => ({
-        ...prev,
-        [id]: value
-      }));
-    }
+  
+    setFormData(prev => ({
+      ...prev,
+      [id]: value
+    }));
+
   };
 
   const handleThumbnailChange = (media: { name: string; path: string; backgroundColor?: string }) => {
@@ -164,6 +89,18 @@ const Project: React.FC = () => {
     setFormData(prev => ({
       ...prev,
       thumbnail: {
+        name: media.name,
+        path: media.path,
+        backgroundColor: media.backgroundColor
+      }
+    }));
+  };
+
+  const handleBannerChange = (media: { name: string; path: string; backgroundColor?: string }) => {
+    setBanner(media);
+    setFormData(prev => ({
+      ...prev,
+      banner: {
         name: media.name,
         path: media.path,
         backgroundColor: media.backgroundColor
@@ -210,50 +147,50 @@ const Project: React.FC = () => {
         <label className={styles.title}>General Information</label>
         <div className={styles.grid}>
           <div className={styles.input}>
-            <label htmlFor="name">Title</label>
+            <label htmlFor="title">Title</label>
             <input 
               type="text" 
-              id="name" 
+              id="title" 
               placeholder="Enter Title" 
-              value={formData.name}
+              value={formData.title}
               onChange={handleInputChange}
               required
             />
           </div>
           <div className={styles.input}>
-            <label htmlFor="slug">Category</label>
+            <label htmlFor="category">Category</label>
             <input 
               type="text" 
-              id="slug" 
+              id="category" 
               placeholder="Enter Category" 
-              value={formData.slug}
+              value={formData.category}
               onChange={handleInputChange}
             />
           </div>
           <div className={styles.input}>
-            <label htmlFor="url">Read Time</label>
+            <label htmlFor="readTime">Read Time</label>
             <input 
               type="number" 
-              id="url" 
+              id="readTime" 
               placeholder="Enter Read Time" 
-              value={formData.url}
+              value={formData.readTime}
               onChange={handleInputChange}
             />
           </div>
           <div className={styles.input}>
-            <label htmlFor="duration">Visibility</label>
+            <label htmlFor="visibility">Visibility</label>
             <Dropdown 
               placeholder='Choose Visibility' 
               options={[
                 {label:'Public', value: 'Public'}, 
                 {label:'Private', value: 'Private'}
               ]}
-              value={formData.url}
+              value={formData.visibility}
               onChange={(value) => {
                 // Optional: Allow manual override if needed
                 setFormData(prev => ({
                   ...prev,
-                  type: value as 'Image' | 'Video' | 'Sound'
+                  visibility: value as 'Public' | 'Private' | null
                 }))
               }}
             />
@@ -261,8 +198,8 @@ const Project: React.FC = () => {
         </div>
 
         <BannerUpload 
-          value={thumbnail}
-          onChange={handleThumbnailChange}
+          value={banner}
+          onChange={handleBannerChange}
         />
 
         <Editor />
