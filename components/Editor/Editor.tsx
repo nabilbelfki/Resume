@@ -16,14 +16,7 @@ import Delimiter from "./Elements/Delimiter/Delimiter"
 import Checkbox from "./Elements/Checkbox/Checkbox"
 import Media from "./Elements/Media/Media"
 import Code from './Elements/Code/Code';
-import { Block as Element, EditorHandle } from "@/lib/types"
-
-type Block = {
-    id: number;
-    type: string;
-    content: string;
-    textAlign?: 'left' | 'center' | 'right';
-};
+import { Block, Element, EditorHandle } from "@/lib/types"
 
 type Line = {
     id: number;
@@ -69,7 +62,13 @@ const Editor = forwardRef<EditorHandle, EditorProps>((props, ref) => {
     }, [blocks]);
 
     useImperativeHandle(ref, () => ({
-        getContent: () => getContent()
+        getContent: () => getContent(),
+        setBlocks: (newBlocks: Block[]) => {
+            setBlocks(newBlocks);
+            if (newBlocks.length > 0) {
+            setActiveBlockId(newBlocks[0].id);
+            }
+        }
     }), [blocks]);
 
     const countWords = (html: string, type = ''): number => {

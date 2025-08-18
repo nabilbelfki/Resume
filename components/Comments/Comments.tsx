@@ -25,7 +25,7 @@ const Comments: React.FC<CommentsProp> = ({ comments }) => {
                     <Comment 
                         key={'comment' + index} 
                         date={comment.date} 
-                        name={comment.name} 
+                        author={comment.author} 
                         time={comment.time}
                         text={comment.text}
                     />

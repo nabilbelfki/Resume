@@ -2,7 +2,7 @@ import React from "react";
 import { comment as CommentProp } from '@/lib/types';
 import styles from "./Comment.module.css";
 
-const Comment: React.FC<CommentProp> = ({ name, date, time, text }) => {
+const Comment: React.FC<CommentProp> = ({ author, date, time, text }) => {
     const inputDate = new Date(date);
     const now = new Date();
 
@@ -48,9 +48,9 @@ const Comment: React.FC<CommentProp> = ({ name, date, time, text }) => {
     }
 
     const timeStamp = `${dateLabel} at ${time}`;
-    const nameWords = name.split(" ");
-    const firstInitial = nameWords[0][0];
-    const secondInitial = nameWords.length > 1 ? nameWords[1][0] : '';
+    const name = `${author.firstName} ${author.lastName}`;
+    const firstInitial = author.firstName[0];
+    const secondInitial = author.lastName[0];
     const initials = firstInitial + secondInitial;
 
     return (

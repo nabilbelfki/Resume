@@ -134,6 +134,7 @@ export default async function handler(req, res) {
             status,
             content,
             thumbnail,
+            visibility,
             banner,
             slug,
             tags
@@ -154,6 +155,7 @@ export default async function handler(req, res) {
             category: category || 'OTHER',
             status: status || 'Draft',
             content,
+            visibility,
             thumbnail,
             banner,
             slug,

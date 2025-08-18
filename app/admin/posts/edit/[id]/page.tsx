@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import styles from "./Post.module.css"
 import { useUser } from '@/contexts/UserContext';
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
-import { Breadcrumb as breadcrumb} from "@/lib/types";
+import { Breadcrumb as breadcrumb, Block} from "@/lib/types";
 import ThumbnailUpload from "@/components/ThumbnailUpload/ThumbnailUpload"
 import Dropdown from "@/components/Dropdown/Dropdown";
 import BannerUpload from "@/components/BannerUpload/BannerUpload";
@@ -125,17 +125,23 @@ const Post: React.FC = () => {
           const post = await response.json();
           console.log("Post", post)
 
-          const thumbnailLastSlashIndex = post.thumbnail.lastIndexOf('/');
-          const thumbnailPath = post.thumbnail.substring(0, thumbnailLastSlashIndex + 1);
-          const thumbnailName = post.thumbnail.substring(thumbnailLastSlashIndex + 1);
-          handleThumbnailChange({name: thumbnailName, path: thumbnailPath, backgroundColor: ''})
+          if (post.thumbnail) {
+            const thumbnailLastSlashIndex = post.thumbnail.lastIndexOf('/');
+            const thumbnailPath = post.thumbnail.substring(0, thumbnailLastSlashIndex + 1);
+            const thumbnailName = post.thumbnail.substring(thumbnailLastSlashIndex + 1);
+            handleThumbnailChange({name: thumbnailName, path: thumbnailPath, backgroundColor: ''})
+          }
           
-          const bannerLastSlashIndex = post.banner.lastIndexOf('/');
-          const bannerPath = post.banner.substring(0, bannerLastSlashIndex + 1);
-          const bannerName = post.banner.substring(bannerLastSlashIndex + 1);
-          console.log(bannerPath, bannerName)
-          handleBannerChange({name: bannerName, path: bannerPath, backgroundColor: ''})
-
+          if (post.banner) {
+            const bannerLastSlashIndex = post.banner.lastIndexOf('/');
+            const bannerPath = post.banner.substring(0, bannerLastSlashIndex + 1);
+            const bannerName = post.banner.substring(bannerLastSlashIndex + 1);
+            console.log(bannerPath, bannerName)
+            handleBannerChange({name: bannerName, path: bannerPath, backgroundColor: ''})
+          }
+          
+          // console.log("Content", post.content.stringify);
+          
           // Use functional update to ensure we have the latest state
           setFormData(prevFormData => ({
             ...prevFormData,
@@ -148,17 +154,13 @@ const Post: React.FC = () => {
             content: post.content,
             slug: post.slug,
             tags: post.tags,
-            thumbnail: {
-              name: thumbnailName,
-              path: thumbnailPath,
-              backgroundColor: ''
-            },
-            banner: {
-              name: bannerName,
-              path: bannerPath,
-              backgroundColor: ''
-            }
           }));
+
+          // Initialize editor with content
+          if (editorRef.current && post.content) {
+            const blocks = convertContentToBlocks(post.content);
+            editorRef.current.setBlocks(blocks);
+          }
         } catch (error) {
           console.error('Error fetching post:', error);
         }
@@ -166,6 +168,92 @@ const Post: React.FC = () => {
       fetchMedia();
     }
   }, [id]);
+
+  type Block = {
+    id: number;
+    type: string;
+    content: string;
+    textAlign?: 'left' | 'center' | 'right';
+  };
+
+  const convertContentToBlocks = (content: any[]): Block[] => {
+    return content.map(item => {
+      const baseBlock = {
+        id: Date.now() + Math.random(),
+        content: '',
+        textAlign: item.textAlign || 'left'
+      };
+
+      if (item.tag === 'p' || ['h2', 'h3', 'h4', 'h5', 'h6'].includes(item.tag)) {
+        return {
+          ...baseBlock,
+          type: item.tag,
+          content: item.text || ''
+        };
+      } else if (item.tag === 'ol' || item.tag === 'ul') {
+        const lines = item.items?.map((i: any) => ({
+          content: i.text,
+          level: i.marginLeft / 20 // Assuming 20px per level
+        })) || [];
+        return {
+          ...baseBlock,
+          type: item.tag,
+          content: JSON.stringify(lines)
+        };
+      } else if (item.tag === 'checkbox') {
+        const lines = item.items?.map((i: any) => ({
+          content: i.text,
+          checked: i.checked
+        })) || [];
+        return {
+          ...baseBlock,
+          type: item.tag,
+          content: JSON.stringify(lines)
+        };
+      } else if (item.tag === 'media') {
+        // Handle media blocks
+        return {
+          ...baseBlock,
+          type: 'media',
+          content: JSON.stringify({
+            name: item.source?.split('/').pop() || '',
+            path: item.source?.substring(0, item.source.lastIndexOf('/') + '/') || ''
+          })
+        };
+      } else if (item.tag === 'delimiter') {
+        return {
+          ...baseBlock,
+          type: 'delimiter',
+          content: JSON.stringify(item)
+        };
+      } else if (item.tag === 'table') {
+        return {
+          ...baseBlock,
+          type: 'table',
+          content: JSON.stringify(item.records || [])
+        };
+      } else if (item.tag === 'quote' || item.tag === 'warning') {
+        return {
+          ...baseBlock,
+          type: item.tag,
+          content: item.text || ''
+        };
+      } else if (item.tag === 'code') {
+        return {
+          ...baseBlock,
+          type: 'code',
+          content: item.text || ''
+        };
+      }
+
+      // Default to paragraph
+      return {
+        ...baseBlock,
+        type: 'p',
+        content: ''
+      };
+    });
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;

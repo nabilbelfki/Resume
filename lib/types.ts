@@ -153,7 +153,10 @@ export interface Experiences {
   export interface comment {
     date: string;
     time: string;
-    name: string;
+    author: {
+      firstName: string;
+      lastName: string;
+    }
     text: string;
   }
 
@@ -234,7 +237,8 @@ export interface Experiences {
     text: string;
   }
 
-  export interface Block {
+  export interface Element {
+    id?: number;
     tag: string;
     text?: string;
     textAlign?: 'left' | 'center' | 'right' | 'undefined';
@@ -249,5 +253,13 @@ export interface Experiences {
   }
 
   export interface EditorHandle {
-    getContent: () => Block[];
+    getContent: () => Element[];
+    setBlocks: (blocks: Block[]) => void;
   }
+
+  export type Block = {
+    id: number;
+    type: string;
+    content: string;
+    textAlign?: 'left' | 'center' | 'right';
+};

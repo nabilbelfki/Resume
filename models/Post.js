@@ -11,7 +11,7 @@ const Comment = new mongoose.Schema({
 });
 
 const Item = new mongoose.Schema({
-  text: { type: String, required: true },
+  text: { type: String, required: false },
   checked: { type: Boolean, required: false },
   marginLeft: { type: Number, required: false },
 });
