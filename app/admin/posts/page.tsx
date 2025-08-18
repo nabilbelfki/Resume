@@ -72,7 +72,7 @@ const Posts: React.FC = () => {
                         ]
                     }, 
                     { 
-                        label:'Created', 
+                        label:'Date', 
                         selectors: [['date']],
                         alignment: 'center',
                         sort: true,

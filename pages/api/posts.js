@@ -125,7 +125,8 @@ export default async function handler(req, res) {
             category,
             status,
             content,
-            featuredImage,
+            thumbnail,
+            banner,
             slug,
             tags
           } = req.body;
@@ -140,12 +141,13 @@ export default async function handler(req, res) {
             title,
             author,
             date: date || new Date().toISOString(),
-            readTime: readTime || 5, // Default read time
-            views: 0, // Initialize views
+            readTime: readTime || 5,
+            views: 0,
             category: category || 'OTHER',
             status: status || 'Draft',
             content,
-            featuredImage: featuredImage || null,
+            thumbnail,
+            banner,
             slug,
             tags: tags || [],
             createdAt: new Date(),

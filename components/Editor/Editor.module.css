@@ -16,6 +16,7 @@
 }
 
 .top-bar {
+  position: relative;
   background: linear-gradient(#E3E3E3 0%, #F5f5f5 50%, #E3E3E3 100%);
   border: solid 0.6px #C6C6C6;
   display: flex;
@@ -48,4 +49,34 @@
 .word-count {
   font-size: 8px;
   font-weight: 550;
+}
+
+.visual-or-text {
+  position: absolute;
+  display: flex;
+  gap: 10px;
+  top: 5px;
+  right: 10px;
+}
+
+.visual-or-text button {
+    padding: 10px;
+    outline: none;
+    font-size: 16px;
+    color: #4C4C4C;
+    border: solid 1.6px #C6C6C6;
+    /* box-shadow: 0 0 1.5px 0 rgba(0,0,0,0.25); */
+    background-color: #efefef;
+    display: flex;
+    cursor: pointer;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 34px;
+    gap: 10px;
+}
+
+.visual-or-text button.selected {
+  background-color: #FFFFFF;
+  border-bottom: #FFFFFF;
 }

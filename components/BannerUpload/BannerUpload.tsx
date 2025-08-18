@@ -17,13 +17,15 @@ interface BannerUploadProps {
     backgroundColor?: string; // Add background color
   }) => void;
   backgroundColor?: string; // Optional prop to override
+  style?: React.CSSProperties;
 }
 
 
 const BannerUpload: React.FC<BannerUploadProps> = ({ 
   value, 
   onChange,
-  backgroundColor 
+  backgroundColor,
+  style = {}
 }) => {
     const [showMediaPicker, setShowMediaPicker] = useState(false);
 
@@ -57,7 +59,7 @@ const BannerUpload: React.FC<BannerUploadProps> = ({
             />
             <div 
                 className={styles.thumbnail} 
-                style={{ backgroundColor: thumbnailBgColor }}
+                style={{ ...style, backgroundColor: thumbnailBgColor }}
                 onClick={()=>setShowMediaPicker(true)}
             >
                 {value?.name ? 

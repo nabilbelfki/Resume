@@ -10,6 +10,8 @@ interface CheckboxItem {
 
 interface CheckboxProps {
   editable: boolean;
+  content?: string; // New prop for controlled content
+  onContentUpdate?: (content: string) => void; // New callback
   onEmptyEnter?: () => void;
   onEmptyBackspace?: () => void;
   onFocus?: () => void;
@@ -17,21 +19,50 @@ interface CheckboxProps {
   onArrowDown?: () => void;
 }
 
+// Helper to parse content string to CheckboxItem[]
+const parseContent = (content?: string): CheckboxItem[] => {
+  if (!content) return [{ id: Date.now(), checked: false, content: "" }];
+  
+  try {
+    const parsed = JSON.parse(content);
+    if (Array.isArray(parsed) && parsed.every(item => 
+      typeof item.id === 'number' && 
+      typeof item.checked === 'boolean' && 
+      typeof item.content === 'string'
+    )) {
+      return parsed;
+    }
+    return [{ id: Date.now(), checked: false, content: "" }];
+  } catch {
+    return [{ id: Date.now(), checked: false, content: "" }];
+  }
+};
+
+// Helper to serialize CheckboxItem[] to string
+const serializeContent = (items: CheckboxItem[]): string => {
+  return JSON.stringify(items);
+};
+
 const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(({ 
   editable, 
+  content,
+  onContentUpdate = () => {},
   onEmptyEnter = () => {}, 
   onEmptyBackspace = () => {}, 
   onFocus = () => {},
   onArrowUp = () => {},
   onArrowDown = () => {}
 }, ref) => {
-  const [items, setItems] = useState<CheckboxItem[]>([
-    { id: Date.now(), checked: false, content: "" }
-  ]);
+  const [items, setItems] = useState<CheckboxItem[]>(parseContent(content));
   const [focusedId, setFocusedId] = useState<number | null>(null);
   const itemRefs = useRef<{ [key: number]: HTMLDivElement }>({});
   const internalRef = useRef<HTMLDivElement>(null);
   const lastCursorOffset = useRef<number>(0);
+
+  // Update internal state when content prop changes
+  useEffect(() => {
+    setItems(parseContent(content));
+  }, [content]);
 
   const refToUse = (el: HTMLDivElement | null) => {
     if (typeof ref === 'function') {
@@ -90,26 +121,30 @@ const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(({
     }
   }, [focusedId]);
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>, index: number) => {
+  const updateItems = (newItems: CheckboxItem[]) => {
+    setItems(newItems);
+    onContentUpdate(serializeContent(newItems));
+  };
+
+const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>, index: number) => {
+    console.log("Key", e.key)
     const isContentEmpty = e.currentTarget.textContent?.trim() === "";
     const isCursorAtStart = window.getSelection()?.anchorOffset === 0;
 
-    // Save cursor position before any navigation
     saveCursorOffset();
 
-    // Handle Backspace on empty checkbox
     if (e.key === "Backspace" && isContentEmpty && isCursorAtStart) {
       e.preventDefault();
       if (items.length === 1) {
         onEmptyBackspace();
       } else {
-        setItems(prev => prev.filter((_, i) => i !== index));
+        const newItems = items.filter((_, i) => i !== index);
+        updateItems(newItems);
         setFocusedId(items[Math.max(0, index - 1)].id);
       }
       return;
     }
 
-    // Handle Enter
     if (e.key === "Enter") {
       e.preventDefault();
       
@@ -117,21 +152,22 @@ const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(({
         if (items.length === 1) {
           onEmptyBackspace();
         } else {
-          setItems(prev => prev.filter((_, i) => i !== index));
+          const newItems = items.filter((_, i) => i !== index);
+          updateItems(newItems);
           onEmptyEnter();
         }
         return;
       }
 
       const newId = Date.now();
-      setItems(prev => [
-        ...prev.slice(0, index + 1),
+      const newItems = [
+        ...items.slice(0, index + 1),
         { id: newId, checked: false, content: "" },
-        ...prev.slice(index + 1)
-      ]);
+        ...items.slice(index + 1)
+      ];
+      updateItems(newItems);
       setFocusedId(newId);
     }
-    // Handle Arrow Up
     else if (e.key === "ArrowUp") {
       e.preventDefault();
       if (index === 0) {
@@ -140,7 +176,6 @@ const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(({
         setFocusedId(items[index - 1].id);
       }
     }
-    // Handle Arrow Down
     else if (e.key === "ArrowDown") {
       e.preventDefault();
       if (index === items.length - 1) {
@@ -152,15 +187,17 @@ const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(({
   };
 
   const handleBlur = (index: number, content: string) => {
-    setItems(prev => prev.map((item, i) => 
+    const newItems = items.map((item, i) => 
       i === index ? { ...item, content } : item
-    ));
+    );
+    updateItems(newItems);
   };
 
   const toggleCheckbox = (index: number) => {
-    setItems(prev => prev.map((item, i) => 
+    const newItems = items.map((item, i) => 
       i === index ? { ...item, checked: !item.checked } : item
-    ));
+    );
+    updateItems(newItems);
   };
 
   return (

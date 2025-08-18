@@ -1,7 +1,7 @@
 'use client';
 import { Key } from './key.type'
 import icons from './icons';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react';
 import styles from "./Editor.module.css";
 import Dropdown from '../Dropdown/Dropdown';
 import Paragraph from './Elements/Paragraph/Paragraph';
@@ -16,6 +16,7 @@ import Delimiter from "./Elements/Delimiter/Delimiter"
 import Checkbox from "./Elements/Checkbox/Checkbox"
 import Media from "./Elements/Media/Media"
 import Code from './Elements/Code/Code';
+import { Block as Element, EditorHandle } from "@/lib/types"
 
 type Block = {
     id: number;
@@ -24,7 +25,19 @@ type Block = {
     textAlign?: 'left' | 'center' | 'right';
 };
 
-const Editor = () => {
+type Line = {
+    id: number;
+    content: string;
+    level?: number;
+    checked?: boolean;
+}
+
+interface EditorProps {
+    
+}
+
+const Editor = forwardRef<EditorHandle, EditorProps>((props, ref) => {
+    const [editable, setEditable] = useState(true);
     const [blocks, setBlocks] = useState<Block[]>([
         { id: Date.now(), type: 'p', content: '', textAlign: 'left' }
     ]);
@@ -55,7 +68,19 @@ const Editor = () => {
         setWordCount(newWordCount);
     }, [blocks]);
 
-    const countWords = (html: string): number => {
+    useImperativeHandle(ref, () => ({
+        getContent: () => getContent()
+    }), [blocks]);
+
+    const countWords = (html: string, type = ''): number => {
+        if ((type === 'ol' || type === 'ul' || type === 'checkbox') && html.includes('id')) {
+            const lines: Line[] = JSON.parse(html);
+            html = "";
+            lines.forEach((line) => {
+                if (html !== "") html += " ";
+                html += line.content;
+            });          
+        }
         // Create a temporary div element to parse HTML
         const temp = document.createElement('div');
         temp.innerHTML = html;
@@ -71,36 +96,19 @@ const Editor = () => {
 
     const calculateTotalWordCount = (blocks: Block[]): number => {
         return blocks.reduce((total, block) => {
-            // Skip certain block types that shouldn't contribute to word count
-            const excludedTypes = ['table', 'delimiter', 'media', 'code'];
+            const excludedTypes = [
+                // 'ul', 
+                'delimiter', 
+                'media', 
+                'code'
+            ];
+
             if (excludedTypes.includes(block.type)) {
                 return total;
             }
             
-            // Special handling for checkbox items
-            if (block.type === 'checkbox') {
-                try {
-                    const items = JSON.parse(block.content) as CheckboxItem[];
-                    return total + items.reduce((sum, item) => sum + countWords(item.content), 0);
-                } catch {
-                    return total + countWords(block.content);
-                }
-            }
-            
-            // Special handling for table content (if you want to count table text)
-            if (block.type === 'table') {
-                try {
-                    const tableData = JSON.parse(block.content) as Record[];
-                    return total + tableData.reduce((sum, record) => 
-                    sum + record.cells.reduce((cellSum, cell) => 
-                        cellSum + countWords(cell.text.value), 0), 0);
-                } catch {
-                    return total;
-                }
-            }
-            
             // Default case - count words in the content
-            return total + countWords(block.content);
+            return total + countWords(block.content, block.type);
         }, 0);
     };
 
@@ -145,6 +153,96 @@ const Editor = () => {
         }
     };
 
+    const getContent = () => {
+        const content: Element[] = [];
+        blocks.forEach(block => {
+            const type = block.type;
+            if (type === 'p' || ['h2', 'h3', 'h4', 'h5', 'h6'].includes(type)) {
+                content.push({
+                    tag: type,
+                    text: block.content,
+                    textAlign: block.textAlign
+                });
+            } else if (['ol', 'ul'].includes(type)) {
+                interface Item {
+                    marginLeft: number;
+                    text: string;
+                }
+                const items: Item[] = [];
+                JSON.parse(block.content).forEach((item: Line) => {
+                    items.push({
+                        marginLeft: (item.level ?? 0) * 20,
+                        text: item.content
+                    });
+                });
+                content.push({
+                    tag: type,
+                    items
+                })
+            } else if (type === 'media') {
+                const media = JSON.parse(block.content);
+                const extension = media.name.split('.').pop().toLowerCase();
+                if (media.path.substring(0, 7) === "/images") {
+                    content.push({
+                        tag: 'img',
+                        source: `${media.path}${media.name}`
+                    });
+                } else if (media.path.substring(0, 7) === "/videos") {
+                    content.push({
+                        tag: 'video',
+                        source: `${media.path}${media.name}`
+                    });
+                } else if (media.path.substring(0, 7) === "/sounds") {
+                    content.push({
+                        tag: 'audio',
+                        source: `${media.path}${media.name}`,
+                        extension: `${extension}`
+                    });
+                }
+            } else if (type === 'quote' || type === 'warning') {
+                content.push({
+                    tag: type,
+                    text: block.content,
+                    textAlign: block.textAlign
+                });
+            } else if (type === 'table') {
+                const records = JSON.parse(block.content);
+                content.push({
+                    tag: type,
+                    records
+                });
+            } else if (type === 'checkbox') {
+                interface Item {
+                    checked: boolean;
+                    text: string;
+                }
+                const items: Item[] = [];
+                JSON.parse(block.content).forEach((item: Line) => {
+                    const checked = item.checked ?? false;
+                    items.push({
+                        checked,
+                        text: item.content
+                    });
+                });
+                content.push({
+                    tag: type,
+                    items
+                })
+            } else if (type === 'delimiter') {
+                const delimiter = JSON.parse(block.content);
+                content.push({
+                    tag: type,
+                    color: delimiter.color,
+                    type: delimiter.type,
+                    thickness: delimiter.thickness,
+                    dashLength: delimiter.type === 'solid' ? 0 : delimiter.dashLength
+                })
+            }
+        });
+
+        return content;
+    };
+
     const buttons = [
         'bold',
         'italic',
@@ -184,7 +282,7 @@ const Editor = () => {
         //     addBlock('p');
         //     lastBlock = blocks[blocks.length - 1];
         // }
-        // console.log(lastBlock.id)
+        console.log(blocks)
         // setActiveBlockId(lastBlock.id);
     }
 
@@ -209,7 +307,7 @@ const Editor = () => {
 
     const renderComponent = (block: Block, index: number) => {
         const commonProps = {
-            editable: true,
+            editable,
             content: block.content,
             onFocus: () => handleFocus(block.id),
             onArrowUp: () => handleArrowNavigation('up', block.id),
@@ -415,6 +513,10 @@ const Editor = () => {
                         {icons(button as Key)}
                     </button>
                 ))}
+                <div className={styles['visual-or-text']}>
+                    <button className={!editable ? styles.selected : ''} onClick={() => setEditable(false)}>Visual</button>
+                    <button className={editable ? styles.selected : ''} onClick={() => setEditable(true)}>Text</button>
+                </div>
             </div>
             <div 
                 className={styles.editor}
@@ -427,6 +529,6 @@ const Editor = () => {
             </div>
         </div>
     );
-};
+});
 
 export default Editor;

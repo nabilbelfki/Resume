@@ -64,6 +64,8 @@ async function handlePutRequest(id, req, res) {
     {
       title: body.title,
       author: body.author,
+      thumbnail: body.thumbnail,
+      banner: body.banner,
       date: body.date,
       readTime: body.readTime,
       category: body.category,

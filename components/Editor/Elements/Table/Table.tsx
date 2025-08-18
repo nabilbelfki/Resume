@@ -2,41 +2,7 @@ import React, { useRef, useEffect, useState, useCallback, KeyboardEvent } from "
 import styles from "./Table.module.css";
 import Dropdown from "@/components/Dropdown/Dropdown";
 import ColorPicker from "@/components/ColorPicker/ColorPicker";
-
-interface Record {
-    cells: Cell[];
-}
-
-interface Cell {
-    text: {
-        value: string;
-        family: string;
-        size: number;
-        weight: number;
-        color: string;
-        textAlign: 'left' | 'center' | 'right';
-    },
-    color: string;
-    padding: number;
-    border: {
-        type: 'solid' | 'dashed';
-        dash?: number;
-        color: string;
-        sides: {
-            top: boolean;
-            left: boolean;
-            right: boolean;
-            bottom: boolean;
-        }
-        thickness: number;
-        radius: {
-            topLeft: number;
-            topRight: number;
-            bottomLeft: number;
-            bottomRight: number;
-        }
-    }
-}
+import { Cell, Record } from "@/lib/types"
 
 interface Properties {
     rows: number;

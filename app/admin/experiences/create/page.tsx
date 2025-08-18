@@ -345,9 +345,6 @@ const Experience: React.FC = () => {
     }
 
     try {
-      if (!formData.name || !formData.title || !formData.period.start) {
-        throw new Error('Name, title, and start date are required');
-      }
 
       // Ensure logo data is properly set
       const finalFormData = {

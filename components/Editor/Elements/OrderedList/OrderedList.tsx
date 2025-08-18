@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect, forwardRef } from "react";
+"use client"
+import React, { useState, useRef, useEffect, KeyboardEvent, forwardRef } from "react";
 import styles from "./OrderedList.module.css";
 
 interface ListItem {
@@ -8,35 +9,60 @@ interface ListItem {
 }
 
 interface OrderedListProps {
-  initialItems?: ListItem[];
-  textAlign?: 'left' | 'center' | 'right';
-  onEmptyEnter: () => void;
-  onEmptyBackspace: () => void;
-  onFocus: () => void;
-  onArrowUp: () => void;
-  onArrowDown: () => void;
-  focusOnItem?: number | 'last';
+  editable: boolean;
   content?: string;
   onContentUpdate?: (content: string) => void;
+  onEmptyEnter?: () => void;
+  onEmptyBackspace?: () => void;
+  onFocus?: () => void;
+  onArrowUp?: () => void;
+  onArrowDown?: () => void;
 }
 
+// Helper to parse content string to ListItem[]
+const parseContent = (content?: string): ListItem[] => {
+  if (!content) return [{ id: Date.now(), content: "", level: 0 }];
+  
+  try {
+    const parsed = JSON.parse(content);
+    if (Array.isArray(parsed) && parsed.every(item => 
+      typeof item.id === 'number' && 
+      typeof item.content === 'string' &&
+      typeof item.level === 'number'
+    )) {
+      return parsed;
+    }
+    return [{ id: Date.now(), content: "", level: 0 }];
+  } catch {
+    return [{ id: Date.now(), content: "", level: 0 }];
+  }
+};
+
+// Helper to serialize ListItem[] to string
+const serializeContent = (items: ListItem[]): string => {
+  return JSON.stringify(items);
+};
+
 const OrderedList = forwardRef<HTMLOListElement, OrderedListProps>(({ 
-  initialItems = [{ id: Date.now(), content: "", level: 0 }], 
-  textAlign = 'left', 
-  onEmptyEnter, 
-  onEmptyBackspace, 
-  onFocus, 
-  onArrowUp,
-  onArrowDown,
-  focusOnItem,
+  editable, 
   content,
-  onContentUpdate
+  onContentUpdate = () => {},
+  onEmptyEnter = () => {}, 
+  onEmptyBackspace = () => {}, 
+  onFocus = () => {},
+  onArrowUp = () => {},
+  onArrowDown = () => {}
 }, ref) => {
-  const [items, setItems] = useState<ListItem[]>(initialItems);
+  const [items, setItems] = useState<ListItem[]>(parseContent(content));
   const [focusedId, setFocusedId] = useState<number | null>(null);
   const itemRefs = useRef<{ [key: number]: HTMLLIElement }>({});
   const internalRef = useRef<HTMLOListElement>(null);
   const lastCursorOffset = useRef<number>(0);
+
+  // Update internal state when content prop changes
+  useEffect(() => {
+    setItems(parseContent(content));
+  }, [content]);
 
   const refToUse = (el: HTMLOListElement | null) => {
     if (typeof ref === 'function') {
@@ -87,126 +113,115 @@ const OrderedList = forwardRef<HTMLOListElement, OrderedListProps>(({
   };
 
   useEffect(() => {
-    if (focusOnItem === 'last' && items.length > 0) {
-      const lastItem = items[items.length - 1];
-      setFocusedId(lastItem.id);
-    } else if (focusedId !== null && itemRefs.current[focusedId]) {
+    if (focusedId !== null && itemRefs.current[focusedId]) {
       const element = itemRefs.current[focusedId];
       element.focus();
       restoreCursorOffset(element, lastCursorOffset.current);
       setFocusedId(null);
     }
-  }, [focusedId, focusOnItem, items]);
+  }, [focusedId]);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLLIElement>, index: number) => {
-    const itemId = items[index].id;
+  const updateItems = (newItems: ListItem[]) => {
+    setItems(newItems);
+    onContentUpdate(serializeContent(newItems));
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLLIElement>, index: number) => {
+    const isContentEmpty = e.currentTarget.textContent?.trim() === "";
     const isCursorAtStart = window.getSelection()?.anchorOffset === 0;
-    const isContentEmpty = e.currentTarget.textContent?.trim() === '';
 
-    // Save cursor position before any navigation
     saveCursorOffset();
 
-    // Handle Backspace on a single empty li
-    if (e.key === 'Backspace' && isContentEmpty && isCursorAtStart) {
-      if (items.length === 1) {
-        e.preventDefault();
-        onEmptyBackspace();
-        return;
-      }
+    if (e.key === "Backspace" && isContentEmpty && isCursorAtStart) {
       e.preventDefault();
-      const newItems = items.filter((_, i) => i !== index);
-      setItems(newItems);
-      if (index > 0) {
-        setFocusedId(items[index - 1].id);
+      if (items.length === 1) {
+        onEmptyBackspace();
+      } else {
+        const newItems = items.filter((_, i) => i !== index);
+        updateItems(newItems);
+        setFocusedId(items[Math.max(0, index - 1)].id);
       }
       return;
     }
-    
-    // Handle Enter
-    if (e.key === 'Enter') {
+
+    if (e.key === "Enter") {
       e.preventDefault();
       
-      if (isContentEmpty && items.length === 1) {
+      if (isContentEmpty) {
+        if (items.length === 1) {
           onEmptyBackspace();
-          return;
-      }
-
-      if (isContentEmpty && items.length > 1) {
-        const newItems = items.filter((_, i) => i !== index);
-        setItems(newItems);
-        onEmptyEnter();
+        } else {
+          const newItems = items.filter((_, i) => i !== index);
+          updateItems(newItems);
+          onEmptyEnter();
+        }
         return;
       }
-      
+
       const newId = Date.now();
-      const newItems = [...items];
-      newItems.splice(index + 1, 0, { id: newId, content: '', level: items[index].level });
-      setItems(newItems);
+      const newItems = [
+        ...items.slice(0, index + 1),
+        { id: newId, content: "", level: items[index].level },
+        ...items.slice(index + 1)
+      ];
+      updateItems(newItems);
       setFocusedId(newId);
-    } 
-    // Handle Tab for indentation
-    else if (e.key === 'Tab') {
+    }
+    else if (e.key === "Tab") {
       e.preventDefault();
       const newItems = [...items];
       if (e.shiftKey) {
+        // Shift+Tab - decrease indentation
         if (newItems[index].level > 0) {
-            newItems[index].level -= 1;
+          newItems[index].level -= 1;
         }
       } else {
+        // Tab - increase indentation
         newItems[index].level += 1;
       }
-      setItems(newItems);
+      updateItems(newItems);
     }
-    // Handle Arrow Up
-    else if (e.key === 'ArrowUp') {
+    else if (e.key === "ArrowUp") {
+      e.preventDefault();
       if (index === 0) {
-        e.preventDefault();
         onArrowUp();
       } else {
-        e.preventDefault();
         setFocusedId(items[index - 1].id);
       }
     }
-    // Handle Arrow Down
-    else if (e.key === 'ArrowDown') {
+    else if (e.key === "ArrowDown") {
+      e.preventDefault();
       if (index === items.length - 1) {
-        e.preventDefault();
         onArrowDown();
       } else {
-        e.preventDefault();
         setFocusedId(items[index + 1].id);
       }
     }
   };
 
-  const handleBlur = (e: React.FocusEvent<HTMLLIElement>, index: number) => {
-    const newItems = [...items];
-    newItems[index].content = e.currentTarget.innerHTML;
-    setItems(newItems);
+  const handleBlur = (index: number, content: string) => {
+    const newItems = items.map((item, i) => 
+      i === index ? { ...item, content } : item
+    );
+    updateItems(newItems);
   };
 
   return (
-    <ol 
-      ref={refToUse}
-      className={styles.list} 
-      style={{ textAlign }}
-    >
+    <ol className={styles.list} ref={refToUse}>
       {items.map((item, index) => (
         <li
           key={item.id}
           ref={el => {
-            if (el) {
-              itemRefs.current[item.id] = el;
-            } else {
-              delete itemRefs.current[item.id];
-            }
+            if (el) itemRefs.current[item.id] = el;
+            else delete itemRefs.current[item.id];
           }}
           className={styles.listItem}
           style={{ marginLeft: `${item.level * 20}px` }}
-          contentEditable={true}
+          contentEditable={editable}
           onFocus={onFocus}
           onKeyDown={(e) => handleKeyDown(e, index)}
-          onBlur={(e) => handleBlur(e, index)}
+          onBlur={(e) => handleBlur(index, e.currentTarget.textContent || "")}
+          suppressContentEditableWarning={true}
         >
           {item.content}
         </li>

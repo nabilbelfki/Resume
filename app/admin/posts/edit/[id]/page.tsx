@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./Post.module.css"
 import { useUser } from '@/contexts/UserContext';
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
@@ -9,6 +9,7 @@ import Dropdown from "@/components/Dropdown/Dropdown";
 import BannerUpload from "@/components/BannerUpload/BannerUpload";
 import Editor from "@/components/Editor/Editor";
 import { EditorHandle } from "@/lib/types"
+import { useParams, useRouter } from "next/navigation";
 
 interface PostData {
   title: string;
@@ -34,6 +35,9 @@ interface PostData {
 }
 
 const Post: React.FC = () => {
+  const params = useParams();
+  const router = useRouter();
+  const id = params?.id as string;
   const { user } = useUser();
   const editorRef = useRef<EditorHandle>(null);
   const [thumbnail, setThumbnail] = useState<{ name: string; path: string; backgroundColor?: string }>({ 
@@ -75,8 +79,37 @@ const Post: React.FC = () => {
   const breadcrumbs: breadcrumb[] = [
     { label: 'Posts', href: '/admin/posts' },
     { label: 'All Posts', href: '/admin/posts' },
-    { label: 'Create Post', href: '/admin/posts/create' }
+    { label: 'Edit Post', href: '/admin/posts/edit/' + id }
   ];
+
+  useEffect(() => {
+    if (id) {
+      const fetchMedia = async () => {
+        try {
+          const response = await fetch(`/api/posts/${id}`);
+          if (!response.ok) throw new Error('Failed to fetch post');
+          const post = await response.json();
+          console.log("Post", post)
+          setFormData({
+            title: post.title,
+            readTime: post.readTime,
+            category: post.category,
+            date: post.date,
+            status: post.status,
+            visibility: post.visibility,
+            content: post.content,
+            thumbnail: post.thumbnail,
+            banner: post.banner,
+            slug: post.slug,
+            tags: post.tags,
+          });
+        } catch (error) {
+          console.error('Error fetching post:', error);
+        }
+      };
+      fetchMedia();
+    }
+  }, [id]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;

@@ -187,3 +187,67 @@ export interface Experiences {
       createdAt?: Date; // Timestamp
       updatedAt?: Date; // Timestamp
   }
+
+  export interface Cell {
+      text: {
+          value: string;
+          family: string;
+          size: number;
+          weight: number;
+          color: string;
+          textAlign: 'left' | 'center' | 'right';
+      },
+      color: string;
+      padding: number;
+      border: {
+          type: 'solid' | 'dashed';
+          dash?: number;
+          color: string;
+          sides: {
+              top: boolean;
+              left: boolean;
+              right: boolean;
+              bottom: boolean;
+          }
+          thickness: number;
+          radius: {
+              topLeft: number;
+              topRight: number;
+              bottomLeft: number;
+              bottomRight: number;
+          }
+      }
+  }
+
+  export interface Record {
+      cells: Cell[];
+  }
+
+
+  interface ListItem {
+    marginLeft: number;
+    text: string;
+  }
+
+  interface Checkbox {
+    checked: boolean;
+    text: string;
+  }
+
+  export interface Block {
+    tag: string;
+    text?: string;
+    textAlign?: 'left' | 'center' | 'right' | 'undefined';
+    items?: ListItem[] | Checkbox[];
+    source?: string;
+    extension?: string;
+    color?: string;
+    type?: 'solid' | 'dashed';
+    thickness?: number;
+    dashLength?: number;
+    records?: Record;
+  }
+
+  export interface EditorHandle {
+    getContent: () => Block[];
+  }
