@@ -29,8 +29,11 @@ interface TableProps {
     actions: Action[];
     columns: Column[];
     entity: string;
+    endpoint?: string;
     showing?: number;
     create?: boolean;
+    link?: boolean;
+    style?: React.CSSProperties;
 }
 
 interface Row {
@@ -38,7 +41,7 @@ interface Row {
     [key: string]: any;
 }
 
-const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initialShowing = 25, create = true }) => { // Renamed prop to avoid naming conflict
+const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initialShowing = 25, create = true, endpoint = '', link = true, style = {} }) => { // Renamed prop to avoid naming conflict
     const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
     const [selectAll, setSelectAll] = useState(false);
     const [data, setData] = useState<Row[]>([]);
@@ -97,7 +100,8 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
     // Update your useEffect dependency array to include sortBy and order
     useEffect(() => {
         const fetchData = async () => {
-            const folder = (entity.toLowerCase() === 'media' || entity.toLowerCase() === 'message') ? entity.toLowerCase() : entity.toLowerCase() + 's';
+            const folder = endpoint ? endpoint : ((entity.toLowerCase() === 'media' || entity.toLowerCase() === 'message') ? entity.toLowerCase() : entity.toLowerCase() + 's');
+            console.log("Folder", folder);
             try {
                 setLoading(true);
                 const response = await fetch(
@@ -323,7 +327,7 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
     };
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container} style={style}>
             <div className={styles.header}>
                 <div className={styles.actions}>
                     <button className={styles['dropdown-button']} onClick={() => setDropdown(!dropdown)}>
@@ -433,13 +437,14 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
                                     />
                                 </td>
                                 {columns.map((column, colIndex) => (
-                                    <td onClick={() => location.href = window.location.href + (entity === 'Message' ? '/view/' : '/edit/') + row._id}
+                                    <td onClick={() => {if (!link) return; location.href = window.location.href + (entity === 'Message' ? '/view/' : '/edit/') + row._id}}
                                         key={`${index}-${column.label}-${colIndex}`}
                                         title={getText(row, column).join(" ")}
                                         style={{
                                             flex: column.flex ? column.flex : 1, 
                                             justifyContent: column.alignment ? alignment[column.alignment] : "flex-start",
-                                            maxWidth: column.maxWidth ? column.maxWidth : "unset"
+                                            maxWidth: column.maxWidth ? column.maxWidth : "unset",
+                                            cursor: link ? 'pointer': 'default'
                                         }}>
                                         {renderCellContent(row, column)}
                                     </td>

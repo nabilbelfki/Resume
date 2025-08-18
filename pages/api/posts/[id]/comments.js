@@ -41,9 +41,46 @@ async function handleGetComments(id, res) {
   if (!post) {
     return res.status(404).json({ error: "Post not found" });
   }
-
-  setCache(cacheKey, post.comments);
-  return res.status(200).json(post.comments);
+  const comments = [
+    {
+      author: {
+        firstName: 'Nabil',
+        lastName: 'Belfki'
+      },
+      date: '2025-08-25',
+      text: 'Great job Nabil on the blog post, I think it is amazing!',
+      time: '12:00:00'
+    },
+    {
+      author: {
+        firstName: 'John',
+        lastName: 'Doe'
+      },
+      date: '2025-08-24',
+      text: 'Great job Nabil on the blog post, I think it is berzerk!',
+      time: '12:00:00'
+    },
+    {
+      author: {
+        firstName: 'Bob',
+        lastName: 'Billy'
+      },
+      date: '2025-08-25',
+      text: 'Great job Nabil on the blog post, I think it is crazy!',
+      time: '12:00:00'
+    }
+  ]
+  // setCache(cacheKey, post.comments);
+  // return res.status(200).json(post.comments);
+  const response = {
+    data: comments,
+    total: comments.length,
+    totalPages: 1,
+    currentPage: 1,
+    limit: 5,
+  }
+  setCache(cacheKey, response);
+  return res.status(200).json(response);
 }
 
 async function handleAddComment(id, req, res) {

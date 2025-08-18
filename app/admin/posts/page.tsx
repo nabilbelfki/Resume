@@ -22,7 +22,35 @@ const Posts: React.FC = () => {
     const actions = [
         {
             label: 'Delete Posts',
-            action: (IDs:string[]) => console.log(IDs)
+            action: async (IDs:string[]) => {
+                if (!confirm(`Are you sure you want to delete ${IDs.length > 1 ? 'these posts' : 'this post'}?`)) {
+                    return;
+                }
+
+                try {
+                    // Use Promise.all to delete all users in parallel
+                    const results = await Promise.all(
+                        IDs.map(id => 
+                            fetch(`/api/posts/${id}`, {
+                                method: 'DELETE',
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Failed to delete posts');
+                                }
+
+                                location.href = '/admin/posts';
+                            })
+                        )
+                    );
+
+                    console.log(`${IDs.length} posts deleted successfully`);
+                    router.refresh();
+                } catch (err) {
+                    console.error('Error deleting posts:', err);
+                    alert(`Failed to delete some posts. Please try again.`);
+                }
+            }
         }
     ]
 

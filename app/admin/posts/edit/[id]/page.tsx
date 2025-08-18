@@ -8,6 +8,7 @@ import ThumbnailUpload from "@/components/ThumbnailUpload/ThumbnailUpload"
 import Dropdown from "@/components/Dropdown/Dropdown";
 import BannerUpload from "@/components/BannerUpload/BannerUpload";
 import Editor from "@/components/Editor/Editor";
+import Table from "@/components/Table/Table";
 import { EditorHandle } from "@/lib/types"
 import { useParams, useRouter } from "next/navigation";
 
@@ -81,6 +82,39 @@ const Post: React.FC = () => {
     { label: 'All Posts', href: '/admin/posts' },
     { label: 'Edit Post', href: '/admin/posts/edit/' + id }
   ];
+
+  const actions = [
+    {
+      label: 'Delete Comments',
+      action: async (IDs:string[]) => {
+        if (!confirm(`Are you sure you want to delete ${IDs.length > 1 ? 'these comments' : 'this comment'}?`)) {
+          return;
+        }
+
+        try {
+          // Use Promise.all to delete all users in parallel
+          const results = await Promise.all(
+              IDs.map(id => 
+                  fetch(`/api/posts/${id}/comments`, {
+                      method: 'DELETE',
+                  })
+                  .then(response => {
+                      if (!response.ok) {
+                          throw new Error('Failed to delete comments');
+                      }
+                  })
+              )
+          );
+
+          console.log(`${IDs.length} comments deleted successfully`);
+          router.refresh();
+        } catch (err) {
+          console.error('Error deleting comments:', err);
+          alert(`Failed to delete some comments. Please try again.`);
+        }
+      }
+    }
+  ]
 
   useEffect(() => {
     if (id) {
@@ -348,6 +382,37 @@ const Post: React.FC = () => {
         />
 
         <Editor ref={editorRef}/>
+      
+        <label className={styles.title}>Comments</label>
+        <Table 
+            link={false}
+            actions={actions}
+            showing={5}
+            entity="Comment"
+            endpoint={`posts/${id}/comments`}
+            create={false}
+            style={{marginTop: 20}}
+            columns={[
+                { 
+                    label: 'Name', 
+                    selectors: [['author', 'firstName'], ['author', 'lastName']], 
+                    type: 'avatar',
+                    flex: 1
+                }, 
+                { 
+                    label: 'Comment', 
+                    selectors: [['text']],
+                    flex: 3
+                },
+                { 
+                    label:'Date', 
+                    selectors: [['date']],
+                    alignment: 'center',
+                    sort: true,
+                    type: 'date'
+                }
+            ]}
+        />
       </div>
     </div>
   );
