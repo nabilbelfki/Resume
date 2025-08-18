@@ -90,7 +90,19 @@ const Post: React.FC = () => {
           if (!response.ok) throw new Error('Failed to fetch post');
           const post = await response.json();
           console.log("Post", post)
+
+          const thumbnailLastSlashIndex = post.thumbnail.lastIndexOf('/');
+          const thumbnailPath = post.thumbnail.substring(0, thumbnailLastSlashIndex + 1);
+          const thumbnailName = post.thumbnail.substring(thumbnailLastSlashIndex + 1);
+          handleThumbnailChange({name: thumbnailName, path: thumbnailPath, backgroundColor: ''})
+          
+          const bannerLastSlashIndex = post.banner.lastIndexOf('/');
+          const bannerPath = post.banner.substring(0, bannerLastSlashIndex + 1);
+          const bannerName = post.banner.substring(bannerLastSlashIndex + 1);
+          handleBannerChange({name: bannerName, path: bannerPath, backgroundColor: ''})
+
           setFormData({
+            ...formData,
             title: post.title,
             readTime: post.readTime,
             category: post.category,
@@ -98,8 +110,6 @@ const Post: React.FC = () => {
             status: post.status,
             visibility: post.visibility,
             content: post.content,
-            thumbnail: post.thumbnail,
-            banner: post.banner,
             slug: post.slug,
             tags: post.tags,
           });
@@ -201,8 +211,8 @@ const Post: React.FC = () => {
 
       console.log("Form", finalFormData);
 
-      const response = await fetch('/api/posts', {
-        method: 'POST',
+      const response = await fetch('/api/posts/' + id, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -214,7 +224,7 @@ const Post: React.FC = () => {
         throw new Error(errorData.error || 'Failed to create post');
       }
 
-      window.location.href = '/admin/posts';
+      // window.location.href = '/admin/posts';
     } catch (err) {
       console.error('Error submitting form:', err);
     } finally {

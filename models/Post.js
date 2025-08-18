@@ -88,12 +88,8 @@ const PostSchema = new mongoose.Schema({
   },
   comments: { type: [Comment], default: [] },
   content: { type: [Content], default: []},
-  thumbnail: {
-    url: { type: String },
-  },
-  banner: {
-    url: { type: String },
-  },
+  thumbnail: { type: String },
+  banner: { type: String },
   slug: { type: String, required: true, unique: true },
   tags: { type: [String], default: [] },
   createdAt: { type: Date, default: Date.now },
