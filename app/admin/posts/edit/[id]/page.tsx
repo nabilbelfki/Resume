@@ -133,10 +133,12 @@ const Post: React.FC = () => {
           const bannerLastSlashIndex = post.banner.lastIndexOf('/');
           const bannerPath = post.banner.substring(0, bannerLastSlashIndex + 1);
           const bannerName = post.banner.substring(bannerLastSlashIndex + 1);
+          console.log(bannerPath, bannerName)
           handleBannerChange({name: bannerName, path: bannerPath, backgroundColor: ''})
 
-          setFormData({
-            ...formData,
+          // Use functional update to ensure we have the latest state
+          setFormData(prevFormData => ({
+            ...prevFormData,
             title: post.title,
             readTime: post.readTime,
             category: post.category,
@@ -146,7 +148,17 @@ const Post: React.FC = () => {
             content: post.content,
             slug: post.slug,
             tags: post.tags,
-          });
+            thumbnail: {
+              name: thumbnailName,
+              path: thumbnailPath,
+              backgroundColor: ''
+            },
+            banner: {
+              name: bannerName,
+              path: bannerPath,
+              backgroundColor: ''
+            }
+          }));
         } catch (error) {
           console.error('Error fetching post:', error);
         }
@@ -178,6 +190,7 @@ const Post: React.FC = () => {
         backgroundColor: media.backgroundColor
       }
     }));
+    console.log("Setting Thumbnail");
     if (validationErrors.thumbnail) {
       setValidationErrors(prev => ({ ...prev, thumbnail: false }));
     }
@@ -193,6 +206,7 @@ const Post: React.FC = () => {
         backgroundColor: media.backgroundColor
       }
     }));
+    console.log("Setting Banner");
     if (validationErrors.banner) {
       setValidationErrors(prev => ({ ...prev, banner: false }));
     }
@@ -201,6 +215,8 @@ const Post: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    console.log("Form", formData)
     
     // Validate required fields
     const errors: Record<string, boolean> = {};
@@ -258,7 +274,7 @@ const Post: React.FC = () => {
         throw new Error(errorData.error || 'Failed to create post');
       }
 
-      // window.location.href = '/admin/posts';
+      window.location.href = '/admin/posts';
     } catch (err) {
       console.error('Error submitting form:', err);
     } finally {

@@ -91,6 +91,11 @@ const PostSchema = new mongoose.Schema({
   },
   comments: { type: [Comment], default: [] },
   content: { type: [Content], default: []},
+  visibility: { 
+    type: String, 
+    required: true,
+    enum: ["Public", "Private"]
+  },
   thumbnail: { type: String },
   banner: { type: String },
   slug: { type: String, required: true, unique: true },

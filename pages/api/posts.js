@@ -35,8 +35,16 @@ export default async function handler(req, res) {
           const searchRegex = new RegExp(search.toString(), 'i');
           conditions.$or = [
             { title: searchRegex },
-            { author: searchRegex },
-            { 'content.text': searchRegex }
+            { 
+              $expr: {
+                $regexMatch: {
+                  input: { $concat: ["$author.firstName", " ", "$author.lastName"] },
+                  regex: search.toString(),
+                  options: "i"
+                }
+              }
+            },
+            { category: searchRegex },
           ];
         }
 

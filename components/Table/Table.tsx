@@ -101,7 +101,6 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
     useEffect(() => {
         const fetchData = async () => {
             const folder = endpoint ? endpoint : ((entity.toLowerCase() === 'media' || entity.toLowerCase() === 'message') ? entity.toLowerCase() : entity.toLowerCase() + 's');
-            console.log("Folder", folder);
             try {
                 setLoading(true);
                 const response = await fetch(
@@ -178,8 +177,6 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
     };
 
     const renderCellContent = (row: Row, column: Column) => {
-        console.log("Column", column)
-        console.log("Column", row)
         const values = getText(row, column);
         if (column.type === 'thumbnail') {
             const backgroundColor = column.thumbnailBackgroundColor ? getText(row, { selectors: column.thumbnailBackgroundColor } as Column).join("") : '#8C8C8C';
@@ -214,7 +211,6 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
             const avatarUrl = column.avatar ? row[column.avatar] : null;
             const backgroundColor = stringToHexColor(content);
             const color = isColorTooDark(backgroundColor) ? '#FFFFFF' : '#4C4C4C';
-            console.log(values)
             return (
                 <>
                     <div className={styles.avatar} style={{ backgroundColor }}>
