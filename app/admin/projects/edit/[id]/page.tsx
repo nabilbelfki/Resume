@@ -7,6 +7,7 @@ import List from "@/components/List/List";
 import ThumbnailUpload from "@/components/ThumbnailUpload/ThumbnailUpload"
 import MediaPicker from "@/components/MediaPicker/MediaPicker";
 import { useParams } from "next/navigation";
+import Dropdown from "@/components/Dropdown/Dropdown";
 
 interface ToolData {
   name: string;
@@ -34,6 +35,7 @@ interface ProjectData {
   name: string;
   slug: string;
   url: string;
+  status: string | null;
   duration: string;
   startDate: string;
   endDate: string;
@@ -104,6 +106,7 @@ const Project: React.FC = () => {
     name: '',
     slug: '',
     url: '',
+    status: '',
     duration: '',
     startDate: '',
     endDate: '',
@@ -191,6 +194,7 @@ const Project: React.FC = () => {
           name: data.name,
           slug: data.slug,
           url: data.url,
+          status: data.status,
           duration: data.duration,
           startDate: data.startDate.split('T')[0],
           endDate: data.endDate?.split('T')[0] || '',
@@ -422,6 +426,7 @@ const Project: React.FC = () => {
     if (!formData.name.trim()) errors.name = true;
     if (!formData.slug.trim()) errors.slug = true;
     if (!formData.url.trim()) errors.url = true;
+    if (!formData.status) errors.status = true;
     if (!formData.duration.trim()) errors.duration = true;
     if (!formData.startDate) errors.startDate = true;
     if (!formData.endDate) errors.endDate = true;
@@ -480,6 +485,7 @@ const Project: React.FC = () => {
 
       const finalFormData = {
         name: formData.name,
+        status: formData.status,
         duration: formData.duration,
         startDate: formData.startDate,
         endDate: formData.endDate,
@@ -679,14 +685,22 @@ const Project: React.FC = () => {
             />
           </div>
           <div className={styles.input}>
-            <label htmlFor="duration">Duration</label>
-            <input 
-              type="text" 
-              id="duration" 
-              placeholder="Enter Duration" 
-              value={formData.duration}
-              onChange={handleInputChange}
-              style={{ border: validationErrors.duration ? '1.6px solid red' : '' }}
+            <label htmlFor="status">Status</label>
+            <Dropdown 
+              placeholder='Choose Status' 
+              options={[{label:'Active', value: 'Active'}, {label:'Inactive', value: 'Inactive'}]}
+              value={formData.status}
+              onChange={(value) => {
+                setFormData({...formData, status: value})
+                if (validationErrors.status) {
+                  setValidationErrors(prev => ({ ...prev, status: false }));
+                }
+              }}
+              style={{ 
+                button: {
+                  border: validationErrors.status ? '1.6px solid red' : '' 
+                }
+              }}
             />
           </div>
           <div className={styles.input}>
@@ -735,6 +749,17 @@ const Project: React.FC = () => {
               value={formData.views}
               onChange={handleInputChange}
               style={{ border: validationErrors.views ? '1.6px solid red' : '' }}
+            />
+          </div>
+          <div className={styles.input}>
+            <label htmlFor="duration">Duration</label>
+            <input 
+              type="text" 
+              id="duration" 
+              placeholder="Enter Duration" 
+              value={formData.duration}
+              onChange={handleInputChange}
+              style={{ border: validationErrors.duration ? '1.6px solid red' : '' }}
             />
           </div>
         </div>

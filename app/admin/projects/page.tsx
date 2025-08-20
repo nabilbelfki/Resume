@@ -21,6 +21,70 @@ const Projects: React.FC = () => {
 
     const actions: Action[] = [
         {
+            label: 'Activate Projects',
+            action: async (IDs:string[]) => {
+                if (!confirm(`Are you sure you want to activate ${IDs.length > 1 ? 'these projects' : 'this project'}?`)) {
+                    return;
+                }
+
+                try {
+                    // Use Promise.all to delete all users in parallel
+                    const results = await Promise.all(
+                        IDs.map(id => 
+                            fetch(`/api/projects/${id}/activate`, {
+                                method: 'PATCH',
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Failed to delete projects');
+                                }
+
+                                location.href = '/admin/projects';
+                            })
+                        )
+                    );
+
+                    console.log(`${IDs.length} project(s) activated successfully`);
+                    router.refresh();
+                } catch (err) {
+                    console.error('Error activating projects:', err);
+                    alert(`Failed to activate some projects. Please try again.`);
+                }
+            }
+        },
+        {
+            label: 'Deactivate Projects',
+            action: async (IDs:string[]) => {
+                if (!confirm(`Are you sure you want to deactivate ${IDs.length > 1 ? 'these projects' : 'this project'}?`)) {
+                    return;
+                }
+
+                try {
+                    // Use Promise.all to delete all users in parallel
+                    const results = await Promise.all(
+                        IDs.map(id => 
+                            fetch(`/api/projects/${id}/deactivate`, {
+                                method: 'PATCH',
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Failed to deactivate projects');
+                                }
+
+                                location.href = '/admin/projects';
+                            })
+                        )
+                    );
+
+                    console.log(`${IDs.length} project(s) deactivated successfully`);
+                    router.refresh();
+                } catch (err) {
+                    console.error('Error deactivating projects:', err);
+                    alert(`Failed to deactivate some projects. Please try again.`);
+                }
+            }
+        },
+        {
             label: 'Delete Projects',
             action: async (IDs:string[]) => {
                 if (!confirm(`Are you sure you want to delete ${IDs.length > 1 ? 'these projects' : 'this project'}?`)) {
@@ -68,11 +132,14 @@ const Projects: React.FC = () => {
                         type: 'thumbnail',
                         alignment: 'center',
                         thumbnailBackgroundColor: [['thumbnail', 'backgroundColor']],
-                        sortable: false
+                        sortable: false,
+                        maxWidth: '100px'
                     }, 
                     { 
                         label: 'Name', 
-                        selectors: [['name']], 
+                        selectors: [['name']],
+                        type: 'active',
+                        active: ['status'],
                         flex: 3
                     }, 
                     { 

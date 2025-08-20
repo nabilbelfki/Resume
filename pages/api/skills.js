@@ -12,101 +12,119 @@ export default async function handler(req, res) {
     console.log("Connected to MongoDB for Skills API");
 
     switch (method) {
-      case "GET":
-      console.log("Processing GET request for Skills");
+        case "GET":
+          console.log("Processing GET request for Skills");
 
-      const {
-        page = 1, 
-        limit = 0,
-        search = '', 
-        sortBy = 'name',
-        sortOrder = 'asc'
-      } = query;
+          const {
+            page = 1, 
+            limit = 0,
+            search = '', 
+            sortBy = 'name',
+            sortOrder = 'asc',
+            status = '' // Add status query parameter
+          } = query;
 
-      const pageNumber = parseInt(page.toString());
-      const limitNumber = parseInt(limit.toString());
-      
-      const sortDirection = sortOrder.toString().toLowerCase() === 'asc' ? 1 : -1;
+          const pageNumber = parseInt(page.toString());
+          const limitNumber = parseInt(limit.toString());
+          
+          const sortDirection = sortOrder.toString().toLowerCase() === 'asc' ? 1 : -1;
 
-      // Build search conditions
-      const conditions = {};
-      if (search) {
-        const searchRegex = new RegExp(search.toString(), 'i');
-        conditions.$or = [
-          { name: searchRegex },
-          { type: searchRegex }
-        ];
-      }
-
-      // Get total count for pagination calculations
-      const total = await Skill.countDocuments(conditions);
-
-      // Handle pagination logic
-      let queryBuilder = Skill.find(conditions);
-      let actualLimit = limitNumber;
-      let actualPage = pageNumber;
-      let skip = 0;
-
-      if (limitNumber > 0) {
-        // Standard pagination
-        skip = (pageNumber - 1) * limitNumber;
-        queryBuilder = queryBuilder.skip(skip).limit(limitNumber);
-      } else {
-        // No limit - return all results
-        actualLimit = total;
-        actualPage = 1; // Reset to page 1 when showing all
-        skip = 0;
-      }
-
-      // Apply sorting
-      const sortOptions = {
-        [sortBy]: sortDirection,
-        '_id': sortDirection  // Always add _id as tiebreaker
-      };
-      queryBuilder = queryBuilder.sort(sortOptions);
-
-      // Build cache key
-      const cacheKey = `skills:${actualPage}:${actualLimit}:${search}:${sortBy}:${sortOrder}`;
-
-      // Check cache
-      const cachedData = getCache(cacheKey);
-      if (cachedData) {
-        console.log(`Returning cached skills data for key: ${cacheKey}`);
-        return res.status(200).json(cachedData);
-      }
-
-      // Execute query
-      const data = await queryBuilder;
-
-      console.log(`Skills fetched: ${data.length} of ${total} total, page ${actualPage}, limit ${actualLimit}, skip ${skip}`);
-      console.log(`Sorted by ${sortBy} ${sortOrder}`);
-
-      // Calculate pagination info
-      const totalPages = actualLimit > 0 ? Math.ceil(total / actualLimit) : 1;
-
-      const responseData = {
-        data,
-        total,
-        totalPages,
-        currentPage: actualPage,
-        limit: actualLimit,
-        sortBy,
-        sortOrder,
-        // Add debug info in development
-        ...(process.env.NODE_ENV === 'development' && {
-          debug: {
-            skip,
-            originalLimit: limitNumber,
-            searchConditions: conditions
+          // Build search conditions
+          const conditions = {};
+          
+          // Add status filter condition if provided
+          if (status) {
+            const statusValue = status.toString().toLowerCase();
+            if (statusValue === 'active' || statusValue === 'inactive') {
+              conditions.status = statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
+            }
+            // If status is provided but not valid, you could handle error here
+            // For now, it will just ignore invalid status values
           }
-        })
-      };
+          
+          if (search) {
+            const searchRegex = new RegExp(search.toString(), 'i');
+            conditions.$or = [
+              { name: searchRegex },
+              { type: searchRegex }
+            ];
+          }
 
-      // Cache the response
-      setCache(cacheKey, responseData);
+          // Get total count for pagination calculations
+          const total = await Skill.countDocuments(conditions);
 
-      res.status(200).json(responseData);
-      break;
+          // Handle pagination logic
+          let queryBuilder = Skill.find(conditions);
+          let actualLimit = limitNumber;
+          let actualPage = pageNumber;
+          let skip = 0;
+
+          if (limitNumber > 0) {
+            // Standard pagination
+            skip = (pageNumber - 1) * limitNumber;
+            queryBuilder = queryBuilder.skip(skip).limit(limitNumber);
+          } else {
+            // No limit - return all results
+            actualLimit = total;
+            actualPage = 1; // Reset to page 1 when showing all
+            skip = 0;
+          }
+
+          // Apply sorting
+          const sortOptions = {
+            [sortBy]: sortDirection,
+            '_id': sortDirection  // Always add _id as tiebreaker
+          };
+          queryBuilder = queryBuilder.sort(sortOptions);
+
+          // Build cache key - include status in cache key
+          const cacheKey = `skills:${actualPage}:${actualLimit}:${search}:${sortBy}:${sortOrder}:${status}`;
+
+          // Check cache
+          const cachedData = getCache(cacheKey);
+          if (cachedData) {
+            console.log(`Returning cached skills data for key: ${cacheKey}`);
+            return res.status(200).json(cachedData);
+          }
+
+          // Execute query
+          const data = await queryBuilder;
+
+          console.log(`Skills fetched: ${data.length} of ${total} total, page ${actualPage}, limit ${actualLimit}, skip ${skip}`);
+          console.log(`Sorted by ${sortBy} ${sortOrder}`);
+          if (status) {
+            console.log(`Filtered by status: ${status}`);
+          }
+
+          // Calculate pagination info
+          const totalPages = actualLimit > 0 ? Math.ceil(total / actualLimit) : 1;
+
+          const responseData = {
+            data,
+            total,
+            totalPages,
+            currentPage: actualPage,
+            limit: actualLimit,
+            sortBy,
+            sortOrder,
+            // Add status filter info to response
+            ...(status && { filteredByStatus: status }),
+            // Add debug info in development
+            ...(process.env.NODE_ENV === 'development' && {
+              debug: {
+                skip,
+                originalLimit: limitNumber,
+                searchConditions: conditions,
+                statusFilter: status || 'none'
+              }
+            })
+          };
+
+          // Cache the response
+          setCache(cacheKey, responseData);
+
+          res.status(200).json(responseData);
+          break;
 
       case "POST":
         try {

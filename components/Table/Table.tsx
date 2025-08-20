@@ -12,6 +12,8 @@ interface Column {
     avatar?: string;
     colors?: Color[];
     sort?: boolean;
+    visibility?: string[];
+    active?: string[];
     sortable?: boolean;
     alignment?: 'left' | 'center' | 'right';
     flex?: number;
@@ -135,21 +137,35 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
     const getText = (row: Row, column: Column) => {
         const values = column.selectors
             .map(selectorPath => {
-                let currentValue: any = row;
-                for (const key of selectorPath) {
-                    if (currentValue && typeof currentValue === 'object' && key in currentValue) {
-                        currentValue = currentValue[key];
-                    } else {
-                        currentValue = undefined; // Path not found
-                        break;
-                    }
-                }
-                return currentValue !== undefined ? String(currentValue) : '';
+                // let currentValue: any = row;
+                // for (const key of selectorPath) {
+                //     if (currentValue && typeof currentValue === 'object' && key in currentValue) {
+                //         currentValue = currentValue[key];
+                //     } else {
+                //         currentValue = undefined; // Path not found
+                //         break;
+                //     }
+                // }
+                // return currentValue !== undefined ? String(currentValue) : '';
+                return selector(row, selectorPath);
             })
-            .filter(value => value); // Filter out empty strings
+            .filter(value => value);
 
         return values;
     };
+
+    const selector = (row: Row, selectors: string[]) => {
+        let currentValue: any = row;
+        for (const selector of selectors) {
+            if (currentValue && typeof currentValue === 'object' && selector in currentValue) {
+                currentValue = currentValue[selector];
+            } else {
+                currentValue = undefined;
+                break;
+            }
+        }
+        return currentValue !== undefined ? String(currentValue) : '';
+    }
 
     const formatDate = (dateString: string): string => {
         if (!dateString) return '';
@@ -200,6 +216,22 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
         // Apply formatting based on column type
         if (column.type === 'date') {
             content = formatDate(content);
+        }
+
+        if (column.type === 'active'){
+            const active = selector(row, column.active ?? []) === 'Active';
+            return (<div className={styles.active}>
+                <span>{content}</span>
+                <span className={active ? styles['green-circle'] : styles['yellow-circle'] }></span>
+            </div>);
+        }
+
+        if (column.type === 'visibility'){
+            const active = selector(row, column.visibility ?? []) === 'Public';
+            return (<div className={styles.active}>
+                <span>{content}</span>
+                <span className={active ? styles['green-circle'] : styles['yellow-circle'] }></span>
+            </div>);
         }
 
         if (column.type === 'status' && column.colors) {

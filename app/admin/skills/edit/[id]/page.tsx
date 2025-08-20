@@ -331,6 +331,7 @@ const Skill: React.FC = () => {
                 {label:'Mobile', value: 'mobile'}, 
                 {label:'Frontend', value: 'frontend'},
                 {label:'Backend', value: 'backend'},
+                {label:'Database', value: 'database'},
                 {label:'Cloud', value: 'cloud'},
                 {label:'Miscellaneous', value: 'miscellaneous'},
               ]}

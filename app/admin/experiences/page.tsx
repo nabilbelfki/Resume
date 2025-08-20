@@ -21,6 +21,70 @@ const Experiences: React.FC = () => {
 
     const actions: Action[] = [
         {
+            label: 'Activate Experiences',
+            action: async (IDs:string[]) => {
+                if (!confirm(`Are you sure you want to activate ${IDs.length > 1 ? 'these experiences' : 'this experience'}?`)) {
+                    return;
+                }
+
+                try {
+                    // Use Promise.all to delete all users in parallel
+                    const results = await Promise.all(
+                        IDs.map(id => 
+                            fetch(`/api/experiences/${id}/activate`, {
+                                method: 'PATCH',
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Failed to delete experiences');
+                                }
+
+                                location.href = '/admin/experiences';
+                            })
+                        )
+                    );
+
+                    console.log(`${IDs.length} experience(s) activated successfully`);
+                    router.refresh();
+                } catch (err) {
+                    console.error('Error activating experiences:', err);
+                    alert(`Failed to activate some experiences. Please try again.`);
+                }
+            }
+        },
+        {
+            label: 'Deactivate Experiences',
+            action: async (IDs:string[]) => {
+                if (!confirm(`Are you sure you want to deactivate ${IDs.length > 1 ? 'these experiences' : 'this experience'}?`)) {
+                    return;
+                }
+
+                try {
+                    // Use Promise.all to delete all users in parallel
+                    const results = await Promise.all(
+                        IDs.map(id => 
+                            fetch(`/api/experiences/${id}/deactivate`, {
+                                method: 'PATCH',
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Failed to deactivate experiences');
+                                }
+
+                                location.href = '/admin/experiences';
+                            })
+                        )
+                    );
+
+                    console.log(`${IDs.length} experience(s) deactivated successfully`);
+                    router.refresh();
+                } catch (err) {
+                    console.error('Error deactivating experiences:', err);
+                    alert(`Failed to deactivate some experiences. Please try again.`);
+                }
+            }
+        },
+        {
             label: 'Delete Experiences',
             action: async (IDs:string[]) => {
                 if (!confirm(`Are you sure you want to delete ${IDs.length > 1 ? 'these experiences' : 'this experience'}?`)) {
@@ -68,11 +132,14 @@ const Experiences: React.FC = () => {
                         type: 'thumbnail',
                         alignment: 'center',
                         thumbnailBackgroundColor: [['image', 'backgroundColor']],
-                        sortable: false
+                        sortable: false,
+                        maxWidth: '100px'
                     }, 
                     { 
                         label: 'Name', 
-                        selectors: [['name']], 
+                        selectors: [['name']],
+                        type: 'active',
+                        active: ['status'],
                         flex: 3
                     }, 
                     { 

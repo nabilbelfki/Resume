@@ -20,7 +20,8 @@ export default async function handler(req, res) {
           limit = 0,
           search = '',
           sortBy = 'startDate',
-          sortOrder = 'desc'
+          sortOrder = 'desc',
+          status = ''
         } = query;
 
         const pageNumber = parseInt(page.toString());
@@ -29,15 +30,18 @@ export default async function handler(req, res) {
 
         const sortDirection = sortOrder.toString().toLowerCase() === 'asc' ? 1 : -1;
 
-        const cacheKey = `experiences:${page}:${limit}:${search}:${sortBy}:${sortOrder}`;
-
-        const cachedData = getCache(cacheKey);
-        if (cachedData) {
-          console.log(`Returning cached experiences data for key: ${cacheKey}`);
-          return res.status(200).json(cachedData);
-        }
-
+        // Build conditions
         const conditions = {};
+        
+        // Add status filter condition if provided
+        if (status) {
+          const statusValue = status.toString().toLowerCase();
+          if (statusValue === 'active' || statusValue === 'inactive') {
+            conditions.status = statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
+          }
+          // If status is provided but not valid, it will be ignored
+        }
+        
         if (search) {
           const searchRegex = new RegExp(search.toString(), 'i');
           conditions.$or = [
@@ -45,6 +49,15 @@ export default async function handler(req, res) {
             { type: searchRegex },
             { title: searchRegex }
           ];
+        }
+
+        // Update cache key to include status
+        const cacheKey = `experiences:${page}:${limit}:${search}:${sortBy}:${sortOrder}:${status}`;
+
+        const cachedData = getCache(cacheKey);
+        if (cachedData) {
+          console.log(`Returning cached experiences data for key: ${cacheKey}`);
+          return res.status(200).json(cachedData);
         }
 
         const total = await Experience.countDocuments(conditions);
@@ -64,6 +77,9 @@ export default async function handler(req, res) {
         const data = await queryBuilder;
 
         console.log(`Experiences fetched: ${data.length} of ${total} total, sorted by ${sortBy} ${sortOrder}`);
+        if (status) {
+          console.log(`Filtered by status: ${status}`);
+        }
 
         const responseData = {
           data,
@@ -72,7 +88,9 @@ export default async function handler(req, res) {
           currentPage: pageNumber,
           limit: limitNumber,
           sortBy,
-          sortOrder
+          sortOrder,
+          // Add status filter info to response
+          ...(status && { filteredByStatus: status })
         };
 
         // Cache the prepared response data
@@ -87,6 +105,7 @@ export default async function handler(req, res) {
           const {
             level,
             zIndex,
+            status,
             name,
             location,
             type,
@@ -110,6 +129,7 @@ export default async function handler(req, res) {
             name,
             location,
             type,
+            status,
             logo: {
               opened: {
                 name: logo?.opened?.name || '',

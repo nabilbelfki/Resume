@@ -18,12 +18,14 @@ import styles from "./Application.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Project as ProjectType } from "../../../lib/types";
+import { useRouter } from 'next/navigation';
 
 interface ApplicationProps {
   params: Promise<{ id: string }>;
 }
 
 const Application: React.FC<ApplicationProps> = ({ params }) => {
+  const router = useRouter();
   const [project, setProject] = useState<ProjectType | null>(null);
   const [id, setId] = useState<string | null>(null);
 
@@ -41,6 +43,13 @@ const Application: React.FC<ApplicationProps> = ({ params }) => {
       const fetchProject = async () => {
         try {
           const res = await axios.get(`/api/projects/${id}`);
+
+          // Check if project status is not Active
+          if (res.data.status !== 'Active') {
+            router.push('/404'); // Redirect to home
+            return; // Exit early to prevent setting state
+          }
+
           setProject(res.data);
         } catch (error) {
           console.error("Error fetching project:", error);

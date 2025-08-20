@@ -66,6 +66,7 @@ async function handlePutRequest(id, req, res) {
       name: body.name,
       location: body.location,
       type: body.type,
+      status: body.status,
       logo: {
         opened: {
           name: body.logo?.opened?.name || '',

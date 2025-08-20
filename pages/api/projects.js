@@ -35,7 +35,8 @@ async function handleGetRequest(query, res) {
     limit = 0,
     search = '',
     sortBy = 'startDate',
-    sortOrder = 'desc'
+    sortOrder = 'desc',
+    status = ''
   } = query;
 
   const pageNumber = parseInt(page.toString());
@@ -44,7 +45,7 @@ async function handleGetRequest(query, res) {
 
   const sortDirection = sortOrder.toString().toLowerCase() === 'asc' ? 1 : -1;
 
-  const cacheKey = `projects:${page}:${limit}:${search}:${sortBy}:${sortOrder}`;
+  const cacheKey = `projects:${page}:${limit}:${search}:${sortBy}:${sortOrder}:${status}`;
 
   const cachedData = getCache(cacheKey);
   if (cachedData) {
@@ -53,6 +54,15 @@ async function handleGetRequest(query, res) {
   }
 
   const conditions = {};
+  // Add status filter condition if provided
+  if (status) {
+    const statusValue = status.toString().toLowerCase();
+    if (statusValue === 'active' || statusValue === 'inactive') {
+      conditions.status = statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
+    }
+    // If status is provided but not valid, it will be ignored
+  }
+  
   if (search) {
     const searchRegex = new RegExp(search.toString(), 'i');
     conditions.$or = [
@@ -78,6 +88,9 @@ async function handleGetRequest(query, res) {
   const data = await queryBuilder;
 
   console.log(`Projects fetched: ${data.length} of ${total} total, sorted by ${sortBy} ${sortOrder}`);
+  if (status) {
+    console.log(`Filtered by status: ${status}`);
+  }
 
   const responseData = {
     data,
@@ -86,7 +99,9 @@ async function handleGetRequest(query, res) {
     currentPage: pageNumber,
     limit: limitNumber,
     sortBy,
-    sortOrder
+    sortOrder,
+    // Add status filter info to response
+    ...(status && { filteredByStatus: status })
   };
 
   // Cache the prepared response data
@@ -108,6 +123,7 @@ async function handlePostRequest(req, res) {
   try {
     const newProject = new Project({
       name: body.name,
+      status: body.status,
       duration: body.duration,
       startDate: new Date(body.startDate),
       endDate: new Date(body.endDate),

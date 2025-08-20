@@ -66,6 +66,7 @@ async function handlePutRequest(id, req, res) {
 
   const updateData = {
     name: body.name,
+    status: body.status,
     duration: body.duration,
     startDate: new Date(body.startDate),
     endDate: new Date(body.endDate),

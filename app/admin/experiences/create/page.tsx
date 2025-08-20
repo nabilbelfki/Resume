@@ -13,6 +13,7 @@ interface ExperienceData {
   name: string;
   location: string;
   type: string | null;
+  status: string | null;
   logo: {
     opened: {
       name: string;
@@ -71,6 +72,7 @@ const Experience: React.FC = () => {
     name: '',
     location: '',
     type: '',
+    status: '',
     logo: {
       opened: {
         name: '',
@@ -313,6 +315,7 @@ const Experience: React.FC = () => {
     const errors: Record<string, boolean> = {};
     if (!formData.name.trim()) errors.name = true;
     if (!formData.title.trim()) errors.title = true;
+    if (!formData.status) errors.status = true;
     if (!formData.type) errors.type = true;
     if (!formData.location.trim()) errors.location = true;
     if (!formData.level) errors.level = true;
@@ -523,14 +526,22 @@ const Experience: React.FC = () => {
             />
           </div>
           <div className={styles.input}>
-            <label htmlFor="level">Level</label>
-            <input 
-              type="number" 
-              id="level" 
-              placeholder="Enter Level" 
-              value={formData.level}
-              onChange={handleInputChange}
-              style={{ border: validationErrors.level ? '1.6px solid red' : '' }}
+            <label htmlFor="status">Status</label>
+            <Dropdown 
+              placeholder='Choose Status' 
+              options={[{label:'Active', value: 'Active'}, {label:'Inactive', value: 'Inactive'}]}
+              value={formData.status}
+              onChange={(value) => {
+                setFormData({...formData, status: value})
+                if (validationErrors.status) {
+                  setValidationErrors(prev => ({ ...prev, status: false }));
+                }
+              }}
+              style={{ 
+                button: {
+                  border: validationErrors.status ? '1.6px solid red' : '' 
+                }
+              }}
             />
           </div>
         </div>
@@ -544,6 +555,20 @@ const Experience: React.FC = () => {
             onChange={handleInputChange}
             style={{ border: validationErrors.description ? '1.6px solid red' : '' }}
           />
+        </div>
+
+        <div className={styles.grid}>
+          <div className={styles.input}>
+            <label htmlFor="level">Level</label>
+            <input 
+              type="number" 
+              id="level" 
+              placeholder="Enter Level" 
+              value={formData.level}
+              onChange={handleInputChange}
+              style={{ border: validationErrors.level ? '1.6px solid red' : '' }}
+            />
+          </div>
         </div>
 
         <label className={styles.title}>Time Period</label>

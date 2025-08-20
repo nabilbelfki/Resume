@@ -20,13 +20,13 @@ const Home = async () => {
 
   try {
     const [projectsRes, skillsRes, experiencesRes] = await Promise.all([
-      fetch(`${API_BASE_URL}/api/projects`, { // Use absolute URL
+      fetch(`${API_BASE_URL}/api/projects?status=Active`, { // Use absolute URL
         next: { revalidate: 60 },
       }),
-      fetch(`${API_BASE_URL}/api/skills`, { // Use absolute URL
+      fetch(`${API_BASE_URL}/api/skills?status=Active`, { // Use absolute URL
         next: { revalidate: 60 },
       }),
-      fetch(`${API_BASE_URL}/api/experiences`, { // Use absolute URL
+      fetch(`${API_BASE_URL}/api/experiences?status=Active`, { // Use absolute URL
         next: { revalidate: 60 },
       }),
     ]);

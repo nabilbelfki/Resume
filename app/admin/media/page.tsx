@@ -67,7 +67,8 @@ const Media: React.FC = () => {
                         selectors: [['path']],
                         type: 'thumbnail',
                         alignment: 'center',
-                        sortable: false
+                        sortable: false,
+                        maxWidth: '100px'
                     }, 
                     { 
                         label: 'File Name', 
@@ -78,13 +79,12 @@ const Media: React.FC = () => {
                         label: 'Description', 
                         selectors: [ ['description'] ],
                         flex: 4,
-                        maxWidth: "400px"
+                        maxWidth: "50vw"
                     },
                     { 
                         label: 'File Type', 
                         selectors: [['fileType']],
                         alignment: 'center',
-                        
                     },
                     { 
                         label:'Created', 
