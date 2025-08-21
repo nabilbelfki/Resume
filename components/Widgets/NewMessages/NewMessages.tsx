@@ -29,6 +29,15 @@ const messages = [
         message: "Hey Nabil, this is a very cool website, just wanted to send you a message and let you know. It looks like you did very hard work on it. Keep it up dude it’s very impressive. I would love to learn how you did it because I have been wanting to make my own website for some time now. Do you have any suggestions or advice as to how to start because I can seem to do it.",
         date: "2025-08-27",
         time: "18:31:00"
+    },
+     {
+        author: {
+            firstName: "Lin",
+            lastName: "Ching"
+        },
+        message: "Hey Nabil, this is a very cool website, just wanted to send you a message and let you know. It looks like you did very hard work on it. Keep it up dude it’s very impressive. I would love to learn how you did it because I have been wanting to make my own website for some time now. Do you have any suggestions or advice as to how to start because I can seem to do it.",
+        date: "2025-08-27",
+        time: "18:31:00"
     }
 ];
 

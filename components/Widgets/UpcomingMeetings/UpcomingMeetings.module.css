@@ -1,0 +1,82 @@
+.container {
+    border: solid 1.6 #C6C6C6;
+    box-shadow: 0 0 4px 0 rgba(0,0,0,0.25);
+    border-radius: 2px;
+    padding: 20px;
+    grid-column: span 2;
+    grid-row: span 1;
+    max-height: 260px;
+    height: 260px;
+}
+
+.title {
+    color: #4C4C4C;
+    margin: 0;
+    margin-bottom: 20px;
+}
+.meetings {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    overflow-x: auto;
+}
+
+.meeting {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    border: solid 1.6px #D1D1D1;
+    height: 160px;
+    border-radius: 10px;
+    min-width: 400px;
+    width: 400px;
+    gap: 5px;
+}
+
+.initials-and-name {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.initials {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.name {
+    font-weight: 550;
+    font-size: 20px;
+    color: #4C4C4C;
+}
+
+.datetime {
+    background-image: linear-gradient(to right, #43A4FF 0%, #0084FF 75%, #0370D5 100%);
+    width: 100%;
+    font-size: 32px;
+    font-weight: 600;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-align: left;
+}
+
+.message {
+    color: #4C4C4C;
+    font-style: italic;
+}
+
+/* .meeting:hover {
+    transform: scale(1.01);
+} */

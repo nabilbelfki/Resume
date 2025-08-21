@@ -1,0 +1,42 @@
+.container {
+    border: solid 1.6 #C6C6C6;
+    box-shadow: 0 0 4px 0 rgba(0,0,0,0.25);
+    border-radius: 2px;
+    padding: 20px;
+    grid-column: span 2;
+    grid-row: span 2;
+    max-height: 570px;
+}
+
+.title {
+    color: #4C4C4C;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.medias {
+    display: grid;
+    height: 490px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.media {
+    background-color: #8C8C8C;
+    box-shadow: 0 0 4px 0 rgba(0,0,0,0.25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.media img {
+    width: 200px;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.media:hover {
+    transform: scale(1.05);
+}
