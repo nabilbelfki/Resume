@@ -86,16 +86,16 @@ const Post: React.FC = () => {
   const actions = [
     {
       label: 'Delete Comments',
-      action: async (IDs:string[]) => {
-        if (!confirm(`Are you sure you want to delete ${IDs.length > 1 ? 'these comments' : 'this comment'}?`)) {
+      action: async (commentIDs:string[]) => {
+        if (!confirm(`Are you sure you want to delete ${commentIDs.length > 1 ? 'these comments' : 'this comment'}?`)) {
           return;
         }
 
         try {
           // Use Promise.all to delete all users in parallel
           const results = await Promise.all(
-              IDs.map(id => 
-                  fetch(`/api/posts/${id}/comments`, {
+              commentIDs.map(commentID => 
+                  fetch(`/api/posts/${id}/comments/${commentID}`, {
                       method: 'DELETE',
                   })
                   .then(response => {
@@ -106,7 +106,7 @@ const Post: React.FC = () => {
               )
           );
 
-          console.log(`${IDs.length} comments deleted successfully`);
+          console.log(`${commentIDs.length} comments deleted successfully`);
           router.refresh();
         } catch (err) {
           console.error('Error deleting comments:', err);

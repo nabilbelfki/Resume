@@ -4,30 +4,161 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 20px;
-    /* background-image: url('/images/404/Space.png');
-    background-size: cover;
-    background-position: center; */
+    /* padding: 20px; */
     height: 800px;
 }
 
 .background {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.background::before {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
     background-image: url('/images/404/Space.png');
     background-size: cover;
     background-position: center;
-    width: 100%;
-    height: 100%;
-    opacity: 50%;
+    opacity: 0.5;
+    z-index: -1;
 }
 
-.foreground {
+.status {
+    font-size: 128px;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.astronaut {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    rotate: 40deg;
+    top: -40px;
+    left: -90px;
+}
+
+.meteor {
+    position: absolute;
+    top: -60px;
+    right: -50px;
+    /* rotate: -30deg; */
+}
+
+.iss {
+    position: absolute;
+    bottom: -230px;
+    right: -200px;
+    rotate: -30deg;
+}
+
+.saturn {
+    position: absolute;
+    bottom: -90px;
+    rotate: 10deg;
+    left: -10px;
+}
+
+
+.content {
+    max-width: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     z-index: 10;
+}
+
+.content h2 {
+    margin: 0;
+    text-align: center;
+}
+
+.content button {
+    margin-top: 20px;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    height: 35px;
+    width: 160px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #0f1d36;
+    font-size: 18px;
+    margin-bottom: 100px;
+}
+
+.content button:hover {
+    background-color: #d3d3d3;
+}
+
+@media (width <= 1000px) {
+    .astronaut {
+        height: 300px;
+        width: auto;
+        top: 0px;
+        left: 50px;
+    }
+
+    .meteor {
+        height: 300px;
+        width: auto;
+        top: 0px;
+        right: -10px;
+    }
+
+    .iss {
+        height: 700px;
+        width: auto;
+        bottom: -130px;
+        right: -140px;
+    }
+
+    .saturn {
+        height: 300px;
+        width: auto;
+        bottom: 0px;
+        left: 50px;
+    }
+}
+
+@media (width <= 750px) {
+
+    .container {
+        height: 100vh;
+    }
+
+    .content {
+        background-color: rgba(255, 255, 255, 0.25);
+        border-radius: 10px;
+    }
+
+    .iss {
+        display: none;
+    }
+
+    .saturn {
+        bottom: 100;
+        left: 40%;
+        transform: translateX(-25%);
+    }
+}
+
+@media (width <= 550px) {
+    .meteor {
+        display: none;
+    }
+}
+
+@media (width <= 500px) {
+    .content {
+        width:calc(100% - 30px);
+    }
 }

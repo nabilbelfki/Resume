@@ -243,19 +243,29 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
             const avatarUrl = column.avatar ? row[column.avatar] : null;
             const backgroundColor = stringToHexColor(content);
             const color = isColorTooDark(backgroundColor) ? '#FFFFFF' : '#4C4C4C';
+
+            // Split the content into words to handle single-word names
+            const values = content ? content.split(' ') : [];
+            
+            // Safely access values[0] and values[1] and their first characters
+            const firstInitial = values[0] ? values[0][0] : '';
+            const secondInitial = values[1] ? values[1][0] : '';
+            
+            const initials = firstInitial + secondInitial;
+
             return (
                 <>
                     <div className={styles.avatar} style={{ backgroundColor }}>
                         {avatarUrl ? (
                             <Image 
                                 src={avatarUrl} 
-                                alt={`${values[0]} ${values[1]}`} 
+                                alt={content} 
                                 width={30}
                                 height={30}
                                 style={{ borderRadius: "50%"}}
                             />
                         ) : (
-                            <span style={{ color }}>{values[0][0] + values[1][0]}</span>
+                            <span style={{ color }}>{initials}</span>
                         )}
                     </div>
                     <span title={content}>{content}</span>

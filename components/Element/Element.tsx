@@ -1,13 +1,17 @@
 "use client";
 import React from "react";
 import styles from "./Element.module.css";
+import { ListItem, Checkbox} from "@/lib/types";
 
 interface ElementProps {
   tag: string;
   text?: string;
+  items?: ListItem[];
+  checkboxes?: Checkbox[];
 }
 
-const Element: React.FC<ElementProps> = ({ tag, text }) => {
+const Element: React.FC<ElementProps> = ({ tag, text, items = [], checkboxes = []}) => {
+  console.log(text);
 
   return (
     <>
@@ -16,6 +20,30 @@ const Element: React.FC<ElementProps> = ({ tag, text }) => {
         )}
         {tag === "h2" && (
             <h2>{text}</h2>
+        )}
+        {tag === "ul" && (
+            <ul>
+              {items.map((item, index) =>
+                <li key={`list-item-${index}`} style={{marginLeft: item.marginLeft}}>{item.text}</li>
+              )}
+            </ul>
+        )}
+        {tag === "ol" && (
+            <ol>
+              {items.map((item, index) =>
+                <li key={`list-item-${index}`} style={{marginLeft: item.marginLeft}}>{item.text}</li>
+              )}
+            </ol>
+        )}
+        {tag === "checkbox" && (
+            <div className={styles.checkboxes}>
+              {checkboxes.map((checkbox, index) =>
+                <div>
+                  <input id={`checkbox-${index}`} key={`checkbox-${index}`} checked={checkbox.checked} type="checkbox" />
+                  <label htmlFor={`checkbox-${index}`}>{checkbox.text}</label>
+                </div>
+              )}
+            </div>
         )}
     </>
   );

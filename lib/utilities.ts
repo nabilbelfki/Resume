@@ -71,3 +71,32 @@
         // Default to Image if the extension is unknown
         return 'Image';
     };
+
+    export const formatDateHumanReadable = (date: Date | null) => {
+        if (!date) return "";
+
+        const today = new Date();
+        const yesterday = new Date(today);
+        yesterday.setDate(today.getDate() - 1);
+
+        const oneDayInMilliseconds = 1000 * 60 * 60 * 24;
+        const timeDifference = today.getTime() - date.getTime();
+        const daysDifference = Math.floor(timeDifference / oneDayInMilliseconds);
+
+        // Check for 'Today'
+        if (daysDifference === 0 && today.getDate() === date.getDate()) {
+            return 'Today';
+        }
+
+        // Check for 'Yesterday'
+        if (daysDifference === 1 && yesterday.getDate() === date.getDate()) {
+            return 'Yesterday';
+        }
+
+        // Check for day of the week (within the last 7 days)
+        if (daysDifference < 7) {
+            return date.toLocaleDateString("en-US", { weekday: "long" });
+        }
+        
+        return formatDate(date);
+  };

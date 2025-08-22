@@ -110,8 +110,8 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(({
         }
 
         if (e.key === 'Backspace') {
-            const isCursorAtStart = isCursorAtTopOfHeading();
-            if (e.currentTarget.textContent?.trim() === '' && isCursorAtStart) {
+            // const isCursorAtStart = isCursorAtTopOfHeading();
+            if (e.currentTarget.textContent?.trim() === '') {
                 e.preventDefault();
                 onDelete();
             }

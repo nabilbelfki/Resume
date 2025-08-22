@@ -120,6 +120,7 @@
     height: 40px;
     border: none;
     background-color: inherit;
+    cursor: pointer;
 }
 
 .dropdown button:first-child {
@@ -138,6 +139,10 @@ border-bottom: solid 1px #C6C6C6;
 
 .dropdown button:hover {
     background-color: #F8F8F8;
+}
+
+.dropdown button:hover {
+  background-color: #dbdbdb;
 }
 
 @media (width <= 640px) {

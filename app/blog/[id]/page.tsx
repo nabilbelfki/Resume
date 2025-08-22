@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { comment, Element as Block } from "@/lib/types";
+import { comment, Element as Block, ListItem, Checkbox } from "@/lib/types";
 import styles from "./Post.module.css";
 import Element from "@/components/Element/Element";
 import Comments from "@/components/Comments/Comments";
@@ -66,17 +66,7 @@ const Post: React.FC = () => {
                 const post = await response.json();
                 console.log("Posts", post);
                 setPost(post);
-                const comments = post.comments.map((comment: Comment) => {
-                    return {
-                        author: {
-                            firstName: comment.name.split(" ")[0],
-                            lastName: comment.name.split(" ")[0],
-                        },
-                        text: comment.text,
-                        date: comment.date,
-                        time: comment.time,
-                    }
-                })
+                const comments = post.comments;
                 setComments(comments);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -98,10 +88,10 @@ const Post: React.FC = () => {
                 <div className={styles.category}>{post.category}</div>
             </div>
             {post.content.map((element, index) => 
-                <Element key={'element_' + index} tag={element.tag} text={element.text} />
+                <Element key={'element_' + index} tag={element.tag} text={element.text} items={element.items as ListItem[]}  checkboxes={element.items as Checkbox[]}/>
             )}
         </div>
-        <Comments comments={comments}/>
+        <Comments post={id} comments={comments}/>
     </div>
   );
 };

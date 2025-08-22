@@ -21,6 +21,7 @@ interface OrderedListProps {
 
 // Helper to parse content string to ListItem[]
 const parseContent = (content?: string): ListItem[] => {
+  console.log("Content", content);
   if (!content) return [{ id: Date.now(), content: "", level: 0 }];
   
   try {
@@ -61,6 +62,7 @@ const OrderedList = forwardRef<HTMLOListElement, OrderedListProps>(({
 
   // Update internal state when content prop changes
   useEffect(() => {
+    console.log("Content", content)
     setItems(parseContent(content));
   }, [content]);
 

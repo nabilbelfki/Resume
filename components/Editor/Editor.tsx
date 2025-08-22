@@ -64,9 +64,10 @@ const Editor = forwardRef<EditorHandle, EditorProps>((props, ref) => {
     useImperativeHandle(ref, () => ({
         getContent: () => getContent(),
         setBlocks: (newBlocks: Block[]) => {
+            console.log("Blocks", newBlocks);
             setBlocks(newBlocks);
             if (newBlocks.length > 0) {
-            setActiveBlockId(newBlocks[0].id);
+                setActiveBlockId(newBlocks[0].id);
             }
         }
     }), [blocks]);
@@ -305,6 +306,8 @@ const Editor = forwardRef<EditorHandle, EditorProps>((props, ref) => {
     };
 
     const renderComponent = (block: Block, index: number) => {
+        console.log("Block", block)
+        if (block.type === 'ul') console.log(block.content);
         const commonProps = {
             editable,
             content: block.content,

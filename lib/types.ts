@@ -227,12 +227,12 @@ export interface Experiences {
   }
 
 
-  interface ListItem {
+  export interface ListItem {
     marginLeft: number;
     text: string;
   }
 
-  interface Checkbox {
+  export interface Checkbox {
     checked: boolean;
     text: string;
   }
