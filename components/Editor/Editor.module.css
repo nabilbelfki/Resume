@@ -8,9 +8,9 @@
 .editor {
   height: 700px;
   padding: 10px;
-  background-color: #fff;
-  border-left: solid 0.6px #C6C6C6;
-  border-right: solid 0.6px #C6C6C6;
+  background-color: var(--editor-background);
+  border-left: solid 0.6px var(--editor-border);
+  border-right: solid 0.6px var(--editor-border);
   font-family: Inter, sans-serif;
   /* overflow: visible; */
   overflow-y: auto;
@@ -18,8 +18,8 @@
 
 .top-bar {
   position: relative;
-  background: linear-gradient(#E3E3E3 0%, #F5f5f5 50%, #E3E3E3 100%);
-  border: solid 0.6px #C6C6C6;
+  background: var(--editor-bar-background);
+  border: solid 0.6px var(--editor-border);
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -41,8 +41,8 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  border: solid 0.6px #C6C6C6;
-  background: linear-gradient(#E3E3E3 0%, #F5f5f5 50%, #E3E3E3 100%);
+  border: solid 0.6px var(--editor-border);
+  background: var(--editor-bar-background);
   height: 30px;
   padding-right: 10px;
 }
@@ -50,6 +50,7 @@
 .word-count {
   font-size: 8px;
   font-weight: 550;
+  color: var(--editor-color);
 }
 
 .visual-or-text {
@@ -64,10 +65,9 @@
     padding: 10px;
     outline: none;
     font-size: 16px;
-    color: #4C4C4C;
-    border: solid 1.6px #C6C6C6;
-    /* box-shadow: 0 0 1.5px 0 rgba(0,0,0,0.25); */
-    background-color: #efefef;
+    color: var(--editor-color);
+    border: solid 1.6px var(--editor-border);
+    background-color: var(--editor-bar-button-background);
     display: flex;
     cursor: pointer;
     justify-content: space-between;
@@ -78,6 +78,6 @@
 }
 
 .visual-or-text button.selected {
-  background-color: #FFFFFF;
-  border-bottom: #FFFFFF;
+  background-color: var(--editor-background);
+  border-bottom: var(--editor-background);
 }

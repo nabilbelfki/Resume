@@ -79,13 +79,13 @@ export default async function handler(req, res) {
       }
     }
   } else if (req.method === "GET") {
-      const { 
-          date, 
-          page = 1, 
-          limit = 10, 
-          sortBy = 'created',
+      const {
+          date,
+          page = 1,
+          limit = 10,
+          sortBy = 'dateTime', // Changed default to dateTime
           sortOrder = 'desc',
-          search = ''  // Add search parameter
+          search = ''
       } = req.query;
 
       try {
@@ -93,13 +93,13 @@ export default async function handler(req, res) {
           const pageNumber = parseInt(page.toString());
           const limitNumber = parseInt(limit.toString());
           const skip = (pageNumber - 1) * limitNumber;
-          
+
           // Validate sort order
           const sortDirection = sortOrder.toString().toLowerCase() === 'asc' ? 1 : -1;
 
           // Create cache key with all parameters (include search)
           const cacheKey = `meetings:${date || 'all'}:${page}:${limit}:${sortBy}:${sortOrder}:${search}`;
-          
+
           // Check cache
           const cachedData = getCache(cacheKey);
           if (cachedData) {
@@ -114,7 +114,7 @@ export default async function handler(req, res) {
               startOfDay.setUTCHours(0, 0, 0, 0);
               const endOfDay = new Date(startOfDay);
               endOfDay.setUTCHours(23, 59, 59, 999);
-              
+
               conditions.dateTime = {
                   $gte: startOfDay,
                   $lt: endOfDay
@@ -125,7 +125,7 @@ export default async function handler(req, res) {
           if (search) {
               const searchRegex = new RegExp(search.toString(), 'i');
               const searchTerms = search.toString().trim().split(/\s+/); // Split search query into terms
-              
+
               conditions.$or = [
                   { firstName: searchRegex },
                   { lastName: searchRegex },
@@ -143,19 +143,64 @@ export default async function handler(req, res) {
               ];
           }
 
-          const sortOptions = {
-            [sortBy]: sortDirection,
-            '_id': sortDirection
-          };
+          let data;
+          let total;
 
-          // Get total count
-          const total = await Meeting.countDocuments(conditions);
+          if (sortBy === 'time') {
+              // Use aggregation pipeline to sort by time of day
+              console.log("Using aggregation pipeline to sort by time...");
+              const pipeline = [
+                  // Filter by search conditions
+                  { $match: conditions },
+                  // Project a new field 'timeOfDay' for sorting
+                  {
+                      $addFields: {
+                          timeOfDay: {
+                              $subtract: [
+                                  "$dateTime",
+                                  {
+                                      $dateFromParts: {
+                                          "year": { "$year": "$dateTime" },
+                                          "month": { "$month": "$dateTime" },
+                                          "day": { "$dayOfMonth": "$dateTime" }
+                                      }
+                                  }
+                              ]
+                          }
+                      }
+                  },
+                  // Sort by the new 'timeOfDay' field and then by dateTime as a tie-breaker
+                  {
+                      $sort: {
+                          timeOfDay: sortDirection,
+                          dateTime: sortDirection
+                      }
+                  },
+                  // Pagination stages
+                  { $skip: skip },
+                  { $limit: limitNumber }
+              ];
 
-          // Fetch paginated meetings
-          const data = await Meeting.find(conditions)
-              .skip(skip)
-              .limit(limitNumber)
-              .sort(sortOptions);
+              // Get total count first before fetching data with the pipeline
+              total = await Meeting.countDocuments(conditions);
+              data = await Meeting.aggregate(pipeline);
+
+          } else {
+              // Use the standard find and sort for other keys
+              const sortOptions = {
+                  [sortBy]: sortDirection,
+                  '_id': sortDirection
+              };
+              
+              // Get total count first
+              total = await Meeting.countDocuments(conditions);
+              
+              // Fetch paginated meetings
+              data = await Meeting.find(conditions)
+                  .skip(skip)
+                  .limit(limitNumber)
+                  .sort(sortOptions);
+          }
 
           // Prepare response
           const responseData = {

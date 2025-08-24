@@ -5,7 +5,7 @@
 .title {
     font-size: 56px;
     font-weight: 600;
-    color: #4C4C4C;
+    color: var(--breadcrumbs-title-color);
 }
 
 .breadcrumbs {
@@ -30,8 +30,12 @@
     align-items: center;
 }
 
+.icon path {
+    fill: var(--breadcrumbs-icon);
+}
+
 .label {
-    color: #727272;
+    color: var(--breadcrumbs-color)
 }
 
 .icon-and-link:hover .label {

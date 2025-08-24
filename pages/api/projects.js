@@ -72,20 +72,77 @@ async function handleGetRequest(query, res) {
   }
 
   const total = await Project.countDocuments(conditions);
-  const sortOptions = {
-    [sortBy]: sortDirection,
-    '_id': sortDirection
-  };
+  let data;
 
-  let queryBuilder = Project.find(conditions)
-    .sort(sortOptions);
-  if (limitNumber > 0) {
-    queryBuilder = queryBuilder.skip(skip).limit(limitNumber);
+  if (sortBy === 'duration') {
+    console.log("Using aggregation pipeline to sort by duration...");
+    const pipeline = [
+      // Filter by search and status conditions
+      { $match: conditions },
+      // Project a new field 'durationInDays' for sorting
+      {
+        $addFields: {
+          durationInDays: {
+            $let: {
+              vars: {
+                parts: { $split: ["$duration", " "] }
+              },
+              in: {
+                $switch: {
+                  branches: [
+                    {
+                      case: { $or: [{ $eq: [{ $arrayElemAt: ["$$parts", 1] }, "Day"] }, { $eq: [{ $arrayElemAt: ["$$parts", 1] }, "Days"] }] },
+                      then: { $toInt: { $arrayElemAt: ["$$parts", 0] } }
+                    },
+                    {
+                      case: { $or: [{ $eq: [{ $arrayElemAt: ["$$parts", 1] }, "Week"] }, { $eq: [{ $arrayElemAt: ["$$parts", 1] }, "Weeks"] }] },
+                      then: { $multiply: [{ $toInt: { $arrayElemAt: ["$$parts", 0] } }, 7] }
+                    },
+                    {
+                      case: { $or: [{ $eq: [{ $arrayElemAt: ["$$parts", 1] }, "Month"] }, { $eq: [{ $arrayElemAt: ["$$parts", 1] }, "Months"] }] },
+                      then: { $multiply: [{ $toInt: { $arrayElemAt: ["$$parts", 0] } }, 30] } // Approximate months as 30 days
+                    },
+                    {
+                      case: { $or: [{ $eq: [{ $arrayElemAt: ["$$parts", 1] }, "Year"] }, { $eq: [{ $arrayElemAt: ["$$parts", 1] }, "Years"] }] },
+                      then: { $multiply: [{ $toInt: { $arrayElemAt: ["$$parts", 0] } }, 365] } // Approximate years as 365 days
+                    }
+                  ],
+                  default: 0 // Default to 0 if duration format is unexpected
+                }
+              }
+            }
+          }
+        }
+      },
+      // Sort by the new 'durationInDays' field and then by _id as a tie-breaker
+      {
+        $sort: {
+          durationInDays: sortDirection,
+          _id: sortDirection
+        }
+      },
+      // Pagination stages
+      { $skip: skip },
+      { $limit: limitNumber > 0 ? limitNumber : total }
+    ];
+
+    data = await Project.aggregate(pipeline);
   } else {
-    limitNumber = total;
-  }
+    const sortOptions = {
+      [sortBy]: sortDirection,
+      '_id': sortDirection
+    };
 
-  const data = await queryBuilder;
+    let queryBuilder = Project.find(conditions)
+      .sort(sortOptions);
+    if (limitNumber > 0) {
+      queryBuilder = queryBuilder.skip(skip).limit(limitNumber);
+    } else {
+      limitNumber = total;
+    }
+
+    data = await queryBuilder;
+  }
 
   console.log(`Projects fetched: ${data.length} of ${total} total, sorted by ${sortBy} ${sortOrder}`);
   if (status) {

@@ -3,5 +3,6 @@
     margin-left: 60px;
     width: calc(100% - 60px);
     min-height: calc(100vh - 90px);
+    background-color: var(--background);
     padding: 50px;
 }

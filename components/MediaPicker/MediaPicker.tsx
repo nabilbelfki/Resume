@@ -78,7 +78,7 @@ const MediaPicker: React.FC<MediaPickerProps> = ({
     };
 
     // Determine the background color to use
-    const thumbnailBgColor = backgroundColor || value?.backgroundColor || '#ffffff';
+    const thumbnailBgColor = backgroundColor || value?.backgroundColor || 'var(--form-media-picker-background)';
 
     const widthBorderStyle = {
         borderTop: invalidWidth ? '1.6px solid red' : '',

@@ -6,10 +6,7 @@
     padding: 15px;
     outline: none;
     font-size: 16px;
-    color: #4C4C4C;
-    border: solid 1.6px #C6C6C6;
     box-shadow: 0 0 1.5px 0 rgba(0,0,0,0.25);
-    background-color: #FFFFFF;
     display: flex;
     cursor: pointer;
     justify-content: space-between;
@@ -17,20 +14,23 @@
     width: 100%;
     height: 42px;
     gap: 10px;
+    color: var(--form-dropdown-color);
+    border: solid 1.6px var(--form-dropdown-border);
+    background-color: var(--form-dropdown-background);
 }
 
 .dropdown {
     z-index: 3;
-    color: #4C4C4C;
+    color: var(--form-dropdown-color);
     position: absolute;
-    background-color: #FFFFFF;
+    background-color: var(--form-dropdown-background);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border-bottom: solid 1px #C6C6C6;
-    border-left: solid 1px #C6C6C6;
-    border-right: solid 1px #C6C6C6;
+    border-bottom: solid 1px var(--form-dropdown-border);
+    border-left: solid 1px var(--form-dropdown-border);
+    border-right: solid 1px var(--form-dropdown-border);
     width: 100%;
     box-shadow: 0 0 3px 0 rgba(0,0,0,0.25);
     /* top: 42px; */
@@ -49,16 +49,16 @@
 }
 
 .option {
-    color: #4C4C4C;
-    background-color: #FFFFFF;
+    color: var(--form-dropdown-color);
+    background-color: var(--form-dropdown-option-background);
 }
 
 .dropdown button:not(:last-child) {
-    border-bottom: solid 1px #C6C6C6;
+    border-bottom: solid 1px var(--form-dropdown-border);
 }
 
 .dropdown button:not(.selected):hover {
-    background-color: #d1d1d1;
+    background-color: var(--form-dropdown-option-hover);
 }
 
 .selected {

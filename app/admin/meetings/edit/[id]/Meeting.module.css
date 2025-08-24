@@ -3,6 +3,7 @@
     margin-left: 60px;
     width: calc(100% - 60px);
     min-height: calc(100vh - 90px);
+    background-color: var(--background);
     padding: 50px;
 }
 
@@ -18,29 +19,29 @@
     height: 45px;
     padding-left: 30px;
     padding-right: 30px;
-    border: solid 1.6px #C6C6C6;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
     cursor: pointer;
-    color: #4C4C4C;
     font-size: 18px;
     font-weight: 600;
-    background-color: #F8F8F8;
     box-shadow: 0 0 3px 0 rgba(0,0,0,0.25);
     border-radius: 1px;
+    border: solid 1.6px var(--form-back-button-border);
+    color: var(--form-back-button-color);
+    background-color: var(--form-back-button-background);
 }
 
 .back:hover {
-    background-color: #e2e2e2;
+    background-color: var(--form-back-button-hover);
 }
 
 .save {
     height: 45px;
     padding-left: 30px;
     padding-right: 30px;
-    border: solid 0.5px white;
+    border: solid 0.5px var(--form-primary-button-border);
     cursor: pointer;
     color: #FFFFFF;
     font-weight: 600;
@@ -58,7 +59,7 @@
     height: 45px;
     padding-left: 30px;
     padding-right: 30px;
-    border: solid 0.5px white;
+    border: solid 0.5px var(--form-primary-button-border);
     cursor: pointer;
     color: #FFFFFF;
     font-weight: 600;
@@ -73,8 +74,8 @@
 }
 
 .content {
-    background-color: #F8F8F8;
-    border: solid 1.6 #E8E8E8;
+    background-color: var(--form-background);
+    border: solid 1.6 var(--form-border);
     min-height: 400px;
     padding: 50px;
 }
@@ -94,7 +95,7 @@
 }
 
 .input label {
-    color: #00449C;
+    color: var(--form-label);
     font-size: 12px;
 }
 
@@ -102,8 +103,9 @@
     padding: 15px;
     outline: none;
     font-size: 16px;
-    color: #4C4C4C;
-    border: solid 1.6px #C6C6C6;
+    color: var(--form-input-color);
+    border: solid 1.6px var(--form-input-border);
+    background-color: var(--form-input-background);
     box-shadow: 0 0 1.5px 0 rgba(0,0,0,0.25);
     height: 42px;
 }
@@ -181,7 +183,7 @@
 }
 
 .textbox label {
-    color: #00449C;
+    color: var(--form-label);
     font-size: 12px;
 }
 
@@ -190,7 +192,9 @@
     font-family: Inter, sans-serif;
     font-size: 16px;
     padding: 15px;
-    border: solid 1.6px #C6C6C6;
+    border: solid 1.6px var(--form-input-border);
+    background-color:  var(--form-input-background);
+    color: var(--form-input-color);
     box-shadow: 0 0 1.5px 0 rgba(0,0,0,0.25);
     outline: none;
     resize: none;

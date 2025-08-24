@@ -106,51 +106,51 @@ const Message: React.FC = () => {
     }
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    // e.preventDefault();
-    // setIsSubmitting(true);
-    // setError(null);
+  const handleReply = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
 
-    // try {
-    //   // Validate required fields
-    //   if (!formData.firstName || !formData.lastName || !formData.email || !formData.message) {
-    //     alert('Please fill all required fields');
-    //   }
+    try {
+      // Validate required fields
+      // if (!formData.firstName || !formData.lastName || !formData.email || !formData.message) {
+      //   alert('Please fill all required fields');
+      // }
 
-    //   const messageToken = await executeRecaptcha("contact_form");
+      const messageToken = await executeRecaptcha("contact_form");
 
-    //   // Prepare the request body
-    //   const requestBody = {
-    //     firstName: formData.firstName,
-    //     lastName: formData.lastName,
-    //     email: formData.email,
-    //     message: formData.message || "",
-    //     recaptchaToken: messageToken
-    //   };
+      // Prepare the request body
+      const requestBody = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        message: formData.message || "",
+        reply: 'This is my reply',
+        recaptchaToken: messageToken
+      };
 
-    //   const response = await fetch('/api/message', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(requestBody)
-    //   });
+      const response = await fetch('/api/reply', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody)
+      });
 
-    //   if (!response.ok) {
-    //     const errorData = await response.json();
-    //     throw new Error(errorData.error || 'Failed to create meeting');
-    //   }
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to send reply');
+      }
 
-    //   alert('Message successfully sent');
+      alert('Message successfully sent');
 
-    //   location.href = '/admin/messages';
+      location.href = '/admin/messages';
 
-    // } catch (err) {
-    //   console.error('Error creating meeting:', err);
-    //   setError(err instanceof Error ? err.message : 'Failed to create meeting');
-    // } finally {
-    //   setIsSubmitting(false);
-    // }
+    } catch (err) {
+      console.error('Error replying', err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -162,7 +162,7 @@ const Message: React.FC = () => {
           onClick={() => window.location.href = '/admin/messages'}
         >
           <svg style={{rotate: '180deg'}} xmlns="http://www.w3.org/2000/svg" version="1.0" height="20" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
-            <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#727272" stroke="none">
+            <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="var(--form-back-button-icon)" stroke="none">
               <path d="M1721 4034 c-94 -47 -137 -147 -107 -249 11 -37 29 -63 68 -101 29 -28 333 -290 676 -583 342 -293 622 -535 621 -539 0 -4 -277 -243 -615 -532 -777 -663 -740 -629 -759 -693 -54 -181 134 -339 298 -251 59 32 1549 1310 1583 1358 64 90 51 196 -33 278 -26 25 -382 331 -790 680 -556 476 -751 637 -781 646 -60 18 -103 14 -161 -14z"/>
             </g>
           </svg>
@@ -170,10 +170,10 @@ const Message: React.FC = () => {
         </button>
         <button 
           className={styles.save} 
-          onClick={handleSubmit}
+          onClick={handleReply}
           disabled={isSubmitting}
         >
-          {isSubmitting ? 'Sending...' : 'Reply'}
+          {isSubmitting ? 'Replying...' : 'Reply'}
         </button>
         <button 
           className={styles.delete} 

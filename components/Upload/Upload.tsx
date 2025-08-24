@@ -89,7 +89,7 @@ const Upload: React.FC<UploadProps> = ({
     <div className={styles.container}>
       <div 
         className={styles.thumbnail} 
-        style={{ ...style, backgroundColor: '#FFFFFF' }}
+        style={{ ...style, backgroundColor: 'var(--form-thumbnail-background)' }}
         onClick={handleUploadClick}
       >
         {isUploading ? (

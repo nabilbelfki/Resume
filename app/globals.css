@@ -1,6 +1,113 @@
+
 :root {
-  --background: #011a49;
-  --foreground: #171717;
+  --background: #FFFFFF;
+  --navigation-input-background: #e9e9e9;
+  --navigation-bottom-border: #d9d9d9;
+  --sidebar-background: #F2F2F2;
+  --sidebar-icons: #727272;
+  --sidebar-icons-hover: #474747;
+  --sidebar-text: #474747;
+  --breadcrumbs-title-color: #4C4C4C;
+  --breadcrumbs-color: #4C4C4C;
+  --breadcrumbs-icon: #727272;
+  --table-color: #4C4C4C;
+  --table-row-hover: #F8F8F8;
+  --table-input-background: #FFFFFF;
+  --table-input-placeholder: #C6C6C6;
+  --table-icon: #727272;
+  --table-icon-hover: #4C4C4C;
+  --table-border: #E5E5E5;
+  --table-action-border: #C6C6C6;
+  --table-action-background: #f8f8f8;
+  --table-action-dropdown-background: #FFFFFF;
+  --table-action-color: #4C4C4C;
+  --table-action-icon: #4C4C4C;
+  --table-action-option-hover: #F8F8F8;
+  --form-background: #F8F8F8;
+  --form-border: #E8E8E8;
+  --form-label: #00449C;
+  --form-input-color: #4C4C4C;
+  --form-input-background: #FFFFFF;
+  --form-input-disabled-background: #FFFFFF;
+  --form-input-border: #C6C6C6;
+  --form-back-button: #F8F8F8;
+  --form-back-button-border: #C6C6C6;
+  --form-back-button-color: #4C4C4C;
+  --form-back-button-icon: #727272;
+  --form-back-button-hover: #e2e2e2;
+  --form-primary-button-border: #FFFFFF;
+  --form-dropdown-color: #4C4C4C;
+  --form-dropdown-color-disabled: #C6C6C6;
+  --form-dropdown-background: #FFFFFF;
+  --form-dropdown-border: #C6C6C6;
+  --form-dropdown-option-background: #FFFFFF;
+  --form-dropdown-option-hover: #d1d1d1;
+  --form-color-picker-color: #4C4C4C;
+  --form-color-picker-border: #C6C6C6;
+  --form-color-picker-wheel-background: #FFFFFF;
+  --form-media-picker-background: #F2F2F2;
+  --form-thumbnail-background: #F2F2F2;
+  --form-avatar-background: #D9D9D9;
+  --editor-background: #FFFFFF;
+  --editor-border: #C6C6C6;
+  --editor-bar-background: linear-gradient(#E3E3E3 0%, #F5f5f5 50%, #E3E3E3 100%);
+  --editor-color: #4C4C4C;
+  --editor-bar-button-background: #efefef;
+}
+
+.dark-mode {
+  --background: #2D2D2D;
+  --navigation-input-background: #727272;
+  --navigation-bottom-border: #9c9c9c;
+  --sidebar-background: #3C3C3C;
+  --sidebar-icons: #8C8C8C;
+  --sidebar-icons-hover: #FFFFFF;
+  --sidebar-text: #a7a7a7;
+  --breadcrumbs-title-color: #EFEFEF;
+  --breadcrumbs-color: #EFEFEF;
+  --breadcrumbs-icon: #EFEFEF;
+  --table-color: #EFEFEF;
+  --table-row-hover: #3f3f3f;
+  --table-input-background: #727272;
+  --table-input-placeholder: #4C4C4C;
+  --table-icon: #EFEFEF;
+  --table-icon-hover: #FFFFFF;
+  --table-border: #a5a5a5;
+  --table-action-border: #696969;
+  --table-action-background: #383838;
+  --table-action-dropdown-background: #383838;
+  --table-action-color: #EFEFEF;
+  --table-action-icon: #EFEFEF;
+  --table-action-option-hover: #4e4e4e;
+  --form-background: #464646;
+  --form-border: #656565;
+  --form-label: #C0C0C0;
+  --form-input-color: #FFFFFF;
+  --form-input-background: #727272;
+  --form-input-disabled-background: #727272;
+  --form-input-border: #727272;
+  --form-back-button-background: #383838;
+  --form-back-button-border: #696969;
+  --form-back-button-color: #EFEFEF;
+  --form-back-button-icon: #EFEFEF;
+  --form-back-button-hover: #4e4e4e;
+  --form-primary-button-border: #696969;
+  --form-dropdown-color: #FFFFFF;
+  --form-dropdown-background: #727272;
+  --form-dropdown-border: #727272;
+  --form-dropdown-option-background: #383838;
+  --form-dropdown-option-hover: #4e4e4e;
+  --form-color-picker-color: #FFFFFF;
+  --form-color-picker-border: #727272;
+  --form-color-picker-wheel-background: #8d8d8d;
+  --form-media-picker-background: #727272;
+  --form-thumbnail-background: #383838;
+  --form-avatar-background: #383838;
+  --editor-background: #aaaaaa;
+  --editor-border: #727272;
+  --editor-bar-background: linear-gradient(#353535 0%, #505050 50%, #353535 100%);
+  --editor-color: #EFEFEF;
+  --editor-bar-button-background: #383838;
 }
 
 * {
@@ -8,7 +115,7 @@
 }
 
 body {
-  color: var(--foreground);
+  color: #171717;;
   font-family: Inter, sans-serif;
   display: flex;
   justify-content: center;

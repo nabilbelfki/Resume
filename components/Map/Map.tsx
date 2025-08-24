@@ -56,8 +56,7 @@ const Map: React.FC<MapProps> = ({ location }) => {
     lng: location.longitude,
   };
 
-  const googleMapsApiKey = process.env
-    .NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string;
+  const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string;
 
   if (!googleMapsApiKey) {
     throw new Error("Google Maps API key is not defined");

@@ -2,21 +2,25 @@
     position: relative;
     min-width: 30px;
     min-height: 30px;
+    cursor: pointer;
 }
 
 .container input {
     padding: 15px;
     outline: none;
     font-size: 16px;
-    color: #4C4C4C;
+    color: var(--form-color-picker-color);
+    border: solid 1.6px var(--form-input-border);
+    background-color:  var(--form-input-background);
     border: none;
     box-shadow: 0 0 1.5px 0 rgba(0,0,0,0.25);
+    cursor: pointer;
     height: 42px;
     width: 100%;
 }
 
 .field-included input {
-    border: solid 1.6px #C6C6C6;
+    border: solid 1.6px var(--form-color-picker-border);
 }
 
 .picker {
@@ -50,8 +54,8 @@
 }
 
 .field-included .color-wheel {
-    border: solid 1.6px #C6C6C6;
-    background-color: white;
+    border: solid 1.6px var(--form-color-picker-border);
+    background-color: var(--form-color-picker-wheel-background);
     position: absolute;
 }
 

@@ -143,7 +143,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body style={{background}}>
+      <body style={{background}} className='dark-mode'>
         <UserProvider>
           <ReCaptchaProvider
             reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY_V3}

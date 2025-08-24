@@ -16,8 +16,23 @@
     width: 50px;
 }
 
-.container:hover path {
-    fill: #474747;
+.container rect {
+    stroke: var(--sidebar-icons);
+}
+
+
+.container path,
+.container circle {
+    fill: var(--sidebar-icons);
+}
+
+.container:hover rect {
+    stroke: var(--sidebar-icons);
+}
+
+.container:hover path,
+.container:hover circle {
+    fill: var(--sidebar-icons-hover);
 }
 
 .container:hover .label {
@@ -25,7 +40,7 @@
 }
 
 .label {
-    color: #474747;
+    color: var(--sidebar-text);
     font-weight: 600;
     opacity: 0;
     max-width: 0;

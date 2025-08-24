@@ -32,13 +32,13 @@ const Dropdown: React.FC<DropdownProps> = ({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [buttonText, setButtonText] = useState(placeholder);
-  const [color, setColor] = useState<'#C6C6C6' | '#4C4C4C'>(disabled ? '#C6C6C6' : '#4C4C4C');
+  const [color, setColor] = useState<'var(--form-dropdown-color-disabled)' | 'var(--form-dropdown-color)'>(disabled ? 'var(--form-dropdown-color-disabled)' : 'var(--form-dropdown-color)');
 
   useEffect(() => {
     // Update button text when value changes
     if (value === null) {
       setButtonText(placeholder);
-      setColor(disabled ? '#C6C6C6' : '#4C4C4C');
+      setColor(disabled ? 'var(--form-dropdown-color-disabled)' : 'var(--form-dropdown-color)');
     } else {
       // console.log('Value', value)
 
@@ -46,7 +46,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       // console.log(selectedOption)
       if (selectedOption) {
         setButtonText(selectedOption.label);
-        setColor(disabled ? '#C6C6C6' : '#4C4C4C');
+        setColor(disabled ? 'var(--form-dropdown-color-disabled)' : 'var(--form-dropdown-color)');
       }
     }
   }, [value, options, placeholder, disabled]);
@@ -96,7 +96,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         <span style={{ color }}>{buttonText}</span>
         
         <svg xmlns="http://www.w3.org/2000/svg" height="10" viewBox="0 0 6 3" fill="none">
-          <path d="M1 0.5L3 2.5L5 0.5" stroke="#4C4C4C" strokeWidth="0.5"/>
+          <path d="M1 0.5L3 2.5L5 0.5" stroke={color} strokeWidth="0.5"/>
         </svg>
       </button>
       {isExpanded && !disabled && (

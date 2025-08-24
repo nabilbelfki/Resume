@@ -84,7 +84,8 @@ const Meetings: React.FC = () => {
                         label: 'Time', 
                         selectors: [['dateTime']],
                         alignment: 'center',
-                        formatter: (text) => formatTime(text.split("T")[1].split(".")[0])
+                        formatter: (text) => formatTime(text.split("T")[1].split(".")[0]),
+                        sortKey: 'time'
                     }, 
                     { 
                         label:'Date', 

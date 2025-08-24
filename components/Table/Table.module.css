@@ -13,31 +13,31 @@
     width: 170px;
     padding-left: 30px;
     padding-right: 30px;
-    border: solid 1.6px #C6C6C6;
+    border: solid 1.6px var(--table-action-border);
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
     cursor: pointer;
-    color: #4C4C4C;
+    color: var(--table-action-color);
     font-size: 16px;
-    background-color: #F8F8F8;
+    background-color: var(--table-action-background);
     box-shadow: 0 0 3px 0 rgba(0,0,0,0.25);
     border-radius: 1px;
 }
 
 .dropdown {
     z-index: 3;
-    color: #4C4C4C;
+    color: var(--table-action-color);
     position: absolute;
-    background-color: #FFFFFF;
+    background-color: var(--table-action-dropdown-background);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border-bottom: solid 1px #C6C6C6;
-    border-left: solid 1px #C6C6C6;
-    border-right: solid 1px #C6C6C6;
+    border-bottom: solid 1px var(--table-action-border);
+    border-left: solid 1px var(--table-action-border);
+    border-right: solid 1px var(--table-action-border);
     width: 100%;
     box-shadow: 0 0 3px 0 rgba(0,0,0,0.25);
     top: 35px;
@@ -45,7 +45,7 @@
 }
 
 .dropdown button {
-    color: #4C4C4C;
+    color: var(--table-action-color);
     text-align: left;
     font-weight: 590;
     padding-left: 25px;
@@ -57,11 +57,11 @@
 }
 
 .dropdown button:not(:last-child) {
-border-bottom: solid 1px #C6C6C6;
+border-bottom: solid 1px var(--table-action-border);
 }
 
 .dropdown button:hover {
-    background-color: #F8F8F8;
+    background-color: var(--table-action-option-hover);
 }
 
 .create-and-search {
@@ -73,7 +73,7 @@ border-bottom: solid 1px #C6C6C6;
     height: 35px;
     padding-left: 30px;
     padding-right: 30px;
-    border: solid 0.5px white;
+    border: solid 0.5px var(--table-action-border);
     cursor: pointer;
     color: #FFFFFF;
     /* font-weight: 600; */
@@ -95,10 +95,15 @@ border-bottom: solid 1px #C6C6C6;
     font-size: 16px;
     height: 35px;
     width: 280px;
-    border: solid 0.5px #C6C6C6;
+    border: solid 0.5px var(--table-action-border);
     box-shadow: 0 0 3px 0 rgba(0,0,0,0.25);
     border-radius: 1px;
     padding: 12px;
+    background-color: var(--table-input-background);
+}
+
+.search input::placeholder {
+    color: var(--table-action-dropdown-background);
 }
 
 .icon {
@@ -109,8 +114,8 @@ border-bottom: solid 1px #C6C6C6;
 
 .table {
     width: 100%;
-    border-collapse: collapse; /* Still good for cell borders */
-    color: #4C4C4C;
+    border-collapse: collapse;
+    color: var(--table-color);
 }
 
 .table tr {
@@ -186,16 +191,15 @@ border-bottom: solid 1px #C6C6C6;
 
 .table tbody tr {
     width: 100%;
-    /* cursor: pointer; */
-    border-bottom: solid 1.4px #E5E5E5;
+    border-bottom: solid 1.4px var(--table-border);
 }
 
 .table tbody tr:hover {
-    background-color: #F8F8F8;
+    background-color: var(--table-row-hover);
 }
 
 .table tbody td:not(:first-child) {
-    border-left: solid 1.5px #E5E5E5;
+    border-left: solid 1.5px var(--table-border);
 }
 
 .thumbnail {
@@ -267,7 +271,7 @@ border-bottom: solid 1px #C6C6C6;
 
 .label {
     font-style: italic;
-    color: #4C4C4C;
+    color: var(--table-color);
 }
 
 .page,
@@ -281,6 +285,7 @@ border-bottom: solid 1px #C6C6C6;
     border: none;
     font-weight: 600;
     color: #4C4C4C;
+    background-color: var(--table-input-background);
 }
 
 .page:focus {
@@ -307,5 +312,9 @@ border-bottom: solid 1px #C6C6C6;
 
 .previous:hover g,
 .next:hover g {
-    fill: #4C4C4C;
+    fill: var(--table-icon-hover);
+}
+.previous:hover,
+.next:hover{
+    transform: scale(1.1);
 }
