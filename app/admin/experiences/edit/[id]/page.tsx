@@ -454,6 +454,7 @@ const Experience: React.FC = () => {
       // Remove period.end if it's empty
       if (!finalFormData.period.end) {
         const { end, ...periodWithoutEnd } = finalFormData.period;
+        void end;
         finalFormData.period = periodWithoutEnd;
       }
 

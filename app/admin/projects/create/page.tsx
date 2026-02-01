@@ -71,6 +71,10 @@ interface ProjectData {
   };
 }
 
+type LanguageItem = ProjectData["languages"][number];
+type ToolItem = ProjectData["tools"][number];
+type SlideItem = ProjectData["client"]["slides"][number];
+
 const Project: React.FC = () => {
   const [thumbnail, setThumbnail] = useState<{ name: string; path: string; backgroundColor?: string }>({ 
     name: '', 
@@ -211,7 +215,7 @@ const Project: React.FC = () => {
     }
   };
 
-  const handleLanguagesChange = (items: any[]) => {
+  const handleLanguagesChange = (items: LanguageItem[]) => {
     const rowsToSave = items.length > 0 ? items : [{
       name: '',
       color: '',
@@ -235,7 +239,7 @@ const Project: React.FC = () => {
     });
   };
 
-  const handleToolsChange = (items: any[]) => {
+  const handleToolsChange = (items: ToolItem[]) => {
     const rowsToSave = items.length > 0 ? items : [{
       name: '',
       color: '',
@@ -268,7 +272,7 @@ const Project: React.FC = () => {
     });
   };
 
-  const handleClientSlidesChange = (items: any[]) => {
+  const handleClientSlidesChange = (items: SlideItem[]) => {
     const rowsToSave = items.length > 0 ? items : [{
       name: '',
       thumbnail: { name: '', path: '' },
@@ -300,7 +304,10 @@ const Project: React.FC = () => {
   };
 
   // Helper to transform errors for the List component
-  const getListErrors = (listName: 'client.slides' | 'languages' | 'tools', items: any[]) => {
+  const getListErrors = (
+    listName: 'client.slides' | 'languages' | 'tools',
+    items: Array<LanguageItem | ToolItem | SlideItem>
+  ) => {
     const fieldNames: Record<'client.slides' | 'languages' | 'tools', string[]> = {
       'client.slides': [
         'name',
@@ -683,7 +690,7 @@ const Project: React.FC = () => {
               { id: 'color', type: 'color', placeholder: 'Enter Color' },
               { id: 'percentage', type: 'number', placeholder: 'Enter Percentage' },
             ]}
-            onFieldChange={(items) => handleLanguagesChange(items)}
+            onFieldChange={(items) => handleLanguagesChange(items as LanguageItem[])}
             columns={3}
             fieldErrors={getListErrors('languages', formData.languages)}
           />
@@ -699,7 +706,7 @@ const Project: React.FC = () => {
               { id: 'slug', type: 'text', placeholder: 'Enter Slug' },
               { id: 'url', type: 'text', placeholder: 'Enter URL' },
             ]}
-            onFieldChange={(items) => handleToolsChange(items)}
+            onFieldChange={(items) => handleToolsChange(items as ToolItem[])}
             columns={3}
             fieldErrors={getListErrors('tools', formData.tools)}
           />
@@ -809,7 +816,7 @@ const Project: React.FC = () => {
               { id: 'thumbnail', type: 'media', label: 'Thumbnail' },
               { id: 'color', type: 'color', placeholder: 'Enter Background Color' },
             ]}
-            onFieldChange={(items) => handleClientSlidesChange(items)}
+            onFieldChange={(items) => handleClientSlidesChange(items as SlideItem[])}
             columns={2}
             fieldErrors={getListErrors('client.slides', formData.client.slides)}
           />

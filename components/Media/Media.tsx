@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useCallback, useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./Media.module.css";
 import { Media as media, MediaType } from "@/lib/types"; // Import your type
@@ -99,7 +99,7 @@ const Media: React.FC<MediaProps> = ({ type = null, isOpen, close, onSelect }) =
     }
   };
   
-  const fetchImagePaths = async (): Promise<{path: string, fileName: string, fileType: string, fileSize: number, description: string, created: string}[]> => {
+  const fetchImagePaths = useCallback(async (): Promise<{path: string, fileName: string, fileType: string, fileSize: number, description: string, created: string}[]> => {
     try {
       const response = await fetch('/api/media');
       if (!response.ok) {
@@ -116,9 +116,9 @@ const Media: React.FC<MediaProps> = ({ type = null, isOpen, close, onSelect }) =
       setError(error instanceof Error ? error.message : 'Failed to load images');
       return [];
     }
-  };
+  }, []);
 
-  const loadInitialItems = async () => {
+  const loadInitialItems = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -147,7 +147,7 @@ const Media: React.FC<MediaProps> = ({ type = null, isOpen, close, onSelect }) =
     } finally {
       setLoading(false);
     }
-  };
+  }, [fetchImagePaths]);
 
   const loadMoreItems = async () => {
     if (loading || !hasMore) return;
@@ -256,7 +256,7 @@ const Media: React.FC<MediaProps> = ({ type = null, isOpen, close, onSelect }) =
         throw new Error(errorData.error || 'Upload failed');
       }
 
-      const result = await response.json();
+      await response.json();
       // Refresh the list after a successful upload
       setIsUploading(false);
       loadInitialItems();
@@ -268,7 +268,7 @@ const Media: React.FC<MediaProps> = ({ type = null, isOpen, close, onSelect }) =
 
   useEffect(() => {
     loadInitialItems();
-  }, [type]);
+  }, [loadInitialItems, type]);
 
   return (
     <>
@@ -306,7 +306,13 @@ const Media: React.FC<MediaProps> = ({ type = null, isOpen, close, onSelect }) =
                     </svg>
                 </button>
                 {uploadFormData.file && uploadFormData.type === 'Image' && (
-                  <img src={URL.createObjectURL(uploadFormData.file)} alt="upload preview" />
+                  <Image
+                    src={URL.createObjectURL(uploadFormData.file)}
+                    alt="upload preview"
+                    width={200}
+                    height={200}
+                    unoptimized
+                  />
                 )}
                 {uploadFormData.file && uploadFormData.type === 'Video' && (
                   <video src={URL.createObjectURL(uploadFormData.file)} controls />

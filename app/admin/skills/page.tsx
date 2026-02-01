@@ -28,7 +28,7 @@ const Skills: React.FC = () => {
 
                 try {
                     // Use Promise.all to delete all users in parallel
-                    const results = await Promise.all(
+                    await Promise.all(
                         IDs.map(id => 
                             fetch(`/api/skills/${id}/activate`, {
                                 method: 'PATCH',
@@ -60,7 +60,7 @@ const Skills: React.FC = () => {
 
                 try {
                     // Use Promise.all to delete all users in parallel
-                    const results = await Promise.all(
+                    await Promise.all(
                         IDs.map(id => 
                             fetch(`/api/skills/${id}/deactivate`, {
                                 method: 'PATCH',
@@ -92,7 +92,7 @@ const Skills: React.FC = () => {
 
                 try {
                     // Use Promise.all to delete all users in parallel
-                    const results = await Promise.all(
+                    await Promise.all(
                         IDs.map(id => 
                             fetch(`/api/skills/${id}`, {
                                 method: 'DELETE',

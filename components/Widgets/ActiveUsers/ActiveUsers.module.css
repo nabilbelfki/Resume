@@ -8,7 +8,7 @@
 }
 
 .title {
-    color: #4C4C4C;
+    color: var(--widget-title);
     margin: 0;
     margin-bottom: 20px;
 }
@@ -32,13 +32,14 @@
 .search input {
     width: 100%;
     height: 35px;
-    border: solid 1px #D1D1D1;
+    border: solid 1px var(--active-user-border);
     color: #4C4C4C;
     border-radius: 8px;
     padding-left: 30px;
     font-family: Inter, sans-serif;
     outline: none;
     font-size: 14px;
+    background-color: var(--active-user-search-background);
 }
 
 .search input:focus {
@@ -57,7 +58,8 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    border: solid 1.6px #D1D1D1;
+    color: var(--active-user-name);
+    border: solid 1.6px var(--active-user-border);
     width: 100%;
     border-radius: 8px;
     padding: 4px;

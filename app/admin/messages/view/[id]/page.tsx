@@ -27,7 +27,6 @@ const Message: React.FC = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
     useEffect(() => {
@@ -35,7 +34,6 @@ const Message: React.FC = () => {
         if (!id) return;
 
         try {
-          setLoading(true);
           const response = await fetch(`/api/message/${id}`);
 
           if (!response.ok) {
@@ -55,8 +53,6 @@ const Message: React.FC = () => {
         } catch (err) {
           setError(err instanceof Error ? err.message : 'Failed to fetch data');
           console.error('Error fetching meeting:', err);
-        } finally {
-          setLoading(false);
         }
       };
 

@@ -263,3 +263,9 @@ export interface Experiences {
     content: string;
     textAlign?: 'left' | 'center' | 'right';
 };
+
+export interface Radio {
+    ID: string;
+    label: string;
+    value: string;
+}

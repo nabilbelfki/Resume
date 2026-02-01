@@ -49,7 +49,6 @@ const Skill: React.FC = () => {
     }
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [validationErrors, setValidationErrors] = useState<Record<string, boolean>>({});
   
@@ -58,7 +57,6 @@ const Skill: React.FC = () => {
         if (!id) return;
 
         try {
-          setLoading(true);
           const response = await fetch(`/api/skills/${id}`);
 
           if (!response.ok) {
@@ -87,8 +85,6 @@ const Skill: React.FC = () => {
         } catch (err) {
           setError(err instanceof Error ? err.message : 'Failed to fetch data');
           console.error('Error fetching user:', err);
-        } finally {
-          setLoading(false);
         }
       };
 
@@ -143,17 +139,6 @@ const Skill: React.FC = () => {
     if (validationErrors[id]) {
       setValidationErrors(prev => ({ ...prev, [id]: false }));
     }
-  };
-
-  const handleThumbnailChange = (media: { name: string; path: string }) => {
-    setFormData(prev => ({
-      ...prev,
-      image: {
-        ...prev.image,
-        name: media.name,
-        url: `${media.path}${media.name}`
-      }
-    }));
   };
 
   const handleDelete = async () => {

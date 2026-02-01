@@ -56,7 +56,7 @@ const deserializeTableData = (json: string): Record[] => {
         }
         // Return default 2x2 table if parsing fails
         return createInitialTableData(2, 2);
-    } catch (e) {
+    } catch {
         return createInitialTableData(2, 2);
     }
 };
@@ -482,20 +482,6 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
                 text: {
                     ...cell.text,
                     size
-                }
-            }));
-        }
-    };
-
-    // Handle font weight change
-    const handleFontWeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const weight = parseInt(e.target.value, 10);
-        if (!isNaN(weight)) {
-            updateSelectedCells(cell => ({
-                ...cell,
-                text: {
-                    ...cell.text,
-                    weight
                 }
             }));
         }

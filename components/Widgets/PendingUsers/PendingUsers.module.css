@@ -8,7 +8,7 @@
 }
 
 .title {
-    color: #4C4C4C;
+    color: var(--widget-title);
     margin: 0;
     margin-bottom: 40px;
 }
@@ -25,7 +25,7 @@
 
 .user {
     display: flex;
-    border: solid 1.6px #D1D1D1;
+    border: solid 1.6px var(--pending-user-border);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,7 +51,7 @@
 .name {
     font-size: 17px;
     font-weight: 550;
-    color: #4C4C4C;
+    color: var(--pending-user-name);
     flex: 8;
 }
 

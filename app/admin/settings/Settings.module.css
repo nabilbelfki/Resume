@@ -4,5 +4,81 @@
     width: calc(100% - 60px);
     min-height: calc(100vh - 90px);
     background-color: var(--background);
+    max-width: 1600px;
     padding: 50px;
+}
+
+.actions {
+    position: absolute;
+    display: flex;
+    gap: 30px;
+    top: 170px;
+    right: 100px;
+}
+
+.back,
+.cacheButton {
+    height: 45px;
+    padding-left: 30px;
+    padding-right: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    box-shadow: 0 0 3px 0 rgba(0,0,0,0.25);
+    border-radius: 1px;
+    border: solid 1.6px var(--form-back-button-border);
+    color: var(--form-back-button-color);
+    background-color: var(--form-back-button-background);
+}
+
+.back:hover,
+.cacheButton:hover {
+    background-color: var(--form-back-button-hover);
+}
+
+.save {
+    height: 45px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border: solid 0.5px var(--form-primary-button-border);
+    cursor: pointer;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 18px;
+    background: linear-gradient(to right, #43A4FF 0%, #0084FF 75%, #0370D5 100%);
+    box-shadow: 0 0 3px 0 rgba(0,0,0,0.25);
+    border-radius: 1px;
+}
+
+.save:hover {
+    background: linear-gradient(to right, #1683ea 0%, #0069cb 75%, #02488a 100%);
+}
+
+.content {
+    background-color: var(--form-background);
+    border: solid 1.6 var(--form-border);
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    min-height: 400px;
+    padding: 50px;
+    gap: 40px;
+}
+
+.setting label {
+    color: var(--form-label);
+    font-size: 12px;
+}
+
+.setting p {
+    color: var(--settings-description);
+}
+
+.cacheButton {
+    height: 35px;
+    font-size: 14px;
 }

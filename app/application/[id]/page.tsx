@@ -58,7 +58,7 @@ const Application: React.FC<ApplicationProps> = ({ params }) => {
 
       fetchProject();
     }
-  }, [id]);
+  }, [id, router]);
 
   if (!project) {
     return <div>Loading...</div>;

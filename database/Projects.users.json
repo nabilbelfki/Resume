@@ -1,0 +1,45 @@
+[
+  {
+    "_id": { "$oid": "688913a96799ddf4753e1b65" },
+    "username": "nabilbelfki",
+    "firstName": "Nabil",
+    "lastName": "Belfki",
+    "email": "nabilbelfki@gmail.com",
+    "birthday": "1993-11-16T00:00:00.000Z",
+    "phoneNumber": "+1 (908) 666-3793",
+    "address": {
+      "addressOne": "3701 Riddle Court",
+      "addressTwo": "",
+      "zipCode": "08807",
+      "country": "United States of America"
+    },
+    "created": "2025-07-29T18:32:09.755Z",
+    "__v": 0,
+    "role": "Administrator",
+    "status": "Active",
+    "image": "/images/profile.png",
+    "password": "$2b$10$XEQDegWcCUOY0JlYVX535uK6.D1v48cmpusW2AqPRzKXL73HLILB2"
+  },
+  {
+    "_id": { "$oid": "688f19bc91f94993755f60ca" },
+    "image": "",
+    "username": "laylabelfki",
+    "firstName": "Layla",
+    "lastName": "Belfki",
+    "email": "laylabelfki@gmail.com",
+    "phoneNumber": "",
+    "role": "Author",
+    "status": "Active",
+    "password": "$2b$10$XEQDegWcCUOY0JlYVX535uK6.D1v48cmpusW2AqPRzKXL73HLILB2",
+    "address": {
+      "addressOne": "",
+      "addressTwo": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": ""
+    },
+    "created": "2025-08-03T08:11:40.257Z",
+    "__v": 0
+  }
+]

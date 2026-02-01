@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React from "react";
 import { useDrag, useDrop } from "react-dnd";
 import styles from "./Row.module.css";
 import Field from "../Field/Field";
@@ -9,7 +9,7 @@ interface field {
   label?: string;
   placeholder?: string;
   options?: Array<{ label: string; value: string }>;
-  value?: any;
+  value?: FieldValue;
 }
 
 interface RowItem {
@@ -24,10 +24,20 @@ interface RowProps {
   disableDelete: boolean;
   onAdd: (index: number) => void;
   onDelete: (index: number) => void;
-  onFieldChange: (rowId: number, fieldId: string, value: any) => void;
+  onFieldChange: (rowId: number, fieldId: string, value: FieldValue) => void;
   moveRow: (dragIndex: number, hoverIndex: number) => void;
   rowErrors: Record<string, boolean>;
 }
+
+type MediaValue = {
+  name: string;
+  path: string;
+  width?: number;
+  height?: number;
+  backgroundColor?: string;
+};
+
+type FieldValue = string | number | MediaValue;
 
 const Row: React.FC<RowProps> = React.memo(({ 
   row, 
@@ -46,19 +56,20 @@ const Row: React.FC<RowProps> = React.memo(({
 
     React.useEffect(() => {
       const observer = new ResizeObserver((entries) => {
-        for (let entry of entries) {
+        for (const entry of entries) {
           const { height } = entry.contentRect;
           setIsTallRow(height > 50);
         }
       });
 
-      if (rowRef.current) {
-        observer.observe(rowRef.current);
+      const rowElement = rowRef.current;
+      if (rowElement) {
+        observer.observe(rowElement);
       }
 
       return () => {
-        if (rowRef.current) {
-          observer.unobserve(rowRef.current);
+        if (rowElement) {
+          observer.unobserve(rowElement);
         }
       };
     }, []);
@@ -73,7 +84,7 @@ const Row: React.FC<RowProps> = React.memo(({
 
   const [, drop] = useDrop({
     accept: "ROW",
-    hover: (item: { index: number }, monitor) => {
+    hover: (item: { index: number }) => {
       if (!rowRef.current) return;
       const dragIndex = item.index;
       const hoverIndex = index;
@@ -109,7 +120,7 @@ const Row: React.FC<RowProps> = React.memo(({
           {row.fields.map(field => {
             // Find the color value for this row
             const colorField = row.fields.find(f => f.id === 'color');
-            const backgroundColor = colorField?.value;
+            const backgroundColor = typeof colorField?.value === 'string' ? colorField.value : undefined;
             
              return (
               <Field
@@ -131,4 +142,6 @@ const Row: React.FC<RowProps> = React.memo(({
     );
   });
 
-  export default Row;
+Row.displayName = "Row";
+
+export default Row;

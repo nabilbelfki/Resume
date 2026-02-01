@@ -26,7 +26,7 @@ const Users: React.FC = () => {
 
         try {
             // Use Promise.all to delete all users in parallel
-            const results = await Promise.all(
+            await Promise.all(
                 IDs.map(id => 
                     fetch(`/api/users/${id}`, {
                         method: 'DELETE',
@@ -52,7 +52,10 @@ const Users: React.FC = () => {
     const actions: Action[] = [
         {
             label: 'Accept Users', // Method: PUT // Endpoint: /api/users/
-            action: (ids) => console.log('Accept Users')
+            action: (_ids) => {
+                void _ids;
+                console.log('Accept Users');
+            }
         },
         {
             label: 'Delete Users',
@@ -60,19 +63,31 @@ const Users: React.FC = () => {
         },
         {
             label: 'Decline Users',
-            action: (ids) => console.log('Decline Users')
+            action: (_ids) => {
+                void _ids;
+                console.log('Decline Users');
+            }
         },
         {
             label: 'Reset Password',
-            action: (ids) => console.log('Reset Password')
+            action: (_ids) => {
+                void _ids;
+                console.log('Reset Password');
+            }
         },
         {
             label: 'Deactivate Users',
-            action: (ids) => console.log('Deactivate Users')
+            action: (_ids) => {
+                void _ids;
+                console.log('Deactivate Users');
+            }
         },
         {
             label: 'Activate Users',
-            action: (ids) => console.log('Activate Users')
+            action: (_ids) => {
+                void _ids;
+                console.log('Activate Users');
+            }
         },
     ];
     return (

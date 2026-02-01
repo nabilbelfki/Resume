@@ -1,7 +1,7 @@
 'use client';
 import { Key } from './key.type'
 import icons from './icons';
-import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react';
+import React, { useCallback, useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react';
 import styles from "./Editor.module.css";
 import Dropdown from '../Dropdown/Dropdown';
 import Paragraph from './Elements/Paragraph/Paragraph';
@@ -25,9 +25,7 @@ type Line = {
     checked?: boolean;
 }
 
-interface EditorProps {
-    
-}
+type EditorProps = Record<string, unknown>;
 
 const Editor = forwardRef<EditorHandle, EditorProps>((props, ref) => {
     const [editable, setEditable] = useState(true);
@@ -56,23 +54,7 @@ const Editor = forwardRef<EditorHandle, EditorProps>((props, ref) => {
         }
     };
 
-    useEffect(() => {
-        const newWordCount = calculateTotalWordCount(blocks);
-        setWordCount(newWordCount);
-    }, [blocks]);
-
-    useImperativeHandle(ref, () => ({
-        getContent: () => getContent(),
-        setBlocks: (newBlocks: Block[]) => {
-            console.log("Blocks", newBlocks);
-            setBlocks(newBlocks);
-            if (newBlocks.length > 0) {
-                setActiveBlockId(newBlocks[0].id);
-            }
-        }
-    }), [blocks]);
-
-    const countWords = (html: string, type = ''): number => {
+    const countWords = useCallback((html: string, type = ''): number => {
         if ((type === 'ol' || type === 'ul' || type === 'checkbox') && html.includes('id')) {
             const lines: Line[] = JSON.parse(html);
             html = "";
@@ -92,9 +74,9 @@ const Editor = forwardRef<EditorHandle, EditorProps>((props, ref) => {
         const words = text.trim().split(/\s+/).filter(word => word.length > 0);
         
         return words.length;
-    };
+    }, []);
 
-    const calculateTotalWordCount = (blocks: Block[]): number => {
+    const calculateTotalWordCount = useCallback((blocks: Block[]): number => {
         return blocks.reduce((total, block) => {
             const excludedTypes = [
                 // 'ul', 
@@ -110,7 +92,12 @@ const Editor = forwardRef<EditorHandle, EditorProps>((props, ref) => {
             // Default case - count words in the content
             return total + countWords(block.content, block.type);
         }, 0);
-    };
+    }, [countWords]);
+
+    useEffect(() => {
+        const newWordCount = calculateTotalWordCount(blocks);
+        setWordCount(newWordCount);
+    }, [blocks, calculateTotalWordCount]);
 
     // Updated focus effect
     useEffect(() => {
@@ -153,7 +140,7 @@ const Editor = forwardRef<EditorHandle, EditorProps>((props, ref) => {
         }
     };
 
-    const getContent = () => {
+    const getContent = useCallback(() => {
         const content: Element[] = [];
         blocks.forEach(block => {
             const type = block.type;
@@ -241,7 +228,18 @@ const Editor = forwardRef<EditorHandle, EditorProps>((props, ref) => {
         });
 
         return content;
-    };
+    }, [blocks]);
+
+    useImperativeHandle(ref, () => ({
+        getContent,
+        setBlocks: (newBlocks: Block[]) => {
+            console.log("Blocks", newBlocks);
+            setBlocks(newBlocks);
+            if (newBlocks.length > 0) {
+                setActiveBlockId(newBlocks[0].id);
+            }
+        }
+    }), [getContent]);
 
     const buttons = [
         'bold',
@@ -532,5 +530,7 @@ const Editor = forwardRef<EditorHandle, EditorProps>((props, ref) => {
         </div>
     );
 });
+
+Editor.displayName = "Editor";
 
 export default Editor;

@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useRef, useEffect, KeyboardEvent, forwardRef } from "react";
+import React, { useCallback, useState, useRef, useEffect, KeyboardEvent, forwardRef } from "react";
 import styles from "./Checkbox.module.css";
 
 interface CheckboxItem {
@@ -83,7 +83,18 @@ const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(({
     lastCursorOffset.current = range.startOffset;
   };
 
-  const restoreCursorOffset = (element: HTMLElement, offset: number) => {
+  const findFirstTextNode = useCallback((node: Node): Text | null => {
+    if (node.nodeType === Node.TEXT_NODE) return node as Text;
+    
+    for (let i = 0; i < node.childNodes.length; i++) {
+      const found = findFirstTextNode(node.childNodes[i]);
+      if (found) return found;
+    }
+    
+    return null;
+  }, []);
+
+  const restoreCursorOffset = useCallback((element: HTMLElement, offset: number) => {
     const selection = window.getSelection();
     if (!selection) return;
 
@@ -99,18 +110,7 @@ const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(({
       selection.removeAllRanges();
       selection.addRange(range);
     }
-  };
-
-  const findFirstTextNode = (node: Node): Text | null => {
-    if (node.nodeType === Node.TEXT_NODE) return node as Text;
-    
-    for (let i = 0; i < node.childNodes.length; i++) {
-      const found = findFirstTextNode(node.childNodes[i]);
-      if (found) return found;
-    }
-    
-    return null;
-  };
+  }, [findFirstTextNode]);
 
   useEffect(() => {
     if (focusedId !== null && itemRefs.current[focusedId]) {
@@ -119,7 +119,7 @@ const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(({
       restoreCursorOffset(element, lastCursorOffset.current);
       setFocusedId(null);
     }
-  }, [focusedId]);
+  }, [focusedId, restoreCursorOffset]);
 
   const updateItems = (newItems: CheckboxItem[]) => {
     setItems(newItems);

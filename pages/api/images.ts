@@ -12,7 +12,7 @@ export default async function handler(
     // Check if directory exists
     try {
       await fs.access(imagesDir);
-    } catch (dirError) {
+    } catch {
       return res.status(404).json({ error: 'Images directory not found' });
     }
 

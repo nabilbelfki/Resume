@@ -24,13 +24,6 @@ interface Post {
   tags: string[];
 }
 
-type Comment = {
-    name: string;
-    text: string;
-    date: string;
-    time: string;
-}
-
 const Post: React.FC = () => {
 
     const params = useParams();

@@ -53,6 +53,31 @@
   --editor-bar-background: linear-gradient(#E3E3E3 0%, #F5f5f5 50%, #E3E3E3 100%);
   --editor-color: #4C4C4C;
   --editor-bar-button-background: #efefef;
+  --widget-title: #4C4C4C;
+  --new-comment-background: #F8F8F8;
+  --new-comment-border: #D1D1D1;
+  --new-comment-name: #4C4C4C;
+  --new-comment-blog: #4C4C4C;
+  --new-comment-text: #3D3D3D;
+  --pending-user-border: #D1D1D1;
+  --pending-user-name: #4C4C4C;
+  --upcoming-meeting-border: #D1D1D1;
+  --upcoming-meeting-name: #4C4C4C;
+  --upcoming-meeting-text: #4C4C4C;
+  --new-message-background: #F8F8F8;
+  --new-message-border: #D1D1D1;
+  --new-message-name: #4C4C4C;
+  --new-message-text: #3D3D3D;
+  --active-user-search-background: #FFFFFF;
+  --active-user-border: #D1D1D1;
+  --active-user-name: #4C4C4C;
+  --site-clicks-name: #4C4C4C;
+  --site-clicks-timeframe-color: #9E9E9E;
+  --site-clicks-timeframe-hover-color: #272727;
+  --site-clicks-timeframe-selected-color: #4C4C4C;
+  --settings-description: #4C4C4C;
+  --toggle-container-background: #D9D9D9;
+  --toggle-background: #FFFFFF;
 }
 
 .dark-mode {
@@ -108,6 +133,31 @@
   --editor-bar-background: linear-gradient(#353535 0%, #505050 50%, #353535 100%);
   --editor-color: #EFEFEF;
   --editor-bar-button-background: #383838;
+  --widget-title: #EFEFEF;
+  --new-comment-background: #2D2D2D;
+  --new-comment-border: #727272;
+  --new-comment-name: #EFEFEF;
+  --new-comment-blog: #EFEFEF;
+  --new-comment-text: #FFFFFF;
+  --pending-user-border: #727272;
+  --pending-user-name: #EFEFEF;
+  --upcoming-meeting-border: #727272;
+  --upcoming-meeting-name: #EFEFEF;
+  --upcoming-meeting-text: #EFEFEF;
+  --new-message-background: #2D2D2D;
+  --new-message-border: #727272;
+  --new-message-name: #EFEFEF;
+  --new-message-text: #FFFFFF;
+  --active-user-search-background: #727272;
+  --active-user-border: #727272;
+  --active-user-name: #EFEFEF;
+  --site-clicks-name: #EFEFEF;
+  --site-clicks-timeframe-color: #727272;
+  --site-clicks-timeframe-hover-color: #FFFFFF;
+  --site-clicks-timeframe-selected-color: #d2d2d2;
+  --settings-description: #EFEFEF;
+  --toggle-container-background: #383838;
+  --toggle-background: #D9D9D9;
 }
 
 * {
@@ -115,7 +165,8 @@
 }
 
 body {
-  color: #171717;;
+  color: #171717;
+  background-color: var(--background);
   font-family: Inter, sans-serif;
   display: flex;
   justify-content: center;

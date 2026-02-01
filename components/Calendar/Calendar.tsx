@@ -129,7 +129,6 @@ const Calendar: React.FC<unknown> = () => {
           });
 
           const data = await response.json();
-
           if (data.success) {
             console.log("Meeting saved successfully");
 
@@ -158,12 +157,6 @@ const Calendar: React.FC<unknown> = () => {
                 if (data.success) {
                   console.log("Email sent successfully");
 
-                  const redirectUrl = `/email?firstName=${encodeURIComponent(
-                    firstName
-                  )}&lastName=${encodeURIComponent(
-                    lastName
-                  )}&date=${encodeURIComponent(dateString)}`;
-                  window.location.href = redirectUrl;
                   setIsLoading(false);
                 } else {
                   console.log("Failed to send email");
@@ -442,6 +435,7 @@ const Calendar: React.FC<unknown> = () => {
                 booked={meetings}
                 selectedTime={selectedTime}
                 setSelectedTime={setSelectedTime}
+                today={(selectedDate ? selectedDate.toDateString() : null) == new Date().toDateString()}
               />
             )}
             {page == "contact" && (

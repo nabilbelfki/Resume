@@ -1,0 +1,461 @@
+[
+  {
+    "_id": { "$oid": "688fc8388007c0bf63ba8546" },
+    "title": "Why Visual Studio Code is the Best IDE",
+    "author": { "firstName": "Nabil", "lastName": "Belfki" },
+    "date": "2025-08-25",
+    "readTime": 13,
+    "views": 132,
+    "category": "SOFTWARE",
+    "status": "Published",
+    "comments": [
+      {
+        "name": "Josh Pocano",
+        "date": "07/23/2025",
+        "text": "Hey Nabil love the blog post dude. I totally agree Visual Studio Code is definitely the most versatile IDE and the best one in my opinion too! I really liked your comparison section, it went into great detail and was an thorough breakdown. I will say though that I think that xCode is the most compatible browser because it won the award for the past three years in a row and supports Swift, Kotlin and all mobile languages, so I will have to disagree with you on that part.",
+        "time": "12:32PM"
+      },
+      {
+        "name": "Cindy Ming",
+        "date": "07/22/2025",
+        "text": "Hey Nabil love the blog post dude. I totally agree Visual Studio Code is definitely the most versatile IDE and the best one in my opinion too! I really liked your comparison section, it went into great detail and was an thorough breakdown. I will say though that I think that xCode is the most compatible browser because it won the award for the past three years in a row and supports Swift, Kotlin and all mobile languages, so I will have to disagree with you on that part.",
+        "time": "3:58PM"
+      },
+      {
+        "name": "Michael Resello",
+        "date": "12/16/2024",
+        "text": "Hey Nabil love the blog post dude. I totally agree Visual Studio Code is definitely the most versatile IDE and the best one in my opinion too! I really liked your comparison section, it went into great detail and was an thorough breakdown. I will say though that I think that xCode is the most compatible browser because it won the award for the past three years in a row and supports Swift, Kotlin and all mobile languages, so I will have to disagree with you on that part.",
+        "time": "11:11AM"
+      }
+    ],
+    "content": [
+      {
+        "tag": "p",
+        "text": "Sure, there are a plethora of Integrated Development Environments (IDEs) out there, from the language-specific powerhouses like Eclipse for Java and Xcode for Swift to more general-purpose editors. But when it comes to striking the perfect balance between power, flexibility, and a truly enjoyable coding experience, Visual Studio Code (VS Code)reigns supreme. It's not just an editor; it's a meticulously crafted development hub that consistently outperforms its competitors.",
+        "textAlign": "left",
+        "_id": { "$oid": "68a3a563823c67c280e839e3" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "h2",
+        "text": "Lightweight Powerhouse ⚡",
+        "textAlign": "left",
+        "_id": { "$oid": "68a3a563823c67c280e839e4" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "p",
+        "text": "One of the most immediate and impactful advantages of VS Code is its lightweight nature. Unlike many full-blown IDEs that can feel sluggish and consume vast amounts of system resources, VS Code is incredibly fast and responsive. It boots up in seconds, handles large projects with ease, and won't drag your system to a halt. This efficiency translates directly into a smoother, more productive workflow, especially for developers who frequently switch between projects or work on less powerful machines.",
+        "textAlign": "left",
+        "_id": { "$oid": "68a3a563823c67c280e839e5" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "h2",
+        "text": "Unmatched Customization and Extensibility 🎨",
+        "textAlign": "left",
+        "_id": { "$oid": "68a3a563823c67c280e839e6" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "p",
+        "text": "VS Code's true magic lies in its unparalleled customization and extensibility. While it comes with excellent out-of-the-box support for many languages, particularly web technologies like JavaScript, TypeScript, and Node.js, its true strength comes from its vast marketplace of extensions.</br></br>Want to code in Python, C++, Go, or Ruby? There's an extension for that, and likely a highly-rated, well-maintained one. These extensions transform VS Code from a mere text editor into a full-fledged IDE for virtually any language or framework. You can tailor themes, icons, keybindings, and settings to create an environment that feels uniquely yours. This flexibility means you're not locked into a single ecosystem; VS Code adapts to your needs, not the other way around.",
+        "textAlign": "left",
+        "_id": { "$oid": "68a3a563823c67c280e839e7" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "h2",
+        "text": "Integrated Development Features 🛠️",
+        "textAlign": "left",
+        "_id": { "$oid": "68a3a563823c67c280e839e8" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "p",
+        "text": "Despite its lightweight core, VS Code packs in essential IDE features that make development a breeze:<br /><br />IntelliSense: This intelligent code completion system offers smart suggestions based on context, significantly speeding up coding and reducing errors.<br />Built-in Debugger: Say goodbye to endless print statements. VS Code's integrated debugger allows you to set breakpoints, inspect variables, and step through your code effortlessly, making bug hunting far less painful.<br />Seamless Git Integration: Version control is crucial for any developer, and VS Code's native Git support is top-notch. You can manage commits, branches, and resolve conflicts directly within the editor, streamlining your collaborative workflow.<br />Integrated Terminal: No more switching between applications. A built-in terminal provides quick access to your command line, allowing you to run scripts, build projects, and interact with your environment without leaving VS Code.",
+        "textAlign": "left",
+        "_id": { "$oid": "68a3a563823c67c280e839e9" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "h2",
+        "text": "Cross-Platform Compatibility 🌍",
+        "textAlign": "left",
+        "_id": { "$oid": "68a3a563823c67c280e839ea" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "p",
+        "text": "Whether you're on Windows, macOS, or Linux, VS Code works seamlessly across all major operating systems. This cross-platform compatibility is a huge boon for teams with diverse setups or for developers who switch between machines. Your personalized setup and extensions can sync across your devices, ensuring a consistent development environment wherever you are.",
+        "textAlign": "left",
+        "_id": { "$oid": "68a3a563823c67c280e839eb" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "h2",
+        "text": "A Thriving Community 🤝",
+        "textAlign": "left",
+        "_id": { "$oid": "68a3a563823c67c280e839ec" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "p",
+        "text": "Behind VS Code is a massive, active, and supportive community. This means:<br /><br />Constant Innovation: New features and improvements are rolled out regularly.<br />Rich Extension Ecosystem: As mentioned, if you can imagine a coding need, there's probably an extension for it.<br />Abundant Resources: Tutorials, forums, and community-driven content are readily available, making it easy to learn and troubleshoot.",
+        "textAlign": "left",
+        "_id": { "$oid": "68a3a563823c67c280e839ed" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "h2",
+        "text": "Conclusion ✨",
+        "textAlign": "left",
+        "_id": { "$oid": "68a3a563823c67c280e839ee" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "p",
+        "text": "While specialized IDEs certainly have their place for deep-dive development in specific languages, for the vast majority of coding tasks and for developers who work across multiple technologies, Visual Studio Code stands out. Its combination of speed, incredible customization, powerful integrated features, and cross-platform support makes it the undisputed champion of modern IDEs. If you haven't given it a proper try, you're missing out on a truly transformative development experience.",
+        "textAlign": "left",
+        "_id": { "$oid": "68a3a563823c67c280e839ef" },
+        "items": [],
+        "records": []
+      }
+    ],
+    "banner": "/images/nabilbelfki.com.svg",
+    "slug": "why-visual-studio-code-is-the-best-ide",
+    "tags": [],
+    "thumbnail": "/images/blog-1.png",
+    "updatedAt": "2025-08-20T20:10:59.405Z",
+    "visibility": "Public"
+  },
+  {
+    "_id": { "$oid": "68a880973c8056629423b38f" },
+    "title": "5 Ways to Improve your Coding",
+    "date": "2025-09-06",
+    "readTime": 13,
+    "views": 0,
+    "author": { "firstName": "Nabil", "lastName": "Belfki" },
+    "category": "SOFTWARE",
+    "status": "Draft",
+    "content": [
+      {
+        "tag": "p",
+        "text": "Whether you're a beginner or an experienced developer, there's always room for improvement when it comes to coding. Writing clean, efficient, and maintainable code is a skill that takes practice and continuous learning. Here are five proven ways to level up your coding abilities.",
+        "textAlign": "left",
+        "_id": { "$oid": "68a88aa23c8056629423ba7f" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "h2",
+        "text": "1. Write Clean and Readable Code",
+        "textAlign": "left",
+        "_id": { "$oid": "68a88aa23c8056629423ba80" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "p",
+        "text": "Good code isn't just about functionality—it's about readability. Follow best practices like:",
+        "textAlign": "left",
+        "_id": { "$oid": "68a88aa23c8056629423ba81" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "ul",
+        "items": [
+          {
+            "text": "Meaningful variable and function names (e.g., calculateTotal() instead of calc()).",
+            "marginLeft": 0,
+            "_id": { "$oid": "68a88aa23c8056629423ba83" }
+          },
+          {
+            "text": "Consistent indentation and formatting (use tools like Prettier or ESLint).",
+            "marginLeft": 0,
+            "_id": { "$oid": "68a88aa23c8056629423ba84" }
+          },
+          {
+            "text": "Keep functions small and focused (single responsibility principle).",
+            "marginLeft": 0,
+            "_id": { "$oid": "68a88aa23c8056629423ba85" }
+          },
+          {
+            "text": "Add comments where necessary, but avoid over-commenting obvious code.",
+            "marginLeft": 0,
+            "_id": { "$oid": "68a88aa23c8056629423ba86" }
+          }
+        ],
+        "_id": { "$oid": "68a88aa23c8056629423ba82" },
+        "records": []
+      },
+      {
+        "tag": "p",
+        "text": "Clean code makes collaboration easier and reduces bugs in the long run.",
+        "textAlign": "left",
+        "_id": { "$oid": "68a88aa23c8056629423ba87" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "h2",
+        "text": "2. Practice Problem-Solving with Algorithms",
+        "textAlign": "left",
+        "_id": { "$oid": "68a88aa23c8056629423ba88" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "p",
+        "text": "Strong problem-solving skills are essential for coding. Improve by:",
+        "textAlign": "left",
+        "_id": { "$oid": "68a88aa23c8056629423ba89" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "ul",
+        "items": [
+          {
+            "text": "Solving challenges on platforms like LeetCode, HackerRank, or Codewars.",
+            "marginLeft": 0,
+            "_id": { "$oid": "68a88aa23c8056629423ba8b" }
+          },
+          {
+            "text": "Learning common algorithms (sorting, searching, recursion) and data structures (arrays, hash maps, trees).",
+            "marginLeft": 0,
+            "_id": { "$oid": "68a88aa23c8056629423ba8c" }
+          },
+          {
+            "text": "Breaking problems into smaller steps before writing code.",
+            "marginLeft": 0,
+            "_id": { "$oid": "68a88aa23c8056629423ba8d" }
+          }
+        ],
+        "_id": { "$oid": "68a88aa23c8056629423ba8a" },
+        "records": []
+      },
+      {
+        "tag": "p",
+        "text": "Regular practice helps you think like a programmer and write optimized solutions.",
+        "textAlign": "left",
+        "_id": { "$oid": "68a88aa23c8056629423ba8e" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "h2",
+        "text": "3. Read and Review Other People's Code",
+        "textAlign": "left",
+        "_id": { "$oid": "68a88aa23c8056629423ba8f" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "p",
+        "text": "One of the best ways to learn is by studying code written by experienced developers.",
+        "textAlign": "left",
+        "_id": { "$oid": "68a88aa23c8056629423ba90" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "ul",
+        "items": [
+          {
+            "text": "Explore open-source projects on GitHub.",
+            "marginLeft": 0,
+            "_id": { "$oid": "68a88aa23c8056629423ba92" }
+          },
+          {
+            "text": "Contribute to projects (even small fixes help).",
+            "marginLeft": 0,
+            "_id": { "$oid": "68a88aa23c8056629423ba93" }
+          },
+          {
+            "text": "Participate in code reviews at work or in communities.",
+            "marginLeft": 0,
+            "_id": { "$oid": "68a88aa23c8056629423ba94" }
+          }
+        ],
+        "_id": { "$oid": "68a88aa23c8056629423ba91" },
+        "records": []
+      },
+      {
+        "tag": "p",
+        "text": "Seeing different coding styles and solutions expands your knowledge and exposes you to best practices.",
+        "textAlign": "left",
+        "_id": { "$oid": "68a88aa23c8056629423ba95" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "h2",
+        "text": "4. Learn Debugging and Testing",
+        "textAlign": "left",
+        "_id": { "$oid": "68a88aa23c8056629423ba96" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "p",
+        "text": "Writing code is only half the battle—debugging is just as important. Improve by:",
+        "textAlign": "left",
+        "_id": { "$oid": "68a88aa23c8056629423ba97" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "ul",
+        "items": [
+          {
+            "text": "Using debugging tools (Chrome DevTools, VS Code debugger).",
+            "marginLeft": 0,
+            "_id": { "$oid": "68a88aa23c8056629423ba99" }
+          },
+          {
+            "text": "Writing unit tests (Jest, PyTest, JUnit) to catch errors early.",
+            "marginLeft": 0,
+            "_id": { "$oid": "68a88aa23c8056629423ba9a" }
+          },
+          {
+            "text": "Learning how to read error messages and logs effectively.",
+            "marginLeft": 0,
+            "_id": { "$oid": "68a88aa23c8056629423ba9b" }
+          }
+        ],
+        "_id": { "$oid": "68a88aa23c8056629423ba98" },
+        "records": []
+      },
+      {
+        "tag": "p",
+        "text": "A good developer knows how to efficiently find and fix issues.",
+        "textAlign": "left",
+        "_id": { "$oid": "68a88aa23c8056629423ba9c" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "h2",
+        "text": "5. Build Real Projects",
+        "textAlign": "left",
+        "_id": { "$oid": "68a88aa23c8056629423ba9d" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "p",
+        "text": "Theory is great, but hands-on experience is irreplaceable.",
+        "textAlign": "left",
+        "_id": { "$oid": "68a88aa23c8056629423ba9e" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "ul",
+        "items": [
+          {
+            "text": "Work on personal projects (a to-do app, a portfolio website, a small game).",
+            "marginLeft": 0,
+            "_id": { "$oid": "68a88aa23c8056629423baa0" }
+          },
+          {
+            "text": "Clone existing apps to understand how they work.",
+            "marginLeft": 0,
+            "_id": { "$oid": "68a88aa23c8056629423baa1" }
+          },
+          {
+            "text": "Experiment with new technologies (try a new framework or language).",
+            "marginLeft": 0,
+            "_id": { "$oid": "68a88aa23c8056629423baa2" }
+          }
+        ],
+        "_id": { "$oid": "68a88aa23c8056629423ba9f" },
+        "records": []
+      },
+      {
+        "tag": "p",
+        "text": "Building projects reinforces learning, helps you encounter real-world problems, and grows your portfolio.",
+        "textAlign": "left",
+        "_id": { "$oid": "68a88aa23c8056629423baa3" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "h2",
+        "text": "Final Thoughts",
+        "textAlign": "left",
+        "_id": { "$oid": "68a88aa23c8056629423baa4" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "p",
+        "text": "Improving your coding skills is a continuous journey. By writing clean code, practicing problem-solving, reading others' work, mastering debugging, and building projects, you'll become a more confident and capable developer.",
+        "textAlign": "left",
+        "_id": { "$oid": "68a88aa23c8056629423baa5" },
+        "items": [],
+        "records": []
+      },
+      {
+        "tag": "p",
+        "text": "What's your favorite way to improve your coding? Share in the comments! 🚀",
+        "textAlign": "left",
+        "_id": { "$oid": "68a88aa23c8056629423baa6" },
+        "items": [],
+        "records": []
+      }
+    ],
+    "visibility": "Public",
+    "thumbnail": "/images/blog-2.png",
+    "banner": "/images/calendar-binding-horizontal.svg",
+    "slug": "5-ways-to-improve-your-coding",
+    "tags": [],
+    "createdAt": "2025-08-22T14:37:11.163Z",
+    "updatedAt": "2025-08-22T15:20:02.700Z",
+    "comments": [
+      {
+        "author": { "firstName": "Zak", "lastName": "Belfki" },
+        "date": "8/22/2025",
+        "text": "Watch your spelling.",
+        "time": "07:27 PM",
+        "_id": { "$oid": "68a89a5a9ac93c6d80fd2812" }
+      },
+      {
+        "author": { "firstName": "Layla", "lastName": "Belfki" },
+        "date": "8/22/2025",
+        "text": "There's no way you wrote this!",
+        "time": "07:41 PM",
+        "_id": { "$oid": "68a89db5625ef9f4b5d97c32" }
+      },
+      {
+        "author": { "firstName": "Kristallia", "lastName": "Belfki" },
+        "date": "8/22/2025",
+        "text": "This is great!",
+        "time": "07:43 PM",
+        "_id": { "$oid": "68a89e16625ef9f4b5d97c89" }
+      },
+      {
+        "author": { "firstName": "Gerasimos", "lastName": "Antonatos" },
+        "date": "8/22/2025",
+        "text": "Wow, Nabil!",
+        "time": "07:43 PM",
+        "_id": { "$oid": "68a89e34625ef9f4b5d97ce2" }
+      }
+    ],
+    "__v": 0
+  }
+]

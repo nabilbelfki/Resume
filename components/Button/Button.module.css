@@ -9,6 +9,11 @@
     border-radius: 5px;
 }
 
-.sleek-blue:hover {
+.sleek-blue:disabled {
+    cursor: not-allowed;
+    background-color: #394f79;
+}
+
+.sleek-blue:not(:disabled):hover {
     background-color: #011A49;
 }

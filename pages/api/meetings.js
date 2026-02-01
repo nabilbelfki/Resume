@@ -42,7 +42,7 @@ export default async function handler(req, res) {
           errorCodes,
         });
       }
-
+      console.log("Parsed dateTime:", dateTimeString);
       let dateTime = new Date(dateTimeString);
       console.log("Parsed dateTime:", dateTime);
 
@@ -54,13 +54,23 @@ export default async function handler(req, res) {
         email,
         phone,
         notes,
+        canceled: false
       });
+      
       clearCache('meeting');
       await meeting.save();
 
+      // Get the ID of the newly created meeting
+      const meetingId = meeting._id; // or meeting._id.toString() if you want string format
+      console.log("Created meeting ID:", meetingId);
+
       res
         .status(201)
-        .json({ success: true, message: "Meeting saved successfully" });
+        .json({ 
+          ID: meetingId,
+          success: true, 
+          message: "Meeting saved successfully",
+        });
 
     } catch (error) {
       console.error("Error saving meeting:", error);
@@ -83,7 +93,7 @@ export default async function handler(req, res) {
           date,
           page = 1,
           limit = 10,
-          sortBy = 'dateTime', // Changed default to dateTime
+          sortBy = 'dateTime',
           sortOrder = 'desc',
           search = ''
       } = req.query;

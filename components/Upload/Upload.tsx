@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import styles from "./Upload.module.css";
 import { Media, MediaType } from "@/lib/types";
@@ -28,8 +28,7 @@ const Upload: React.FC<UploadProps> = ({
   style = {}
 }) => {
   const uploadFileRef = useRef<HTMLInputElement>(null);
-  const [isUploading, setIsUploading] = useState(false);
-
+  const isUploading = false;
     const handleMediaSelect = (selectedMedia: Partial<Media> & { file?: File }) => {
     if (onChange) {
         onChange({
@@ -55,7 +54,6 @@ const Upload: React.FC<UploadProps> = ({
   };
 
   const handleUploadClick = () => {
-    if (!isUploading)
     uploadFileRef.current?.click();
   };
 

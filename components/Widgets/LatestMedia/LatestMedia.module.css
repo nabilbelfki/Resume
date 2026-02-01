@@ -9,7 +9,7 @@
 }
 
 .title {
-    color: #4C4C4C;
+    color: var(--widget-title);
     margin: 0;
     margin-bottom: 20px;
 }

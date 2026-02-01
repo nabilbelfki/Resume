@@ -28,8 +28,8 @@ export default function RootLayout({
   const isAdminPage = pathname?.substring(0,6) === "/admin" && !isLoginPage;
   const isSharePage = pathname === "/share";
   const [showFooter, setShowFooter] = useState(true);
-
-  const background = isAdminPage ? '#FFFFFF' : 'linear-gradient(#011a49 0%, #113c8d 44% 60%, #011a49 85%)'
+  const darkMode = true;
+  const background = isAdminPage ? ( darkMode ? '2D2D2D' : '#FFFFFF') : 'linear-gradient(#011a49 0%, #113c8d 44% 60%, #011a49 85%)'
 
   useEffect(() => {
   const checkAuth = async () => {
@@ -82,7 +82,7 @@ export default function RootLayout({
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [pathname, isAdminPage, isLoginPage, router]);
+  }, [pathname, isAdminPage, isLoginPage, isSharePage, router]);
 
   if (isLoading) {
     return (
@@ -143,7 +143,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body style={{background}} className='dark-mode'>
+      <body style={{background}} className={darkMode ? 'dark-mode' : ''}>
         <UserProvider>
           <ReCaptchaProvider
             reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY_V3}

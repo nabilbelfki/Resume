@@ -16,14 +16,12 @@ interface MediaProps {
     path: string;
     backgroundColor?: string;
   }) => void;
-  backgroundColor?: string;
   onDelete: () => void;
 }
 
 const Media = React.forwardRef<HTMLParagraphElement, MediaProps>(({
   value, 
   onChange,
-  backgroundColor,
   onDelete
 }, ref) => {
 
@@ -84,5 +82,7 @@ const Media = React.forwardRef<HTMLParagraphElement, MediaProps>(({
         </div>
     );
 });
+
+Media.displayName = "Media";
 
 export default Media;

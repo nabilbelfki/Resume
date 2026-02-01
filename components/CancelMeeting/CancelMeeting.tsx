@@ -4,12 +4,13 @@ import Button from "@/components/Button/Button";
 import styles from "./CancelMeeting.module.css";
 import { useRouter } from "next/navigation";
 interface CancelMeetingProps {
+  disabled: boolean;
   firstName: string;
   lastName: string;
   dateTimeString: string;
 }
 
-const CancelMeeting: React.FC<CancelMeetingProps> = ({firstName, lastName, dateTimeString}) => {
+const CancelMeeting: React.FC<CancelMeetingProps> = ({ disabled, firstName, lastName, dateTimeString}) => {
   const router = useRouter();
 
   const handleCancelMeeting = async () => {
@@ -54,7 +55,8 @@ const CancelMeeting: React.FC<CancelMeetingProps> = ({firstName, lastName, dateT
       <Button 
         text="CANCEL MEETING" 
         style={{width: 150, fontWeight: 600, minHeight: 50}} 
-        onClick={handleCancelMeeting} 
+        onClick={handleCancelMeeting}
+        disabled={disabled}
       />
     </div>
   );

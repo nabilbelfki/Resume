@@ -10,16 +10,26 @@ interface FieldProps {
   label?: string;
   placeholder?: string;
   options?: Array<{ label: string; value: string }>;
-  value?: any;
+  value?: FieldValue;
 }
 
 interface FieldComponentProps {
   field: FieldProps;
-  onChange: (value: any) => void;
+  onChange: (value: FieldValue) => void;
   backgroundColor?: string;
   hasError?: boolean;
   fieldErrors?: Record<string, boolean>; // Add this new prop
 }
+
+type MediaValue = {
+  name: string;
+  path: string;
+  width?: number;
+  height?: number;
+  backgroundColor?: string;
+};
+
+type FieldValue = string | number | MediaValue;
 
 const Field: React.FC<FieldComponentProps> = React.memo(({ 
   field, 
@@ -28,10 +38,11 @@ const Field: React.FC<FieldComponentProps> = React.memo(({
   hasError,
   fieldErrors = {}
 }) => {
+  const commonValue = (typeof field.value === 'string' || typeof field.value === 'number') ? field.value : '';
   const commonProps = {
-    value: field.value || '',
+    value: commonValue,
     placeholder: field.placeholder || field.label || '',
-    onChange: (value: any) => onChange(value),
+    onChange: (value: FieldValue) => onChange(value),
   };
 
   switch (field.type) {
@@ -72,9 +83,9 @@ const Field: React.FC<FieldComponentProps> = React.memo(({
       return (
         <ColorPicker 
           ID={`color-${field.id}`}
-          value={commonProps.value}
+          value={typeof field.value === 'string' ? field.value : ''}
           placeholder={commonProps.placeholder}
-          onChange={commonProps.onChange}
+          onChange={(value) => onChange(value ?? '')}
           style={{ outline: hasError ? '1.6px solid red' : '' }}
         />
       );
@@ -82,9 +93,9 @@ const Field: React.FC<FieldComponentProps> = React.memo(({
       return (
         <Dropdown 
           options={field.options || []}
-          value={commonProps.value}
+          value={typeof field.value === 'string' ? field.value : ''}
           placeholder={commonProps.placeholder}
-          onChange={commonProps.onChange}
+          onChange={(value) => onChange(value ?? '')}
           style={{
             button: {
               border: hasError ? '1.6px solid red' : '' 
@@ -93,14 +104,17 @@ const Field: React.FC<FieldComponentProps> = React.memo(({
         />
       );
     case 'media':
+      const mediaValue = typeof field.value === 'object' && field.value !== null
+        ? (field.value as MediaValue)
+        : { name: '', path: '', width: undefined, height: undefined };
       return (
         <div className={styles['media-field']}>
           <MediaPicker 
             value={{
-              name: field.value?.name || '',
-              path: field.value?.path || '',
-              width: field.value?.width,
-              height: field.value?.height,
+              name: mediaValue.name || '',
+              path: mediaValue.path || '',
+              width: mediaValue.width,
+              height: mediaValue.height,
               backgroundColor: backgroundColor
             }}
             onChange={(media) => {
@@ -121,5 +135,7 @@ const Field: React.FC<FieldComponentProps> = React.memo(({
       return null;
   }
 });
+
+Field.displayName = "Field";
 
 export default Field;

@@ -8,14 +8,14 @@ interface Field {
   label?: string;
   placeholder?: string;
   options?: Array<{ label: string; value: string }>;
-  value?: any;
+  value?: FieldValue;
 }
 
 interface ListProps {
   fields: Field[];
-  onFieldChange: (items: any[]) => void;
+  onFieldChange: (items: ListItemData[]) => void;
   columns?: 2 | 3;
-  initialItems?: any[];
+  initialItems?: ListItemData[];
   fieldErrors?: Array<Record<string, boolean>>;
 }
 
@@ -23,6 +23,17 @@ interface RowItem {
   id: number;
   fields: Field[];
 }
+
+type MediaValue = {
+  name: string;
+  path: string;
+  width?: number;
+  height?: number;
+  backgroundColor?: string;
+};
+
+type FieldValue = string | number | MediaValue;
+type ListItemData = Record<string, FieldValue>;
 
 const List: React.FC<ListProps> = ({ 
   fields, 
@@ -38,14 +49,15 @@ const List: React.FC<ListProps> = ({
         id: Date.now() + index,
         fields: fields.map(field => {
           // Special handling for thumbnail fields
-          if (field.id === 'thumbnail' && item.thumbnail) {
+          const thumbnail = (item as { thumbnail?: MediaValue }).thumbnail;
+          if (field.id === 'thumbnail' && thumbnail) {
             return {
               ...field,
               value: {
-                name: item.thumbnail.name,
-                path: item.thumbnail.path,
-                width: item.thumbnail.width,
-                height: item.thumbnail.height
+                name: thumbnail.name,
+                path: thumbnail.path,
+                width: thumbnail.width,
+                height: thumbnail.height
               }
             };
           }
@@ -59,7 +71,7 @@ const List: React.FC<ListProps> = ({
     return [{ id: Date.now(), fields: fields.map(field => ({ ...field })) }];
   });
   // Store pending changes and flush them after render
-  const [pendingChanges, setPendingChanges] = useState<any[] | null>(null);
+  const [pendingChanges, setPendingChanges] = useState<ListItemData[] | null>(null);
 
   useEffect(() => {
     if (pendingChanges) {
@@ -75,9 +87,9 @@ const List: React.FC<ListProps> = ({
       
       // Send updated rows to parent
       const items = newRows.map(row => {
-        const item: any = {};
+        const item: ListItemData = {};
         row.fields.forEach(field => {
-          item[field.id] = field.value;
+          item[field.id] = field.value ?? '';
         });
         return item;
       });
@@ -85,7 +97,7 @@ const List: React.FC<ListProps> = ({
       
       return newRows;
     });
-  }, [rows.length, fields]);
+  }, [rows.length]);
 
   const handleAdd = useCallback((index: number) => {
     const newId = Date.now();
@@ -106,9 +118,9 @@ const List: React.FC<ListProps> = ({
       
       // Immediately send updated rows to parent
       const items = newRows.map(row => {
-        const item: any = {};
+        const item: ListItemData = {};
         row.fields.forEach(field => {
-          item[field.id] = field.value;
+          item[field.id] = field.value ?? '';
         });
         return item;
       });
@@ -118,7 +130,7 @@ const List: React.FC<ListProps> = ({
     });
   }, [fields]);
 
-  const handleFieldChange = useCallback((rowId: number, fieldId: string, value: any) => {
+  const handleFieldChange = useCallback((rowId: number, fieldId: string, value: FieldValue) => {
     setRows(prevRows => {
       const updatedRows = prevRows.map(row => 
         row.id === rowId 
@@ -135,9 +147,9 @@ const List: React.FC<ListProps> = ({
       
       // Convert ALL rows to items, including empty ones
       const items = updatedRows.map(row => {
-        const item: any = {};
+        const item: ListItemData = {};
         row.fields.forEach(field => {
-          item[field.id] = field.value;
+          item[field.id] = field.value ?? '';
         });
         return item;
       });

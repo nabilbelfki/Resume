@@ -19,7 +19,7 @@ interface Column {
     alignment?: 'left' | 'center' | 'right';
     flex?: number;
     maxWidth?: string;
-    formatter?: (text: string) => any;
+    formatter?: (text: string) => string;
     thumbnailBackgroundColor?: string[][];
 }
 
@@ -39,10 +39,9 @@ interface TableProps {
     style?: React.CSSProperties;
 }
 
-interface Row {
+type Row = {
     id: string;
-    [key: string]: any;
-}
+} & Record<string, unknown>;
 
 const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initialShowing = 25, create = true, endpoint = '', link = true, style = {} }) => { // Renamed prop to avoid naming conflict
     const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
@@ -98,7 +97,7 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [dropdown, styles]); // Only re-run if dropdown state changes
+    }, [dropdown]); // Only re-run if dropdown state changes
 
     // Update your useEffect dependency array to include sortBy and order
     useEffect(() => {
@@ -128,7 +127,7 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
         };
 
         fetchData();
-    }, [entity, currentPage, showing, searchQuery, sortBy, order]); // Add sortBy and order to dependencies
+    }, [entity, endpoint, currentPage, showing, searchQuery, sortBy, order]); // Add sortBy and order to dependencies
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value);
@@ -156,16 +155,16 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
     };
 
     const selector = (row: Row, selectors: string[]) => {
-        let currentValue: any = row;
+        let currentValue: unknown = row;
         for (const selector of selectors) {
-            if (currentValue && typeof currentValue === 'object' && selector in currentValue) {
-                currentValue = currentValue[selector];
+            if (currentValue && typeof currentValue === 'object' && selector in (currentValue as Record<string, unknown>)) {
+                currentValue = (currentValue as Record<string, unknown>)[selector];
             } else {
                 currentValue = undefined;
                 break;
             }
         }
-        return currentValue !== undefined ? String(currentValue) : '';
+        return currentValue !== undefined && currentValue !== null ? String(currentValue) : '';
     }
 
     const formatDate = (dateString: string): string => {
@@ -241,7 +240,8 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
         }
 
         if (column.type === 'avatar') {
-            const avatarUrl = column.avatar ? row[column.avatar] : null;
+            const rawAvatarUrl = column.avatar ? row[column.avatar] : null;
+            const avatarUrl = typeof rawAvatarUrl === 'string' ? rawAvatarUrl : null;
             const backgroundColor = stringToHexColor(content);
             const color = isColorTooDark(backgroundColor) ? '#FFFFFF' : '#4C4C4C';
 
@@ -294,7 +294,10 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
         setSelectAll(isChecked);
         
         if (isChecked) {
-            const allIds = data.map(row => row._id);
+            const allIds = data.map(row => {
+                const rowId = (row as { _id?: string })._id ?? row.id;
+                return String(rowId);
+            });
             setSelectedRows(new Set(allIds));
         } else {
             setSelectedRows(new Set());
@@ -464,19 +467,21 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((row, index) => (
+                        {data.map((row, index) => {
+                            const rowId = String((row as { _id?: string })._id ?? row.id);
+                            return (
                             <tr key={'row-' + index}>
                                 <td style={{flex: 1}}>
                                     <input 
                                         className={styles.checkbox} 
                                         type="checkbox" 
                                         name="select-row"
-                                        checked={selectedRows.has(row._id)}
-                                        onChange={() => handleRowSelect(row._id)}
+                                        checked={selectedRows.has(rowId)}
+                                        onChange={() => handleRowSelect(rowId)}
                                     />
                                 </td>
                                 {columns.map((column, colIndex) => (
-                                    <td onClick={() => {if (!link) return; location.href = window.location.href + (entity === 'Message' ? '/view/' : '/edit/') + row._id}}
+                                    <td onClick={() => {if (!link) return; location.href = window.location.href + (entity === 'Message' ? '/view/' : '/edit/') + rowId}}
                                         key={`${index}-${column.label}-${colIndex}`}
                                         title={getText(row, column).join(" ")}
                                         style={{
@@ -489,7 +494,7 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
                                     </td>
                                 ))}
                             </tr>
-                        ))}
+                        )})}
                     </tbody>
                 </table>
             )}

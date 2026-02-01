@@ -79,6 +79,15 @@ const Delimiter = forwardRef<HTMLDivElement, DelimiterProps>(({
 }, ref) => {
   const [isToolbarVisible, setIsToolbarVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const setRefs = (node: HTMLDivElement | null) => {
+    containerRef.current = node;
+    if (typeof ref === 'function') {
+      ref(node);
+    } else if (ref) {
+      (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+    }
+  };
   
   // Parse initial content or use defaults
   const parsedContent = parseContent(content);
@@ -181,7 +190,7 @@ const Delimiter = forwardRef<HTMLDivElement, DelimiterProps>(({
 
   return (
     <div
-      ref={containerRef}
+      ref={setRefs}
       className={styles.container}
       onKeyDown={handleKeyDown}
       tabIndex={editable ? 0 : -1}

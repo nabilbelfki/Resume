@@ -54,7 +54,6 @@ const User: React.FC = () => {
   const initials = `${(formData.firstName[0] ? formData.firstName[0] : '')}${(formData.lastName[0] ? formData.lastName[0] : '')}`;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [validationErrors, setValidationErrors] = useState<Record<string, boolean>>({});
 
@@ -63,7 +62,6 @@ const User: React.FC = () => {
       if (!id) return;
 
       try {
-        setLoading(true);
         const response = await fetch(`/api/users/${id}`);
 
         if (!response.ok) {
@@ -114,8 +112,6 @@ const User: React.FC = () => {
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to fetch data');
         console.error('Error fetching user:', err);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -204,9 +200,8 @@ const User: React.FC = () => {
         }
       };
 
-      let response;
       // PUT request for updating existing user
-      response = await fetch(`/api/users/${id}`, {
+      const response = await fetch(`/api/users/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dataToSend),

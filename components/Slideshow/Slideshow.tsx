@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "./Slideshow.module.css";
-import { Slide } from "./types";
+import { Slide } from "@/lib/types";
 
 interface SlideshowProps {
   slides: Slide[];

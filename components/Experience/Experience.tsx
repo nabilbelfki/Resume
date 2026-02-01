@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import styles from "./Experience.module.css";
-import { Experiences } from "./types";
+import { Experiences } from "@/lib/types";
 
 interface ExperienceProps {
   experience: Experiences;

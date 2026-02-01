@@ -9,9 +9,6 @@ interface AddCalendarProps {
 
 const AddCalendar: React.FC<AddCalendarProps> = ({ dateTime }) => {
 
-  const mobileWidth = 640;
-  const screenWidth = window.innerWidth;
-
   const handleAddToCalendar = () => {
     const icsContent = generateICSFile(dateTime, "Meeting with Nabil Belfki", "This is a free consultation with me to get to know you and your business. You can tell me anything that you like and hopefully I can help you acheive your goals and build something truly amazing", "Online");
 

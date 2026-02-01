@@ -1,9 +1,9 @@
 "use client"
-import React, { useState, useRef, useEffect } from "react";
+import React, { useCallback, useState, useRef, useEffect } from "react";
 import styles from "./Post.module.css"
 import { useUser } from '@/contexts/UserContext';
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
-import { Breadcrumb as breadcrumb, Block} from "@/lib/types";
+import { Breadcrumb as breadcrumb, Block, Checkbox, Element, ListItem } from "@/lib/types";
 import ThumbnailUpload from "@/components/ThumbnailUpload/ThumbnailUpload"
 import Dropdown from "@/components/Dropdown/Dropdown";
 import BannerUpload from "@/components/BannerUpload/BannerUpload";
@@ -93,7 +93,7 @@ const Post: React.FC = () => {
 
         try {
           // Use Promise.all to delete all users in parallel
-          const results = await Promise.all(
+          await Promise.all(
               commentIDs.map(commentID => 
                   fetch(`/api/posts/${id}/comments/${commentID}`, {
                       method: 'DELETE',
@@ -115,6 +115,129 @@ const Post: React.FC = () => {
       }
     }
   ]
+
+  const convertContentToBlocks = useCallback((content: Element[]): Block[] => {
+    return content.map(item => {
+      const textAlign = item.textAlign === 'undefined' ? undefined : item.textAlign;
+      const baseBlock = {
+        id: Date.now() + Math.random(),
+        content: '',
+        textAlign: textAlign || 'left'
+      };
+
+      if (item.tag === 'p' || ['h2', 'h3', 'h4', 'h5', 'h6'].includes(item.tag)) {
+        return {
+          ...baseBlock,
+          type: item.tag,
+          content: item.text || ''
+        };
+      } else if (item.tag === 'ol' || item.tag === 'ul') {
+        const listItems = (item.items ?? []) as ListItem[];
+        const lines = listItems.map((i) => ({
+          content: i.text,
+          level: i.marginLeft / 20 // Assuming 20px per level
+        }));
+        return {
+          ...baseBlock,
+          type: item.tag,
+          content: JSON.stringify(lines)
+        };
+      } else if (item.tag === 'checkbox') {
+        const checkboxItems = (item.items ?? []) as Checkbox[];
+        const lines = checkboxItems.map((i) => ({
+          content: i.text,
+          checked: i.checked
+        }));
+        return {
+          ...baseBlock,
+          type: item.tag,
+          content: JSON.stringify(lines)
+        };
+      } else if (item.tag === 'media') {
+        // Handle media blocks
+        const source = item.source ?? '';
+        const lastSlashIndex = source.lastIndexOf('/');
+        return {
+          ...baseBlock,
+          type: 'media',
+          content: JSON.stringify({
+            name: source.split('/').pop() || '',
+            path: lastSlashIndex >= 0 ? source.substring(0, lastSlashIndex + 1) : ''
+          })
+        };
+      } else if (item.tag === 'delimiter') {
+        return {
+          ...baseBlock,
+          type: 'delimiter',
+          content: JSON.stringify(item)
+        };
+      } else if (item.tag === 'table') {
+        return {
+          ...baseBlock,
+          type: 'table',
+          content: JSON.stringify(item.records || [])
+        };
+      } else if (item.tag === 'quote' || item.tag === 'warning') {
+        return {
+          ...baseBlock,
+          type: item.tag,
+          content: item.text || ''
+        };
+      } else if (item.tag === 'code') {
+        return {
+          ...baseBlock,
+          type: 'code',
+          content: item.text || ''
+        };
+      }
+
+      // Default to paragraph
+      return {
+        ...baseBlock,
+        type: 'p',
+        content: ''
+      };
+    });
+  }, []);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+  
+    setFormData(prev => ({
+      ...prev,
+      [id]: value
+    }));
+
+    if (validationErrors[id]) {
+      setValidationErrors(prev => ({ ...prev, [id]: false }));
+    }
+  };
+
+  const handleThumbnailChange = useCallback((media: { name: string; path: string; backgroundColor?: string }) => {
+    setThumbnail(media);
+    setFormData(prev => ({
+      ...prev,
+      thumbnail: {
+        name: media.name,
+        path: media.path,
+        backgroundColor: media.backgroundColor
+      }
+    }));
+    setValidationErrors(prev => prev.thumbnail ? ({ ...prev, thumbnail: false }) : prev);
+  }, []);
+
+  const handleBannerChange = useCallback((media: { name: string; path: string; backgroundColor?: string }) => {
+    setBanner(media);
+    setFormData(prev => ({
+      ...prev,
+      banner: {
+        name: media.name,
+        path: media.path,
+        backgroundColor: media.backgroundColor
+      }
+    }));
+    setValidationErrors(prev => prev.banner ? ({ ...prev, banner: false }) : prev);
+  }, []);
 
   useEffect(() => {
     if (id) {
@@ -167,138 +290,7 @@ const Post: React.FC = () => {
       };
       fetchMedia();
     }
-  }, [id]);
-
-  type Block = {
-    id: number;
-    type: string;
-    content: string;
-    textAlign?: 'left' | 'center' | 'right';
-  };
-
-  const convertContentToBlocks = (content: any[]): Block[] => {
-    return content.map(item => {
-      const baseBlock = {
-        id: Date.now() + Math.random(),
-        content: '',
-        textAlign: item.textAlign || 'left'
-      };
-
-      if (item.tag === 'p' || ['h2', 'h3', 'h4', 'h5', 'h6'].includes(item.tag)) {
-        return {
-          ...baseBlock,
-          type: item.tag,
-          content: item.text || ''
-        };
-      } else if (item.tag === 'ol' || item.tag === 'ul') {
-        const lines = item.items?.map((i: any) => ({
-          content: i.text,
-          level: i.marginLeft / 20 // Assuming 20px per level
-        })) || [];
-        return {
-          ...baseBlock,
-          type: item.tag,
-          content: JSON.stringify(lines)
-        };
-      } else if (item.tag === 'checkbox') {
-        const lines = item.items?.map((i: any) => ({
-          content: i.text,
-          checked: i.checked
-        })) || [];
-        return {
-          ...baseBlock,
-          type: item.tag,
-          content: JSON.stringify(lines)
-        };
-      } else if (item.tag === 'media') {
-        // Handle media blocks
-        return {
-          ...baseBlock,
-          type: 'media',
-          content: JSON.stringify({
-            name: item.source?.split('/').pop() || '',
-            path: item.source?.substring(0, item.source.lastIndexOf('/') + '/') || ''
-          })
-        };
-      } else if (item.tag === 'delimiter') {
-        return {
-          ...baseBlock,
-          type: 'delimiter',
-          content: JSON.stringify(item)
-        };
-      } else if (item.tag === 'table') {
-        return {
-          ...baseBlock,
-          type: 'table',
-          content: JSON.stringify(item.records || [])
-        };
-      } else if (item.tag === 'quote' || item.tag === 'warning') {
-        return {
-          ...baseBlock,
-          type: item.tag,
-          content: item.text || ''
-        };
-      } else if (item.tag === 'code') {
-        return {
-          ...baseBlock,
-          type: 'code',
-          content: item.text || ''
-        };
-      }
-
-      // Default to paragraph
-      return {
-        ...baseBlock,
-        type: 'p',
-        content: ''
-      };
-    });
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { id, value } = e.target;
-  
-    setFormData(prev => ({
-      ...prev,
-      [id]: value
-    }));
-
-    if (validationErrors[id]) {
-      setValidationErrors(prev => ({ ...prev, [id]: false }));
-    }
-  };
-
-  const handleThumbnailChange = (media: { name: string; path: string; backgroundColor?: string }) => {
-    setThumbnail(media);
-    setFormData(prev => ({
-      ...prev,
-      thumbnail: {
-        name: media.name,
-        path: media.path,
-        backgroundColor: media.backgroundColor
-      }
-    }));
-    console.log("Setting Thumbnail");
-    if (validationErrors.thumbnail) {
-      setValidationErrors(prev => ({ ...prev, thumbnail: false }));
-    }
-  };
-
-  const handleBannerChange = (media: { name: string; path: string; backgroundColor?: string }) => {
-    setBanner(media);
-    setFormData(prev => ({
-      ...prev,
-      banner: {
-        name: media.name,
-        path: media.path,
-        backgroundColor: media.backgroundColor
-      }
-    }));
-    console.log("Setting Banner");
-    if (validationErrors.banner) {
-      setValidationErrors(prev => ({ ...prev, banner: false }));
-    }
-  };
+  }, [id, convertContentToBlocks, handleBannerChange, handleThumbnailChange]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -365,6 +357,7 @@ const Post: React.FC = () => {
       window.location.href = '/admin/posts';
     } catch (err) {
       console.error('Error submitting form:', err);
+      setError(err instanceof Error ? err.message : 'Failed to update post');
     } finally {
       setIsSubmitting(false);
     }

@@ -7,6 +7,7 @@ interface Bookings {
 }
 
 interface TimesProps {
+  today: boolean;
   booked: Bookings[];
   selectedTime: string | null;
   setSelectedTime: React.Dispatch<React.SetStateAction<string | null>>;
@@ -23,7 +24,7 @@ const convertUtcToEt = (utcDateStr: string): string => {
   }).format(utcDate).replace(' ', '');
 };
 
-const Times: React.FC<TimesProps> = ({ booked, selectedTime, setSelectedTime }) => {
+const Times: React.FC<TimesProps> = ({ today, booked, selectedTime, setSelectedTime }) => {
   const times = [
     "11:00AM ET",
     "11:30AM ET",
@@ -40,8 +41,7 @@ const Times: React.FC<TimesProps> = ({ booked, selectedTime, setSelectedTime }) 
     "5:00PM ET",
     "5:30PM ET",
   ];
-
-  console.log(booked);
+  
   // Extract booked times and convert them to ET
   const bookedTimes = booked.reduce((acc, booking) => {
     const etTime = convertUtcToEt(booking.dateTime);
@@ -56,17 +56,53 @@ const Times: React.FC<TimesProps> = ({ booked, selectedTime, setSelectedTime }) 
     );
   };
 
+  // Get current ET time as a Date object
+  const nowET = new Date().toLocaleString("en-US", {
+    timeZone: "America/New_York"
+  });
+  const currentET = new Date(nowET);
+
+  // Function to convert time string to Date object for comparison
+  const timeToDate = (timeStr: string): Date => {
+    const cleanTime = timeStr.replace(" ET", "");
+    const [time, ampm] = cleanTime.split(/(?=[AP]M)/); // Split at AM/PM
+    const [hours, minutes] = time.split(":").map(Number);
+    
+    // Create a date object for today with the given time
+    const date = new Date(currentET);
+    let hour24 = hours;
+    
+    if (ampm === 'PM' && hours !== 12) hour24 = hours + 12;
+    if (ampm === 'AM' && hours === 12) hour24 = 0;
+    
+    date.setHours(hour24, minutes, 0, 0);
+    return date;
+  };
+
+  // Function to check if time has passed
+  const isTimePassed = (timeSlot: string): boolean => {
+    const slotDate = timeToDate(timeSlot);
+    return slotDate < currentET;
+  };
+
   return (
     <div className={styles.times}>
-      {times.map((time) => (
-        <Time
-          key={time}
-          time={time}
-          occupied={bookedTimes[time.replace(" ET","")] || false}
-          selected={time === selectedTime}
-          onClick={() => handleTimeClick(time, bookedTimes[time] || false)}
-        />
-      ))}
+      {times.map((time) => {
+        const cleanTime = time.replace(" ET", "");
+        const isBooked = bookedTimes[cleanTime] || false;
+        const isPastTime = today && isTimePassed(time);
+        const isOccupied = isBooked || isPastTime;
+        
+        return (
+          <Time
+            key={time}
+            time={time}
+            occupied={isOccupied}
+            selected={time === selectedTime}
+            onClick={() => handleTimeClick(time, isOccupied)}
+          />
+        );
+      })}
     </div>
   );
 };

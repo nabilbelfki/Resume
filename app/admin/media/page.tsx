@@ -19,7 +19,7 @@ const Media: React.FC = () => {
         }
     ];
 
-    const actions = [
+    const actions: Action[] = [
         {
             label: 'Delete Media',
             action: async (IDs:string[]) => {
@@ -29,7 +29,7 @@ const Media: React.FC = () => {
 
                 try {
                     // Use Promise.all to delete all users in parallel
-                    const results = await Promise.all(
+                    await Promise.all(
                         IDs.map(id => 
                             fetch(`/api/media/${id}`, {
                                 method: 'DELETE',
@@ -52,7 +52,7 @@ const Media: React.FC = () => {
                 }
             }
         }
-    ]
+    ];
 
     return (
         <div className={styles.container}>

@@ -9,7 +9,7 @@
 }
 
 .title {
-    color: #4C4C4C;
+    color: var(--widget-title);
     margin: 0;
     margin-bottom: 10px;
 }
@@ -24,8 +24,8 @@
 }
 
 .comment {
-    background-color: #F8F8F8;
-    border: solid 1.6px #D1D1D1;
+    background-color: var(--new-comment-background);
+    border: solid 1.6px var(--new-comment-border);
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
@@ -65,7 +65,7 @@
 .name {
     font-weight: 545;
     font-size: 17px;
-    color: #4C4C4C;
+    color: var(--new-comment-name);
 }
 
 .timestamp {
@@ -79,11 +79,11 @@
 
 .blog {
     font-weight: 600;
-    color: #4C4C4C;
+    color: var(--new-comment-blog);
 }
 
 .text {
-    color: #3D3D3D;
+    color: var(--new-comment-text);
     font-weight: 100;
     font-style: italic;
     font-size: 15px;

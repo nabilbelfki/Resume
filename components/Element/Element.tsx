@@ -38,8 +38,8 @@ const Element: React.FC<ElementProps> = ({ tag, text, items = [], checkboxes = [
         {tag === "checkbox" && (
             <div className={styles.checkboxes}>
               {checkboxes.map((checkbox, index) =>
-                <div>
-                  <input id={`checkbox-${index}`} key={`checkbox-${index}`} checked={checkbox.checked} type="checkbox" />
+                <div key={`checkbox-${index}`}>
+                  <input id={`checkbox-${index}`} checked={checkbox.checked} type="checkbox" />
                   <label htmlFor={`checkbox-${index}`}>{checkbox.text}</label>
                 </div>
               )}

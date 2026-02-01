@@ -10,7 +10,7 @@
 }
 
 .title {
-    color: #4C4C4C;
+    color: var(--widget-title);
     margin: 0;
     margin-bottom: 20px;
 }
@@ -28,7 +28,7 @@
     align-items: center;
     flex-direction: column;
     padding: 10px;
-    border: solid 1.6px #D1D1D1;
+    border: solid 1.6px var(--upcoming-meeting-border);
     height: 160px;
     border-radius: 10px;
     min-width: 400px;
@@ -58,7 +58,7 @@
 .name {
     font-weight: 550;
     font-size: 20px;
-    color: #4C4C4C;
+    color: var(--upcoming-meeting-name);
 }
 
 .datetime {
@@ -73,7 +73,7 @@
 }
 
 .message {
-    color: #4C4C4C;
+    color: var(--upcoming-meeting-text);
     font-style: italic;
 }
 

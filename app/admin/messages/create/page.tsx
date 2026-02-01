@@ -4,7 +4,6 @@ import styles from "./Message.module.css"
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import { useReCaptcha } from "next-recaptcha-v3";
 import { Breadcrumb as breadcrumb} from "@/lib/types";
-import {formatDate, formatTime} from "@/lib/utilities";
 
 interface message {
   firstName: string;

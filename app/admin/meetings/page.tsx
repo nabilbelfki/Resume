@@ -30,7 +30,7 @@ const Meetings: React.FC = () => {
 
                 try {
                     // Use Promise.all to delete all users in parallel
-                    const results = await Promise.all(
+                    await Promise.all(
                         IDs.map(id => 
                             fetch(`/api/meetings/${id}`, {
                                 method: 'DELETE',

@@ -136,7 +136,7 @@ const Quote = React.forwardRef<HTMLSpanElement, QuoteProps>(({
 
   return (
     <div className={styles.quote} style={{ textAlign }}>
-      <span className={styles.quoteMark}>"</span>
+      <span className={styles.quoteMark}>&quot;</span>
       <span 
         ref={refToUse}
         className={styles.text}
@@ -146,7 +146,7 @@ const Quote = React.forwardRef<HTMLSpanElement, QuoteProps>(({
         onFocus={onFocus}
         suppressContentEditableWarning={true}
       />
-      <span className={styles.quoteMark}>"</span>
+      <span className={styles.quoteMark}>&quot;</span>
     </div>
   );
 });

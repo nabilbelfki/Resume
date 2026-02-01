@@ -4,17 +4,20 @@ FROM node:18-alpine
 # Set the working directory
 WORKDIR /app
 
-# Install git
-RUN apk add --no-cache git
+# Install dependencies needed for building
+RUN apk add --no-cache bash
 
-# Clone the repository
-RUN git clone https://github.com/nabilbelfki/Resume.git .
-
-# Create .env.local file
-RUN echo "MONGO_URI=mongodb://52.15.107.92:27017/Projects" > .env.local
+# Copy package.json and package-lock.json first to leverage Docker cache
+COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --production
+
+# Copy the rest of your application
+COPY . .
+
+# Add environment variable (optional; can also be passed at runtime)
+ENV MONGO_URI=mongodb://52.15.107.92:27017/Projects
 
 # Build the Next.js application
 RUN npm run build

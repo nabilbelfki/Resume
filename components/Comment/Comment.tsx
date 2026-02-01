@@ -1,7 +1,7 @@
 import React from "react";
 import { comment as CommentProp } from '@/lib/types';
 import styles from "./Comment.module.css";
-import { formatTime, formatDateHumanReadable } from "@/lib/utilities";
+import { formatDateHumanReadable } from "@/lib/utilities";
 import { stringToHexColor, isColorTooDark } from "@/lib/color"
 
 const Comment: React.FC<CommentProp> = ({ author, date, time, text }) => {

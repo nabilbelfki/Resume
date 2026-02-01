@@ -21,7 +21,6 @@ const SignIn: React.FC = () => {
   });
   const router = useRouter();
   const [errors, setErrors] = useState<Record<string, boolean>>({});
-  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [page, setPage] = useState<'signin' | 'register' | 'forgot' | 'account-created' | 'email-sent'>('signin');
   
@@ -80,7 +79,6 @@ const SignIn: React.FC = () => {
     e.preventDefault();
     if (!validateForm()) return;
     
-    setLoading(true);
     try {
       if (page === 'register') {
         await createUser();
@@ -92,8 +90,6 @@ const SignIn: React.FC = () => {
     } catch (error) {
       console.error('Error:', error);
       setErrorMessage('Something went wrong');
-    } finally {
-      setLoading(false);
     }
   }
 
@@ -188,7 +184,8 @@ const SignIn: React.FC = () => {
       } else {
         throw new Error('Session verification failed');
       }
-    } catch (error) {
+    } catch (err) {
+      console.error('Error:', err);
       setErrorMessage('Something went wrong');
     }
   }

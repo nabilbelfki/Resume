@@ -1,5 +1,5 @@
 // in Anchor.tsx
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import styles from "./Anchor.module.css";
 
 interface AnchorProps {
@@ -20,7 +20,6 @@ const Anchor = React.forwardRef<HTMLAnchorElement, AnchorProps>(({
     onEnter
 }, ref) => {
     const internalRef = useRef<HTMLAnchorElement>(null);
-    const [url, setUrl] = useState<string>('');
 
     // Sync content with the internal ref
     useEffect(() => {
@@ -58,7 +57,7 @@ const Anchor = React.forwardRef<HTMLAnchorElement, AnchorProps>(({
     return (
         <a
             ref={refToUse}
-            href={url || '#'}
+            href="#"
             className={styles.anchor}
             contentEditable={editable}
             suppressContentEditableWarning={true}

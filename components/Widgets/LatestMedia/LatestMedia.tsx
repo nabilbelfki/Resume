@@ -41,8 +41,6 @@ const medias = [
   }
 ];
 
-type statusKey = 'Active' | 'Away' | 'Inactive';
-
 const LatestMedia: React.FC = () => {
     return (<div className={styles.container}>
         <h2 className={styles.title}>Latest Media</h2>

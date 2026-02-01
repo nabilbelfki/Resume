@@ -11,6 +11,42 @@ type Language =
   | 'json'
   | 'markdown';
 
+type MonacoPosition = {
+  lineNumber: number;
+  column: number;
+};
+
+type MonacoModel = {
+  getLineCount: () => number;
+  getLineContent: (lineNumber: number) => string;
+};
+
+type MonacoEditor = {
+  dispose: () => void;
+  onDidChangeModelContent: (cb: () => void) => void;
+  onDidFocusEditorText: (cb: () => void) => void;
+  onDidBlurEditorText: (cb: () => void) => void;
+  onDidChangeCursorPosition: (cb: (e: { position: MonacoPosition }) => void) => void;
+  onKeyDown: (cb: (e: { keyCode: number; preventDefault: () => void }) => void) => void;
+  getValue: () => string;
+  setValue: (value: string) => void;
+  getModel: () => MonacoModel | null;
+  getPosition: () => MonacoPosition;
+  focus: () => void;
+};
+
+type MonacoNamespace = {
+  editor: {
+    create: (el: HTMLElement, options: Record<string, unknown>) => MonacoEditor;
+    setModelLanguage: (model: MonacoModel, language: Language) => void;
+  };
+  KeyCode: {
+    UpArrow: number;
+    DownArrow: number;
+    Backspace: number;
+  };
+};
+
 interface CodeProps {
   initialCode?: string;
   initialLanguage?: Language;
@@ -48,7 +84,7 @@ const Code: React.FC<CodeProps> = ({
   const [isCopied, setIsCopied] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isMonacoReady, setIsMonacoReady] = useState(false);
-  const editorRef = useRef<any>(null);
+  const editorRef = useRef<MonacoEditor | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isInitializedRef = useRef(false);
 
@@ -69,15 +105,22 @@ const Code: React.FC<CodeProps> = ({
     if (isInitializedRef.current) return;
     isInitializedRef.current = true;
 
-    let monaco: any;
-    let editor: any;
-    let loadTimeout: NodeJS.Timeout;
+    const windowWithMonaco = window as unknown as {
+      monaco?: MonacoNamespace;
+      require?: {
+        config: (cfg: { paths: Record<string, string> }) => void;
+        (deps: string[], cb: (monacoModule: MonacoNamespace) => void): void;
+      };
+    };
+
+    let editor: MonacoEditor | null = null;
+    let loadTimeout: ReturnType<typeof setTimeout>;
 
     const initMonaco = async () => {
       try {
         // Check if Monaco is already loaded
-        if ((window as any).monaco) {
-          createEditor((window as any).monaco);
+        if (windowWithMonaco.monaco) {
+          createEditor(windowWithMonaco.monaco);
           return;
         }
 
@@ -88,8 +131,8 @@ const Code: React.FC<CodeProps> = ({
         }, 10000);
 
         // Check if require is already available
-        if ((window as any).require) {
-          (window as any).require(['vs/editor/editor.main'], (monacoModule: any) => {
+        if (windowWithMonaco.require) {
+          windowWithMonaco.require(['vs/editor/editor.main'], (monacoModule: MonacoNamespace) => {
             clearTimeout(loadTimeout);
             createEditor(monacoModule);
           });
@@ -100,13 +143,13 @@ const Code: React.FC<CodeProps> = ({
         const script = document.createElement('script');
         script.src = 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js';
         script.onload = () => {
-          (window as any).require.config({ 
+          windowWithMonaco.require?.config({ 
             paths: { 
               'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs' 
             } 
           });
           
-          (window as any).require(['vs/editor/editor.main'], (monacoModule: any) => {
+          windowWithMonaco.require?.(['vs/editor/editor.main'], (monacoModule: MonacoNamespace) => {
             clearTimeout(loadTimeout);
             createEditor(monacoModule);
           });
@@ -127,9 +170,9 @@ const Code: React.FC<CodeProps> = ({
       }
     };
 
-    const createEditor = (monacoModule: any) => {
-      monaco = monacoModule;
-      (window as any).monaco = monaco;
+    const createEditor = (monacoModule: MonacoNamespace) => {
+      const monacoInstance = monacoModule;
+      windowWithMonaco.monaco = monacoInstance;
       
       if (!containerRef.current) {
         setIsLoading(false);
@@ -137,7 +180,7 @@ const Code: React.FC<CodeProps> = ({
       }
 
       try {
-        editor = monaco.editor.create(containerRef.current, {
+        editor = monacoInstance.editor.create(containerRef.current, {
           value: code,
           language: language,
           theme: 'vs-dark',
@@ -174,71 +217,55 @@ const Code: React.FC<CodeProps> = ({
           },
         });
 
-        editorRef.current = editor;
+        const monacoEditor = editor;
+        if (!monacoEditor) {
+          setIsLoading(false);
+          return;
+        }
+
+        editorRef.current = monacoEditor;
 
         // Handle content changes with debouncing
         let changeTimeout: NodeJS.Timeout;
-        editor.onDidChangeModelContent(() => {
+        monacoEditor.onDidChangeModelContent(() => {
           clearTimeout(changeTimeout);
           changeTimeout = setTimeout(() => {
-            const value = editor.getValue();
+            const value = monacoEditor.getValue();
             setCode(value);
           }, 100);
         });
 
         // Handle focus events
-        editor.onDidFocusEditorText(() => {
+        monacoEditor.onDidFocusEditorText(() => {
           onFocus();
         });
 
-        editor.onDidBlurEditorText(() => {
-          onBlur(editor.getValue());
-        });
-
-        // Handle cursor position changes for arrow key navigation
-        editor.onDidChangeCursorPosition((e: any) => {
-          const position = e.position;
-          const model = editor.getModel();
-          const lineCount = model.getLineCount();
-          
-          // Check if we're at the first line and need to navigate up
-          if (position.lineNumber === 1) {
-            const firstLineContent = model.getLineContent(1);
-            const isAtStart = position.column === 1;
-            
-            // Add custom logic here if needed for first line navigation
-          }
-          
-          // Check if we're at the last line and need to navigate down
-          if (position.lineNumber === lineCount) {
-            const lastLineContent = model.getLineContent(lineCount);
-            const isAtEnd = position.column > lastLineContent.length;
-            
-            // Add custom logic here if needed for last line navigation
-          }
+        monacoEditor.onDidBlurEditorText(() => {
+          onBlur(monacoEditor.getValue());
         });
 
         // Handle keydown events for arrow key navigation
-        editor.onKeyDown((e: any) => {
-          const position = editor.getPosition();
-          const model = editor.getModel();
+        monacoEditor.onKeyDown((e) => {
+          const position = monacoEditor.getPosition();
+          const model = monacoEditor.getModel();
+          if (!model) return;
           const lineCount = model.getLineCount();
           
           // Arrow Up at first line
-          if (e.keyCode === monaco.KeyCode.UpArrow && position.lineNumber === 1) {
+          if (e.keyCode === monacoInstance.KeyCode.UpArrow && position.lineNumber === 1) {
             onArrowUp();
             e.preventDefault();
           }
           
           // Arrow Down at last line
-          if (e.keyCode === monaco.KeyCode.DownArrow && position.lineNumber === lineCount) {
+          if (e.keyCode === monacoInstance.KeyCode.DownArrow && position.lineNumber === lineCount) {
             onArrowDown();
             e.preventDefault();
           }
 
           // Backspace when editor is empty
-          if (e.keyCode === monaco.KeyCode.Backspace) {
-            const currentValue = editor.getValue();
+          if (e.keyCode === monacoInstance.KeyCode.Backspace) {
+            const currentValue = monacoEditor.getValue();
             console.log("Editor Content", currentValue);
             const isEditorEmpty = currentValue === '';
             
@@ -251,8 +278,8 @@ const Code: React.FC<CodeProps> = ({
 
         // Force focus after creation
         setTimeout(() => {
-          if (editor && editable) {
-            editor.focus();
+          if (editable) {
+            monacoEditor.focus();
           }
         }, 100);
 
@@ -268,15 +295,16 @@ const Code: React.FC<CodeProps> = ({
     initMonaco();
 
     return cleanup;
-  }, []);
+  }, [cleanup, code, editable, language, onArrowDown, onArrowUp, onBlur, onDelete, onFocus]);
 
   // Handle language changes
   useEffect(() => {
-    if (editorRef.current && isMonacoReady && (window as any).monaco) {
+    const windowWithMonaco = window as unknown as { monaco?: MonacoNamespace };
+    if (editorRef.current && isMonacoReady && windowWithMonaco.monaco) {
       try {
         const model = editorRef.current.getModel();
         if (model) {
-          (window as any).monaco.editor.setModelLanguage(model, language);
+          windowWithMonaco.monaco.editor.setModelLanguage(model, language);
         }
       } catch (error) {
         console.error('Failed to change language:', error);

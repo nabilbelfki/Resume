@@ -184,6 +184,7 @@ const Post: React.FC = () => {
       window.location.href = '/admin/posts';
     } catch (err) {
       console.error('Error submitting form:', err);
+      setError(err instanceof Error ? err.message : 'Failed to create post');
     } finally {
       setIsSubmitting(false);
     }

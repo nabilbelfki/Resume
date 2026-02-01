@@ -1,0 +1,31 @@
+.container {
+    position: relative;
+    background-color: var(--toggle-container-background);
+    cursor: pointer;
+    border-radius: 30px;
+    padding: 2px;
+    width: 60px;
+    height: 25px;
+    transition: background-color 0.3s ease;
+}
+
+.toggle {
+    position: absolute;
+    left: 2px;
+    background-color: var(--toggle-background);
+    border: solid 0.5px #727272;
+    border-radius: 50%;
+    height: 21px;
+    width: 21px;
+    transition: all 0.3s ease;
+}
+
+.selected {
+    background-color: #3EA2FF;
+}
+
+.selected > .toggle {
+    transform: translateX(35px);
+    left: 2px;
+    right: unset;
+}

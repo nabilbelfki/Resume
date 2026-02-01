@@ -8,7 +8,7 @@
 }
 
 .title {
-    color: #4C4C4C;
+    color: var(--widget-title);
     margin: 0;
     margin-bottom: 20px;
 }
@@ -19,7 +19,7 @@
     gap: 3px;
     top: 30px;
     right: 20px;
-    color: #9E9E9E;
+    color: var(--site-clicks-timeframe-color);
 }
 
 .timeframe div {
@@ -27,11 +27,11 @@
 }
 
 .timeframe div:hover {
-   color: #272727;
+   color: var(--site-clicks-timeframe-hover-color);
 }
 
 .selected {
-    color: #4C4C4C;
+    color: var(--site-clicks-timeframe-selected-color);
 }
 
 .sites {
@@ -77,7 +77,7 @@
 
 .name {
     font-size: 18px;
-    color: #4C4C4C;
+    color: var(--site-clicks-name);
     font-weight: 600;
 }
 
