@@ -2,6 +2,8 @@
 import dbConnect from "../../lib/dbConnect";
 import Post from "../../models/Post";
 import { setCache, getCache, clearCache } from "../../lib/cache";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "./auth/[...nextauth]";
 
 export default async function handler(req, res) {
   await dbConnect();
@@ -35,7 +37,7 @@ export default async function handler(req, res) {
           const searchRegex = new RegExp(search.toString(), 'i');
           conditions.$or = [
             { title: searchRegex },
-            { 
+            {
               $expr: {
                 $regexMatch: {
                   input: { $concat: ["$author.firstName", " ", "$author.lastName"] },
@@ -125,6 +127,11 @@ export default async function handler(req, res) {
       case "POST":
         try {
           console.log("Processing POST request for Posts");
+          const session = await getServerSession(req, res, authOptions);
+          if (!session || !session.user) {
+            return res.status(401).json({ error: "Unauthorized" });
+          }
+
           const {
             title,
             author,

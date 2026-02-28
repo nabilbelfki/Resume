@@ -5,10 +5,8 @@ import { Breadcrumb as breadcrumb, Action } from "@/lib/types";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import Table from "@/components/Table/Table";
 import { formatTime } from "@/lib/utilities";
-import { useRouter } from "next/navigation";
 
 const Meetings: React.FC = () => {
-    const router = useRouter();
     const breadcrumbs: breadcrumb[] = [
         {
             label: 'Meetings',
@@ -20,10 +18,10 @@ const Meetings: React.FC = () => {
         }
     ];
 
-     const actions: Action[] = [
+    const actions: Action[] = [
         {
             label: 'Cancel Meetings',
-            action: async (IDs:string[]) => {
+            action: async (IDs: string[]) => {
                 if (!confirm(`Are you sure you want to cancel ${IDs.length > 1 ? 'these meetings' : 'this meeting'}?`)) {
                     return;
                 }
@@ -31,22 +29,22 @@ const Meetings: React.FC = () => {
                 try {
                     // Use Promise.all to delete all users in parallel
                     await Promise.all(
-                        IDs.map(id => 
+                        IDs.map(id =>
                             fetch(`/api/meetings/${id}`, {
                                 method: 'DELETE',
                             })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Failed to delete meetings');
-                                }
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Failed to delete meetings');
+                                    }
 
-                                location.href = '/admin/meetings';
-                            })
+                                    window.location.href = '/admin/meetings';
+                                })
                         )
                     );
 
                     console.log(`${IDs.length} meeting(s) deleted successfully`);
-                    router.refresh();
+                    window.location.reload();
                 } catch (err) {
                     console.error('Error deleting meetings:', err);
                     alert(`Failed to delete some meetings. Please try again.`);
@@ -57,38 +55,38 @@ const Meetings: React.FC = () => {
 
     return (
         <div className={styles.container}>
-            <Breadcrumbs breadcrumbs={breadcrumbs}/>
-            <Table 
+            <Breadcrumbs breadcrumbs={breadcrumbs} />
+            <Table
                 actions={actions}
                 showing={5}
                 entity="Meeting"
                 columns={[
-                    { 
-                        label: 'Name', 
-                        selectors: [['firstName'], ['lastName']], 
-                        type: 'avatar', 
+                    {
+                        label: 'Name',
+                        selectors: [['firstName'], ['lastName']],
+                        type: 'avatar',
                         avatar: 'image',
                         flex: 3
-                    }, 
-                    { 
-                        label:'Email', 
+                    },
+                    {
+                        label: 'Email',
                         selectors: [['email']],
                         flex: 2
-                    }, 
-                    { 
-                        label: 'Notes', 
+                    },
+                    {
+                        label: 'Notes',
                         selectors: [['notes']],
                         flex: 3
-                    }, 
-                    { 
-                        label: 'Time', 
+                    },
+                    {
+                        label: 'Time',
                         selectors: [['dateTime']],
                         alignment: 'center',
                         formatter: (text) => formatTime(text.split("T")[1].split(".")[0]),
                         sortKey: 'time'
-                    }, 
-                    { 
-                        label:'Date', 
+                    },
+                    {
+                        label: 'Date',
                         selectors: [['dateTime']],
                         alignment: 'center',
                         type: 'date',

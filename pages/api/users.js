@@ -2,6 +2,8 @@ import dbConnect from "../../lib/dbConnect";
 import User from "../../models/User";
 import bcrypt from 'bcrypt';
 import { setCache, getCache, clearCache } from "../../lib/cache";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "./auth/[...nextauth]";
 
 export default async function handler(req, res) {
   await dbConnect();
@@ -12,24 +14,24 @@ export default async function handler(req, res) {
     switch (method) {
       case "GET":
         console.log("Connected to MongoDB for GET request");
-        
+
         // Extract query parameters with defaults
-        const { 
-          page = 1, 
-          limit = 25, 
+        const {
+          page = 1,
+          limit = 25,
           search = '',
-          sortBy = 'created', 
-          sortOrder = 'desc' 
+          sortBy = 'created',
+          sortOrder = 'desc'
         } = query;
-        
+
         // Parse and validate parameters
         const pageNumber = parseInt(page.toString());
         const limitNumber = parseInt(limit.toString());
         const skip = (pageNumber - 1) * limitNumber;
-        
+
         // Validate sort order
         const sortDirection = sortOrder.toString().toLowerCase() === 'asc' ? 1 : -1;
-        
+
         // Create cache key based on all query parameters
         const cacheKey = `users:${page}:${limit}:${search}:${sortBy}:${sortOrder}`;
 
@@ -45,7 +47,7 @@ export default async function handler(req, res) {
         if (search) {
           const searchRegex = new RegExp(search.toString(), 'i');
           const searchTerms = search.toString().trim().split(/\s+/);
-          
+
           conditions.$or = [
             { firstName: searchRegex },
             { lastName: searchRegex },
@@ -105,6 +107,9 @@ export default async function handler(req, res) {
         break;
 
       case "POST":
+        const session = await getServerSession(req, res, authOptions);
+        const isAdmin = session?.user?.role === 'Administrator';
+
         clearCache('user');
 
         const {
@@ -116,10 +121,15 @@ export default async function handler(req, res) {
           birthday,
           phoneNumber,
           password, // This comes in plain text from the client
-          role,
-          status,
           address,
         } = req.body;
+
+        let { role, status } = req.body;
+
+        if (!isAdmin) {
+          role = 'User';
+          status = 'Pending';
+        }
 
         // Basic validation
         if (!username || !firstName || !lastName || !email) {
@@ -138,7 +148,7 @@ export default async function handler(req, res) {
           const saltRounds = 10;
           hashedPassword = await bcrypt.hash(password, saltRounds);
         }
-        
+
         const newUser = await User.create({
           image,
           username,
@@ -155,11 +165,11 @@ export default async function handler(req, res) {
         });
 
         console.log("New user created:", newUser);
-        
+
         // Important: Don't send the password (even hashed) back in the response
         const userResponse = { ...newUser.toJSON() };
         delete userResponse.password;
-        
+
         res.status(201).json(userResponse);
         break;
 

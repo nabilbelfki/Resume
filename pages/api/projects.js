@@ -57,12 +57,14 @@ async function handleGetRequest(query, res) {
   // Add status filter condition if provided
   if (status) {
     const statusValue = status.toString().toLowerCase();
-    if (statusValue === 'active' || statusValue === 'inactive') {
-      conditions.status = statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
+    if (statusValue === 'active') {
+      conditions.status = { $ne: 'Inactive' };
+    } else if (statusValue === 'inactive') {
+      conditions.status = 'Inactive';
     }
     // If status is provided but not valid, it will be ignored
   }
-  
+
   if (search) {
     const searchRegex = new RegExp(search.toString(), 'i');
     conditions.$or = [
@@ -170,10 +172,10 @@ async function handleGetRequest(query, res) {
 // POST handler - Create new project
 async function handlePostRequest(req, res) {
   const { body } = req;
-  
+
   // Validate required fields
-  if (!body.name || !body.duration || !body.startDate || !body.endDate || 
-      !body.views || !body.repository || !body.description || !body.slug || !body.client) {
+  if (!body.name || !body.duration || !body.startDate || !body.endDate ||
+    !body.views || !body.repository || !body.description || !body.slug || !body.client) {
     return res.status(400).json({ error: "Missing required fields" });
   }
 

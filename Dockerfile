@@ -1,29 +1,25 @@
-# Use a Node.js base image
-FROM node:18-alpine
-
-# Set the working directory
+# Build stage
+FROM node:20-alpine AS build
 WORKDIR /app
-
-# Install dependencies needed for building
-RUN apk add --no-cache bash
-
-# Copy package.json and package-lock.json first to leverage Docker cache
 COPY package*.json ./
-
-# Install dependencies
-RUN npm install --production
-
-# Copy the rest of your application
+RUN npm install
 COPY . .
-
-# Add environment variable (optional; can also be passed at runtime)
-ENV MONGO_URI=mongodb://52.15.107.92:27017/Projects
-
-# Build the Next.js application
 RUN npm run build
 
-# Expose the port the app runs on
-EXPOSE 3000
+# Production stage
+FROM node:20-alpine
+WORKDIR /app
 
-# Start the Next.js server
+# Install only runtime deps
+RUN apk update && apk upgrade && \
+    apk add --no-cache bash openssl busybox && \
+    npm install -g npm@latest
+
+COPY --from=build /app/package*.json ./
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/.next ./.next
+COPY --from=build /app/public ./public
+
+ENV MONGO_URI=mongodb://52.15.107.92:27017/Projects
+EXPOSE 3000
 CMD ["npm", "start"]

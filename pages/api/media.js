@@ -2,6 +2,8 @@ import dbConnect from "../../lib/dbConnect";
 import Media from "../../models/Media";
 import { getCache, setCache } from "../../lib/cache";
 import { handleFileUpload, saveMediaToDatabase } from "../../lib/mediaUtilities";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "./auth/[...nextauth]";
 
 export const config = {
   api: {
@@ -19,16 +21,16 @@ export default async function handler(req, res) {
       case "GET":
         // Your existing GET implementation remains exactly the same
         console.log("Fetching media documents");
-        const { 
-          page = 1, 
-          limit = 0, 
+        const {
+          page = 1,
+          limit = 0,
           search = '',
           type = '',
-          sortBy = 'created', 
+          sortBy = 'created',
           sortOrder = 'desc',
           directory = ''
         } = query;
-        
+
         const pageNumber = parseInt(page.toString());
         const limitNumber = parseInt(limit.toString());
         const skip = (pageNumber - 1) * limitNumber;
@@ -86,13 +88,18 @@ export default async function handler(req, res) {
 
       case "POST":
         try {
+          const session = await getServerSession(req, res, authOptions);
+          if (!session || !session.user) {
+            return res.status(401).json({ error: "Unauthorized" });
+          }
+
           const uploadResult = await handleFileUpload(req);
           const newMedia = await saveMediaToDatabase(uploadResult);
-          
+
           return res.status(201).json(newMedia);
         } catch (error) {
           console.error('Upload error:', error);
-          return res.status(400).json({ 
+          return res.status(400).json({
             error: error.message || "File upload failed",
             details: process.env.NODE_ENV === 'development' ? error.stack : undefined
           });
@@ -104,9 +111,9 @@ export default async function handler(req, res) {
     }
   } catch (error) {
     console.error(`Error during ${method} request:`, error);
-    
+
     const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-    return res.status(500).json({ 
+    return res.status(500).json({
       error: errorMessage,
       ...(process.env.NODE_ENV === 'development' && { details: error instanceof Error ? error.stack : undefined })
     });

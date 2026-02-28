@@ -4,10 +4,8 @@ import styles from "./Media.module.css"
 import { Breadcrumb as breadcrumb, Action } from "@/lib/types";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import Table from "@/components/Table/Table";
-import { useRouter } from "next/navigation";
 
 const Media: React.FC = () => {
-    const router = useRouter();
     const breadcrumbs: breadcrumb[] = [
         {
             label: 'Media',
@@ -22,7 +20,7 @@ const Media: React.FC = () => {
     const actions: Action[] = [
         {
             label: 'Delete Media',
-            action: async (IDs:string[]) => {
+            action: async (IDs: string[]) => {
                 if (!confirm(`Are you sure you want to delete ${IDs.length > 1 ? 'these media files' : 'this media'}?`)) {
                     return;
                 }
@@ -30,22 +28,22 @@ const Media: React.FC = () => {
                 try {
                     // Use Promise.all to delete all users in parallel
                     await Promise.all(
-                        IDs.map(id => 
+                        IDs.map(id =>
                             fetch(`/api/media/${id}`, {
                                 method: 'DELETE',
                             })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Failed to delete media');
-                                }
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Failed to delete media');
+                                    }
 
-                                location.href = '/admin/media';
-                            })
+                                    window.location.href = '/admin/media';
+                                })
                         )
                     );
 
                     console.log(`${IDs.length} media deleted successfully`);
-                    router.refresh();
+                    window.location.reload();
                 } catch (err) {
                     console.error('Error deleting media:', err);
                     alert(`Failed to delete some media. Please try again.`);
@@ -56,38 +54,38 @@ const Media: React.FC = () => {
 
     return (
         <div className={styles.container}>
-            <Breadcrumbs breadcrumbs={breadcrumbs}/>
-            <Table 
+            <Breadcrumbs breadcrumbs={breadcrumbs} />
+            <Table
                 actions={actions}
                 showing={5}
                 entity="Media"
                 columns={[
-                    { 
-                        label: 'Thumbnail', 
+                    {
+                        label: 'Thumbnail',
                         selectors: [['path']],
                         type: 'thumbnail',
                         alignment: 'center',
                         sortable: false,
                         maxWidth: '100px'
-                    }, 
-                    { 
-                        label: 'File Name', 
-                        selectors: [['fileName']], 
+                    },
+                    {
+                        label: 'File Name',
+                        selectors: [['fileName']],
                         flex: 2
-                    }, 
-                    { 
-                        label: 'Description', 
-                        selectors: [ ['description'] ],
+                    },
+                    {
+                        label: 'Description',
+                        selectors: [['description']],
                         flex: 4,
                         maxWidth: "50vw"
                     },
-                    { 
-                        label: 'File Type', 
+                    {
+                        label: 'File Type',
                         selectors: [['fileType']],
                         alignment: 'center',
                     },
-                    { 
-                        label:'Created', 
+                    {
+                        label: 'Created',
                         selectors: [['lastModified']],
                         alignment: 'center',
                         type: 'date',

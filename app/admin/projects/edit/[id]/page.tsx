@@ -1,12 +1,13 @@
 "use client"
 import React, { useState, useEffect } from "react";
+import Image from 'next/image';
 import styles from "./Project.module.css"
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
-import { Breadcrumb as breadcrumb} from "@/lib/types";
+import { Breadcrumb as breadcrumb } from "@/lib/types";
 import List from "@/components/List/List";
 import ThumbnailUpload from "@/components/ThumbnailUpload/ThumbnailUpload"
 import MediaPicker from "@/components/MediaPicker/MediaPicker";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Dropdown from "@/components/Dropdown/Dropdown";
 
 interface ToolData {
@@ -98,14 +99,15 @@ type LanguageItem = ProjectData["languages"][number];
 type ToolItem = ProjectData["tools"][number];
 type SlideItem = ProjectData["client"]["slides"][number];
 
-const Project: React.FC = () => {
+const EditProject: React.FC = () => {
+  const router = useRouter();
   const params = useParams();
   const id = params?.id as string;
-  const [thumbnail, setThumbnail] = useState<{ name: string; path: string; backgroundColor?: string }>({ 
-    name: '', 
-    path: '' 
+  const [thumbnail, setThumbnail] = useState<{ name: string; path: string; backgroundColor?: string }>({
+    name: '',
+    path: ''
   });
-  
+
   const [formData, setFormData] = useState<ProjectData>({
     name: '',
     slug: '',
@@ -143,11 +145,11 @@ const Project: React.FC = () => {
       slides: []
     }
   });
-  
+
   useEffect(() => {
     const fetchProject = async () => {
       if (!id) return;
-      
+
       try {
         const response = await fetch(`/api/projects/${id}`);
         if (!response.ok) {
@@ -212,9 +214,9 @@ const Project: React.FC = () => {
           repositories: {
             github: data.repository?.url || '',
             docker: data.container?.url || '',
-            figma: '' 
+            figma: ''
           },
-          languages:languages,
+          languages: languages,
           tools: tools,
           client: {
             title: data.client?.title?.name || '',
@@ -263,7 +265,7 @@ const Project: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
-    
+
     // Clear validation error when user types
     if (validationErrors[id]) {
       setValidationErrors(prev => ({ ...prev, [id]: false }));
@@ -325,10 +327,10 @@ const Project: React.FC = () => {
       ...prev,
       languages: items
     }));
-    
+
     // Clear validation errors
     setValidationErrors(prev => {
-      const newErrors = {...prev};
+      const newErrors = { ...prev };
       items.forEach((item, index) => {
         if (item.name) delete newErrors[`languages[${index}].name`];
         if (item.color) delete newErrors[`languages[${index}].color`];
@@ -343,10 +345,10 @@ const Project: React.FC = () => {
       ...prev,
       tools: items
     }));
-    
+
     // Clear validation errors
     setValidationErrors(prev => {
-      const newErrors = {...prev};
+      const newErrors = { ...prev };
       items.forEach((item, index) => {
         if (item.name) delete newErrors[`tools[${index}].name`];
         if (item.color) delete newErrors[`tools[${index}].color`];
@@ -368,10 +370,10 @@ const Project: React.FC = () => {
         slides: items
       }
     }));
-    
+
     // Clear validation errors
     setValidationErrors(prev => {
-      const newErrors = {...prev};
+      const newErrors = { ...prev };
       items.forEach((item, index) => {
         if (item.name) delete newErrors[`client.slides[${index}].name`];
         if (item.color) delete newErrors[`client.slides[${index}].color`];
@@ -460,7 +462,7 @@ const Project: React.FC = () => {
       if (!tool.thumbnail?.width) errors[`tools[${index}].thumbnail.width`] = true;
       if (!tool.thumbnail?.height) errors[`tools[${index}].thumbnail.height`] = true;
     });
-    
+
     // Validate client fields
     if (!formData.client.title.trim()) errors.clientTitle = true;
     if (!formData.client.location.latitude) errors.clientLatitude = true;
@@ -586,7 +588,7 @@ const Project: React.FC = () => {
 
   const handleDelete = async () => {
     if (!id) return;
-    
+
     if (!confirm('Are you sure you want to delete this project? This action cannot be undone.')) {
       return;
     }
@@ -615,29 +617,29 @@ const Project: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <Breadcrumbs breadcrumbs={breadcrumbs}/>
+      <Breadcrumbs breadcrumbs={breadcrumbs} />
       <div className={styles.actions}>
-        <button 
-          className={styles.back} 
-          onClick={() => window.location.href = '/admin/projects'}
+        <button
+          className={styles.back}
+          onClick={() => router.push('/admin/projects')}
         >
-          <svg style={{rotate: '180deg'}} xmlns="http://www.w3.org/2000/svg" version="1.0" height="20" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+          <svg style={{ rotate: '180deg' }} xmlns="http://www.w3.org/2000/svg" version="1.0" height="20" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
             <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="var(--form-back-button-icon)" stroke="none">
-              <path d="M1721 4034 c-94 -47 -137 -147 -107 -249 11 -37 29 -63 68 -101 29 -28 333 -290 676 -583 342 -293 622 -535 621 -539 0 -4 -277 -243 -615 -532 -777 -663 -740 -629 -759 -693 -54 -181 134 -339 298 -251 59 32 1549 1310 1583 1358 64 90 51 196 -33 278 -26 25 -382 331 -790 680 -556 476 -751 637 -781 646 -60 18 -103 14 -161 -14z"/>
+              <path d="M1721 4034 c-94 -47 -137 -147 -107 -249 11 -37 29 -63 68 -101 29 -28 333 -290 676 -583 342 -293 622 -535 621 -539 0 -4 -277 -243 -615 -532 -777 -663 -740 -629 -759 -693 -54 -181 134 -339 298 -251 59 32 1549 1310 1583 1358 64 90 51 196 -33 278 -26 25 -382 331 -790 680 -556 476 -751 637 -781 646 -60 18 -103 14 -161 -14z" />
             </g>
           </svg>
           <span>Back</span>
         </button>
-        <button 
-          className={styles.save} 
+        <button
+          className={styles.save}
           onClick={handleSubmit}
           disabled={isSubmitting}
         >
           {isSubmitting ? 'Saving...' : 'Save Changes'}
         </button>
         {id && (
-          <button 
-            className={styles.delete} 
+          <button
+            className={styles.delete}
             onClick={handleDelete}
             disabled={isSubmitting}
           >
@@ -649,7 +651,7 @@ const Project: React.FC = () => {
       <div className={styles.content}>
         <div className={styles.avatarContainer}>
           <label>Thumbnail</label>
-          <ThumbnailUpload 
+          <ThumbnailUpload
             value={thumbnail}
             onChange={handleThumbnailChange}
             style={{ border: validationErrors.thumbnail ? '1.6px solid red' : '' }}
@@ -659,10 +661,10 @@ const Project: React.FC = () => {
         <div className={styles.grid}>
           <div className={styles.input}>
             <label htmlFor="name">Name</label>
-            <input 
-              type="text" 
-              id="name" 
-              placeholder="Enter Name" 
+            <input
+              type="text"
+              id="name"
+              placeholder="Enter Name"
               value={formData.name}
               onChange={handleInputChange}
               required
@@ -671,10 +673,10 @@ const Project: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="slug">Slug</label>
-            <input 
-              type="text" 
-              id="slug" 
-              placeholder="Enter Slug" 
+            <input
+              type="text"
+              id="slug"
+              placeholder="Enter Slug"
               value={formData.slug}
               onChange={handleInputChange}
               style={{ border: validationErrors.slug ? '1.6px solid red' : '' }}
@@ -682,10 +684,10 @@ const Project: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="url">URL</label>
-            <input 
-              type="text" 
-              id="url" 
-              placeholder="Enter URL" 
+            <input
+              type="text"
+              id="url"
+              placeholder="Enter URL"
               value={formData.url}
               onChange={handleInputChange}
               style={{ border: validationErrors.url ? '1.6px solid red' : '' }}
@@ -693,29 +695,29 @@ const Project: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="status">Status</label>
-            <Dropdown 
-              placeholder='Choose Status' 
-              options={[{label:'Active', value: 'Active'}, {label:'Inactive', value: 'Inactive'}]}
+            <Dropdown
+              placeholder='Choose Status'
+              options={[{ label: 'Active', value: 'Active' }, { label: 'Inactive', value: 'Inactive' }]}
               value={formData.status}
               onChange={(value) => {
-                setFormData({...formData, status: value})
+                setFormData({ ...formData, status: value })
                 if (validationErrors.status) {
                   setValidationErrors(prev => ({ ...prev, status: false }));
                 }
               }}
-              style={{ 
+              style={{
                 button: {
-                  border: validationErrors.status ? '1.6px solid red' : '' 
+                  border: validationErrors.status ? '1.6px solid red' : ''
                 }
               }}
             />
           </div>
           <div className={styles.input}>
             <label htmlFor="startDate">Start Date</label>
-            <input 
-              type="date" 
-              id="startDate" 
-              placeholder="Enter Start Date" 
+            <input
+              type="date"
+              id="startDate"
+              placeholder="Enter Start Date"
               value={formData.startDate}
               onChange={handleInputChange}
               required
@@ -724,10 +726,10 @@ const Project: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="endDate">End Date</label>
-            <input 
-              type="date" 
-              id="endDate" 
-              placeholder="Enter End Date" 
+            <input
+              type="date"
+              id="endDate"
+              placeholder="Enter End Date"
               value={formData.endDate}
               onChange={handleInputChange}
               style={{ border: validationErrors.endDate ? '1.6px solid red' : '' }}
@@ -737,7 +739,7 @@ const Project: React.FC = () => {
 
         <div className={styles.textbox}>
           <label htmlFor="description">Description</label>
-          <textarea 
+          <textarea
             id="description"
             placeholder="Enter Description"
             value={formData.description}
@@ -749,10 +751,10 @@ const Project: React.FC = () => {
         <div className={styles.grid}>
           <div className={styles.input}>
             <label htmlFor="views">Views</label>
-            <input 
-              type="number" 
-              id="views" 
-              placeholder="Enter Views" 
+            <input
+              type="number"
+              id="views"
+              placeholder="Enter Views"
               value={formData.views}
               onChange={handleInputChange}
               style={{ border: validationErrors.views ? '1.6px solid red' : '' }}
@@ -760,10 +762,10 @@ const Project: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="duration">Duration</label>
-            <input 
-              type="text" 
-              id="duration" 
-              placeholder="Enter Duration" 
+            <input
+              type="text"
+              id="duration"
+              placeholder="Enter Duration"
               value={formData.duration}
               onChange={handleInputChange}
               style={{ border: validationErrors.duration ? '1.6px solid red' : '' }}
@@ -775,10 +777,10 @@ const Project: React.FC = () => {
         <div className={styles.grid}>
           <div className={styles.input}>
             <label htmlFor="repositoriesGithub">GitHub URL</label>
-            <input 
-              type="text" 
-              id="repositoriesGithub" 
-              placeholder="Enter GitHub URL" 
+            <input
+              type="text"
+              id="repositoriesGithub"
+              placeholder="Enter GitHub URL"
               value={formData.repositories.github}
               onChange={handleInputChange}
               style={{ border: validationErrors.repositoriesGithub ? '1.6px solid red' : '' }}
@@ -786,10 +788,10 @@ const Project: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="repositoriesDocker">Docker URL</label>
-            <input 
-              type="text" 
-              id="repositoriesDocker" 
-              placeholder="Enter Docker URL" 
+            <input
+              type="text"
+              id="repositoriesDocker"
+              placeholder="Enter Docker URL"
               value={formData.repositories.docker}
               onChange={handleInputChange}
               style={{ border: validationErrors.repositoriesDocker ? '1.6px solid red' : '' }}
@@ -797,19 +799,19 @@ const Project: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="repositoriesFigma">Figma URL</label>
-            <input 
-              type="text" 
-              id="repositoriesFigma" 
-              placeholder="Enter Figma URL" 
+            <input
+              type="text"
+              id="repositoriesFigma"
+              placeholder="Enter Figma URL"
               value={formData.repositories.figma}
               onChange={handleInputChange}
             />
           </div>
         </div>
 
-        <label className={styles.title} style={{marginBottom: 50}}>Languages</label>
-        <div style={{marginTop: 30, marginBottom: 60}}>
-          <List 
+        <label className={styles.title} style={{ marginBottom: 50 }}>Languages</label>
+        <div style={{ marginTop: 30, marginBottom: 60 }}>
+          <List
             key={`list-${formData.languages.length}`}
             fields={[
               { id: 'name', type: 'text', placeholder: 'Enter Name' },
@@ -823,9 +825,9 @@ const Project: React.FC = () => {
           />
         </div>
 
-        <label className={styles.title} style={{marginBottom: 50}}>Tools</label>
-        <div style={{marginTop: 30, marginBottom: 60}}>
-          <List 
+        <label className={styles.title} style={{ marginBottom: 50 }}>Tools</label>
+        <div style={{ marginTop: 30, marginBottom: 60 }}>
+          <List
             key={`list-${formData.tools.length}`}
             fields={[
               { id: 'name', type: 'text', placeholder: 'Enter Name' },
@@ -841,37 +843,37 @@ const Project: React.FC = () => {
           />
         </div>
 
-        <label className={styles.title} style={{marginBottom: 50}}>Client</label>
+        <label className={styles.title} style={{ marginBottom: 50 }}>Client</label>
         <div className={styles.grid}>
           <div className={styles['latitude-and-longitude']}>
             <div className={styles.input}>
               <label htmlFor="clientLatitude">Latitude</label>
-              <input 
-                type="number" 
-                id="clientLatitude" 
-                placeholder="Enter Latitude" 
+              <input
+                type="number"
+                id="clientLatitude"
+                placeholder="Enter Latitude"
                 value={formData.client.location.latitude}
                 onChange={handleInputChange}
-              style={{ border: validationErrors.clientLatitude ? '1.6px solid red' : '' }}
+                style={{ border: validationErrors.clientLatitude ? '1.6px solid red' : '' }}
               />
             </div>
             <div className={styles.input}>
               <label htmlFor="clientLongitude">Longitude</label>
-              <input 
-                type="number" 
-                id="clientLongitude" 
-                placeholder="Enter Longitude" 
+              <input
+                type="number"
+                id="clientLongitude"
+                placeholder="Enter Longitude"
                 value={formData.client.location.longitude}
                 onChange={handleInputChange}
-              style={{ border: validationErrors.clientLongitude ? '1.6px solid red' : '' }}
+                style={{ border: validationErrors.clientLongitude ? '1.6px solid red' : '' }}
               />
             </div>
           </div>
           <div className={styles.input}>
             <label>Logo</label>
-            <MediaPicker 
-              key={`media-picker-${formData.client.logo.name}`} 
-              style={{height: 120}}
+            <MediaPicker
+              key={`media-picker-${formData.client.logo.name}`}
+              style={{ height: 120 }}
               value={{
                 name: formData.client.logo.name,
                 path: formData.client.logo.path,
@@ -892,7 +894,7 @@ const Project: React.FC = () => {
                   }
                 }));
                 setValidationErrors(prev => {
-                  const newErrors = {...prev};
+                  const newErrors = { ...prev };
                   if (media.path) delete newErrors.clientImage;
                   if (media.width) delete newErrors.clientWidth;
                   if (media.height) delete newErrors.clientHeight;
@@ -906,10 +908,10 @@ const Project: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="clientTitle">Title</label>
-            <input 
-              type="text" 
-              id="clientTitle" 
-              placeholder="Enter Title" 
+            <input
+              type="text"
+              id="clientTitle"
+              placeholder="Enter Title"
               value={formData.client.title}
               onChange={handleInputChange}
               style={{ border: validationErrors.clientTitle ? '1.6px solid red' : '' }}
@@ -919,7 +921,7 @@ const Project: React.FC = () => {
 
         <div className={styles.textbox}>
           <label htmlFor="clientDescription">Description</label>
-          <textarea 
+          <textarea
             id="clientDescription"
             placeholder="Enter Description"
             value={formData.client.description}
@@ -939,8 +941,8 @@ const Project: React.FC = () => {
           />
         </div>
 
-        <div style={{marginTop: 30}}>
-          <List 
+        <div style={{ marginTop: 30 }}>
+          <List
             key={`list-${formData.client.slides.length}`}
             fields={[
               { id: 'name', type: 'text', placeholder: 'Enter Slide Name' },
@@ -958,4 +960,4 @@ const Project: React.FC = () => {
   );
 }
 
-export default Project;
+export default EditProject;

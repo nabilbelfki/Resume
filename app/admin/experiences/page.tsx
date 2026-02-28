@@ -4,10 +4,8 @@ import styles from "./Experiences.module.css"
 import { Breadcrumb as breadcrumb, Action } from "@/lib/types";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import Table from "@/components/Table/Table";
-import { useRouter } from "next/navigation";
 
 const Experiences: React.FC = () => {
-    const router = useRouter();
     const breadcrumbs: breadcrumb[] = [
         {
             label: 'Experiences',
@@ -22,7 +20,7 @@ const Experiences: React.FC = () => {
     const actions: Action[] = [
         {
             label: 'Activate Experiences',
-            action: async (IDs:string[]) => {
+            action: async (IDs: string[]) => {
                 if (!confirm(`Are you sure you want to activate ${IDs.length > 1 ? 'these experiences' : 'this experience'}?`)) {
                     return;
                 }
@@ -30,22 +28,22 @@ const Experiences: React.FC = () => {
                 try {
                     // Use Promise.all to delete all users in parallel
                     await Promise.all(
-                        IDs.map(id => 
+                        IDs.map(id =>
                             fetch(`/api/experiences/${id}/activate`, {
                                 method: 'PATCH',
                             })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Failed to delete experiences');
-                                }
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Failed to delete experiences');
+                                    }
 
-                                location.href = '/admin/experiences';
-                            })
+                                    window.location.href = '/admin/experiences';
+                                })
                         )
                     );
 
                     console.log(`${IDs.length} experience(s) activated successfully`);
-                    router.refresh();
+                    window.location.reload();
                 } catch (err) {
                     console.error('Error activating experiences:', err);
                     alert(`Failed to activate some experiences. Please try again.`);
@@ -54,7 +52,7 @@ const Experiences: React.FC = () => {
         },
         {
             label: 'Deactivate Experiences',
-            action: async (IDs:string[]) => {
+            action: async (IDs: string[]) => {
                 if (!confirm(`Are you sure you want to deactivate ${IDs.length > 1 ? 'these experiences' : 'this experience'}?`)) {
                     return;
                 }
@@ -62,22 +60,22 @@ const Experiences: React.FC = () => {
                 try {
                     // Use Promise.all to delete all users in parallel
                     await Promise.all(
-                        IDs.map(id => 
+                        IDs.map(id =>
                             fetch(`/api/experiences/${id}/deactivate`, {
                                 method: 'PATCH',
                             })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Failed to deactivate experiences');
-                                }
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Failed to deactivate experiences');
+                                    }
 
-                                location.href = '/admin/experiences';
-                            })
+                                    window.location.href = '/admin/experiences';
+                                })
                         )
                     );
 
                     console.log(`${IDs.length} experience(s) deactivated successfully`);
-                    router.refresh();
+                    window.location.reload();
                 } catch (err) {
                     console.error('Error deactivating experiences:', err);
                     alert(`Failed to deactivate some experiences. Please try again.`);
@@ -86,7 +84,7 @@ const Experiences: React.FC = () => {
         },
         {
             label: 'Delete Experiences',
-            action: async (IDs:string[]) => {
+            action: async (IDs: string[]) => {
                 if (!confirm(`Are you sure you want to delete ${IDs.length > 1 ? 'these experiences' : 'this experience'}?`)) {
                     return;
                 }
@@ -94,22 +92,22 @@ const Experiences: React.FC = () => {
                 try {
                     // Use Promise.all to delete all users in parallel
                     await Promise.all(
-                        IDs.map(id => 
+                        IDs.map(id =>
                             fetch(`/api/experiences/${id}`, {
                                 method: 'DELETE',
                             })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Failed to delete experiences');
-                                }
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Failed to delete experiences');
+                                    }
 
-                                location.href = '/admin/experiences';
-                            })
+                                    window.location.href = '/admin/experiences';
+                                })
                         )
                     );
 
                     console.log(`${IDs.length} experience(s) deleted successfully`);
-                    router.refresh();
+                    window.location.reload();
                 } catch (err) {
                     console.error('Error deleting experiences:', err);
                     alert(`Failed to delete some experiences. Please try again.`);
@@ -120,48 +118,48 @@ const Experiences: React.FC = () => {
 
     return (
         <div className={styles.container}>
-            <Breadcrumbs breadcrumbs={breadcrumbs}/>
-            <Table 
+            <Breadcrumbs breadcrumbs={breadcrumbs} />
+            <Table
                 actions={actions}
                 showing={5}
                 entity="Experience"
                 columns={[
-                    { 
-                        label: 'Logo', 
+                    {
+                        label: 'Logo',
                         selectors: [['logo', 'closed', 'path'], ['logo', 'closed', 'name']],
                         type: 'thumbnail',
                         alignment: 'center',
                         thumbnailBackgroundColor: [['image', 'backgroundColor']],
                         sortable: false,
                         maxWidth: '100px'
-                    }, 
-                    { 
-                        label: 'Name', 
+                    },
+                    {
+                        label: 'Name',
                         selectors: [['name']],
                         type: 'active',
                         active: ['status'],
                         flex: 3
-                    }, 
-                    { 
-                        label: 'Title', 
-                        selectors: [ ['title'] ],
+                    },
+                    {
+                        label: 'Title',
+                        selectors: [['title']],
                         flex: 3,
                     },
-                    { 
-                        label: 'Type', 
+                    {
+                        label: 'Type',
                         selectors: [['type']],
                         alignment: 'center',
                         formatter: (text) => text[0].toUpperCase() + text.slice(1)
                     },
-                    { 
-                        label:'Start', 
+                    {
+                        label: 'Start',
                         selectors: [['period', 'start']],
                         alignment: 'center',
                         type: 'date',
                         sort: true
                     },
-                    { 
-                        label:'End', 
+                    {
+                        label: 'End',
                         selectors: [['period', 'end']],
                         alignment: 'center',
                         type: 'date'

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./Skill.module.css"
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import ThumbnailUpload from "@/components/ThumbnailUpload/ThumbnailUpload";
-import { Breadcrumb as breadcrumb} from "@/lib/types";
+import { Breadcrumb as breadcrumb } from "@/lib/types";
 import ColorPicker from "@/components/ColorPicker/ColorPicker";
 import Dropdown from "@/components/Dropdown/Dropdown";
 import { useParams, useRouter } from "next/navigation";
@@ -26,9 +26,9 @@ interface SkillData {
   }
 }
 
-const Skill: React.FC = () => {
-  const params = useParams();
+const EditSkill: React.FC = () => {
   const router = useRouter();
+  const params = useParams();
   const id = params?.id as string;
 
   const [formData, setFormData] = useState<SkillData>({
@@ -51,45 +51,45 @@ const Skill: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [validationErrors, setValidationErrors] = useState<Record<string, boolean>>({});
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        if (!id) return;
 
-        try {
-          const response = await fetch(`/api/skills/${id}`);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!id) return;
 
-          if (!response.ok) {
-            throw new Error(`Failed to fetch skill`);
-          }
+      try {
+        const response = await fetch(`/api/skills/${id}`);
 
-          const data = await response.json();
-          console.log("Data", data);
-          setFormData({
-            type: data.type || '',
-            name: data.name || '',
-            image: {
-              name: data.image.name || '',
-              url: data.image.url || '',
-              backgroundColor: data.image.backgroundColor || '',
-              width: data.image.width || '',
-              height: data.image.height || '',
-            },
-            status: data.status || '',
-            description: {
-              color: data.description.color || '',
-              text: data.description.text || '',
-              backgroundColor: data.description.backgroundColor || '',
-            }
-          })
-        } catch (err) {
-          setError(err instanceof Error ? err.message : 'Failed to fetch data');
-          console.error('Error fetching user:', err);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch skill`);
         }
-      };
 
-      fetchData();
-    }, [id]);
+        const data = await response.json();
+        console.log("Data", data);
+        setFormData({
+          type: data.type || '',
+          name: data.name || '',
+          image: {
+            name: data.image.name || '',
+            url: data.image.url || '',
+            backgroundColor: data.image.backgroundColor || '',
+            width: data.image.width || '',
+            height: data.image.height || '',
+          },
+          status: data.status || '',
+          description: {
+            color: data.description.color || '',
+            text: data.description.text || '',
+            backgroundColor: data.description.backgroundColor || '',
+          }
+        })
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to fetch data');
+        console.error('Error fetching user:', err);
+      }
+    };
+
+    fetchData();
+  }, [id]);
 
   const breadcrumbs: breadcrumb[] = [
     {
@@ -143,7 +143,7 @@ const Skill: React.FC = () => {
 
   const handleDelete = async () => {
     if (!id) return;
-    
+
     if (!confirm('Are you sure you want to delete this skill?')) {
       return;
     }
@@ -203,7 +203,7 @@ const Skill: React.FC = () => {
         // Ensure image data is properly formatted
         image: {
           name: formData.image.name,
-          url: formData.image.url.replace(formData.image.name,''),
+          url: formData.image.url.replace(formData.image.name, ''),
           backgroundColor: formData.image.backgroundColor || '#ffffff',
           width: formData.image.width || 100,
           height: formData.image.height || 100,
@@ -233,7 +233,7 @@ const Skill: React.FC = () => {
 
       const result = await response.json();
       console.log('Skill saved successfully:', result);
-      
+
       router.push(`/admin/skills`);
     } catch (err) {
       console.error('Error saving skill:', err);
@@ -245,25 +245,25 @@ const Skill: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <Breadcrumbs breadcrumbs={breadcrumbs}/>
+      <Breadcrumbs breadcrumbs={breadcrumbs} />
       <div className={styles.actions}>
-        <button className={styles.back} onClick={()=>location.href = '/admin/skills'}>
-          <svg style={{rotate: '180deg'}} xmlns="http://www.w3.org/2000/svg" version="1.0"height="20" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+        <button className={styles.back} onClick={() => router.push('/admin/skills')}>
+          <svg style={{ rotate: '180deg' }} xmlns="http://www.w3.org/2000/svg" version="1.0" height="20" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
             <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="var(--form-back-button-icon)" stroke="none">
-              <path d="M1721 4034 c-94 -47 -137 -147 -107 -249 11 -37 29 -63 68 -101 29 -28 333 -290 676 -583 342 -293 622 -535 621 -539 0 -4 -277 -243 -615 -532 -777 -663 -740 -629 -759 -693 -54 -181 134 -339 298 -251 59 32 1549 1310 1583 1358 64 90 51 196 -33 278 -26 25 -382 331 -790 680 -556 476 -751 637 -781 646 -60 18 -103 14 -161 -14z"/>
+              <path d="M1721 4034 c-94 -47 -137 -147 -107 -249 11 -37 29 -63 68 -101 29 -28 333 -290 676 -583 342 -293 622 -535 621 -539 0 -4 -277 -243 -615 -532 -777 -663 -740 -629 -759 -693 -54 -181 134 -339 298 -251 59 32 1549 1310 1583 1358 64 90 51 196 -33 278 -26 25 -382 331 -790 680 -556 476 -751 637 -781 646 -60 18 -103 14 -161 -14z" />
             </g>
           </svg>
           <span>Back</span>
         </button>
-        <button 
-          className={styles.save} 
+        <button
+          className={styles.save}
           onClick={handleSubmit}
           disabled={isSubmitting}
         >
           {isSubmitting ? 'Saving...' : 'Save Changes'}
         </button>
-        <button 
-          className={styles.delete} 
+        <button
+          className={styles.delete}
           onClick={handleDelete}
           disabled={isSubmitting}
         >
@@ -272,7 +272,7 @@ const Skill: React.FC = () => {
       </div>
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.content}>
-        <ThumbnailUpload 
+        <ThumbnailUpload
           value={{
             name: formData.image.name,
             path: formData.image.url.substring(0, formData.image.url.lastIndexOf('/') + 1),
@@ -298,10 +298,10 @@ const Skill: React.FC = () => {
         <div className={styles.grid}>
           <div className={styles.input}>
             <label htmlFor="name">Name</label>
-            <input 
-              type="text" 
-              id="name" 
-              placeholder="Enter Name" 
+            <input
+              type="text"
+              id="name"
+              placeholder="Enter Name"
               value={formData.name}
               onChange={handleInputChange}
               required
@@ -310,45 +310,45 @@ const Skill: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="type">Type</label>
-            <Dropdown 
-              placeholder='Choose Type' 
+            <Dropdown
+              placeholder='Choose Type'
               options={[
-                {label:'Mobile', value: 'mobile'}, 
-                {label:'Frontend', value: 'frontend'},
-                {label:'Backend', value: 'backend'},
-                {label:'Database', value: 'database'},
-                {label:'Cloud', value: 'cloud'},
-                {label:'Miscellaneous', value: 'miscellaneous'},
+                { label: 'Mobile', value: 'mobile' },
+                { label: 'Frontend', value: 'frontend' },
+                { label: 'Backend', value: 'backend' },
+                { label: 'Database', value: 'database' },
+                { label: 'Cloud', value: 'cloud' },
+                { label: 'Miscellaneous', value: 'miscellaneous' },
               ]}
               value={formData.type}
               onChange={(value) => {
-                setFormData({...formData, type: value})
+                setFormData({ ...formData, type: value })
                 if (validationErrors.type) {
                   setValidationErrors(prev => ({ ...prev, type: false }));
                 }
               }}
-              style={{ 
+              style={{
                 button: {
-                  border: validationErrors.type ? '1.6px solid red' : '' 
+                  border: validationErrors.type ? '1.6px solid red' : ''
                 }
               }}
             />
           </div>
           <div className={styles.input}>
             <label htmlFor="status">Status</label>
-            <Dropdown 
-              placeholder='Choose Status' 
-              options={[{label:'Active', value: 'Active'}, {label:'Inactive', value: 'Inactive'}]}
+            <Dropdown
+              placeholder='Choose Status'
+              options={[{ label: 'Active', value: 'Active' }, { label: 'Inactive', value: 'Inactive' }]}
               value={formData.status}
               onChange={(value) => {
-                setFormData({...formData, status: value})
+                setFormData({ ...formData, status: value })
                 if (validationErrors.status) {
                   setValidationErrors(prev => ({ ...prev, status: false }));
                 }
               }}
-              style={{ 
+              style={{
                 button: {
-                  border: validationErrors.status ? '1.6px solid red' : '' 
+                  border: validationErrors.status ? '1.6px solid red' : ''
                 }
               }}
             />
@@ -359,10 +359,10 @@ const Skill: React.FC = () => {
         <div className={styles.grid}>
           <div className={styles.input}>
             <label htmlFor="height">Height</label>
-            <input 
-              type="number" 
-              id="height" 
-              placeholder="Enter Height" 
+            <input
+              type="number"
+              id="height"
+              placeholder="Enter Height"
               value={formData.image?.height || ''}
               onChange={handleInputChange}
               style={{ border: validationErrors.height ? '1.6px solid red' : '' }}
@@ -370,48 +370,48 @@ const Skill: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="width">Width</label>
-            <input 
-              type="number" 
-              id="width" 
-              placeholder="Enter Width" 
+            <input
+              type="number"
+              id="width"
+              placeholder="Enter Width"
               value={formData.image?.width || ''}
               onChange={handleInputChange}
               style={{ border: validationErrors.width ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
-              <label htmlFor="image-background-color">Background Color</label>
-              <ColorPicker 
-                ID="image-background-color" 
-                placeholder="Enter Background Color"
-                value={formData.image.backgroundColor}
-                onChange={(value) => {
-                  setFormData({
-                    ...formData, 
-                    image: {
-                      ...formData.image,
-                      backgroundColor: value
-                    }
-                  })
-                  if (validationErrors.imageBackgroundColor) {
-                    setValidationErrors(prev => ({ ...prev, imageBackgroundColor: false }));
+            <label htmlFor="image-background-color">Background Color</label>
+            <ColorPicker
+              ID="image-background-color"
+              placeholder="Enter Background Color"
+              value={formData.image.backgroundColor}
+              onChange={(value) => {
+                setFormData({
+                  ...formData,
+                  image: {
+                    ...formData.image,
+                    backgroundColor: value
                   }
-                }}    
-                style={{ border: validationErrors.imageBackgroundColor ? '1.6px solid red' : '' }}
-              />
-            </div>
+                })
+                if (validationErrors.imageBackgroundColor) {
+                  setValidationErrors(prev => ({ ...prev, imageBackgroundColor: false }));
+                }
+              }}
+              style={{ border: validationErrors.imageBackgroundColor ? '1.6px solid red' : '' }}
+            />
+          </div>
         </div>
 
         <label className={styles.title}>Description Information</label>
         <div className={styles.grid}>
           <div className={styles.input}>
             <label htmlFor="description-background-color">Background Color</label>
-            <ColorPicker 
+            <ColorPicker
               ID="description-background-color" placeholder="Enter Background Color"
               value={formData.description.backgroundColor}
               onChange={(value) => {
                 setFormData({
-                  ...formData, 
+                  ...formData,
                   description: {
                     ...formData.description,
                     backgroundColor: value
@@ -420,19 +420,19 @@ const Skill: React.FC = () => {
                 if (validationErrors.descriptionBackgroundColor) {
                   setValidationErrors(prev => ({ ...prev, descriptionBackgroundColor: false }));
                 }
-              }}    
+              }}
               style={{ border: validationErrors.descriptionBackgroundColor ? '1.6px solid red' : '' }}
             />
           </div>
           <div className={styles.input}>
             <label htmlFor="description-color">Color</label>
-            <ColorPicker 
-              ID="description-color" 
+            <ColorPicker
+              ID="description-color"
               placeholder="Enter Color"
               value={formData.description.color}
-              onChange={(value) =>  {
+              onChange={(value) => {
                 setFormData({
-                  ...formData, 
+                  ...formData,
                   description: {
                     ...formData.description,
                     color: value
@@ -441,15 +441,15 @@ const Skill: React.FC = () => {
                 if (validationErrors.descriptionColor) {
                   setValidationErrors(prev => ({ ...prev, descriptionColor: false }));
                 }
-              }}    
+              }}
               style={{ border: validationErrors.descriptionColor ? '1.6px solid red' : '' }}
             />
           </div>
         </div>
         <div className={styles.textbox}>
           <label htmlFor="description">Description</label>
-          <textarea 
-            name="description" 
+          <textarea
+            name="description"
             id="description"
             placeholder="Enter Description"
             value={formData.description.text}
@@ -469,8 +469,8 @@ const Skill: React.FC = () => {
           />
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 
-export default Skill;
+export default EditSkill;

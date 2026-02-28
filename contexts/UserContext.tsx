@@ -1,6 +1,7 @@
 // contexts/UserContext.tsx
 "use client";
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext } from 'react';
+import { SessionProvider, useSession } from 'next-auth/react';
 
 interface User {
   id: string;
@@ -18,47 +19,30 @@ const UserContext = createContext<{
 }>({
   user: null,
   loading: true,
-  refresh: async () => {}
+  refresh: async () => { }
 });
 
-export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [state, setState] = useState<{
-    user: User | null;
-    loading: boolean;
-  }>({
-    user: null,
-    loading: true
-  });
-
-  const refresh = async () => {
-    setState(prev => ({ ...prev, loading: true }));
-    try {
-      const res = await fetch('/api/authorize', { credentials: 'include' });
-      const data = await res.json();
-      setState({
-        user: data.isAuthenticated ? data.user : null,
-        loading: false
-      });
-    } catch (error) {
-      setState({
-        user: null,
-        loading: false
-      });
-    }
-  };
-
-  useEffect(() => {
-    refresh();
-  }, []);
+const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
+  const { data: session, status, update } = useSession();
 
   return (
     <UserContext.Provider value={{
-      user: state.user,
-      loading: state.loading,
-      refresh
+      user: session?.user as User | null,
+      loading: status === "loading",
+      refresh: async () => { await update(); }
     }}>
       {children}
     </UserContext.Provider>
+  );
+};
+
+export const UserProvider = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <SessionProvider>
+      <UserContextProvider>
+        {children}
+      </UserContextProvider>
+    </SessionProvider>
   );
 };
 

@@ -32,16 +32,18 @@ export default async function handler(req, res) {
 
         // Build conditions
         const conditions = {};
-        
+
         // Add status filter condition if provided
         if (status) {
           const statusValue = status.toString().toLowerCase();
-          if (statusValue === 'active' || statusValue === 'inactive') {
-            conditions.status = statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
+          if (statusValue === 'active') {
+            conditions.status = { $ne: 'Inactive' };
+          } else if (statusValue === 'inactive') {
+            conditions.status = 'Inactive';
           }
           // If status is provided but not valid, it will be ignored
         }
-        
+
         if (search) {
           const searchRegex = new RegExp(search.toString(), 'i');
           conditions.$or = [

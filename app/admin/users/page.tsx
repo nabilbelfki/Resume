@@ -4,10 +4,8 @@ import styles from "./Users.module.css"
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import { Breadcrumb as breadcrumb, Action } from "@/lib/types";
 import Table from "@/components/Table/Table"
-import { useRouter } from "next/navigation";
 
 const Users: React.FC = () => {
-    const router = useRouter();
     const breadcrumbs: breadcrumb[] = [
         {
             label: 'Users',
@@ -19,7 +17,7 @@ const Users: React.FC = () => {
         }
     ];
 
-    const deleteUsers = async (IDs: string[]) => {    
+    const deleteUsers = async (IDs: string[]) => {
         if (!confirm(`Are you sure you want to delete ${IDs.length > 1 ? 'these users' : 'this user'}?`)) {
             return;
         }
@@ -27,22 +25,22 @@ const Users: React.FC = () => {
         try {
             // Use Promise.all to delete all users in parallel
             await Promise.all(
-                IDs.map(id => 
+                IDs.map(id =>
                     fetch(`/api/users/${id}`, {
                         method: 'DELETE',
                     })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Failed to delete user');
-                        }
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Failed to delete user');
+                            }
 
-                        location.href = '/admin/users';
-                    })
+                            window.location.href = '/admin/users';
+                        })
                 )
             );
 
             console.log(`${IDs.length} user(s) deleted successfully`);
-            router.refresh();
+            window.location.reload();
         } catch (err) {
             console.error('Error deleting users:', err);
             alert(`Failed to delete some users. Please try again.`);
@@ -92,31 +90,31 @@ const Users: React.FC = () => {
     ];
     return (
         <div className={styles.container}>
-            <Breadcrumbs breadcrumbs={breadcrumbs}/>
-            <Table 
+            <Breadcrumbs breadcrumbs={breadcrumbs} />
+            <Table
                 actions={actions}
                 showing={5}
                 entity="User"
                 columns={[
-                    { 
-                        label: 'Name', 
-                        selectors: [['firstName'], ['lastName']], 
-                        type: 'avatar', 
+                    {
+                        label: 'Name',
+                        selectors: [['firstName'], ['lastName']],
+                        type: 'avatar',
                         avatar: 'image',
                         flex: 3
-                    }, 
-                    { 
-                        label:'Email', 
+                    },
+                    {
+                        label: 'Email',
                         selectors: [['email']],
                         flex: 2
-                    }, 
-                    { 
-                        label: 'Role', 
-                        selectors: [['role']] 
-                    }, 
-                    { 
-                        label:'Status', 
-                        selectors: [['status']], 
+                    },
+                    {
+                        label: 'Role',
+                        selectors: [['role']]
+                    },
+                    {
+                        label: 'Status',
+                        selectors: [['status']],
                         type: 'status',
                         alignment: 'center',
                         colors: [
@@ -137,9 +135,9 @@ const Users: React.FC = () => {
                                 color: '#BAB63C'
                             },
                         ]
-                    }, 
-                    { 
-                        label:'Created', 
+                    },
+                    {
+                        label: 'Created',
                         selectors: [['created']],
                         alignment: 'center',
                         sort: true,

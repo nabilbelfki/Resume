@@ -2,11 +2,12 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Experience.module.css"
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
-import { Breadcrumb as breadcrumb} from "@/lib/types";
+import { Breadcrumb as breadcrumb } from "@/lib/types";
+import Toggle from "@/components/Toggle/Toggle";
+import { useParams, useRouter } from "next/navigation";
 import Dropdown from "@/components/Dropdown/Dropdown";
 import ColorPicker from "@/components/ColorPicker/ColorPicker";
 import ThumbnailUpload from "@/components/ThumbnailUpload/ThumbnailUpload"
-import { useParams } from "next/navigation";
 
 interface ExperienceData {
   level: number;
@@ -57,19 +58,20 @@ interface ExperienceData {
 }
 
 const Experience: React.FC = () => {
+  const router = useRouter();
   const params = useParams();
   const id = params?.id as string;
 
   const [isFrontAndBackSame, setIsFrontAndBackSame] = useState(true);
-  const [frontLogo, setFrontLogo] = useState<{ name: string; path: string; backgroundColor?: string }>({ 
-    name: '', 
-    path: '' 
+  const [frontLogo, setFrontLogo] = useState<{ name: string; path: string; backgroundColor?: string }>({
+    name: '',
+    path: ''
   });
-  const [backLogo, setBackLogo] = useState<{ name: string; path: string; backgroundColor?: string }>({ 
-    name: '', 
-    path: '' 
+  const [backLogo, setBackLogo] = useState<{ name: string; path: string; backgroundColor?: string }>({
+    name: '',
+    path: ''
   });
-  
+
   const [formData, setFormData] = useState<ExperienceData>({
     level: 0,
     zIndex: 0,
@@ -122,7 +124,7 @@ const Experience: React.FC = () => {
   useEffect(() => {
     const fetchExperience = async () => {
       if (!id) return;
-      
+
       try {
         const response = await fetch(`/api/experiences/${id}`);
         if (!response.ok) {
@@ -130,27 +132,53 @@ const Experience: React.FC = () => {
         }
         const data = await response.json();
         console.log(data);
-        data.period.start =  data.period.start.split("T")[0]
+        data.period.start = data.period.start.split("T")[0]
         if (data.period.end) data.period.end = data.period.end.split("T")[0]
-        setFormData(data);
-        
+
+        // Ensure all properties exist to avoid uncontrolled component inputs
+        const safeData = {
+          ...data,
+          subtitle: data.subtitle || '',
+          location: data.location || '',
+          description: data.description || '',
+          type: data.type || '',
+          status: data.status || '',
+          level: data.level || 0,
+          period: {
+            title: data.period?.title || '',
+            start: data.period?.start || '',
+            end: data.period?.end || ''
+          },
+          color: {
+            ...data.color,
+            subtitle: data.color?.subtitle || '',
+            description: {
+              ...data.color?.description,
+              background: data.color?.description?.background || '',
+              text: data.color?.description?.text || ''
+            }
+          }
+        };
+
+        setFormData(safeData);
+
         setFrontLogo({
           name: data.logo.opened.name,
           path: data.logo.opened.path,
           backgroundColor: data.logo.opened.backgroundColor
         });
-        
+
         setBackLogo({
           name: data.logo.closed.name,
           path: data.logo.closed.path,
           backgroundColor: data.logo.closed.backgroundColor
         });
-        
+
         setIsFrontAndBackSame(
           data.logo.opened.name === data.logo.closed.name &&
           data.logo.opened.path === data.logo.closed.path
         );
-        
+
       } catch (error) {
         console.error('Error fetching experience:', error);
       }
@@ -167,7 +195,7 @@ const Experience: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
-    
+
     // Clear validation error when user types
     if (validationErrors[id]) {
       setValidationErrors(prev => ({ ...prev, [id]: false }));
@@ -212,8 +240,8 @@ const Experience: React.FC = () => {
         setValidationErrors(prev => ({ ...prev, logoClosedHeight: false }));
       }
     } else if (id === 'periodStart' || id === 'periodEnd' || id === 'periodTitle') {
-      const field = id === 'periodStart' ? 'start' : 
-                   id === 'periodEnd' ? 'end' : 'title';
+      const field = id === 'periodStart' ? 'start' :
+        id === 'periodEnd' ? 'end' : 'title';
       setFormData(prev => ({
         ...prev,
         period: {
@@ -268,7 +296,7 @@ const Experience: React.FC = () => {
 
   const handleDelete = async () => {
     if (!id) return;
-    
+
     if (!confirm('Are you sure you want to delete this experience?')) {
       return;
     }
@@ -299,7 +327,7 @@ const Experience: React.FC = () => {
     if (validationErrors.frontLogo) {
       setValidationErrors(prev => ({ ...prev, frontLogo: false }));
     }
-    
+
     if (isFrontAndBackSame) {
       setBackLogo(media);
       if (validationErrors.backLogo) {
@@ -360,7 +388,7 @@ const Experience: React.FC = () => {
   const handleToggleSameLogo = () => {
     const newValue = !isFrontAndBackSame;
     setIsFrontAndBackSame(newValue);
-    
+
     if (newValue && frontLogo.name) {
       setBackLogo(frontLogo);
       setFormData(prev => ({
@@ -384,7 +412,7 @@ const Experience: React.FC = () => {
 
     // Validate required fields
     const errors: Record<string, boolean> = {};
-    
+
     // General Information
     if (!formData.name.trim()) errors.name = true;
     if (!formData.title.trim()) errors.title = true;
@@ -484,29 +512,29 @@ const Experience: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <Breadcrumbs breadcrumbs={breadcrumbs}/>
+      <Breadcrumbs breadcrumbs={breadcrumbs} />
       <div className={styles.actions}>
-        <button 
-          className={styles.back} 
-          onClick={() => window.location.href = '/admin/experiences'}
+        <button
+          className={styles.back}
+          onClick={() => router.push('/admin/experiences')}
         >
-          <svg style={{rotate: '180deg'}} xmlns="http://www.w3.org/2000/svg" version="1.0" height="20" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+          <svg style={{ rotate: '180deg' }} xmlns="http://www.w3.org/2000/svg" version="1.0" height="20" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
             <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="var(--form-back-button-icon)" stroke="none">
-              <path d="M1721 4034 c-94 -47 -137 -147 -107 -249 11 -37 29 -63 68 -101 29 -28 333 -290 676 -583 342 -293 622 -535 621 -539 0 -4 -277 -243 -615 -532 -777 -663 -740 -629 -759 -693 -54 -181 134 -339 298 -251 59 32 1549 1310 1583 1358 64 90 51 196 -33 278 -26 25 -382 331 -790 680 -556 476 -751 637 -781 646 -60 18 -103 14 -161 -14z"/>
+              <path d="M1721 4034 c-94 -47 -137 -147 -107 -249 11 -37 29 -63 68 -101 29 -28 333 -290 676 -583 342 -293 622 -535 621 -539 0 -4 -277 -243 -615 -532 -777 -663 -740 -629 -759 -693 -54 -181 134 -339 298 -251 59 32 1549 1310 1583 1358 64 90 51 196 -33 278 -26 25 -382 331 -790 680 -556 476 -751 637 -781 646 -60 18 -103 14 -161 -14z" />
             </g>
           </svg>
           <span>Back</span>
         </button>
-        <button 
-          className={styles.save} 
+        <button
+          className={styles.save}
           onClick={handleSubmit}
           disabled={isSubmitting}
         >
           {isSubmitting ? (id ? 'Updating...' : 'Saving...') : (id ? 'Save Changes' : 'Save Experience')}
         </button>
         {id && (
-          <button 
-            className={styles.delete} 
+          <button
+            className={styles.delete}
             onClick={handleDelete}
             disabled={isSubmitting}
           >
@@ -518,8 +546,8 @@ const Experience: React.FC = () => {
       <div className={styles.content}>
         <div className={styles['front-and-back']}>
           <div className={styles.avatarContainer}>
-            <label>{ isFrontAndBackSame ? 'Thumbnail' : 'Front' }</label>
-            <ThumbnailUpload 
+            <label>{isFrontAndBackSame ? 'Thumbnail' : 'Front'}</label>
+            <ThumbnailUpload
               value={frontLogo}
               onChange={handleFrontLogoChange}
               style={{ border: validationErrors.frontLogo ? '1.6px solid red' : '' }}
@@ -528,7 +556,7 @@ const Experience: React.FC = () => {
           {!isFrontAndBackSame && (
             <div className={styles.avatarContainer}>
               <label>Back</label>
-              <ThumbnailUpload  
+              <ThumbnailUpload
                 value={backLogo}
                 onChange={handleBackLogoChange}
                 style={{ border: validationErrors.backLogo ? '1.6px solid red' : '' }}
@@ -538,9 +566,9 @@ const Experience: React.FC = () => {
         </div>
         <div className={styles.same}>
           <label htmlFor="same">Separate<br /> Thumbnails</label>
-          <input 
-            id="same" 
-            type="checkbox" 
+          <input
+            id="same"
+            type="checkbox"
             checked={!isFrontAndBackSame}
             onChange={handleToggleSameLogo}
           />
@@ -549,10 +577,10 @@ const Experience: React.FC = () => {
         <div className={styles.grid}>
           <div className={styles.input}>
             <label htmlFor="name">Name</label>
-            <input 
-              type="text" 
-              id="name" 
-              placeholder="Enter Name" 
+            <input
+              type="text"
+              id="name"
+              placeholder="Enter Name"
               value={formData.name}
               onChange={handleInputChange}
               required
@@ -561,10 +589,10 @@ const Experience: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="title">Title</label>
-            <input 
-              type="text" 
-              id="title" 
-              placeholder="Enter Title" 
+            <input
+              type="text"
+              id="title"
+              placeholder="Enter Title"
               value={formData.title}
               onChange={handleInputChange}
               required
@@ -573,18 +601,18 @@ const Experience: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="subtitle">Subtitle</label>
-            <input 
-              type="text" 
-              id="subtitle" 
-              placeholder="Enter Subtitle" 
+            <input
+              type="text"
+              id="subtitle"
+              placeholder="Enter Subtitle"
               value={formData.subtitle}
               onChange={handleInputChange}
             />
           </div>
           <div className={styles.input}>
             <label htmlFor="type">Type</label>
-            <Dropdown 
-              placeholder='Choose Type' 
+            <Dropdown
+              placeholder='Choose Type'
               options={[
                 { label: 'Work', value: 'Work' },
                 { label: 'Education', value: 'Education' },
@@ -599,19 +627,19 @@ const Experience: React.FC = () => {
                   setValidationErrors(prev => ({ ...prev, type: false }));
                 }
               }}
-              style={{ 
+              style={{
                 button: {
-                  border: validationErrors.type ? '1.6px solid red' : '' 
+                  border: validationErrors.type ? '1.6px solid red' : ''
                 }
               }}
             />
           </div>
           <div className={styles.input}>
             <label htmlFor="location">Location</label>
-            <input 
-              type="text" 
-              id="location" 
-              placeholder="Enter Location" 
+            <input
+              type="text"
+              id="location"
+              placeholder="Enter Location"
               value={formData.location}
               onChange={handleInputChange}
               style={{ border: validationErrors.location ? '1.6px solid red' : '' }}
@@ -619,19 +647,19 @@ const Experience: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="status">Status</label>
-            <Dropdown 
-              placeholder='Choose Status' 
-              options={[{label:'Active', value: 'Active'}, {label:'Inactive', value: 'Inactive'}]}
+            <Dropdown
+              placeholder='Choose Status'
+              options={[{ label: 'Active', value: 'Active' }, { label: 'Inactive', value: 'Inactive' }]}
               value={formData.status}
               onChange={(value) => {
-                setFormData({...formData, status: value})
+                setFormData({ ...formData, status: value })
                 if (validationErrors.status) {
                   setValidationErrors(prev => ({ ...prev, status: false }));
                 }
               }}
-              style={{ 
+              style={{
                 button: {
-                  border: validationErrors.status ? '1.6px solid red' : '' 
+                  border: validationErrors.status ? '1.6px solid red' : ''
                 }
               }}
             />
@@ -640,7 +668,7 @@ const Experience: React.FC = () => {
 
         <div className={styles.textbox}>
           <label htmlFor="description">Description</label>
-          <textarea 
+          <textarea
             id="description"
             placeholder="Enter Description"
             value={formData.description}
@@ -652,10 +680,10 @@ const Experience: React.FC = () => {
         <div className={styles.grid}>
           <div className={styles.input}>
             <label htmlFor="level">Level</label>
-            <input 
-              type="number" 
-              id="level" 
-              placeholder="Enter Level" 
+            <input
+              type="number"
+              id="level"
+              placeholder="Enter Level"
               value={formData.level}
               onChange={handleInputChange}
               style={{ border: validationErrors.level ? '1.6px solid red' : '' }}
@@ -667,10 +695,10 @@ const Experience: React.FC = () => {
         <div className={styles.grid}>
           <div className={styles.input}>
             <label htmlFor="periodTitle">Period Title</label>
-            <input 
-              type="text" 
-              id="periodTitle" 
-              placeholder="Enter Title" 
+            <input
+              type="text"
+              id="periodTitle"
+              placeholder="Enter Title"
               value={formData.period.title}
               onChange={handleInputChange}
               style={{ border: validationErrors.periodTitle ? '1.6px solid red' : '' }}
@@ -678,9 +706,9 @@ const Experience: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="periodStart">Start Date</label>
-            <input 
-              type="date" 
-              id="periodStart" 
+            <input
+              type="date"
+              id="periodStart"
               value={formData.period.start}
               onChange={handleInputChange}
               required
@@ -689,22 +717,22 @@ const Experience: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="periodEnd">End Date</label>
-            <input 
-              type="date" 
-              id="periodEnd" 
+            <input
+              type="date"
+              id="periodEnd"
               value={formData.period.end}
               onChange={handleInputChange}
             />
           </div>
         </div>
         <label className={styles.title}>Logo Constraints</label>
-        <div className={styles.grid} style={{gridTemplateColumns: '1fr 1fr'}}>
+        <div className={styles.grid} style={{ gridTemplateColumns: '1fr 1fr' }}>
           <div className={styles.input}>
             <label htmlFor="logoOpenedWidth">Opened Width</label>
-            <input 
-              type="number" 
-              id="logoOpenedWidth" 
-              placeholder="Enter Width" 
+            <input
+              type="number"
+              id="logoOpenedWidth"
+              placeholder="Enter Width"
               value={formData.logo.opened.width}
               onChange={handleInputChange}
               style={{ border: validationErrors.logoOpenedWidth ? '1.6px solid red' : '' }}
@@ -712,10 +740,10 @@ const Experience: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="logoClosedWidth">Closed Width</label>
-            <input 
-              type="number" 
-              id="logoClosedWidth" 
-              placeholder="Enter Width" 
+            <input
+              type="number"
+              id="logoClosedWidth"
+              placeholder="Enter Width"
               value={formData.logo.closed.width}
               onChange={handleInputChange}
               style={{ border: validationErrors.logoClosedWidth ? '1.6px solid red' : '' }}
@@ -723,10 +751,10 @@ const Experience: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="logoOpenedHeight">Opened Height</label>
-            <input 
-              type="number" 
-              id="logoOpenedHeight" 
-              placeholder="Enter Height" 
+            <input
+              type="number"
+              id="logoOpenedHeight"
+              placeholder="Enter Height"
               value={formData.logo.opened.height}
               onChange={handleInputChange}
               style={{ border: validationErrors.logoOpenedHeight ? '1.6px solid red' : '' }}
@@ -734,10 +762,10 @@ const Experience: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="logoClosedHeight">Closed Height</label>
-            <input 
-              type="number" 
-              id="logoClosedHeight" 
-              placeholder="Enter Height" 
+            <input
+              type="number"
+              id="logoClosedHeight"
+              placeholder="Enter Height"
               value={formData.logo.closed.height}
               onChange={handleInputChange}
               style={{ border: validationErrors.logoClosedHeight ? '1.6px solid red' : '' }}
@@ -749,8 +777,8 @@ const Experience: React.FC = () => {
         <div className={styles.grid}>
           <div className={styles.input}>
             <label>Line</label>
-            <ColorPicker 
-              ID="line-color" 
+            <ColorPicker
+              ID="line-color"
               placeholder="Enter Line Color"
               value={formData.color.line}
               onChange={(value) => handleColorChange('line', value)}
@@ -759,8 +787,8 @@ const Experience: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label>Name</label>
-            <ColorPicker 
-              ID="name-color" 
+            <ColorPicker
+              ID="name-color"
               placeholder="Enter Name Color"
               value={formData.color.name}
               onChange={(value) => handleColorChange('name', value)}
@@ -769,8 +797,8 @@ const Experience: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label>Type</label>
-            <ColorPicker 
-              ID="type-color" 
+            <ColorPicker
+              ID="type-color"
               placeholder="Enter Type Color"
               value={formData.color.type}
               onChange={(value) => handleColorChange('type', value)}
@@ -779,8 +807,8 @@ const Experience: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label>Title</label>
-            <ColorPicker 
-              ID="title-color" 
+            <ColorPicker
+              ID="title-color"
               placeholder="Enter Title Color"
               value={formData.color.title}
               onChange={(value) => handleColorChange('title', value)}
@@ -789,8 +817,8 @@ const Experience: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label>Subtitle</label>
-            <ColorPicker 
-              ID="subtitle-color" 
+            <ColorPicker
+              ID="subtitle-color"
               placeholder="Enter Subtitle Color"
               value={formData.color.subtitle}
               onChange={(value) => handleColorChange('subtitle', value)}
@@ -799,8 +827,8 @@ const Experience: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label>Date</label>
-            <ColorPicker 
-              ID="date-color" 
+            <ColorPicker
+              ID="date-color"
               placeholder="Enter Date Color"
               value={formData.color.date}
               onChange={(value) => handleColorChange('date', value)}
@@ -809,8 +837,8 @@ const Experience: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label>Location</label>
-            <ColorPicker 
-              ID="location-color" 
+            <ColorPicker
+              ID="location-color"
               placeholder="Enter Location Color"
               value={formData.color.location}
               onChange={(value) => handleColorChange('location', value)}
@@ -819,8 +847,8 @@ const Experience: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label>Background</label>
-            <ColorPicker 
-              ID="background-color" 
+            <ColorPicker
+              ID="background-color"
               placeholder="Enter Background Color"
               value={formData.color.background}
               onChange={(value) => handleColorChange('background', value)}
@@ -829,8 +857,8 @@ const Experience: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label>Details</label>
-            <ColorPicker 
-              ID="details-color" 
+            <ColorPicker
+              ID="details-color"
               placeholder="Enter Details Color"
               value={formData.color.details}
               onChange={(value) => handleColorChange('details', value)}
@@ -839,8 +867,8 @@ const Experience: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label>Description Text</label>
-            <ColorPicker 
-              ID="description-text-color" 
+            <ColorPicker
+              ID="description-text-color"
               placeholder="Enter Description Text Color"
               value={formData.color.description.text}
               onChange={(value) => handleColorChange('description.text', value)}
@@ -849,8 +877,8 @@ const Experience: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label>Description Background</label>
-            <ColorPicker 
-              ID="description-bg-color" 
+            <ColorPicker
+              ID="description-bg-color"
               placeholder="Enter Description Background Color"
               value={formData.color.description.background}
               onChange={(value) => handleColorChange('description.background', value)}

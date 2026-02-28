@@ -8,6 +8,7 @@ import ThumbnailUpload from "@/components/ThumbnailUpload/ThumbnailUpload"
 import Dropdown from "@/components/Dropdown/Dropdown";
 import BannerUpload from "@/components/BannerUpload/BannerUpload";
 import Editor from "@/components/Editor/Editor";
+import Image from 'next/image';
 import Table from "@/components/Table/Table";
 import { EditorHandle } from "@/lib/types"
 import { useParams, useRouter } from "next/navigation";
@@ -41,16 +42,16 @@ const Post: React.FC = () => {
   const id = params?.id as string;
   const { user } = useUser();
   const editorRef = useRef<EditorHandle>(null);
-  const [thumbnail, setThumbnail] = useState<{ name: string; path: string; backgroundColor?: string }>({ 
-    name: '', 
-    path: '' 
+  const [thumbnail, setThumbnail] = useState<{ name: string; path: string; backgroundColor?: string }>({
+    name: '',
+    path: ''
   });
 
-  const [banner, setBanner] = useState<{ name: string; path: string; backgroundColor?: string }>({ 
-    name: '', 
-    path: '' 
+  const [banner, setBanner] = useState<{ name: string; path: string; backgroundColor?: string }>({
+    name: '',
+    path: ''
   });
-  
+
   const [formData, setFormData] = useState<PostData>({
     title: '',
     readTime: 0,
@@ -86,7 +87,7 @@ const Post: React.FC = () => {
   const actions = [
     {
       label: 'Delete Comments',
-      action: async (commentIDs:string[]) => {
+      action: async (commentIDs: string[]) => {
         if (!confirm(`Are you sure you want to delete ${commentIDs.length > 1 ? 'these comments' : 'this comment'}?`)) {
           return;
         }
@@ -94,16 +95,16 @@ const Post: React.FC = () => {
         try {
           // Use Promise.all to delete all users in parallel
           await Promise.all(
-              commentIDs.map(commentID => 
-                  fetch(`/api/posts/${id}/comments/${commentID}`, {
-                      method: 'DELETE',
-                  })
-                  .then(response => {
-                      if (!response.ok) {
-                          throw new Error('Failed to delete comments');
-                      }
-                  })
-              )
+            commentIDs.map(commentID =>
+              fetch(`/api/posts/${id}/comments/${commentID}`, {
+                method: 'DELETE',
+              })
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('Failed to delete comments');
+                  }
+                })
+            )
           );
 
           console.log(`${commentIDs.length} comments deleted successfully`);
@@ -202,7 +203,7 @@ const Post: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
-  
+
     setFormData(prev => ({
       ...prev,
       [id]: value
@@ -252,19 +253,19 @@ const Post: React.FC = () => {
             const thumbnailLastSlashIndex = post.thumbnail.lastIndexOf('/');
             const thumbnailPath = post.thumbnail.substring(0, thumbnailLastSlashIndex + 1);
             const thumbnailName = post.thumbnail.substring(thumbnailLastSlashIndex + 1);
-            handleThumbnailChange({name: thumbnailName, path: thumbnailPath, backgroundColor: ''})
+            handleThumbnailChange({ name: thumbnailName, path: thumbnailPath, backgroundColor: '' })
           }
-          
+
           if (post.banner) {
             const bannerLastSlashIndex = post.banner.lastIndexOf('/');
             const bannerPath = post.banner.substring(0, bannerLastSlashIndex + 1);
             const bannerName = post.banner.substring(bannerLastSlashIndex + 1);
             console.log(bannerPath, bannerName)
-            handleBannerChange({name: bannerName, path: bannerPath, backgroundColor: ''})
+            handleBannerChange({ name: bannerName, path: bannerPath, backgroundColor: '' })
           }
-          
+
           // console.log("Content", post.content.stringify);
-          
+
           // Use functional update to ensure we have the latest state
           setFormData(prevFormData => ({
             ...prevFormData,
@@ -297,7 +298,7 @@ const Post: React.FC = () => {
     setIsSubmitting(true);
 
     console.log("Form", formData)
-    
+
     // Validate required fields
     const errors: Record<string, boolean> = {};
     if (!formData.title.trim()) errors.title = true;
@@ -333,8 +334,8 @@ const Post: React.FC = () => {
         status: "Draft",
         visibility: formData.visibility,
         content,
-        thumbnail: `${formData.thumbnail.path}${formData.thumbnail.name}`, 
-        banner: `${formData.banner.path}${formData.banner.name}`, 
+        thumbnail: `${formData.thumbnail.path}${formData.thumbnail.name}`,
+        banner: `${formData.banner.path}${formData.banner.name}`,
         slug: formData.title.toLowerCase().replaceAll(" ", "-"),
         tags: []
       };
@@ -354,7 +355,7 @@ const Post: React.FC = () => {
         throw new Error(errorData.error || 'Failed to create post');
       }
 
-      window.location.href = '/admin/posts';
+      router.push('/admin/posts');
     } catch (err) {
       console.error('Error submitting form:', err);
       setError(err instanceof Error ? err.message : 'Failed to update post');
@@ -365,21 +366,21 @@ const Post: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <Breadcrumbs breadcrumbs={breadcrumbs}/>
+      <Breadcrumbs breadcrumbs={breadcrumbs} />
       <div className={styles.actions}>
-        <button 
-          className={styles.back} 
-          onClick={() => window.location.href = '/admin/posts'}
+        <button
+          className={styles.back}
+          onClick={() => router.push('/admin/posts')}
         >
-          <svg style={{rotate: '180deg'}} xmlns="http://www.w3.org/2000/svg" version="1.0" height="20" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+          <svg style={{ rotate: '180deg' }} xmlns="http://www.w3.org/2000/svg" version="1.0" height="20" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
             <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="var(--form-back-button-icon)" stroke="none">
-              <path d="M1721 4034 c-94 -47 -137 -147 -107 -249 11 -37 29 -63 68 -101 29 -28 333 -290 676 -583 342 -293 622 -535 621 -539 0 -4 -277 -243 -615 -532 -777 -663 -740 -629 -759 -693 -54 -181 134 -339 298 -251 59 32 1549 1310 1583 1358 64 90 51 196 -33 278 -26 25 -382 331 -790 680 -556 476 -751 637 -781 646 -60 18 -103 14 -161 -14z"/>
+              <path d="M1721 4034 c-94 -47 -137 -147 -107 -249 11 -37 29 -63 68 -101 29 -28 333 -290 676 -583 342 -293 622 -535 621 -539 0 -4 -277 -243 -615 -532 -777 -663 -740 -629 -759 -693 -54 -181 134 -339 298 -251 59 32 1549 1310 1583 1358 64 90 51 196 -33 278 -26 25 -382 331 -790 680 -556 476 -751 637 -781 646 -60 18 -103 14 -161 -14z" />
             </g>
           </svg>
           <span>Back</span>
         </button>
-        <button 
-          className={styles.save} 
+        <button
+          className={styles.save}
           onClick={handleSubmit}
           disabled={isSubmitting}
         >
@@ -390,7 +391,7 @@ const Post: React.FC = () => {
       <div className={styles.content}>
         <div className={styles.avatarContainer}>
           <label>Thumbnail</label>
-          <ThumbnailUpload 
+          <ThumbnailUpload
             value={thumbnail}
             onChange={handleThumbnailChange}
             style={{ border: validationErrors.thumbnail ? '1.6px solid red' : '' }}
@@ -400,10 +401,10 @@ const Post: React.FC = () => {
         <div className={styles.grid}>
           <div className={styles.input}>
             <label htmlFor="title">Title</label>
-            <input 
-              type="text" 
-              id="title" 
-              placeholder="Enter Title" 
+            <input
+              type="text"
+              id="title"
+              placeholder="Enter Title"
               value={formData.title}
               onChange={handleInputChange}
               required
@@ -412,10 +413,10 @@ const Post: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="category">Category</label>
-            <input 
-              type="text" 
-              id="category" 
-              placeholder="Enter Category" 
+            <input
+              type="text"
+              id="category"
+              placeholder="Enter Category"
               value={formData.category}
               onChange={handleInputChange}
               style={{ border: validationErrors.category ? '1.6px solid red' : '' }}
@@ -423,10 +424,10 @@ const Post: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="readTime">Read Time</label>
-            <input 
-              type="number" 
-              id="readTime" 
-              placeholder="Enter Read Time" 
+            <input
+              type="number"
+              id="readTime"
+              placeholder="Enter Read Time"
               value={formData.readTime}
               onChange={handleInputChange}
               style={{ border: validationErrors.readTime ? '1.6px solid red' : '' }}
@@ -434,11 +435,11 @@ const Post: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="visibility">Visibility</label>
-            <Dropdown 
-              placeholder='Choose Visibility' 
+            <Dropdown
+              placeholder='Choose Visibility'
               options={[
-                {label:'Public', value: 'Public'}, 
-                {label:'Private', value: 'Private'}
+                { label: 'Public', value: 'Public' },
+                { label: 'Private', value: 'Private' }
               ]}
               value={formData.visibility}
               onChange={(value) => {
@@ -451,7 +452,7 @@ const Post: React.FC = () => {
                   setValidationErrors(prev => ({ ...prev, visibility: false }));
                 }
               }}
-              style={{ 
+              style={{
                 button: {
                   border: validationErrors.visibility ? '1.6px solid red' : ''
                 }
@@ -460,10 +461,10 @@ const Post: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="date">Date</label>
-            <input 
-              type="date" 
-              id="date" 
-              placeholder="Enter Date" 
+            <input
+              type="date"
+              id="date"
+              placeholder="Enter Date"
               value={formData.date}
               onChange={handleInputChange}
               required
@@ -472,43 +473,43 @@ const Post: React.FC = () => {
           </div>
         </div>
 
-        <BannerUpload 
+        <BannerUpload
           value={banner}
           onChange={handleBannerChange}
           style={{ border: validationErrors.banner ? '1.6px solid red' : '' }}
         />
 
-        <Editor ref={editorRef}/>
-      
+        <Editor ref={editorRef} />
+
         <label className={styles.title}>Comments</label>
-        <Table 
-            link={false}
-            actions={actions}
-            showing={5}
-            entity="Comment"
-            endpoint={`posts/${id}/comments`}
-            create={false}
-            style={{marginTop: 20}}
-            columns={[
-                { 
-                    label: 'Name', 
-                    selectors: [['author', 'firstName'], ['author', 'lastName']], 
-                    type: 'avatar',
-                    flex: 1
-                }, 
-                { 
-                    label: 'Comment', 
-                    selectors: [['text']],
-                    flex: 3
-                },
-                { 
-                    label:'Date', 
-                    selectors: [['date']],
-                    alignment: 'center',
-                    sort: true,
-                    type: 'date'
-                }
-            ]}
+        <Table
+          link={false}
+          actions={actions}
+          showing={5}
+          entity="Comment"
+          endpoint={`posts/${id}/comments`}
+          create={false}
+          style={{ marginTop: 20 }}
+          columns={[
+            {
+              label: 'Name',
+              selectors: [['author', 'firstName'], ['author', 'lastName']],
+              type: 'avatar',
+              flex: 1
+            },
+            {
+              label: 'Comment',
+              selectors: [['text']],
+              flex: 3
+            },
+            {
+              label: 'Date',
+              selectors: [['date']],
+              alignment: 'center',
+              sort: true,
+              type: 'date'
+            }
+          ]}
         />
       </div>
     </div>

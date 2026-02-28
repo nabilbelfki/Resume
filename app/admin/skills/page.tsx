@@ -4,10 +4,8 @@ import styles from "./Skills.module.css"
 import { Breadcrumb as breadcrumb, Action } from "@/lib/types";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import Table from "@/components/Table/Table";
-import { useRouter } from "next/navigation";
 
 const Skills: React.FC = () => {
-    const router = useRouter();
     const breadcrumbs: breadcrumb[] = [
         {
             label: 'Skills',
@@ -21,7 +19,7 @@ const Skills: React.FC = () => {
     const actions: Action[] = [
         {
             label: 'Activate Skills',
-            action: async (IDs:string[]) => {
+            action: async (IDs: string[]) => {
                 if (!confirm(`Are you sure you want to activate ${IDs.length > 1 ? 'these skills' : 'this skill'}?`)) {
                     return;
                 }
@@ -29,22 +27,22 @@ const Skills: React.FC = () => {
                 try {
                     // Use Promise.all to delete all users in parallel
                     await Promise.all(
-                        IDs.map(id => 
+                        IDs.map(id =>
                             fetch(`/api/skills/${id}/activate`, {
                                 method: 'PATCH',
                             })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Failed to delete skills');
-                                }
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Failed to delete skills');
+                                    }
 
-                                location.href = '/admin/skills';
-                            })
+                                    window.location.href = '/admin/skills';
+                                })
                         )
                     );
 
                     console.log(`${IDs.length} skill(s) activated successfully`);
-                    router.refresh();
+                    window.location.reload();
                 } catch (err) {
                     console.error('Error activating skills:', err);
                     alert(`Failed to activate some skills. Please try again.`);
@@ -53,7 +51,7 @@ const Skills: React.FC = () => {
         },
         {
             label: 'Deactivate Skills',
-            action: async (IDs:string[]) => {
+            action: async (IDs: string[]) => {
                 if (!confirm(`Are you sure you want to deactivate ${IDs.length > 1 ? 'these skills' : 'this skill'}?`)) {
                     return;
                 }
@@ -61,22 +59,22 @@ const Skills: React.FC = () => {
                 try {
                     // Use Promise.all to delete all users in parallel
                     await Promise.all(
-                        IDs.map(id => 
+                        IDs.map(id =>
                             fetch(`/api/skills/${id}/deactivate`, {
                                 method: 'PATCH',
                             })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Failed to deactivate skills');
-                                }
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Failed to deactivate skills');
+                                    }
 
-                                location.href = '/admin/skills';
-                            })
+                                    window.location.href = '/admin/skills';
+                                })
                         )
                     );
 
                     console.log(`${IDs.length} skill(s) deactivated successfully`);
-                    router.refresh();
+                    window.location.reload();
                 } catch (err) {
                     console.error('Error deactivating skills:', err);
                     alert(`Failed to deactivate some skills. Please try again.`);
@@ -85,7 +83,7 @@ const Skills: React.FC = () => {
         },
         {
             label: 'Delete Skills',
-            action: async (IDs:string[]) => {
+            action: async (IDs: string[]) => {
                 if (!confirm(`Are you sure you want to delete ${IDs.length > 1 ? 'these skills' : 'this skill'}?`)) {
                     return;
                 }
@@ -93,22 +91,22 @@ const Skills: React.FC = () => {
                 try {
                     // Use Promise.all to delete all users in parallel
                     await Promise.all(
-                        IDs.map(id => 
+                        IDs.map(id =>
                             fetch(`/api/skills/${id}`, {
                                 method: 'DELETE',
                             })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Failed to delete skills');
-                                }
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Failed to delete skills');
+                                    }
 
-                                location.href = '/admin/skills';
-                            })
+                                    window.location.href = '/admin/skills';
+                                })
                         )
                     );
 
                     console.log(`${IDs.length} skill(s) deleted successfully`);
-                    router.refresh();
+                    window.location.reload();
                 } catch (err) {
                     console.error('Error deleting skills:', err);
                     alert(`Failed to delete some skills. Please try again.`);
@@ -116,45 +114,45 @@ const Skills: React.FC = () => {
             }
         }
     ];
-    
+
     return (
         <div className={styles.container}>
-            <Breadcrumbs breadcrumbs={breadcrumbs}/>
-            <Table 
+            <Breadcrumbs breadcrumbs={breadcrumbs} />
+            <Table
                 actions={actions}
                 showing={5}
                 entity="Skill"
                 columns={[
-                    { 
-                        label: 'Logo', 
+                    {
+                        label: 'Logo',
                         selectors: [['image', 'url'], ['image', 'name']],
                         type: 'thumbnail',
                         alignment: 'center',
                         thumbnailBackgroundColor: [['image', 'backgroundColor']],
                         sortable: false,
                         maxWidth: '100px'
-                    }, 
-                    { 
-                        label: 'Name', 
-                        selectors: [['name']], 
+                    },
+                    {
+                        label: 'Name',
+                        selectors: [['name']],
                         type: 'active',
                         active: ['status'],
                         flex: 2
-                    }, 
-                    { 
-                        label: 'Description', 
-                        selectors: [ ['description', 'text'] ],
+                    },
+                    {
+                        label: 'Description',
+                        selectors: [['description', 'text']],
                         flex: 7,
                         maxWidth: "50vw"
                     },
-                    { 
-                        label: 'Type', 
+                    {
+                        label: 'Type',
                         selectors: [['type']],
                         alignment: 'center',
                         formatter: (text) => text[0].toUpperCase() + text.slice(1)
                     },
-                    { 
-                        label:'Created', 
+                    {
+                        label: 'Created',
                         selectors: [['created']],
                         alignment: 'center',
                         type: 'date',

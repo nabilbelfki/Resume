@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 import styles from "./Message.module.css"
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import { useReCaptcha } from "next-recaptcha-v3";
-import { Breadcrumb as breadcrumb} from "@/lib/types";
-import { useParams } from "next/navigation";
- 
+import { Breadcrumb as breadcrumb } from "@/lib/types";
+import { useParams, useRouter } from "next/navigation";
+
 interface message {
   firstName: string;
   lastName: string;
@@ -16,8 +16,9 @@ interface message {
 
 const Message: React.FC = () => {
   const params = useParams();
+  const router = useRouter();
   const id = params?.id as string;
-  
+
   const { executeRecaptcha } = useReCaptcha();
   const [formData, setFormData] = useState<message>({
     firstName: '',
@@ -28,36 +29,36 @@ const Message: React.FC = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        if (!id) return;
 
-        try {
-          const response = await fetch(`/api/message/${id}`);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!id) return;
 
-          if (!response.ok) {
-            location.href = '/admin/messages'
-            // throw new Error(`Failed to fetch meeting`);
-          }
+      try {
+        const response = await fetch(`/api/message/${id}`);
 
-          const data = await response.json();
-
-          setFormData({
-            firstName: data.firstName || '',
-            lastName: data.lastName || '',
-            email: data.email || '',
-            message: data.message || '',
-          })
-          
-        } catch (err) {
-          setError(err instanceof Error ? err.message : 'Failed to fetch data');
-          console.error('Error fetching meeting:', err);
+        if (!response.ok) {
+          location.href = '/admin/messages'
+          // throw new Error(`Failed to fetch meeting`);
         }
-      };
 
-      fetchData();
-    }, [id]);
+        const data = await response.json();
+
+        setFormData({
+          firstName: data.firstName || '',
+          lastName: data.lastName || '',
+          email: data.email || '',
+          message: data.message || '',
+        })
+
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to fetch data');
+        console.error('Error fetching meeting:', err);
+      }
+    };
+
+    fetchData();
+  }, [id]);
 
   const breadcrumbs: breadcrumb[] = [
     { label: 'Message', href: '/admin/messages' },
@@ -75,7 +76,7 @@ const Message: React.FC = () => {
 
   const handleDelete = async () => {
     if (!id) return;
-    
+
     if (!confirm('Are you sure you want to delete this message?')) {
       return;
     }
@@ -151,28 +152,28 @@ const Message: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <Breadcrumbs breadcrumbs={breadcrumbs}/>
+      <Breadcrumbs breadcrumbs={breadcrumbs} />
       <div className={styles.actions}>
-        <button 
-          className={styles.back} 
+        <button
+          className={styles.back}
           onClick={() => window.location.href = '/admin/messages'}
         >
-          <svg style={{rotate: '180deg'}} xmlns="http://www.w3.org/2000/svg" version="1.0" height="20" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+          <svg style={{ rotate: '180deg' }} xmlns="http://www.w3.org/2000/svg" version="1.0" height="20" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
             <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="var(--form-back-button-icon)" stroke="none">
-              <path d="M1721 4034 c-94 -47 -137 -147 -107 -249 11 -37 29 -63 68 -101 29 -28 333 -290 676 -583 342 -293 622 -535 621 -539 0 -4 -277 -243 -615 -532 -777 -663 -740 -629 -759 -693 -54 -181 134 -339 298 -251 59 32 1549 1310 1583 1358 64 90 51 196 -33 278 -26 25 -382 331 -790 680 -556 476 -751 637 -781 646 -60 18 -103 14 -161 -14z"/>
+              <path d="M1721 4034 c-94 -47 -137 -147 -107 -249 11 -37 29 -63 68 -101 29 -28 333 -290 676 -583 342 -293 622 -535 621 -539 0 -4 -277 -243 -615 -532 -777 -663 -740 -629 -759 -693 -54 -181 134 -339 298 -251 59 32 1549 1310 1583 1358 64 90 51 196 -33 278 -26 25 -382 331 -790 680 -556 476 -751 637 -781 646 -60 18 -103 14 -161 -14z" />
             </g>
           </svg>
           <span>Back</span>
         </button>
-        <button 
-          className={styles.save} 
+        <button
+          className={styles.save}
           onClick={handleReply}
           disabled={isSubmitting}
         >
           {isSubmitting ? 'Replying...' : 'Reply'}
         </button>
-        <button 
-          className={styles.delete} 
+        <button
+          className={styles.delete}
           onClick={handleDelete}
           disabled={isSubmitting}
         >
@@ -185,11 +186,11 @@ const Message: React.FC = () => {
         <div className={styles.grid}>
           <div className={styles.input}>
             <label htmlFor="firstName">First Name</label>
-            <input 
-              type="text" 
-              id="firstName" 
+            <input
+              type="text"
+              id="firstName"
               disabled
-              placeholder="Enter First Name" 
+              placeholder="Enter First Name"
               value={formData.firstName}
               onChange={handleInputChange}
               required
@@ -197,11 +198,11 @@ const Message: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="lastName">Last Name</label>
-            <input 
-              type="text" 
-              id="lastName" 
+            <input
+              type="text"
+              id="lastName"
               disabled
-              placeholder="Enter Last Name" 
+              placeholder="Enter Last Name"
               value={formData.lastName}
               onChange={handleInputChange}
               required
@@ -209,11 +210,11 @@ const Message: React.FC = () => {
           </div>
           <div className={styles.input}>
             <label htmlFor="email">Email Address</label>
-            <input 
-              type="text" 
-              id="email" 
+            <input
+              type="text"
+              id="email"
               disabled
-              placeholder="Enter Email Address" 
+              placeholder="Enter Email Address"
               value={formData.email}
               onChange={handleInputChange}
               required
@@ -223,7 +224,7 @@ const Message: React.FC = () => {
 
         <div className={styles.textbox}>
           <label htmlFor="notes">Description</label>
-          <textarea 
+          <textarea
             id="notes"
             placeholder="Enter Description"
             value={formData.message}

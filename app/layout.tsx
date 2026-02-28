@@ -3,7 +3,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import React, { useState, useEffect } from "react";
 import Script from "next/script";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { ReCaptchaProvider } from "next-recaptcha-v3";
 import SideBar from '@/components/SideBar/SideBar'
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
@@ -18,52 +18,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
   const pathname = usePathname();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
-  // console.log("Path Name", pathname);
   const isLoginPage = pathname === "/admin";
-  const isAdminPage = pathname?.substring(0,6) === "/admin" && !isLoginPage;
+  const isAdminPage = pathname?.substring(0, 6) === "/admin" && !isLoginPage;
   const isSharePage = pathname === "/share";
   const [showFooter, setShowFooter] = useState(true);
   const darkMode = true;
-  const background = isAdminPage ? ( darkMode ? '2D2D2D' : '#FFFFFF') : 'linear-gradient(#011a49 0%, #113c8d 44% 60%, #011a49 85%)'
+  const background = isAdminPage ? (darkMode ? '2D2D2D' : '#FFFFFF') : 'linear-gradient(#011a49 0%, #113c8d 44% 60%, #011a49 85%)'
 
   useEffect(() => {
-  const checkAuth = async () => {
-    try {
-      const response = await fetch('/api/authorize', {
-        credentials: 'include'
-      });
-      
-      const data = await response.json();
-      
-      if (data.isAuthenticated) {
-        setIsAuthenticated(true);
-        // If on login page but authenticated, redirect to dashboard
-        if (isLoginPage) {
-          router.push('/admin/dashboard');
-        }
-      } else {
-        setIsAuthenticated(false);
-        // If on admin page but not authenticated, redirect to login
-        if (isAdminPage) {
-          router.push('/admin');
-        }
-      }
-    } catch (error) {
-      console.error('Auth check failed:', error);
-      setIsAuthenticated(false);
-      if (isAdminPage) {
-        router.push('/admin');
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
     const handleResize = () => {
       const mobileWidth = 640;
       const screenWidth = window.innerWidth;
@@ -73,36 +37,10 @@ export default function RootLayout({
     handleResize(); // Set initial value
     window.addEventListener("resize", handleResize);
 
-    if (isAdminPage || isLoginPage) {
-      checkAuth();
-    } else {
-      setIsLoading(false);
-    }
-
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [pathname, isAdminPage, isLoginPage, isSharePage, router]);
-
-  if (isLoading) {
-    return (
-      <html lang="en">
-        <body style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-          <div>Loading...</div>
-        </body>
-      </html>
-    );
-  }
-
-  if (isAdminPage && !isAuthenticated) {
-    return (
-      <html lang="en">
-        <body style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-          <div>Redirecting to login...</div>
-        </body>
-      </html>
-    );
-  }
+  }, [isSharePage]);
 
   return (
     <html lang="en">
@@ -143,7 +81,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body style={{background}} className={darkMode ? 'dark-mode' : ''}>
+      <body style={{ background }} className={darkMode ? 'dark-mode' : ''}>
         <UserProvider>
           <ReCaptchaProvider
             reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY_V3}
