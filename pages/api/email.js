@@ -44,12 +44,12 @@ export default async function handler(req, res) {
     console.log(notes);
 
     const transporter = nodemailer.createTransport({
-      host: "smtp.mail.us-east-1.awsapps.com", // Replace 'us-east-1' with your AWS region if different
+      host: "smtp.resend.com",
       port: 465,
-      secure: true, // Use SSL
+      secure: true,
       auth: {
-        user: process.env.EMAIL_USER, // Your Amazon WorkMail email
-        pass: process.env.MAIL_PERSONAL_ACCESS_TOKEN, // Use the token value here
+        user: "resend",
+        pass: process.env.RESEND_API_KEY,
       },
     });
 
@@ -65,10 +65,10 @@ export default async function handler(req, res) {
 
     // Set up email data with attachment
     const mailOptions = {
-      from: process.env.EMAIL_USER, // Sender address
+      from: "info@nabilbelfki.com", // Sender address
       to: email, // List of recipients
       subject: "New Meeting Request", // Subject line
-      bcc: "nabilbelfki@gmail.com", 
+      bcc: "nabilbelfki@gmail.com",
       html: body,
       alternatives: [
         {
@@ -82,7 +82,7 @@ export default async function handler(req, res) {
     await transporter.sendMail(mailOptions);
 
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+      from: "info@nabilbelfki.com",
       to: "nabilbelfki@gmail.com",
       subject: `Meeting with ${firstName} ${lastName}`,
       text: `You have a meeting with ${firstName} ${lastName} at ${time} ${date.trim()}.\n

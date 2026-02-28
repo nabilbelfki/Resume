@@ -11,12 +11,14 @@
     "opened": {
       "name": "act.svg",
       "width": 50,
-      "height": 50
+      "height": 50,
+      "path": "/images/"
     },
     "closed": {
       "name": "act.svg",
       "width": 120,
-      "height": 120
+      "height": 120,
+      "path": "/images/"
     }
   },
   "title": "Bachelors of Science",
@@ -41,6 +43,7 @@
       "background": "rgba(255,255,255,0.3)"
     }
   },
+  "status": "Active",
   "description": "I began my education aboard after having moved from United States to Greece. Here is where I fell in love with technology and began sharpening my skills. I broadened my understanding of various areas of Business and Computing during my Bachelors of Science Degree here."
 },
 {
@@ -56,12 +59,14 @@
     "opened": {
       "name": "the-coder-school.png",
       "width": 50,
-      "height": 50
+      "height": 50,
+      "path": "/images/"
     },
     "closed": {
       "name": "the-coder-school.png",
       "width": 120,
-      "height": 120
+      "height": 120,
+      "path": "/images/"
     }
   },
   "title": "Programming Instructor",
@@ -84,6 +89,7 @@
       "background": "rgba(0,0,0,0.1)"
     }
   },
+  "status": "Active",
   "description": "Helping K-12 learn to code solidified my understanding further. Seeing their learning process was insightful. Here I learned the importance of projects compared to just teaching them to code. Building a project makes you realize the potential and why we code in the first place."
 },
 {
@@ -99,12 +105,14 @@
     "opened": {
       "name": "njit.png",
       "width": 50,
-      "height": 50
+      "height": 50,
+      "path": "/images/"
     },
     "closed": {
       "name": "njit.png",
       "width": 120,
-      "height": 120
+      "height": 120,
+      "path": "/images/"
     }
   },
   "title": "Masters of Science",
@@ -129,6 +137,7 @@
       "background": "rgba(0,0,0,0.1)"
     }
   },
+  "status": "Active",
   "description": "For my Master's in Computer Science I emerged myself in the field, alongside like-minded people I fed my hunger for wanting to learn everything technology related. I left no stone unturned, from distributed programming to networking then cybersecurity, machine learning, AI and the list goes on."
 },
 {
@@ -144,12 +153,14 @@
     "opened": {
       "name": "cole-solutions-2.svg",
       "width": 50,
-      "height": 50
+      "height": 50,
+      "path": "/images/"
     },
     "closed": {
       "name": "cole-solutions-1.svg",
       "width": 150,
-      "height": 120
+      "height": 120,
+      "path": "/images/"
     }
   },
   "title": "Software Developer",
@@ -171,5 +182,6 @@
       "background": "rgba(255,255,255,0.3)"
     }
   },
+  "status": "Active",
   "description": "At Cole Solutions I became a well-versed Developer. Building applications for various client gave me knowledge in many different industries including banking and finance, travel, staffing, manufacturing and e-commerce. Here I discovered to apply everything I had learned over the years."
 }]

@@ -37,12 +37,12 @@ export default async function handler(req, res) {
     }
 
     const transporter = nodemailer.createTransport({
-      host: "smtp.mail.us-east-1.awsapps.com",
+      host: "smtp.resend.com",
       port: 465,
       secure: true,
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.MAIL_PERSONAL_ACCESS_TOKEN,
+        user: "resend",
+        pass: process.env.RESEND_API_KEY,
       },
     });
 
@@ -50,11 +50,11 @@ export default async function handler(req, res) {
 
     // Set up email data with attachment
     const mailOptions = {
-        from: `"Nabil Belfki" <${process.env.EMAIL_USER}>`,
-        to: `"${firstName} ${lastName}" <${email}>`,
-        subject: "Conversation with Nabil Belfki",
-        bcc: '"Nabil Belfki" <nabilbelfki@gmail.com>',
-        html: body,
+      from: `"Nabil Belfki" <info@nabilbelfki.com>`,
+      to: `"${firstName} ${lastName}" <${email}>`,
+      subject: "Conversation with Nabil Belfki",
+      bcc: '"Nabil Belfki" <nabilbelfki@gmail.com>',
+      html: body,
     };
 
     // Send mail with defined transport object

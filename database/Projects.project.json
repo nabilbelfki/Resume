@@ -173,6 +173,7 @@
       "width": 150
     }
   ],
+  "status": "Active",
   "client": {
     "title": {
       "name": "Hasbro Inc.",
@@ -284,6 +285,7 @@
     "height": 100,
     "backgroundColor": "#011A49"
   },
+  "status": "Active",
   "description": "This project was to showcase all the previous work that I've done. I thought if I have the skills to make a nice interactive resume, why not do it? Done in the newest technologies that are hype right now like Next.js 15, React and more. The website is also responsive to mobile screen sizes and in the future I plan it to be a mobile application too. Some of these animations were super hard to make and took a lot of time and effort in getting correct, but it really helped me learn which is so valuable! Reach out to me and let me know what you think!",
   "slug": "personal",
   "url": "https://www.nabilbelfki.com",
@@ -486,6 +488,7 @@
     "height": 100,
     "backgroundColor": "#81C1F9"
   },
+  "status": "Active",
   "description": "This game was created during HackNJIT which is hosted by Major League Hacking (MLH) and New Jersey Institute of Technology (NJIT). It was done within 24 hours of coding between Debarshi Kundu and I. Although we didn't place in the competition, we did win an award in Best Use of AWS. All of the sprites were drawn and designed by me, along with much of the coding too. Debarshi helped with configuring the Ubuntu server and getting a domain where we could host the game for others to play. We worked very well together and I learned a lot about teamwork from this event!",
   "slug": "supersail",
   "container": {
@@ -693,6 +696,7 @@
     "height": 100,
     "backgroundColor": "#FFFFFF"
   },
+  "status": "Active",
   "description": "This website was for Narcotics Anonymous and it was done as volunteer work. It includes an event system to view current events, a map to see locations of meetings and much more. It is a responsive website on all devices. I had a really good friend of mine growing up die from addiction and I wanted to give back and show my appreciation for what programs like these do for our community. If you or someone you know has a problem with drug addiction, you can visit <a href='https://na.org/'>Narcotics Anonymous</a> to find out more. Also click the button to see the site I created.",
   "slug": "na",
   "container": "docker.com/na",

@@ -1,0 +1,68 @@
+
+Testing nabilbelfki/resume:admin...
+
+Organization:      nabilbelfki
+Package manager:   apk
+Target file:       Dockerfile
+Project name:      docker-image|nabilbelfki/resume
+Docker image:      nabilbelfki/resume:admin
+Platform:          linux/arm64
+Target OS:         Alpine Linux v3.23
+Base image:        node:20-alpine
+Licenses:          enabled
+
+✔ Tested 23 dependencies for known issues, no vulnerable paths found.
+
+According to our scan, you are currently using the most secure version of the selected base image
+
+-------------------------------------------------------
+
+Testing nabilbelfki/resume:admin...
+
+Organization:      nabilbelfki
+Package manager:   npm
+Target file:       /app/package.json
+Project name:      personal
+Docker image:      nabilbelfki/resume:admin
+Licenses:          enabled
+
+✔ Tested 206 dependencies for known issues, no vulnerable paths found.
+
+-------------------------------------------------------
+
+Testing nabilbelfki/resume:admin...
+
+Tested 195 dependencies for known issues, found 3 issues.
+
+
+Issues with no direct upgrade or patch:
+  ✗ Regular Expression Denial of Service (ReDoS) [High Severity][https://security.snyk.io/vuln/SNYK-JS-CROSSSPAWN-8303230] in cross-spawn@7.0.3
+    introduced by npm@11.11.0 > cross-spawn@7.0.3 and 1 other path(s)
+  This issue was fixed in versions: 6.0.6, 7.0.5
+  ✗ Regular Expression Denial of Service (ReDoS) [High Severity][https://security.snyk.io/vuln/SNYK-JS-MINIMATCH-15353387] in minimatch@10.2.2
+    introduced by npm@11.11.0 > minimatch@10.2.2 and 222 other path(s)
+  This issue was fixed in versions: 8.0.6, 9.0.7, 10.2.3
+  ✗ Inefficient Algorithmic Complexity [High Severity][https://security.snyk.io/vuln/SNYK-JS-MINIMATCH-15353389] in minimatch@10.2.2
+    introduced by npm@11.11.0 > minimatch@10.2.2 and 222 other path(s)
+  This issue was fixed in versions: 3.1.3, 4.2.5, 5.1.8, 6.2.2, 7.4.8, 8.0.6, 9.0.7, 10.2.3
+
+
+
+Organization:      nabilbelfki
+Package manager:   npm
+Target file:       /usr/local/lib/node_modules
+Project name:      lib
+Docker image:      nabilbelfki/resume:admin
+Licenses:          enabled
+
+Pro tip: use `--exclude-base-image-vulns` to exclude from display Docker base image vulnerabilities.
+
+Snyk found some vulnerabilities in your image applications (Snyk searches for these vulnerabilities by default). See https://snyk.co/app-vulns for more information.
+
+To remove these messages in the future, please run `snyk config set disableSuggestions=true`
+
+
+Tested 3 projects, 1 contained vulnerable paths.
+
+
+

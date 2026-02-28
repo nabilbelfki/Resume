@@ -19,6 +19,7 @@ COPY --from=build /app/package*.json ./
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/.next ./.next
 COPY --from=build /app/public ./public
+COPY --from=build /app/.env* ./
 
 ENV MONGO_URI=mongodb://52.15.107.92:27017/Projects
 EXPOSE 3000

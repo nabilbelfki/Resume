@@ -14,9 +14,9 @@ export default async function handler(req, res) {
       return handleGetRequest(req, res);
     default:
       res.setHeader("Allow", ["GET", "POST"]);
-      return res.status(405).json({ 
-        success: false, 
-        error: `Method ${req.method} not allowed` 
+      return res.status(405).json({
+        success: false,
+        error: `Method ${req.method} not allowed`
       });
   }
 }
@@ -26,9 +26,9 @@ async function handlePostRequest(req, res) {
   const { firstName, lastName, email, message, recaptchaToken } = req.body;
 
   if (!recaptchaToken) {
-    return res.status(400).json({ 
-      success: false, 
-      error: "Missing reCAPTCHA token" 
+    return res.status(400).json({
+      success: false,
+      error: "Missing reCAPTCHA token"
     });
   }
 
@@ -66,12 +66,12 @@ async function handlePostRequest(req, res) {
 
     // Send email notification
     const transporter = nodemailer.createTransport({
-      host: "smtp.mail.us-east-1.awsapps.com",
+      host: "smtp.resend.com",
       port: 465,
       secure: true,
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.MAIL_PERSONAL_ACCESS_TOKEN,
+        user: "resend",
+        pass: process.env.RESEND_API_KEY,
       },
     });
 
@@ -79,32 +79,32 @@ async function handlePostRequest(req, res) {
     const emailBody = `${message}\n\n${fullName},\n${email}`;
 
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER,
+      from: "info@nabilbelfki.com",
+      to: "info@nabilbelfki.com",
       subject: `Message from ${fullName}`,
       bcc: "nabilbelfki@gmail.com",
       text: emailBody,
     });
 
-    return res.status(200).json({ 
+    return res.status(200).json({
       success: true,
       messageId: newMessage._id
     });
 
   } catch (error) {
     console.error("Error processing message:", error);
-    return res.status(500).json({ 
-      success: false, 
+    return res.status(500).json({
+      success: false,
       error: "Internal Server Error",
-      details: error.message 
+      details: error.message
     });
   }
 }
 
 async function handleGetRequest(req, res) {
-  const { 
-    page = 1, 
-    limit = 10, 
+  const {
+    page = 1,
+    limit = 10,
     sortBy = 'created',
     sortOrder = 'desc',
     search = ''
@@ -120,7 +120,7 @@ async function handleGetRequest(req, res) {
     // Cache setup (include sortBy in cache key)
     const cacheKey = `messages:${page}:${limit}:${sortBy}:${sortOrder}:${search}`;
     const cachedData = getCache(cacheKey);
-    
+
     if (cachedData) {
       console.log("Returning cached messages");
       return res.status(200).json(cachedData);
@@ -131,7 +131,7 @@ async function handleGetRequest(req, res) {
     if (search) {
       const searchRegex = new RegExp(search.toString(), 'i');
       const searchTerms = search.toString().trim().split(/\s+/);
-      
+
       conditions.$or = [
         { firstName: searchRegex },
         { lastName: searchRegex },
