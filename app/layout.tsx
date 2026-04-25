@@ -24,8 +24,29 @@ export default function RootLayout({
   const isAdminPage = pathname?.substring(0, 6) === "/admin" && !isLoginPage;
   const isSharePage = pathname === "/share";
   const [showFooter, setShowFooter] = useState(true);
-  const darkMode = true;
-  const background = isAdminPage ? (darkMode ? '2D2D2D' : '#FFFFFF') : 'linear-gradient(#011a49 0%, #113c8d 44% 60%, #011a49 85%)'
+  const [appearance, setAppearance] = useState('dark-mode'); // default fallback
+
+  useEffect(() => {
+    const fetchAppearance = async () => {
+      try {
+        const res = await fetch('/api/settings');
+        if (res.ok) {
+          const data = await res.json();
+          if (data?.data?.appearance) {
+            setAppearance(data.data.appearance);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch settings layout", err);
+      }
+    };
+    fetchAppearance();
+  }, []);
+
+  const isSystemDark = typeof window !== 'undefined' ? window.matchMedia('(prefers-color-scheme: dark)').matches : true;
+  const darkMode = appearance === 'dark-mode' ? true : (appearance === 'light-mode' ? false : isSystemDark);
+
+  const background = isAdminPage ? (darkMode ? '2D2D2D' : '#FFFFFF') : 'linear-gradient(#011a49 0%, #113c8d 44% 60%, #011a49 85%)';
 
   useEffect(() => {
     const handleResize = () => {

@@ -4,6 +4,7 @@ import styles from "./Table.module.css";
 import { Action } from "@/lib/types";
 import { stringToHexColor, isColorTooDark } from "@/lib/color";
 import Image from "next/image";
+import { inferMediaTypeFromExtension } from "@/lib/utilities";
 
 interface Column {
     label: string;
@@ -200,15 +201,27 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
             if (imgSrc && !imgSrc.startsWith('/') && !imgSrc.startsWith('http') && !imgSrc.startsWith('data:')) {
                 imgSrc = '/' + imgSrc;
             }
+            
+            const ext = imgSrc.split('.').pop() || '';
+            const isVideo = inferMediaTypeFromExtension(ext) === 'Video';
+
             return (
                 <div className={styles.thumbnail} style={{ backgroundColor }}>
                     {imgSrc && (
-                        <Image
-                            src={imgSrc}
-                            alt={`${values[0] || 'thumbnail'} ${values[1] || ''}`.trim()}
-                            width={35}
-                            height={35}
-                        />
+                        isVideo ? (
+                            <video 
+                                src={`${imgSrc}#t=0.001`} 
+                                style={{ maxWidth: 35, maxHeight: 35, width: '100%', height: '100%', objectFit: 'contain' }} 
+                                preload="metadata"
+                            />
+                        ) : (
+                            <Image
+                                src={imgSrc}
+                                alt={`${values[0] || 'thumbnail'} ${values[1] || ''}`.trim()}
+                                width={35}
+                                height={35}
+                            />
+                        )
                     )}
                 </div>
             );

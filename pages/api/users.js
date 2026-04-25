@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import { setCache, getCache, clearCache } from "../../lib/cache";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./auth/[...nextauth]";
+import Setting from "../../models/Setting";
 
 export default async function handler(req, res) {
   await dbConnect();
@@ -109,6 +110,13 @@ export default async function handler(req, res) {
       case "POST":
         const session = await getServerSession(req, res, authOptions);
         const isAdmin = session?.user?.role === 'Administrator';
+
+        if (!isAdmin) {
+          const settingInstance = await Setting.findOne();
+          if (settingInstance && settingInstance.userRegistration === false) {
+            return res.status(403).json({ error: "User registration is currently disabled by the administrator" });
+          }
+        }
 
         clearCache('user');
 

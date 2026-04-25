@@ -16,6 +16,18 @@ const ProjectSchema = new mongoose.Schema({
     width: { type: Number, required: false },
     height: { type: Number, required: false }
   },
+  preview: {
+    fileName: { type: String, required: false },
+    path: { type: String, required: false },
+    width: { type: Number, required: false },
+    height: { type: Number, required: false }
+  },
+  video: {
+    fileName: { type: String, required: false },
+    path: { type: String, required: false },
+    width: { type: Number, required: false },
+    height: { type: Number, required: false }
+  },
   repository: {
     type: {
       type: String,

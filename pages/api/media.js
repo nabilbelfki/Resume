@@ -48,7 +48,7 @@ export default async function handler(req, res) {
           const searchRegex = new RegExp(search.toString(), 'i');
           conditions.$or = [
             { fileName: searchRegex },
-            // { description: searchRegex },
+            { description: searchRegex },
             // { 'metadata.directory': searchRegex }
           ];
         }

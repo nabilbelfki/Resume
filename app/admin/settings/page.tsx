@@ -55,11 +55,53 @@ const Settings: React.FC = () => {
         scheduleMeetings: false
     });
 
+    const fetchSettings = async () => {
+        try {
+            const res = await fetch('/api/settings');
+            if (res.ok) {
+                const data = await res.json();
+                if (data.data) {
+                    setSettings({
+                        userRegistration: data.data.userRegistration || false,
+                        siteMaintenance: data.data.siteMaintenance || false,
+                        websiteMessaging: data.data.websiteMessaging || false,
+                        scheduleMeetings: data.data.scheduleMeetings || false
+                    });
+                    setAppearance(data.data.appearance || 'system-default');
+                }
+            }
+        } catch (err) {
+            console.error("Failed to fetch settings", err);
+        }
+    }
+
+    React.useEffect(() => {
+        fetchSettings();
+    }, []);
+
+    const persistSetting = async (payload: Partial<SettingsType> & { appearance?: string }) => {
+        try {
+            await fetch('/api/settings', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+        } catch (err) {
+            console.error("Failed to persist setting", err);
+        }
+    }
+
     const setSetting = (key: string, value: boolean) => {
         setSettings(prev => ({
             ...prev,
             [key]: value,
-        }))
+        }));
+        persistSetting({ [key]: value });
+    }
+
+    const setAppearanceSetting = (value: string) => {
+        setAppearance(value);
+        persistSetting({ appearance: value });
     }
 
     return (
@@ -86,7 +128,7 @@ const Settings: React.FC = () => {
                         name="appearance"
                         radios={appearanceRadios}
                         value={appearance}
-                        select={setAppearance}
+                        select={setAppearanceSetting}
                     />
                 </div>
                 <div className={styles.setting}>
@@ -112,7 +154,20 @@ const Settings: React.FC = () => {
                 <div className={styles.setting}>
                     <label htmlFor="site-maintenance">Cache</label>
                     <p>All endpoints are cached for quicker response times. In the event of not seeing new resources, it could be because the cached result is showing. Click below to clear the entire cache.</p>
-                    <button className={styles.cacheButton}>Clear Cache</button>
+                    <button 
+                        className={styles.cacheButton}
+                        onClick={async () => {
+                            try {
+                                const response = await fetch('/api/cache/clear', { method: 'DELETE' });
+                                if (response.ok) alert('Cache cleared successfully!');
+                                else alert('Failed to clear cache.');
+                            } catch (e) {
+                                alert('Error clearing cache.');
+                            }
+                        }}
+                    >
+                        Clear Cache
+                    </button>
                 </div>
             </div>
         </div>

@@ -189,6 +189,8 @@ async function handlePostRequest(req, res) {
       views: body.views,
       repository: body.repository,
       thumbnail: body.thumbnail,
+      preview: body.preview,
+      video: body.video,
       description: body.description,
       slug: body.slug,
       url: body.url,

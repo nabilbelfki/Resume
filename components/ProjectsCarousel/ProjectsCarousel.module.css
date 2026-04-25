@@ -1,0 +1,16 @@
+.carouselContainer {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding-bottom: 2rem;
+}
+
+.carouselTrack {
+    display: flex;
+    width: 100%;
+}
+
+.carouselSlide {
+    flex: 0 0 100%;
+    width: 100%;
+}

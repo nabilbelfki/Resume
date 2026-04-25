@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "./ThumbnailUpload.module.css"
 import { Media as MediaType } from "@/lib/types";
 import Media from "@/components/Media/Media";
+import { inferMediaTypeFromExtension } from "@/lib/utilities";
 
 
 interface ThumbnailUploadProps {
@@ -49,10 +50,12 @@ const ThumbnailUpload: React.FC<ThumbnailUploadProps> = ({
     // Determine the background color to use
     const thumbnailBgColor = backgroundColor || value?.backgroundColor || 'var(--form-thumbnail-background)';
 
+    const ext = value?.name?.split('.').pop() || '';
+    const isVideo = inferMediaTypeFromExtension(ext) === 'Video';
+
     return (
         <div className={styles.container}>
             <Media 
-                type="Image" 
                 isOpen={showMediaPicker} 
                 close={() => setShowMediaPicker(false)}
                 onSelect={handleMediaSelect}
@@ -65,16 +68,25 @@ const ThumbnailUpload: React.FC<ThumbnailUploadProps> = ({
                 {value?.name ? 
                 (
                 <>
-                    <Image 
-                        src={`${value.path}${value.name}`} 
-                        alt="Skill thumbnail" 
-                        width={200} 
-                        height={200} 
-                        style={{ 
-                            objectFit: 'contain',
-                            backgroundColor: thumbnailBgColor 
-                        }}
-                    />
+                    {isVideo ? (
+                        <video 
+                            src={`${value.path}${value.name}#t=0.001`} 
+                            controls={true}
+                            style={{ maxWidth: '100%', maxHeight: '100%', width: '100%', height: '100%', objectFit: 'contain', backgroundColor: thumbnailBgColor }} 
+                            preload="metadata"
+                        />
+                    ) : (
+                        <Image 
+                            src={`${value.path}${value.name}`} 
+                            alt="Media thumbnail" 
+                            width={200} 
+                            height={200} 
+                            style={{ 
+                                objectFit: 'contain',
+                                backgroundColor: thumbnailBgColor 
+                            }}
+                        />
+                    )}
                     <button 
                         className={styles.remove} 
                         onClick={(e) => {

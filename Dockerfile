@@ -13,7 +13,8 @@ WORKDIR /app
 # Install only runtime deps
 RUN apk update && apk upgrade && \
     apk add --no-cache bash openssl busybox && \
-    npm install -g npm@latest
+    npm install -g npm@latest && \
+    npm install -g cross-spawn@7.0.5 minimatch@10.2.3
 
 COPY --from=build /app/package*.json ./
 COPY --from=build /app/node_modules ./node_modules

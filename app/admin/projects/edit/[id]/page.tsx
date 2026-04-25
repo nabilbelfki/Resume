@@ -9,6 +9,7 @@ import ThumbnailUpload from "@/components/ThumbnailUpload/ThumbnailUpload"
 import MediaPicker from "@/components/MediaPicker/MediaPicker";
 import { useParams, useRouter } from "next/navigation";
 import Dropdown from "@/components/Dropdown/Dropdown";
+import ColorPicker from "@/components/ColorPicker/ColorPicker";
 
 interface ToolData {
   name: string;
@@ -46,6 +47,14 @@ interface ProjectData {
     name: string;
     path: string;
     backgroundColor?: string;
+  };
+  preview?: {
+    name: string;
+    path: string;
+  };
+  video?: {
+    name: string;
+    path: string;
   };
   repositories: {
     github: string;
@@ -105,7 +114,8 @@ const EditProject: React.FC = () => {
   const id = params?.id as string;
   const [thumbnail, setThumbnail] = useState<{ name: string; path: string; backgroundColor?: string }>({
     name: '',
-    path: ''
+    path: '',
+    backgroundColor: ''
   });
 
   const [formData, setFormData] = useState<ProjectData>({
@@ -119,6 +129,14 @@ const EditProject: React.FC = () => {
     views: 0,
     description: '',
     thumbnail: {
+      name: '',
+      path: '',
+    },
+    preview: {
+      name: '',
+      path: '',
+    },
+    video: {
       name: '',
       path: '',
     },
@@ -210,6 +228,14 @@ const EditProject: React.FC = () => {
             name: data.thumbnail?.fileName || '',
             path: data.thumbnail?.path || '',
             backgroundColor: data.thumbnail?.backgroundColor
+          },
+          preview: {
+            name: data.preview?.fileName || '',
+            path: data.preview?.path || ''
+          },
+          video: {
+            name: data.video?.fileName || '',
+            path: data.video?.path || ''
           },
           repositories: {
             github: data.repository?.url || '',
@@ -308,18 +334,30 @@ const EditProject: React.FC = () => {
   };
 
   const handleThumbnailChange = (media: { name: string; path: string; backgroundColor?: string }) => {
-    setThumbnail(media);
+    // Media only returns path and name usually, but just in case we merge it.
+    setThumbnail(prev => ({ ...prev, name: media.name, path: media.path }));
     setFormData(prev => ({
       ...prev,
       thumbnail: {
+        ...prev.thumbnail,
         name: media.name,
         path: media.path,
-        backgroundColor: media.backgroundColor
       }
     }));
     if (validationErrors.thumbnail) {
       setValidationErrors(prev => ({ ...prev, thumbnail: false }));
     }
+  };
+
+  const handleThumbnailBackgroundColorChange = (value: string) => {
+    setThumbnail(prev => ({ ...prev, backgroundColor: value }));
+    setFormData(prev => ({
+      ...prev,
+      thumbnail: {
+        ...prev.thumbnail,
+        backgroundColor: value
+      }
+    }));
   };
 
   const handleLanguagesChange = (items: LanguageItem[]) => {
@@ -510,6 +548,18 @@ const EditProject: React.FC = () => {
           backgroundColor: thumbnail.backgroundColor,
           width: 200,
           height: 100
+        },
+        preview: {
+          fileName: formData.preview?.name || '',
+          path: formData.preview?.path || '',
+          width: 800,
+          height: 600
+        },
+        video: {
+          fileName: formData.video?.name || '',
+          path: formData.video?.path || '',
+          width: 1920,
+          height: 1080
         },
         description: formData.description,
         slug: formData.slug,
@@ -769,6 +819,57 @@ const EditProject: React.FC = () => {
               value={formData.duration}
               onChange={handleInputChange}
               style={{ border: validationErrors.duration ? '1.6px solid red' : '' }}
+            />
+          </div>
+          <div className={styles.input}>
+            <label>Background Color (Thumbnail)</label>
+            <ColorPicker 
+              ID="thumbnailBackgroundColor" 
+              placeholder="e.g., #FFFFFF" 
+              value={thumbnail.backgroundColor || ''}
+              onChange={(value) => handleThumbnailBackgroundColorChange(value)}
+            />
+          </div>
+        </div>
+
+        <label className={styles.title}>Media References</label>
+        <div className={styles.grid}>
+          <div className={styles.input}>
+            <label>Preview (GIF)</label>
+            <MediaPicker 
+              style={{height: 120}}
+              value={{
+                name: formData.preview?.name || '',
+                path: formData.preview?.path || ''
+              }}
+              onChange={(media) => {
+                setFormData(prev => ({
+                  ...prev,
+                  preview: {
+                    name: media.name,
+                    path: media.path
+                  }
+                }));
+              }}
+            />
+          </div>
+          <div className={styles.input}>
+            <label>Video</label>
+            <MediaPicker 
+              style={{height: 120}}
+              value={{
+                name: formData.video?.name || '',
+                path: formData.video?.path || ''
+              }}
+              onChange={(media) => {
+                setFormData(prev => ({
+                  ...prev,
+                  video: {
+                    name: media.name,
+                    path: media.path
+                  }
+                }));
+              }}
             />
           </div>
         </div>

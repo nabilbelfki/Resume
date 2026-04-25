@@ -1,4 +1,3 @@
-
 :root {
   --background: #FFFFFF;
   --navigation-input-background: #e9e9e9;
@@ -269,10 +268,11 @@ body {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 50px;
   padding: 50px;
-  background-color: #161b28;
+  /* background-color: #161b28; */
 }
 
-.previous-projects, .next-projects {
+.previous-projects,
+.next-projects {
   top: calc(50% - 30px);
   position: absolute;
   height: 60px;
@@ -283,7 +283,8 @@ body {
   align-items: center;
 }
 
-.previous-projects svg, .next-projects svg {
+.previous-projects svg,
+.next-projects svg {
   height: 30px;
 }
 
@@ -299,11 +300,13 @@ body {
   padding-right: 7px;
 }
 
-.previous-projects:hover, .next-projects:hover {
+.previous-projects:hover,
+.next-projects:hover {
   background-color: #5c5c5cb3;
 }
 
-.previous-projects:hover path, .next-projects:hover path {
+.previous-projects:hover path,
+.next-projects:hover path {
   stroke: #c1c1c1;
 }
 
@@ -378,7 +381,7 @@ body {
   width: 100%;
 }
 
-@media (width <= 1200px) {
+@media (width <=1200px) {
   .skills-display {
     flex-direction: column;
   }
@@ -416,7 +419,7 @@ body {
   }
 }
 
-@media (width <= 950px) {
+@media (width <=950px) {
   #contact {
     flex: 1;
   }
@@ -426,13 +429,13 @@ body {
   }
 }
 
-@media (width <= 900px) {
+@media (width <=900px) {
   body {
     margin: 0;
   }
 }
 
-@media (width <= 768px) {
+@media (width <=768px) {
   .contact-and-schedule-meeting {
     flex-direction: column-reverse;
   }
@@ -446,7 +449,7 @@ body {
   }
 }
 
-@media (width <= 640px) {
+@media (width <=640px) {
   body {
     margin: 0;
     width: 100%;

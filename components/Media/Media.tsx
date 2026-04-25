@@ -35,6 +35,16 @@ const Media: React.FC<MediaProps> = ({ type = null, isOpen, close, onSelect }) =
   const [isUploading, setIsUploading] = useState(false);
   const [mediaItems, setMediaItems] = useState<MediaItem[]>([]);
   const [loading, setLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(searchQuery);
+    }, 150); // Make it very fast for near-instant typing feedback
+    return () => clearTimeout(handler);
+  }, [searchQuery]);
+
   const [hasMore, setHasMore] = useState(true);
   const [selectedMedia, setSelectedMedia] = useState<MediaItem | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -99,9 +109,9 @@ const Media: React.FC<MediaProps> = ({ type = null, isOpen, close, onSelect }) =
     }
   };
   
-  const fetchImagePaths = useCallback(async (): Promise<{path: string, fileName: string, fileType: string, fileSize: number, description: string, created: string}[]> => {
+  const fetchImagePaths = useCallback(async (searchStr: string = ''): Promise<{path: string, fileName: string, fileType: string, fileSize: number, description: string, created: string}[]> => {
     try {
-      const response = await fetch('/api/media');
+      const response = await fetch(`/api/media?search=${encodeURIComponent(searchStr)}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -118,11 +128,11 @@ const Media: React.FC<MediaProps> = ({ type = null, isOpen, close, onSelect }) =
     }
   }, []);
 
-  const loadInitialItems = useCallback(async () => {
+  const loadInitialItems = useCallback(async (searchStr: string = '') => {
     setLoading(true);
     setError(null);
     try {
-      const imageData = await fetchImagePaths();
+      const imageData = await fetchImagePaths(searchStr);
 
       const items = imageData.slice(0, 7).map((item, index) => ({
         id: `item-${index}`,
@@ -149,12 +159,12 @@ const Media: React.FC<MediaProps> = ({ type = null, isOpen, close, onSelect }) =
     }
   }, [fetchImagePaths]);
 
-  const loadMoreItems = async () => {
+  const loadMoreItems = async (searchStr: string = '') => {
     if (loading || !hasMore) return;
     
     setLoading(true);
     try {
-      const imageData = await fetchImagePaths();
+      const imageData = await fetchImagePaths(searchStr);
       const startIndex = mediaItems.length;
       const newItems = imageData.slice(startIndex, startIndex + 9).map((item, index) => ({
         id: `item-${startIndex + index}`,
@@ -183,7 +193,7 @@ const Media: React.FC<MediaProps> = ({ type = null, isOpen, close, onSelect }) =
     const isNearBottom = scrollTop + clientHeight >= scrollHeight - 100;
     
     if (isNearBottom && !loading && hasMore) {
-      loadMoreItems();
+      loadMoreItems(debouncedSearch);
     }
   };
 
@@ -259,7 +269,7 @@ const Media: React.FC<MediaProps> = ({ type = null, isOpen, close, onSelect }) =
       await response.json();
       // Refresh the list after a successful upload
       setIsUploading(false);
-      loadInitialItems();
+      loadInitialItems(debouncedSearch);
     } catch (err) {
       console.error('Upload error:', err);
       setError(err instanceof Error ? err.message : 'Upload failed');
@@ -267,8 +277,8 @@ const Media: React.FC<MediaProps> = ({ type = null, isOpen, close, onSelect }) =
   };
 
   useEffect(() => {
-    loadInitialItems();
-  }, [loadInitialItems, type]);
+    loadInitialItems(debouncedSearch);
+  }, [loadInitialItems, debouncedSearch, type]);
 
   return (
     <>
@@ -277,7 +287,12 @@ const Media: React.FC<MediaProps> = ({ type = null, isOpen, close, onSelect }) =
         <div className={styles['title-and-search']}>
             <h2 className={styles.title}>Media Picker</h2>
             <div className={styles.search}>
-                <input type="text" />
+                <input 
+                  type="text" 
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search media..."
+                />
                 <div className={styles.icon}>
                     <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 7 7" fill="none">
                         <path d="M5.20646 6.30819L4.18322 5.28978C3.80448 5.59246 3.34432 5.78062 2.84196 5.80814C1.44309 5.88478 0.239371 4.6863 0.15422 3.1321C0.0690905 1.57831 1.13465 0.255095 2.53352 0.178454C3.93202 0.101833 5.13612 1.3007 5.22125 2.85449C5.2519 3.41384 5.13315 3.94306 4.90451 4.39481L5.92775 5.41321C6.15237 5.63685 6.17332 6.01927 5.97448 6.26611C5.77527 6.51297 5.43144 6.53181 5.20646 6.30819ZM4.49739 2.89415C4.43661 1.7847 3.57615 0.927985 2.57758 0.982695C1.57865 1.03742 0.817297 1.98299 0.878082 3.09244C0.938888 4.2023 1.79896 5.05863 2.79789 5.0039C3.79646 4.94919 4.5582 4.004 4.49739 2.89415Z" fill="#BDBDBD"/>

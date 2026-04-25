@@ -6,20 +6,25 @@ import Timeline from "@/components/Timeline/Timeline";
 import ContactForm from "@/components/ContactForm/ContactForm";
 import Calendar from "@/components/Calendar/Calendar";
 import Skills from "@/components/Skills/Skills";
-import Video from "@/components/Video/Video";
+import ProjectsCarousel from "@/components/ProjectsCarousel/ProjectsCarousel";
 import { Experiences, Project, Skill } from "../lib/types";
 
 const Home = async () => {
   let projects: Project[] = [];
   let skills: Skill[] = [];
   let experiences: Experiences[] = [];
+  let settings = {
+    siteMaintenance: false,
+    websiteMessaging: true, // Default open 
+    scheduleMeetings: true
+  };
 
  // Define your local API base URL
   // It's good practice to use an environment variable for this
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
 
   try {
-    const [projectsRes, skillsRes, experiencesRes] = await Promise.all([
+    const [projectsRes, skillsRes, experiencesRes, settingsRes] = await Promise.all([
       fetch(`${API_BASE_URL}/api/projects?status=Active`, { // Use absolute URL
         next: { revalidate: 60 },
       }),
@@ -28,6 +33,9 @@ const Home = async () => {
       }),
       fetch(`${API_BASE_URL}/api/experiences?status=Active`, { // Use absolute URL
         next: { revalidate: 60 },
+      }),
+      fetch(`${API_BASE_URL}/api/settings`, { 
+        cache: 'no-store'
       }),
     ]);
 
@@ -51,8 +59,27 @@ const Home = async () => {
     } else {
       console.error("Failed to fetch experiences:", experiencesRes.statusText);
     }
+
+    if (settingsRes.ok) {
+      const settingsData = await settingsRes.json();
+      if (settingsData.data) {
+        settings = settingsData.data;
+      }
+    } else {
+      console.error("Failed to fetch settings:", settingsRes.statusText);
+    }
   } catch (error) {
     console.error("Error fetching data:", error);
+  }
+
+  // Intercept the entire application render if Maintenance mode is active
+  if (settings.siteMaintenance) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', backgroundColor: 'var(--background)', color: 'var(--text)' }}>
+        <h1 style={{ fontSize: '3rem', marginBottom: '1rem', letterSpacing: '-1px' }}>Site Under Maintenance</h1>
+        <p style={{ fontSize: '1.2rem', color: '#888' }}>We are currently applying updates. Check back shortly.</p>
+      </div>
+    );
   }
 
   return (
@@ -220,53 +247,19 @@ const Home = async () => {
         </div>
       </div>
       <div id="projects" className="projects-display">
-        <div className="projects">
-          {projects.map((project) => (
-            <Link key={project._id} href={`/application/${project._id}`}>
-              <Video
-                name={project.name}
-                videoPath={`/videos/${project.slug}.mp4`}
-                thumbnail={project.thumbnail}
-              />
-            </Link>
-          ))}
-        </div>
-        {projects.length > 4 && (
-          <div className="previous-projects">
-            <svg
-              viewBox="0 0 9 14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M8 13L2 6.99999L8 1" stroke="#5C5C5C" strokeWidth="2" />
-            </svg>
-          </div>
-        )}
-        {projects.length > 4 && (
-          <div className="next-projects">
-            <svg
-              viewBox="0 0 9 14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M1 13L7 6.99999L1 1" stroke="#5C5C5C" strokeWidth="2" />
-            </svg>
-          </div>
-        )}
-        {projects.length > 4 && (
-          <div className="project-pages">
-            <div className="project-page selected-page"></div>
-            <div className="project-page"></div>
-          </div>
-        )}
+        <ProjectsCarousel projects={projects} />
       </div>
-      <div className="contact-and-schedule-meeting">
-        <ContactForm/>
-        <div id="meeting" className="title-and-calendar">
-          <div className="calendar-title">Schedule a Meeting</div>
-          <Calendar />
+      {(settings.websiteMessaging || settings.scheduleMeetings) && (
+        <div className="contact-and-schedule-meeting">
+          {settings.websiteMessaging && <ContactForm/>}
+          {settings.scheduleMeetings && (
+            <div id="meeting" className="title-and-calendar">
+              <div className="calendar-title">Schedule a Meeting</div>
+              <Calendar />
+            </div>
+          )}
         </div>
-      </div>
+      )}
     </div>
   );
 };
