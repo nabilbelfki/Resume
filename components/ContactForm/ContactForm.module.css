@@ -8,6 +8,13 @@
   gap: 10px;
 }
 
+.form {
+  display: flex;
+  flex-direction: column;
+  background-color: #f3f3f3;
+  gap: 10px;
+}
+
 .contact-form-title {
   font-size: 32px;
   color: #2e2e2e;

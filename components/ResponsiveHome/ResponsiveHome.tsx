@@ -19,6 +19,7 @@ import MobileContactForm from "@/components/Mobile/ContactForm/ContactForm";
 import MobileCalendar from "@/components/Mobile/Calendar/Calendar";
 import MobileSkills from "@/components/Mobile/Skills/Skills";
 import MobileProjectsCarousel from "@/components/Mobile/ProjectsCarousel/ProjectsCarousel";
+import MobileExperienceDetail from "@/components/Mobile/Experience/ExperienceDetail";
 
 interface ResponsiveHomeProps {
   projects: Project[];
@@ -53,29 +54,47 @@ const ResponsiveHome: React.FC<ResponsiveHomeProps> = ({
 
   if (isMobile) {
     return (
-      <div className="mobile-view">
-        <MobileBiography />
-        <div id="experiences" className="experience-and-skills">
-          <MobileTimeline experiences={experiences} />
+      <FullPageTransition>
+        <div id="biography" className="snap-section">
+          <MobileBiography mode="compact" />
         </div>
-        <div id="skills-section" className="skills-display">
-          <MobileSkills skills={skills} />
+        <div id="biography-expanded" className="snap-section">
+          <MobileBiography mode="expanded" />
         </div>
-        <div id="projects" className="projects-display">
-          <MobileProjectsCarousel projects={projects} />
+        <div id="experience-timeline" className="snap-section">
+          <div className="experience-and-skills" style={{ height: '100%' }}>
+            <MobileTimeline experiences={experiences} />
+          </div>
         </div>
-        {(settings.websiteMessaging || settings.scheduleMeetings) && (
-          <div className="contact-and-schedule-meeting">
-            {settings.websiteMessaging && <MobileContactForm />}
-            {settings.scheduleMeetings && (
-              <div id="meeting" className="title-and-calendar">
-                <div className="calendar-title">Schedule a Meeting</div>
-                <MobileCalendar />
-              </div>
-            )}
+        {experiences.map((exp, index) => (
+          <div key={index} id={`experience-${index}`} className="snap-section">
+            <MobileExperienceDetail experience={exp} />
+          </div>
+        ))}
+        <div id="skills-section" className="snap-section">
+          <div className="skills-display" style={{ height: '100%' }}>
+            <MobileSkills skills={skills} />
+          </div>
+        </div>
+        <div id="projects" className="snap-section">
+          <div className="projects-display" style={{ height: '100%' }}>
+            <MobileProjectsCarousel projects={projects} />
+          </div>
+        </div>
+        {settings.scheduleMeetings && (
+          <div id="meeting" className="snap-section">
+            <div className="title-and-calendar" style={{ height: '100%', justifyContent: 'center' }}>
+              <div className="calendar-title" style={{ padding: '0 20px' }}>Schedule a Meeting</div>
+              <MobileCalendar />
+            </div>
           </div>
         )}
-      </div>
+        {settings.websiteMessaging && (
+          <div id="contact" className="snap-section">
+             <MobileContactForm />
+          </div>
+        )}
+      </FullPageTransition>
     );
   }
 

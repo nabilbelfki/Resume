@@ -41,7 +41,7 @@ const Contact: React.FC<unknown> = () => {
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const recaptchaToken = await executeRecaptcha('contact_form');
     // setRecaptchaToken(await executeRecaptcha("contact_form"));
-    
+
 
     if (
       firstName !== "" &&
@@ -88,67 +88,70 @@ const Contact: React.FC<unknown> = () => {
     } else {
       setIsLoading(false);
       if (firstName == "")
-      setFirstNameStyles({ border: "solid 1px red" });
+        setFirstNameStyles({ border: "solid 1px red" });
       if (lastName == "")
-      setLastNameStyles({ border: "solid 1px red" });
+        setLastNameStyles({ border: "solid 1px red" });
       if (email == "" || !pattern.test(email))
-      setEmailStyles({ border: "solid 1px red" });
+        setEmailStyles({ border: "solid 1px red" });
       if (message == "")
-      setMessageStyles({ border: "solid 1px red" });
+        setMessageStyles({ border: "solid 1px red" });
     }
   };
 
   return (
     <div id="contact" className={styles["contact-form"]}>
-      <Loading isLoading={isLoading} zIndex={10}/>
+      <Loading isLoading={isLoading} zIndex={10} />
       <div className={styles["contact-form-title"]}>
-        Want to get in touch with me?
+        Send Message
       </div>
-      <div className={styles["email-first-and-last-name"]}>
-        <input
-          className={styles["first-name"]}
-          type="text"
-          placeholder="First Name..."
-          style={firstNameStyles}
-          value={firstName}
-          onChange={handleFirstNameChange}
-        />
-        <input
-          className={styles["last-name"]}
-          type="text"
-          placeholder="Last Name..."
-          style={lastNameStyles}
-          value={lastName}
-          onChange={handleLastNameChange}
-        />
-        <input
-          className={styles["email"]}
-          type="text"
-          placeholder="Email Address..."
-          style={emailStyles}
-          value={email}
-          onChange={handleEmailChange}
-        />
-      </div>
-      <div className={styles["message"]}>
-        <textarea
-          placeholder="Then reach out to me and let’s discuss it..."
-          style={messageStyles}
-          value={message}
-          onChange={handleMessageChange}
-        ></textarea>
-        <Button
-          text="Send"
-          onClick={sendEmail}
-          style={{
-            bottom: 10,
-            right: 5,
-            position: "absolute",
-            fontWeight: 600,
-            fontSize: 16,
-          }}
-        />
-      </div>
+      <form className={styles.form}>
+        <div className={styles["email-first-and-last-name"]}>
+          <input
+            className={styles["first-name"]}
+            type="text"
+            placeholder="First Name..."
+            style={firstNameStyles}
+            value={firstName}
+            onChange={handleFirstNameChange}
+          />
+          <input
+            className={styles["last-name"]}
+            type="text"
+            placeholder="Last Name..."
+            style={lastNameStyles}
+            value={lastName}
+            onChange={handleLastNameChange}
+          />
+          <input
+            className={styles["email"]}
+            type="text"
+            placeholder="Email Address..."
+            style={emailStyles}
+            value={email}
+            onChange={handleEmailChange}
+          />
+        </div>
+        <div className={styles["message"]}>
+          <textarea
+            placeholder="Then reach out to me and let’s discuss it..."
+            style={messageStyles}
+            value={message}
+            onChange={handleMessageChange}
+          ></textarea>
+          <Button
+            text="Send"
+            onClick={sendEmail}
+            style={{
+              bottom: 10,
+              right: 5,
+              position: "absolute",
+              fontWeight: 600,
+              fontSize: 16,
+              backgroundColor: "#2571ff",
+            }}
+          />
+        </div>
+      </form>
     </div>
   );
 };

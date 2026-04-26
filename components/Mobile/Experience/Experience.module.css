@@ -190,3 +190,20 @@
     font-size: 12px;
   }
 }
+
+.standalone {
+  position: relative !important;
+  height: 100% !important;
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.standalone .information {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  max-width: 90% !important;
+}

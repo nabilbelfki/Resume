@@ -3,14 +3,18 @@
   justify-content: center;
   align-items: center;
   padding: 10px;
-  border-radius: 20px;
   height: 500px;
   width: 750px;
   color: #000;
   z-index: 10;
 }
 
-.mobile, .frontend, .backend, .database, .cloud, .miscellaneous {
+.mobile,
+.frontend,
+.backend,
+.database,
+.cloud,
+.miscellaneous {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: min-content;
@@ -53,9 +57,9 @@
   max-height: unset;
 }
 
-@media (width <= 640px) {
+@media (width <=640px) {
   .skills {
-    height: calc(100vh - 90px);
+    height: calc(100vh - 70px);
     width: 100%;
     border-radius: 0;
   }
@@ -65,7 +69,12 @@
     max-height: unset;
   }
 
-  .mobile, .frontend, .backend, .database, .cloud, .miscellaneous {
+  .mobile,
+  .frontend,
+  .backend,
+  .database,
+  .cloud,
+  .miscellaneous {
     grid-template-columns: repeat(2, 1fr);
     width: 100%;
   }

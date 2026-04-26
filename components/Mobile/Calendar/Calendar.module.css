@@ -16,12 +16,13 @@
   display: flex;
   width: 100%;
   height: 60px;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 20px;
 }
 
-.previous-month, .next-month {
+.previous-month,
+.next-month {
   cursor: pointer;
 }
 
@@ -34,10 +35,9 @@
 }
 
 .current-month {
-  color: #79d2ff;
-  font-style: italic;
-  font-weight: 500;
-  font-size: 16px;
+  color: #2571FF;
+  font-weight: 550;
+  font-size: 18px;
 }
 
 .calendar-body {
@@ -106,7 +106,7 @@
 }
 
 .current-day {
-  background-color: #79d2ff;
+  background-color: #2571FF;
   color: #fff;
 }
 
@@ -118,14 +118,14 @@
   transform: scale(1.1);
 }
 
-@media (width <= 950px) {
+@media (width <=950px) {
   .calendar {
     flex: 1;
     width: 100%;
   }
 }
 
-@media (width <= 640px) {
+@media (width <=640px) {
   .calendar {
     width: 100%;
     height: unset;

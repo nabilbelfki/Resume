@@ -31,7 +31,21 @@ const FullPageTransition: React.FC<{ children: React.ReactNode }> = ({ children 
     const observer = new IntersectionObserver(handleIntersect, observerOptions);
 
     // Initial check for all target sections
-    const targetSelectors = ["#biography", ".experience-and-skills", ".skills-display", ".projects-display", ".contact-and-schedule-meeting"];
+    const targetSelectors = [
+      "#biography", 
+      "#biography-expanded",
+      "#experience-timeline",
+      "#experience-detail",
+      "#skills-section", 
+      "#projects", 
+      "#meeting",
+      "#contact",
+      ".experience-and-skills", 
+      ".skills-display", 
+      ".projects-display", 
+      ".contact-and-schedule-meeting",
+      ".snap-section"
+    ];
     
     // We need to poll or use a slight delay because Next.js hydration might not have rendered all IDs yet
     const timeoutId = setTimeout(() => {
