@@ -27,8 +27,7 @@ export default function ResumePage() {
     }, []);
 
     return (
-        <div className={styles.container}>
-            <NavigationBar type="classic" />
+        <div className={`${styles.container} resume-page-root`}>
 
             <div className={styles.resumeWrapper}>
                 {loading ? (

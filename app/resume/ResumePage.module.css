@@ -1,24 +1,40 @@
 .container {
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 60px);
+  height: 100vh;
   background-color: #f1f1f1;
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .container {
+    height: calc(100vh - 90px);
+  }
 }
 
 .resumeWrapper {
   flex: 1;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .pdfFrame {
-  margin-top: 90px;
   width: 100%;
-  height: calc(100vh - 150px);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  height: 100%;
+  border: none;
   background-color: white;
+}
+
+@media (max-width: 640px) {
+  .pdfFrame {
+    margin-top: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+  }
 }
 
 .errorState {
@@ -27,14 +43,23 @@
   align-items: center;
   gap: 20px;
   text-align: center;
-  margin-top: 100px;
+  padding: 40px;
 }
 
 .downloadButton {
   padding: 12px 24px;
-  background-color: #011A49;
+  background-color: #2571FF;
   color: white;
   text-decoration: none;
-  font-weight: bold;
-  border-radius: 4px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: inline-block;
+  box-shadow: 0 4px 6px rgba(37, 113, 255, 0.2);
+}
+
+.downloadButton:hover {
+  background-color: #1a56cc;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 12px rgba(37, 113, 255, 0.3);
 }

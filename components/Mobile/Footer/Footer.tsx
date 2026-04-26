@@ -4,9 +4,6 @@ import styles from "./Footer.module.css";
 
 const Footer: React.FC = () => {
 
-  const mobileWidth = 640;
-  const screenWidth = window.innerWidth;
-
   return (
     <footer className={styles.footer}>
       <ul>
