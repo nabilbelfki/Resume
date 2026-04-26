@@ -46,7 +46,7 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
       },
-      { threshold: 0.4 }
+      { threshold: 0.1 }
     );
 
     if (containerRef.current) {

@@ -63,7 +63,7 @@ const Skill: React.FC<SkillProps> = ({
 
   const skillStyle = {
     backgroundColor: image.backgroundColor,
-    transitionDelay: isVisible ? `${index * 50}ms` : "0ms",
+    transitionDelay: isVisible ? `${index * 20}ms` : "0ms",
   };
 
   const logoStyle = {

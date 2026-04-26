@@ -21,6 +21,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ type = 'classic' }) => {
   const [dropdown, setDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isAtBottom, setIsAtBottom] = useState(false);
   const [isMaintenance, setIsMaintenance] = useState(false);
 
   useEffect(() => {
@@ -38,22 +39,29 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ type = 'classic' }) => {
     fetchSettings();
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      // Monitor crossing out of the 100vh Hero viewport naturally
-      if (window.scrollY > window.innerHeight - 90) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Initialize
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   const pathname = usePathname();
+  useEffect(() => {
+    const handleSectionFocused = (event: any) => {
+      const { id, className } = event.detail;
+      
+      // Determine if we are on the first slide
+      const isFirstSlide = id === "biography";
+      
+      // Determine if we are on the last slide
+      const isLastSlide = className.includes("contact-and-schedule-meeting");
+
+      setIsScrolled(!isFirstSlide);
+      setIsAtBottom(isLastSlide);
+    };
+
+    window.addEventListener("section-focused", handleSectionFocused);
+    return () => {
+      window.removeEventListener("section-focused", handleSectionFocused);
+    };
+  }, [pathname]);
+
   const isHero = !isScrolled && type === 'classic' && pathname === '/' && !isMaintenance;
+  const shouldHide = isScrolled && !isAtBottom && type === 'classic' && pathname === '/';
 
   // Handle clicks outside the dropdown
   useEffect(() => {
@@ -85,7 +93,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ type = 'classic' }) => {
   if (type === "admin" && !user) return null;
 
   return (
-    <nav className={`${type === 'classic' ? styles.nav : styles['nav-admin']} ${isHero ? styles.heroNav : styles.boxShadow}`}>
+    <nav className={`${type === 'classic' ? styles.nav : styles['nav-admin']} ${isHero ? styles.heroNav : styles.boxShadow} ${shouldHide ? styles.hidden : ""}`}>
       {type === 'admin' && user ? (<>
         <Link href="/">
           <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 0 16 16" fill="none">

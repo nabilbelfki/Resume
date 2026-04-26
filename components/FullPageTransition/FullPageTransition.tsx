@@ -8,13 +8,20 @@ const FullPageTransition: React.FC<{ children: React.ReactNode }> = ({ children 
     const observerOptions = {
       root: null, // use the viewport
       threshold: 0.4, // trigger when 40% of the section is visible
-      rootMargin: "-90px 0px 0px 0px", // Align with the fixed header
+      rootMargin: "0px", // No more offset needed as header is hidden on scroll
     };
 
     const handleIntersect = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("section-focused");
+          // Dispatch a custom event to notify other components (like NavigationBar)
+          window.dispatchEvent(new CustomEvent("section-focused", { 
+            detail: { 
+              id: entry.target.id,
+              className: entry.target.className
+            } 
+          }));
         } else {
           entry.target.classList.remove("section-focused");
         }
