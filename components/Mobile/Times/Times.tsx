@@ -3,7 +3,7 @@ import styles from "./Times.module.css";
 import Time from "@/components/Mobile/Time/Time";
 
 interface Bookings {
-  dateTime: string; 
+  dateTime: string;
 }
 
 interface TimesProps {
@@ -26,22 +26,22 @@ const convertUtcToEt = (utcDateStr: string): string => {
 
 const Times: React.FC<TimesProps> = ({ today, booked, selectedTime, setSelectedTime }) => {
   const times = [
-    "11:00AM ET",
-    "11:30AM ET",
-    "12:00PM ET",
-    "12:30PM ET",
-    "1:00PM ET",
-    "1:30PM ET",
-    "2:00PM ET",
-    "2:30PM ET",
-    "3:00PM ET",
-    "3:30PM ET",
-    "4:00PM ET",
-    "4:30PM ET",
-    "5:00PM ET",
-    "5:30PM ET",
+    "11:00AM",
+    "11:30AM",
+    "12:00PM",
+    "12:30PM",
+    "1:00PM",
+    "1:30PM",
+    "2:00PM",
+    "2:30PM",
+    "3:00PM",
+    "3:30PM",
+    "4:00PM",
+    "4:30PM",
+    "5:00PM",
+    "5:30PM",
   ];
-  
+
   // Extract booked times and convert them to ET
   const bookedTimes = booked.reduce((acc, booking) => {
     const etTime = convertUtcToEt(booking.dateTime);
@@ -67,14 +67,14 @@ const Times: React.FC<TimesProps> = ({ today, booked, selectedTime, setSelectedT
     const cleanTime = timeStr.replace(" ET", "");
     const [time, ampm] = cleanTime.split(/(?=[AP]M)/); // Split at AM/PM
     const [hours, minutes] = time.split(":").map(Number);
-    
+
     // Create a date object for today with the given time
     const date = new Date(currentET);
     let hour24 = hours;
-    
+
     if (ampm === 'PM' && hours !== 12) hour24 = hours + 12;
     if (ampm === 'AM' && hours === 12) hour24 = 0;
-    
+
     date.setHours(hour24, minutes, 0, 0);
     return date;
   };
@@ -92,7 +92,7 @@ const Times: React.FC<TimesProps> = ({ today, booked, selectedTime, setSelectedT
         const isBooked = bookedTimes[cleanTime] || false;
         const isPastTime = today && isTimePassed(time);
         const isOccupied = isBooked || isPastTime;
-        
+
         return (
           <Time
             key={time}

@@ -7,14 +7,15 @@ interface ButtonProps {
   onClick: () => void;
   style?: React.CSSProperties;
   disabled?: boolean;
+  className?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ text, onClick, style, disabled = false }) => {
-  
+const Button: React.FC<ButtonProps> = ({ text, onClick, style, disabled = false, className }) => {
+
   return (
-    <button 
-      className={styles["sleek-blue"]} 
-      onClick={onClick} 
+    <button
+      className={`${styles["sleek-blue"]} ${className}`}
+      onClick={onClick}
       style={style}
       disabled={disabled}
     >

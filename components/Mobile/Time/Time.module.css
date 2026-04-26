@@ -6,43 +6,31 @@
   background-color: #fff;
   gap: 20px;
   color: #79d2ff;
-  height: 50px;
+  height: 60px;
   cursor: pointer;
   border: 2px solid #0000;
 }
 
 .time:not(.occupied):hover {
-  border: 2px solid #0f4abb;
+  transform: scale(1.05);
+  transition: transform 0.2s ease-in-out;
 }
 
 .occupied {
   cursor: not-allowed;
-  background-color: #bdbdbd;
-  color: #8db3c6;
-}
-
-.occupied path {
-  fill: #8db3c6;
+  background-color: #E5E5E5;
 }
 
 .selected {
-  background-color: #79d2ff;
+  background-color: rgba(37, 113, 255, 0.7);
+}
+
+.selected .value {
   color: #fff;
 }
 
-.selected path {
-  fill: #fff;
-}
-
-.icon {
-  width: 30px;
-  height: 100%;
-}
-
-.icon svg {
-  height: 100%;
-  width: 100%;
-}
-
 .value {
+  color: #999999;
+  font-weight: 600;
+  font-size: 20px;
 }

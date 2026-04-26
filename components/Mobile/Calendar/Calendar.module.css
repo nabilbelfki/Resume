@@ -118,6 +118,36 @@
   transform: scale(1.1);
 }
 
+.buttonPrimary {
+  background-color: #2571FF !important;
+  color: white !important;
+  font-weight: 600;
+  font-size: 16px;
+  height: 50px;
+  width: 150px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease !important;
+}
+
+.buttonPrimary:hover {
+  background-color: #1a51ba !important;
+}
+
+.buttonSecondary {
+  background-color: #F3F3F3 !important;
+  color: #3D3D3D !important;
+  font-weight: 600;
+  font-size: 16px;
+  height: 50px;
+  width: 150px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease !important;
+}
+
+.buttonSecondary:hover {
+  background-color: #e2e2e2 !important;
+}
+
 @media (width <=950px) {
   .calendar {
     flex: 1;

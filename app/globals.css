@@ -458,6 +458,21 @@ body {
   transform: translateX(-50%);
 }
 
+.mobile-project-pages {
+  width: 50px;
+  height: 20px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0px;
+  gap: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .project-page {
   background-color: #bcbcbc66;
   box-shadow: 0 0 4px #ffffff40;

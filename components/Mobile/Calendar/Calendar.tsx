@@ -485,9 +485,9 @@ const Calendar: React.FC<unknown> = () => {
         }
         actions={
           <>
-            <Button text="Book" onClick={bookMeeting} />
-            {page == "contact" && <Button text="Back" onClick={backToTimes} />}
-            {page == "times" && <Button text="Close" onClick={onClose} />}
+            <Button text={page == "times" ? "Next" : "Book"} onClick={bookMeeting} className={styles.buttonPrimary} />
+            {page == "contact" && <Button text="Back" onClick={backToTimes} className={styles.buttonSecondary} />}
+            {page == "times" && <Button text="Close" onClick={onClose} className={styles.buttonSecondary} />}
           </>
         }
         showing={showing}

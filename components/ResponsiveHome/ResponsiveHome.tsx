@@ -66,11 +66,6 @@ const ResponsiveHome: React.FC<ResponsiveHomeProps> = ({
             <MobileTimeline experiences={experiences} />
           </div>
         </div>
-        {experiences.map((exp, index) => (
-          <div key={index} id={`experience-${index}`} className="snap-section">
-            <MobileExperienceDetail experience={exp} />
-          </div>
-        ))}
         <div id="skills-section" className="snap-section">
           <div className="skills-display" style={{ height: '100%' }}>
             <MobileSkills skills={skills} />
@@ -91,7 +86,7 @@ const ResponsiveHome: React.FC<ResponsiveHomeProps> = ({
         )}
         {settings.websiteMessaging && (
           <div id="contact" className="snap-section">
-             <MobileContactForm />
+            <MobileContactForm />
           </div>
         )}
       </FullPageTransition>

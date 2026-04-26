@@ -15,25 +15,14 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({ projects }) => {
     const touchStartX = useRef<number | null>(null);
     const touchEndX = useRef<number | null>(null);
 
-    // Group projects into chunks of 4 globally
-    const chunkSize = 4;
+    // Group projects into chunks of 2 (two projects per slide)
+    const chunkSize = 2;
     const chunkedProjects = [];
     for (let i = 0; i < projects.length; i += chunkSize) {
         chunkedProjects.push(projects.slice(i, i + chunkSize));
     }
 
     const totalChunks = chunkedProjects.length;
-
-    // Automatic slideshow tick mapping
-    useEffect(() => {
-        if (totalChunks <= 1) return;
-
-        const interval = setInterval(() => {
-            setCurrentIndex((prev) => (prev + 1) % totalChunks);
-        }, 6000); // 6 seconds slide
-
-        return () => clearInterval(interval);
-    }, [totalChunks]);
 
     const handleTouchStart = (e: React.TouchEvent) => {
         touchStartX.current = e.touches[0].clientX;
@@ -46,7 +35,7 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({ projects }) => {
     const handleTouchEnd = () => {
         if (touchStartX.current !== null && touchEndX.current !== null) {
             const distance = touchStartX.current - touchEndX.current;
-            const threshold = 50; 
+            const threshold = 50;
 
             if (distance > threshold) {
                 // Swiped Left - go Next
@@ -65,7 +54,7 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({ projects }) => {
 
     return (
         <div className={styles.carouselContainer}>
-            <div 
+            <div
                 className={styles.carouselTrack}
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
@@ -93,9 +82,9 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({ projects }) => {
             </div>
 
             {totalChunks > 1 && (
-                <div className="project-pages">
+                <div className="mobile-project-pages">
                     {chunkedProjects.map((_, dotIndex) => (
-                        <div 
+                        <div
                             key={`dot-${dotIndex}`}
                             className={`project-page ${currentIndex === dotIndex ? 'selected-page' : ''}`}
                             onClick={() => setCurrentIndex(dotIndex)}

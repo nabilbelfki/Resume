@@ -69,15 +69,15 @@ const Experience: React.FC<ExperienceProps> = ({
         // top: `${top}px`,
         // left: `${endX}px`,
         // width: `${experience.level == 1 ? (experience.name == "American College of Thessaloniki" ? duration + 8 : duration + 12) : duration - 75}px`,
-        top: direction === "vertical" ? `${endX}px`: `${top}px`,
+        top: direction === "vertical" ? `${endX}px` : `${top}px`,
         height: `${experience.level == 1 ? (experience.name == "American College of Thessaloniki" ? duration + 8 : duration + 12) : duration - 75}px`,
         width: direction === "vertical" ? 8 : `${experience.level == 1 ? (experience.name == "American College of Thessaloniki" ? duration + 8 : duration + 12) : duration - 75}px`,
-        left: direction === "vertical" ?  (experience.name == "New Jersey Institute of Technology" ? 98 : 70): `${endX}px`
+        left: direction === "vertical" ? (experience.name == "New Jersey Institute of Technology" ? 98 : 70) : `${endX}px`
       }}
     >
-      <div className={index != hoveredIndex ? `${styles.information} ${styles[animationClass]}` : `${styles.information} ${styles[`information-additional-styles`]}` } style={{backgroundColor: experience.color.background, zIndex: zIndex, left: direction === "vertical"? (experience.name == "Cole Solutions LLC" ? 200 : 50) : "50%", top: informationTop, transform: translateX, width: index === hoveredIndex && screenWidth <= mobileWidth ? "90vw" : "unset", position: screenWidth <= mobileWidth && index === hoveredIndex ? "fixed" : "absolute"}}
-      onMouseEnter={() => setHoveredIndex(index)} // Set state to index on hover
-      onMouseLeave={() => setHoveredIndex(null)} // Set state to null when hover ends
+      <div className={index != hoveredIndex ? `${styles.information} ${styles[animationClass]}` : `${styles.information} ${styles[`information-additional-styles`]}`} style={{ backgroundColor: experience.color.background, zIndex: zIndex, left: direction === "vertical" ? (experience.name == "Cole Solutions LLC" ? 200 : (experience.name === "New Jersey Institute of Technology" ? 30 : 50)) : "50%", top: informationTop, transform: translateX, width: index === hoveredIndex && screenWidth <= mobileWidth ? "90vw" : "unset", position: screenWidth <= mobileWidth && index === hoveredIndex ? "fixed" : "absolute" }}
+        onMouseEnter={() => setHoveredIndex(index)} // Set state to index on hover
+        onMouseLeave={() => setHoveredIndex(null)} // Set state to null when hover ends
       >
         <div className={styles.header}>
           <div className={styles.logo}>
@@ -169,18 +169,18 @@ const Experience: React.FC<ExperienceProps> = ({
         )}
       </div>
       <div className={styles.line} style={{
-          backgroundColor: experience.color.line,
-          height: direction === "vertical" ? "100%" : "7px"
-        }}
+        backgroundColor: experience.color.line,
+        height: direction === "vertical" ? "100%" : "7px"
+      }}
       >
 
-        </div>
+      </div>
       {experience.level == 2 && (
         <div className={styles.line} style={{
-          backgroundColor: experience.color.line, 
-          transform: direction === "vertical" ? 'rotate(110deg)' : 'rotate(30deg)', 
-          width: 82, 
-          marginLeft: direction === "vertical" ? "-50px" : duration - 82, 
+          backgroundColor: experience.color.line,
+          transform: direction === "vertical" ? 'rotate(110deg)' : 'rotate(30deg)',
+          width: 82,
+          marginLeft: direction === "vertical" ? "-50px" : duration - 82,
           marginTop: direction === "vertical" ? "33px" : 13
         }}>
         </div>
