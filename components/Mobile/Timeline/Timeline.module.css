@@ -4,7 +4,7 @@
   height: 500px;
 }
 
-.timeline > div {
+.timeline>div {
   flex: 1;
 }
 
@@ -16,7 +16,7 @@
 .year .indicator {
   height: 30px;
   width: 8px;
-  background-color: #021c4d;
+  background-color: #4C4C4C;
 }
 
 .year .text {
@@ -26,17 +26,28 @@
   left: -27px;
   font-size: 25px;
   font-weight: 600;
-  color: #021c4d;
+  color: #4C4C4C;
 }
 
-.february .indicator, .march .indicator, .april .indicator, .may .indicator, .june .indicator, .july .indicator, .august .indicator, .september .indicator, .november .indicator, .december .indicator {
-  background-color: #021c4d;
+.february .indicator,
+.march .indicator,
+.april .indicator,
+.may .indicator,
+.june .indicator,
+.july .indicator,
+.august .indicator,
+.september .indicator,
+.november .indicator,
+.december .indicator {
+  background-color: #4C4C4C;
   height: 10px;
   width: 2px;
 }
 
-.april .indicator, .july .indicator, .october .indicator {
-  background-color: #021c4d;
+.april .indicator,
+.july .indicator,
+.october .indicator {
+  background-color: #4C4C4C;
   height: 20px;
   width: 3px;
 }
@@ -93,9 +104,8 @@
   margin-top: 400px;
 }
 
-@media (width <= 768px) {
-  .timeline {
-  }
+@media (width <=768px) {
+  .timeline {}
 
   .year .text {
     transform: rotate(0);
@@ -112,13 +122,24 @@
     background-color: #021c4d;
   }
 
-  .february .indicator, .march .indicator, .april .indicator, .may .indicator, .june .indicator, .july .indicator, .august .indicator, .september .indicator, .november .indicator, .december .indicator {
+  .february .indicator,
+  .march .indicator,
+  .april .indicator,
+  .may .indicator,
+  .june .indicator,
+  .july .indicator,
+  .august .indicator,
+  .september .indicator,
+  .november .indicator,
+  .december .indicator {
     background-color: #021c4d;
     height: 2px;
     width: 10px;
   }
 
-  .april .indicator, .july .indicator, .october .indicator {
+  .april .indicator,
+  .july .indicator,
+  .october .indicator {
     background-color: #021c4d;
     height: 3px;
     width: 20px;
@@ -181,7 +202,7 @@
   }
 }
 
-@media (width <= 950px) {
+@media (width <=950px) {
   .timeline {
     margin-left: 37%;
   }

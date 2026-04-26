@@ -68,8 +68,19 @@ const Timeline: React.FC<TimelineProps> = ({ experiences }) => {
 
     handleResize(); // initial
 
+    const handleSectionFocused = (e: any) => {
+      const sectionId = e.detail?.id;
+      if (sectionId && sectionId !== "experience-timeline") {
+        setHoveredIndex(null);
+      }
+    };
+
+    window.addEventListener("section-focused", handleSectionFocused);
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("section-focused", handleSectionFocused);
+    };
   }, []);
 
   const generateMonths = () => {
