@@ -28,6 +28,7 @@ type MobileImageHeightOverflows = {
 
 interface SkillProps {
   gridArea: string;
+  gridColumn?: string;
   className: string;
   image: Image;
   name: string;
@@ -42,6 +43,7 @@ interface SkillProps {
 
 const Skill: React.FC<SkillProps> = ({
   gridArea,
+  gridColumn,
   className,
   image,
   name,
@@ -82,7 +84,7 @@ const Skill: React.FC<SkillProps> = ({
 
   return (
     <div
-      style={skillStyle}
+      style={{ ...skillStyle, gridArea: showDescription ? (gridArea || "auto") : "auto" }}
       className={className}
       onClick={onClick}
       onMouseEnter={onMouseEnter}

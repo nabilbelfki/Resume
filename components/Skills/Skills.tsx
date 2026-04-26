@@ -135,12 +135,19 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
     isTablet: boolean,
     isVisible: boolean
   ) => {
+    const columns = isMobile ? 2 : (isTablet ? 4 : 6);
+
     return skillsList.map((skill, index) => {
+      const row = Math.floor(index / columns) + 1;
+      const col = (index % columns) + 1;
+      const startCol = col === columns ? Math.max(1, columns - 1) : col;
+      const gridArea = `${row} / ${startCol} / span 2 / span 2`;
+
       return (
         <Skill
           key={index}
           index={index}
-          gridArea=""
+          gridArea={gridArea}
           isMobile={isMobile}
           image={skill.image}
           name={skill.name}
