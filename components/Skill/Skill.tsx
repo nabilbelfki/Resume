@@ -34,6 +34,7 @@ interface SkillProps {
   isMobile: boolean;
   description: Description;
   onClick: () => void;
+  onMouseEnter?: () => void;
   showDescription: boolean;
   isVisible: boolean;
   index: number;
@@ -47,6 +48,7 @@ const Skill: React.FC<SkillProps> = ({
   isMobile,
   description,
   onClick,
+  onMouseEnter,
   showDescription,
   isVisible,
   index,
@@ -59,8 +61,6 @@ const Skill: React.FC<SkillProps> = ({
 
   const skillStyle = {
     backgroundColor: image.backgroundColor,
-    width: screenWidth > mobileWidth ? skillWidth : "100%",
-    height: screenWidth > mobileWidth ? skillHeight : skillHeight * 0.7,
     transitionDelay: isVisible ? `${index * 50}ms` : "0ms",
   };
 
@@ -82,9 +82,10 @@ const Skill: React.FC<SkillProps> = ({
 
   return (
     <div
-      style={{ gridArea, ...skillStyle }}
+      style={skillStyle}
       className={className}
       onClick={onClick}
+      onMouseEnter={onMouseEnter}
     >
       {showDescription && (
         <div

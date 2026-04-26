@@ -2,15 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 30px;
-  border-radius: 20px;
-  height: 800px;
-  width: 1000px;
-  max-width: 100%;
+  border-radius: 0;
+  min-height: 100vh;
+  width: 100vw;
+  max-width: 100vw;
   color: #000;
   z-index: 10;
-  backdrop-filter: blur(15px);
-  box-shadow: 0 4px 32px rgba(0,0,0,0.05);
+  backdrop-filter: blur(30px);
+  box-shadow: none;
   box-sizing: border-box;
 }
 
@@ -19,7 +18,6 @@
   justify-content: center;
   align-items: center;
   gap: 40px;
-  padding: 100px 40px;
   background: linear-gradient(-45deg, #e0f2f1, #fde4cf, #e6ccec, #f1f8e9, #e1f5fe);
   background-size: 400% 400%;
   animation: gradientShift 15s ease infinite;
@@ -37,25 +35,48 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
 }
 
-.mobile, .frontend, .backend, .database, .cloud, .miscellaneous {
+.all,
+.mobile,
+.frontend,
+.backend,
+.database,
+.cloud,
+.miscellaneous {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: min-content;
-  grid-gap: 20px;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-flow: dense;
+  grid-auto-rows: min-content;
+  grid-gap: 30px;
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: 100%;
-  width: 850px;
-  max-width: calc(100% - 70px);
-  padding-right: 10px;
+  height: 100vh;
+  width: 100%;
+  max-width: calc(100% - 100px);
+  padding: 20px;
+}
+
+@media (width <=1200px) {
+
+  .all,
+  .mobile,
+  .frontend,
+  .backend,
+  .database,
+  .cloud,
+  .miscellaneous {
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+  }
 }
 
 .skills-types {
@@ -76,7 +97,7 @@
   max-height: 220px;
   border-radius: 12px;
   box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
-  transition: all .3s ease-out, opacity 0.5s ease-out, transform 0.5s ease-out;
+  transition: all 0.2s ease-in;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -95,10 +116,22 @@
 
 .skill.clicked {
   z-index: 10;
-  max-height: unset;
+  grid-column: span 2;
+  grid-row: span 2;
+  min-height: 480px;
+  max-height: 1000px;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@media (width <= 640px) {
+@media (width <=640px) {
+  .skill.clicked {
+    grid-column: span 2;
+    grid-row: span 1;
+    min-height: 350px;
+  }
+}
+
+@media (width <=640px) {
   .skills {
     height: calc(100vh - 90px);
     width: 100%;
@@ -110,7 +143,12 @@
     max-height: unset;
   }
 
-  .mobile, .frontend, .backend, .database, .cloud, .miscellaneous {
+  .mobile,
+  .frontend,
+  .backend,
+  .database,
+  .cloud,
+  .miscellaneous {
     grid-template-columns: repeat(2, 1fr);
     width: 100%;
   }

@@ -103,7 +103,7 @@ const Scrubber: React.FC<ScrubberProps> = ({ type, setType }) => {
       onTouchEnd={handleTouchEnd}
       onTouchMove={handleTouchMove}
     >
-      <div className="mobile-type" onClick={() => setType("mobile")}>
+      <div className="mobile-type" onClick={() => setType(type === "mobile" ? "all" : "mobile")}>
         <svg
           height="20"
           viewBox="0 0 3 5"
@@ -118,7 +118,7 @@ const Scrubber: React.FC<ScrubberProps> = ({ type, setType }) => {
           />
         </svg>
       </div>
-      <div className="frontend-type" onClick={() => setType("frontend")}>
+      <div className="frontend-type" onClick={() => setType(type === "frontend" ? "all" : "frontend")}>
         <svg
           height="20"
           viewBox="0 0 5 5"
@@ -146,7 +146,7 @@ const Scrubber: React.FC<ScrubberProps> = ({ type, setType }) => {
           />
         </svg>
       </div>
-      <div className="backend-type" onClick={() => setType("backend")}>
+      <div className="backend-type" onClick={() => setType(type === "backend" ? "all" : "backend")}>
         <svg
           height="20"
           viewBox="0 0 5 5"
@@ -171,7 +171,7 @@ const Scrubber: React.FC<ScrubberProps> = ({ type, setType }) => {
           />
         </svg>
       </div>
-      <div className="database-type" onClick={() => setType("database")}>
+      <div className="database-type" onClick={() => setType(type === "database" ? "all" : "database")}>
         <svg
           height="20"
           viewBox="0 0 5 6"
@@ -203,7 +203,7 @@ const Scrubber: React.FC<ScrubberProps> = ({ type, setType }) => {
           />
         </svg>
       </div>
-      <div className="cloud-type" onClick={() => setType("cloud")}>
+      <div className="cloud-type" onClick={() => setType(type === "cloud" ? "all" : "cloud")}>
         <svg
           height="15"
           viewBox="0 0 5 3"
@@ -220,7 +220,7 @@ const Scrubber: React.FC<ScrubberProps> = ({ type, setType }) => {
       </div>
       <div
         className="miscellaneous-type"
-        onClick={() => setType("miscellaneous")}
+        onClick={() => setType(type === "miscellaneous" ? "all" : "miscellaneous")}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

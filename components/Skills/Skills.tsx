@@ -30,10 +30,13 @@ interface SkillsProps {
 }
 
 const Skills: React.FC<SkillsProps> = ({ skills }) => {
-  const [type, setType] = useState("backend");
-  const [backgroundColor, setBackgroundColor] = useState("rgba(96, 96, 96, 0.1)");
+  const [type, setType] = useState("all");
+  const [backgroundColor, setBackgroundColor] = useState("rgba(90, 90, 90, 0.05)");
   const [isMobile, setIsMobile] = useState(
     typeof window !== 'undefined' ? window.innerWidth <= 768 : false
+  );
+  const [isTablet, setIsTablet] = useState(
+    typeof window !== 'undefined' ? (window.innerWidth > 768 && window.innerWidth <= 1200) : false
   );
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -54,12 +57,13 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
   }, []);
 
   // State for expanded skills
-  const [clickedMobileIndex, setMobileClickedIndex] = useState<number | null>(0);
-  const [clickedFrontendIndex, setFrontendClickedIndex] = useState<number | null>(0);
-  const [clickedBackendIndex, setBackendClickedIndex] = useState<number | null>(0);
-  const [clickedDatabaseIndex, setDatabaseClickedIndex] = useState<number | null>(0);
-  const [clickedCloudIndex, setCloudClickedIndex] = useState<number | null>(0);
-  const [clickedMiscellaneousIndex, setMiscellaneousClickedIndex] = useState<number | null>(0);
+  const [clickedAllIndex, setAllClickedIndex] = useState<number | null>(null);
+  const [clickedMobileIndex, setMobileClickedIndex] = useState<number | null>(null);
+  const [clickedFrontendIndex, setFrontendClickedIndex] = useState<number | null>(null);
+  const [clickedBackendIndex, setBackendClickedIndex] = useState<number | null>(null);
+  const [clickedDatabaseIndex, setDatabaseClickedIndex] = useState<number | null>(null);
+  const [clickedCloudIndex, setCloudClickedIndex] = useState<number | null>(null);
+  const [clickedMiscellaneousIndex, setMiscellaneousClickedIndex] = useState<number | null>(null);
 
   // Categorize skills with memoization
   const { mobile, frontend, backend, database, cloud, miscellaneous } = useMemo(() => {
@@ -85,9 +89,12 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
   // Handle window resize
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
+      const width = window.innerWidth;
+      setIsMobile(width <= 768);
+      setIsTablet(width > 768 && width <= 1200);
     };
 
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -95,6 +102,7 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
   // Update background color when type changes
   useEffect(() => {
     const currentSkills = 
+      type === "all" ? skills :
       type === "mobile" ? mobile :
       type === "frontend" ? frontend :
       type === "backend" ? backend :
@@ -103,9 +111,9 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
       miscellaneous;
     
     if (currentSkills.length > 0) {
-      setBackgroundColor(hexToRgba(currentSkills[0].image.backgroundColor, 0.3));
+      setBackgroundColor(hexToRgba(currentSkills[0].image.backgroundColor, 0.2));
     }
-  }, [type, mobile, frontend, backend, database, cloud, miscellaneous]);
+  }, [type, skills, mobile, frontend, backend, database, cloud, miscellaneous]);
 
   const hexToRgba = (hex: string, alpha: number) => {
     if (hex == "#FFFFFF") return `rgba(96, 96, 96, 0.1)`;
@@ -120,75 +128,30 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
   };
 
   const renderSkills = (
-    skills: Skill[],
+    skillsList: Skill[],
     clickedIndex: number | null,
     setClickedIndex: React.Dispatch<React.SetStateAction<number | null>>,
     isMobile: boolean,
+    isTablet: boolean,
     isVisible: boolean
   ) => {
-    const columns = isMobile ? 2 : 3;
-
-    return skills.map((skill, index) => {
-      const originalRow = Math.floor(index / columns) + 1;
-      const originalCol = (index % columns) + 1;
-      let gridArea = `${originalRow} / ${originalCol} / ${originalRow + 1} / ${originalCol + 1}`;
-
-      if (clickedIndex !== null) {
-        const clickedRow = Math.floor(clickedIndex / columns) + 1;
-        const clickedCol = (clickedIndex % columns) + 1;
-
-        if (clickedIndex === index) {
-          if (isMobile) {
-            gridArea = `${clickedRow} / 1 / ${clickedRow + 1} / 3`;
-          } else {
-            gridArea = clickedCol === 1 
-              ? `${clickedRow} / 1 / ${clickedRow + 2} / 3`
-              : `${clickedRow} / 2 / ${clickedRow + 2} / 4`;
-          }
-        } else {
-          if (isMobile) {
-            const currentRow = Math.floor(index / columns) + 1;
-            if (currentRow === clickedRow) {
-              gridArea = `${clickedRow + 1} / 1 / ${clickedRow + 2} / 2`;
-            } else if (currentRow > clickedRow) {
-              gridArea = originalCol === 1
-                ? `${currentRow} / 2 / ${currentRow + 1} / 3`
-                : `${currentRow + 1} / 1 / ${currentRow + 2} / 2`;
-            }
-          } else {
-            if (originalRow === clickedRow) {
-              if (clickedCol === 1) {
-                if (originalCol === 2) gridArea = `${clickedRow} / 3 / ${clickedRow + 1} / 4`;
-                if (originalCol === 3) gridArea = `${clickedRow + 1} / 3 / ${clickedRow + 2} / 4`;
-              } else if (clickedCol === 2) {
-                if (originalCol === 1) gridArea = `${clickedRow} / 1 / ${clickedRow + 1} / 2`;
-                if (originalCol === 3) gridArea = `${clickedRow + 1} / 1 / ${clickedRow + 2} / 2`;
-              } else {
-                if (originalCol === 1) gridArea = `${clickedRow} / 1 / ${clickedRow + 1} / 2`;
-                if (originalCol === 2) gridArea = `${clickedRow + 1} / 1 / ${clickedRow + 2} / 2`;
-              }
-            } else if (originalRow > clickedRow) {
-              gridArea = `${originalRow + 1} / ${originalCol} / ${originalRow + 2} / ${originalCol + 1}`;
-            }
-          }
-        }
-      }
-
+    return skillsList.map((skill, index) => {
       return (
         <Skill
           key={index}
           index={index}
-          gridArea={gridArea}
+          gridArea=""
           isMobile={isMobile}
           image={skill.image}
           name={skill.name}
           description={skill.description}
           showDescription={clickedIndex === index}
           isVisible={isVisible}
-          onClick={() => {
-            setClickedIndex(clickedIndex === index ? null : index);
-            setBackgroundColor(hexToRgba(skill.image.backgroundColor, 0.3));
+          onMouseEnter={() => {
+            setClickedIndex(index);
+            setBackgroundColor(hexToRgba(skill.image.backgroundColor, 0.2));
           }}
+          onClick={() => {}} 
           className={`${styles.skill} ${clickedIndex === index ? styles.clicked : ""} ${isVisible ? styles.revealed : ""}`}
         />
       );
@@ -201,34 +164,39 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
       className={`${styles.container} ${!isVisible ? styles.paused : ""}`}
     >
       <div className={styles.skills} style={{ backgroundColor }}>
+        {type === "all" && (
+          <div className={styles.all} onMouseLeave={() => setAllClickedIndex(null)}>
+            {renderSkills(skills, clickedAllIndex, setAllClickedIndex, isMobile, isTablet, isVisible)}
+          </div>
+        )}
         {type === "mobile" && (
-          <div className={styles.mobile}>
-            {renderSkills(mobile, clickedMobileIndex, setMobileClickedIndex, isMobile, isVisible)}
+          <div className={styles.mobile} onMouseLeave={() => setMobileClickedIndex(null)}>
+            {renderSkills(mobile, clickedMobileIndex, setMobileClickedIndex, isMobile, isTablet, isVisible)}
           </div>
         )}
         {type === "frontend" && (
-          <div className={styles.frontend}>
-            {renderSkills(frontend, clickedFrontendIndex, setFrontendClickedIndex, isMobile, isVisible)}
+          <div className={styles.frontend} onMouseLeave={() => setFrontendClickedIndex(null)}>
+            {renderSkills(frontend, clickedFrontendIndex, setFrontendClickedIndex, isMobile, isTablet, isVisible)}
           </div>
         )}
         {type === "backend" && (
-          <div className={styles.backend}>
-            {renderSkills(backend, clickedBackendIndex, setBackendClickedIndex, isMobile, isVisible)}
+          <div className={styles.backend} onMouseLeave={() => setBackendClickedIndex(null)}>
+            {renderSkills(backend, clickedBackendIndex, setBackendClickedIndex, isMobile, isTablet, isVisible)}
           </div>
         )}
         {type === "database" && (
-          <div className={styles.database}>
-            {renderSkills(database, clickedDatabaseIndex, setDatabaseClickedIndex, isMobile, isVisible)}
+          <div className={styles.database} onMouseLeave={() => setDatabaseClickedIndex(null)}>
+            {renderSkills(database, clickedDatabaseIndex, setDatabaseClickedIndex, isMobile, isTablet, isVisible)}
           </div>
         )}
         {type === "cloud" && (
-          <div className={styles.cloud}>
-            {renderSkills(cloud, clickedCloudIndex, setCloudClickedIndex, isMobile, isVisible)}
+          <div className={styles.cloud} onMouseLeave={() => setCloudClickedIndex(null)}>
+            {renderSkills(cloud, clickedCloudIndex, setCloudClickedIndex, isMobile, isTablet, isVisible)}
           </div>
         )}
         {type === "miscellaneous" && (
-          <div className={styles.miscellaneous}>
-            {renderSkills(miscellaneous, clickedMiscellaneousIndex, setMiscellaneousClickedIndex, isMobile, isVisible)}
+          <div className={styles.miscellaneous} onMouseLeave={() => setMiscellaneousClickedIndex(null)}>
+            {renderSkills(miscellaneous, clickedMiscellaneousIndex, setMiscellaneousClickedIndex, isMobile, isTablet, isVisible)}
           </div>
         )}
         <Scrubber type={type} setType={setType} />
