@@ -1,156 +1,211 @@
 .biography {
-  background-color: #f3f3f3;
-  padding: 0;
   width: 100%;
   height: 100dvh;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.paint-spackle {
   background-color: #f3f3f3;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-align: start;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+}
+
+.scrollContent {
+  min-height: 100%;
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.profile-description-and-socials {
+.profileContainer {
+  width: 100%;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.profile {
-  width: 100%;
+.profileHeader {
   background-color: #fff;
-  padding: 20px;
+  padding: 30px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 7px #00000020;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 10;
+  position: sticky;
+  top: 0;
 }
 
-.profile-image-area {
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+.profileImageArea {
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 15px;
 }
 
-.profile-image {
-  background-color: #f1f8ff;
+.profileImage {
   border-radius: 20px;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: #f8f9fa;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  object-fit: cover;
 }
 
-.name-and-title {
+.nameAndTitle {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 15px;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .name {
   font-size: 42px;
-  font-weight: 700;
-  color: #333;
+  font-weight: 800;
+  color: #1a1a1a;
   line-height: 1.1;
+  text-align: center;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   color: #666;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.description-and-socials {
+.contentArea {
   padding: 20px;
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  overflow-y: auto;
+  gap: 15px;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.socials {
+.socialsGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 10px;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.description {
-  font-size: 16px;
+.bioText {
+  font-size: 17px;
   line-height: 1.6;
-  color: #555;
+  color: #444;
   font-style: italic;
-  padding-bottom: 100px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  padding-bottom: 120px; /* Space for bottom nav */
 }
 
-/* Compact Mode Styles */
-.compact .profile {
-  height: 60%;
+.scrollHint {
+  position: fixed;
+  bottom: 140px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #888;
+  font-size: 12px;
+  animation: bounce 2s infinite;
+  z-index: 100;
+  pointer-events: none;
 }
 
-.compact .profile-image {
-  width: 180px;
-  height: 180px;
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+  40% {transform: translateX(-50%) translateY(-10px);}
+  60% {transform: translateX(-50%) translateY(-5px);}
 }
 
-.compact .description-and-socials {
-  height: 40%;
-  justify-content: flex-start;
+/* Compact State Overrides */
+.compact .profileHeader {
+  height: 55dvh;
+  justify-content: center;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
 }
 
-/* Expanded Mode Styles */
-.expanded .profile {
-  height: auto;
+.compact .profileImage {
+  width: 150px;
+  height: 150px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.compact .name {
+  font-size: 44px;
+  margin-top: 5px;
+}
+
+.compact .bioText {
+  display: none; /* Hide full bio in compact view */
+}
+
+/* Expanded State Overrides */
+.expanded .profileHeader {
   flex-direction: row;
+  padding: 12px 20px;
+  align-items: center;
   justify-content: flex-start;
-  padding: 15px 20px;
   gap: 15px;
+  height: auto;
+  min-height: 80px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
-.expanded .profile-image-area {
-  margin-top: 0;
+.expanded .profileImageArea {
+  margin-bottom: 0;
 }
 
-.expanded .profile-image {
-  width: 60px;
-  height: 60px;
-  border-radius: 10px;
+.expanded .profileImage {
+  width: 55px;
+  height: 55px;
+  border-radius: 12px;
 }
 
-.expanded .name-and-title {
+.expanded .nameAndTitle {
   align-items: flex-start;
-  margin-top: 0;
 }
 
 .expanded .name {
   font-size: 24px;
+  text-align: left;
 }
 
 .expanded .title {
-  font-size: 14px;
+  font-size: 15px;
 }
 
-.expanded .description-and-socials {
-  padding-top: 10px;
+.expanded .bioText {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.expanded .socialsGrid {
+  transform: scale(0.95);
+  margin-top: -10px;
 }
 
 @media (max-width: 640px) {
   .name {
-    font-size: 36px;
+    font-size: 34px;
   }
   
-  .compact .profile-image {
+  .compact .profileImage {
     width: 150px;
     height: 150px;
+  }
+  
+  .expanded .name {
+    font-size: 22px;
+  }
+  
+  .compact .name {
+    font-size: 40px;
   }
 }

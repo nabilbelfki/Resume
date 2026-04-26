@@ -55,12 +55,11 @@ const ResponsiveHome: React.FC<ResponsiveHomeProps> = ({
   if (isMobile) {
     return (
       <FullPageTransition>
-        <div id="biography" className="snap-section">
-          <MobileBiography mode="compact" />
-        </div>
-        <div id="biography-expanded" className="snap-section">
-          <MobileBiography mode="expanded" />
-        </div>
+        {/* Biography Section - Dual Snap Points for Animation */}
+        <div id="biography-hero" className="snap-section" style={{ height: '100dvh' }}></div>
+        <div id="biography-text" className="snap-section" style={{ height: '100dvh' }}></div>
+        
+        <MobileBiography />
         <div id="experience-timeline" className="snap-section">
           <div className="experience-and-skills" style={{ height: '100%' }}>
             <MobileTimeline experiences={experiences} />

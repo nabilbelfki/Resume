@@ -32,6 +32,8 @@ const FullPageTransition: React.FC<{ children: React.ReactNode }> = ({ children 
 
     // Initial check for all target sections
     const targetSelectors = [
+      "#biography-hero",
+      "#biography-text",
       "#biography", 
       "#biography-expanded",
       "#experience-timeline",
