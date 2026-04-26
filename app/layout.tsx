@@ -8,7 +8,9 @@ import { usePathname } from "next/navigation";
 import { ReCaptchaProvider } from "next-recaptcha-v3";
 import SideBar from '@/components/SideBar/SideBar'
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
+import MobileNavigationBar from "@/components/Mobile/NavigationBar/NavigationBar";
 import Footer from "@/components/Footer/Footer";
+import MobileFooter from "@/components/Mobile/Footer/Footer";
 import LoadScriptWrapper from "../components/LoadScriptWrapper/LoadScriptWrapper";
 import MaintenanceView from "@/components/MaintenanceView/MaintenanceView";
 import styles from "./Layout.module.css";
@@ -113,7 +115,23 @@ export default function RootLayout({
             <LoadScriptWrapper>
               <DndProvider backend={HTML5Backend}>
                 <div className={isAdminPage ? styles[`admin-container`] : (isLoginPage ? styles['login-container'] : styles[`site-container`])}>
-                  {!isLoginPage && (<NavigationBar type={isAdminPage ? 'admin' : 'classic'} />)}
+                  {!isLoginPage && (
+                    <>
+                      <div className="desktop-only">
+                        <NavigationBar type={isAdminPage ? 'admin' : 'classic'} />
+                      </div>
+                      {!isAdminPage && (
+                        <div className="mobile-only">
+                          <MobileNavigationBar type="classic" />
+                        </div>
+                      )}
+                      {isAdminPage && (
+                        <div className="mobile-only">
+                          <NavigationBar type="admin" />
+                        </div>
+                      )}
+                    </>
+                  )}
                   {isAdminPage && (<SideBar />)}
 
                   {isMaintenance && !isAdminPage && !isLoginPage ? (
@@ -122,7 +140,16 @@ export default function RootLayout({
                     children
                   )}
 
-                  {(showFooter && !isLoginPage && !isAdminPage) && (<Footer />)}
+                  {(showFooter && !isLoginPage && !isAdminPage) && (
+                    <>
+                      <div className="desktop-only">
+                        <Footer />
+                      </div>
+                      <div className="mobile-only">
+                        <MobileFooter />
+                      </div>
+                    </>
+                  )}
                 </div>
               </DndProvider>
             </LoadScriptWrapper>

@@ -1,0 +1,17 @@
+export type Key =
+  | 'bold'
+  | 'italic'
+  | 'underline'
+  | 'unorderedList'
+  | 'orderedList'
+  | 'quote'
+  | 'leftAligned'
+  | 'centerAligned'
+  | 'rightAligned'
+  | 'link'
+  | 'warning'
+  | 'code'
+  | 'media'
+  | 'checkbox'
+  | 'table'
+  | 'delimiter';

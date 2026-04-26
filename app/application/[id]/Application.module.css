@@ -141,6 +141,11 @@
 }
 
 @media (width <=640px) {
+
+  .container {
+    padding: 0;
+  }
+
   .project-information {
     flex-direction: column;
     flex-wrap: unset;

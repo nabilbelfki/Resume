@@ -1,0 +1,11 @@
+.list {
+  font-family: Inter, sans-serif;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.list li {
+    border: none;
+    outline: none;
+}

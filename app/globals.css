@@ -181,6 +181,14 @@ body {
   display: block;
 }
 
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
 .site-container {
   height: 100vh;
   overflow-y: auto;
@@ -472,6 +480,54 @@ body {
 
 #editorjs {
   width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .desktop-only {
+    display: none;
+  }
+  .mobile-only {
+    display: block;
+  }
+
+  html, body {
+    height: auto !important;
+    overflow-y: auto !important;
+    scroll-snap-type: none !important;
+  }
+
+  .site-container {
+    height: auto !important;
+    overflow-y: auto !important;
+    scroll-snap-type: none !important;
+  }
+
+  #biography,
+  .experience-and-skills,
+  .skills-display,
+  .projects-display,
+  .contact-and-schedule-meeting {
+    height: auto !important;
+    min-height: auto !important;
+    scroll-snap-align: none !important;
+    opacity: 1 !important;
+    margin-bottom: 40px;
+  }
+
+  .experience-and-skills {
+    height: auto !important;
+    padding: 40px 0;
+  }
+
+  .projects-display {
+    height: auto !important;
+    padding: 40px 0;
+  }
+
+  .contact-and-schedule-meeting {
+    height: auto !important;
+    padding: 40px 0 !important;
+  }
 }
 
 @media (width <=1200px) {

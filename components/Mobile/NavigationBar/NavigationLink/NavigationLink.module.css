@@ -1,0 +1,40 @@
+.link {
+  color: #fff;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.link svg {
+  display: none;
+  margin-bottom: 5px;
+}
+
+.active path {
+  fill: #2571FF;
+}
+
+.active .text {
+  color: #2571FF;
+}
+
+@media (width <=640px) {
+  .link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .link svg {
+    display: block;
+  }
+
+  .text {
+    font-size: 12px;
+    font-weight: 400;
+  }
+}

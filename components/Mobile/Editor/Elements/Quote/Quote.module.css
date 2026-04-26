@@ -1,0 +1,19 @@
+.quote {
+    font-style: italic;
+    color: #374151;
+    border: 0.1px solid #d5d6d8;
+    padding: 1rem 1rem 1rem 1.5rem;
+    margin: 1.5rem 0;
+    position: relative;
+    line-height: 1.5;
+    font-size: 1.5rem;
+    cursor: text;
+    transition: all 0.2s ease-in-out;
+    border-radius: 4px;
+    background-color: #f3f4f6;
+    outline: none;
+  }
+
+  .text {
+    outline: none;
+  }

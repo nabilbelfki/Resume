@@ -1,0 +1,75 @@
+.container {
+  position: relative;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  outline: none;
+}
+
+.line {
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s ease, background-image 0.3s ease;
+}
+
+.toolbar {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+  color: #4c4c4c;
+  background-color: #FBFBFB;
+  border: solid 1.6px #C6C6C6;
+  border-radius: 8px;
+  height: 60px;
+  z-index: 10;
+}
+
+.color {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.number {
+  width: min-content;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 2px;
+}
+.number label {
+  font-size: 11px;
+  color: #4c4c4c;
+  font-weight: 400;
+}
+
+.number input {
+  font-size: 16px;
+  color: #4c4c4c;
+  font-weight: 600;
+  outline: none;
+  border: solid 1.6px #c6c6c6;
+  border-radius: 5px;
+  width: 70px;
+  height: 27px;
+  text-align: center;
+}
+
+.delete {
+  border: solid 1.6px #c6c6c6;
+  border-radius: 5px;
+  height: 100%;
+  fill: #4c4c4c;
+}
+
+.delete:hover {
+  background-color: #C6C6C6;
+}
