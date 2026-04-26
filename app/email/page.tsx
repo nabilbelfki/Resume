@@ -11,10 +11,10 @@ import styles from "./Email.module.css";
 
 const EmailContent: React.FC = () => {
   const searchParams = useSearchParams();
-  
+
   // Check if searchParams is null
   const ID = searchParams?.get("ID") || null;
-  
+
   // State to store the meeting data
   const [meetingData, setMeetingData] = useState<{
     firstName: string;
@@ -43,7 +43,7 @@ const EmailContent: React.FC = () => {
 
         const data = await response.json();
         console.log(data);
-        
+
         // Store the data in state
         setMeetingData({
           firstName: data.firstName,
@@ -51,7 +51,7 @@ const EmailContent: React.FC = () => {
           dateTime: data.dateTime,
           canceled: data.canceled
         });
-        
+
       } catch (err) {
         console.error('Error fetching meeting:', err);
         setError('Failed to load meeting details');
@@ -100,37 +100,39 @@ const EmailContent: React.FC = () => {
   }
 
   return (
-    <div className={styles.background}> 
-      {meetingData.canceled ? (
-        <Canceled
-          firstName={meetingData.firstName}
-          lastName={meetingData.lastName}
-          dateTime={new Date(meetingData.dateTime)}
-        />
-      ) : (
-        <Confirmation
-          firstName={meetingData.firstName}
-          lastName={meetingData.lastName}
-          dateTime={new Date(meetingData.dateTime)}
-        />
-      )}
-      <div className={styles.content}>
-        <div className={styles["add-calendar-and-cancel-meeting"]}>
-          <AddCalendar dateTime={new Date(meetingData.dateTime)} />
-          <CancelMeeting 
-            firstName={meetingData.firstName} 
-            lastName={meetingData.lastName} 
-            dateTimeString={meetingData.dateTime} 
-            disabled={meetingData.canceled || new Date() > new Date(meetingData.dateTime)}
+    <div className={styles.background}>
+      <div className={styles.container}>
+        {meetingData.canceled ? (
+          <Canceled
+            firstName={meetingData.firstName}
+            lastName={meetingData.lastName}
+            dateTime={new Date(meetingData.dateTime)}
           />
-        </div>
-        <div className={styles["project-preview"]}>
-          <Link key="67a2432855f8ecd625cc5ea5" href={`/#biography`}>
-            <Project
-              name="Personal Website"
-              videoPath={`/videos/personal.gif`}
+        ) : (
+          <Confirmation
+            firstName={meetingData.firstName}
+            lastName={meetingData.lastName}
+            dateTime={new Date(meetingData.dateTime)}
+          />
+        )}
+        <div className={styles.content}>
+          <div className={styles["add-calendar-and-cancel-meeting"]}>
+            <AddCalendar dateTime={new Date(meetingData.dateTime)} />
+            <CancelMeeting
+              firstName={meetingData.firstName}
+              lastName={meetingData.lastName}
+              dateTimeString={meetingData.dateTime}
+              disabled={meetingData.canceled || new Date() > new Date(meetingData.dateTime)}
             />
-          </Link>
+          </div>
+          <div className={styles["project-preview"]}>
+            <Link key="67a2432855f8ecd625cc5ea5" href={`/#biography`}>
+              <Project
+                name="Personal Website"
+                videoPath={`/videos/personal.gif`}
+              />
+            </Link>
+          </div>
         </div>
       </div>
     </div>

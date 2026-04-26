@@ -4861,4 +4861,292 @@
     "$date": "2025-07-31T03:55:22.605Z"
   },
   "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69ec0b05b18c3df960aa5899"
+  },
+  "fileName": "wordle.svg",
+  "path": "/images/wordle.svg",
+  "url": "/images/wordle.svg",
+  "fileSize": 2050,
+  "created": {
+    "$date": "2026-04-25T00:29:57.749Z"
+  },
+  "description": "Wordle Logo",
+  "fileType": "Image",
+  "extension": "svg",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2026-04-25T00:29:57.749Z"
+  },
+  "metadata": {
+    "directory": "image"
+  },
+  "createdAt": {
+    "$date": "2026-04-25T00:29:57.756Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-25T00:29:57.756Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69ec1568132a24c4bc8c4ba3"
+  },
+  "fileName": "supersail.gif",
+  "path": "/images/supersail.gif",
+  "url": "/images/supersail.gif",
+  "fileSize": 1538158,
+  "created": {
+    "$date": "2026-04-25T01:14:16.683Z"
+  },
+  "description": "A short GIF of Supersail",
+  "fileType": "Image",
+  "extension": "gif",
+  "dimensions": {
+    "width": 480,
+    "height": 230
+  },
+  "lastModified": {
+    "$date": "2026-04-25T01:14:16.683Z"
+  },
+  "metadata": {
+    "directory": "image"
+  },
+  "createdAt": {
+    "$date": "2026-04-25T01:14:16.689Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-25T01:14:16.689Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69ec159b132a24c4bc8c4ba9"
+  },
+  "fileName": "personal.gif",
+  "path": "/images/personal.gif",
+  "url": "/images/personal.gif",
+  "fileSize": 1854883,
+  "created": {
+    "$date": "2026-04-25T01:15:07.615Z"
+  },
+  "description": "A GIF of my personal website",
+  "fileType": "Image",
+  "extension": "gif",
+  "dimensions": {
+    "width": 480,
+    "height": 230
+  },
+  "lastModified": {
+    "$date": "2026-04-25T01:15:07.615Z"
+  },
+  "metadata": {
+    "directory": "image"
+  },
+  "createdAt": {
+    "$date": "2026-04-25T01:15:07.617Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-25T01:15:07.617Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69ec15ae132a24c4bc8c4bad"
+  },
+  "fileName": "na.gif",
+  "path": "/images/na.gif",
+  "url": "/images/na.gif",
+  "fileSize": 2810401,
+  "created": {
+    "$date": "2026-04-25T01:15:26.805Z"
+  },
+  "description": "A GIF of the NA website",
+  "fileType": "Image",
+  "extension": "gif",
+  "dimensions": {
+    "width": 480,
+    "height": 222
+  },
+  "lastModified": {
+    "$date": "2026-04-25T01:15:26.805Z"
+  },
+  "metadata": {
+    "directory": "image"
+  },
+  "createdAt": {
+    "$date": "2026-04-25T01:15:26.807Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-25T01:15:26.807Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69ec15cd132a24c4bc8c4bb2"
+  },
+  "fileName": "clue.gif",
+  "path": "/images/clue.gif",
+  "url": "/images/clue.gif",
+  "fileSize": 34750502,
+  "created": {
+    "$date": "2026-04-25T01:15:57.485Z"
+  },
+  "description": "A GIF of the Clue game",
+  "fileType": "Image",
+  "extension": "gif",
+  "dimensions": {
+    "width": 2548,
+    "height": 1296
+  },
+  "lastModified": {
+    "$date": "2026-04-25T01:15:57.485Z"
+  },
+  "metadata": {
+    "directory": "image"
+  },
+  "createdAt": {
+    "$date": "2026-04-25T01:15:57.487Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-25T01:15:57.487Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69ec1625132a24c4bc8c4bb7"
+  },
+  "fileName": "clue.mp4",
+  "path": "/videos/clue.mp4",
+  "url": "/videos/clue.mp4",
+  "fileSize": 32437153,
+  "created": {
+    "$date": "2026-04-25T01:17:25.662Z"
+  },
+  "description": "Clue Video",
+  "fileType": "Video",
+  "extension": "mp4",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2026-04-25T01:17:25.662Z"
+  },
+  "metadata": {
+    "directory": "video"
+  },
+  "createdAt": {
+    "$date": "2026-04-25T01:17:25.667Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-25T01:17:25.667Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69ec1bbf3072be32a841b4c3"
+  },
+  "fileName": "na.mp4",
+  "path": "/videos/na.mp4",
+  "url": "/videos/na.mp4",
+  "fileSize": 47084078,
+  "created": {
+    "$date": "2026-04-25T01:41:19.082Z"
+  },
+  "description": "NA Video",
+  "fileType": "Video",
+  "extension": "mp4",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2026-04-25T01:41:19.081Z"
+  },
+  "metadata": {
+    "directory": "video"
+  },
+  "createdAt": {
+    "$date": "2026-04-25T01:41:19.090Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-25T01:41:19.090Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69ec1bee3072be32a841b4c7"
+  },
+  "fileName": "supersail.mp4",
+  "path": "/videos/supersail.mp4",
+  "url": "/videos/supersail.mp4",
+  "fileSize": 72092145,
+  "created": {
+    "$date": "2026-04-25T01:42:06.627Z"
+  },
+  "description": "Supersail Video",
+  "fileType": "Video",
+  "extension": "mp4",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2026-04-25T01:42:06.627Z"
+  },
+  "metadata": {
+    "directory": "video"
+  },
+  "createdAt": {
+    "$date": "2026-04-25T01:42:06.629Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-25T01:42:06.629Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69ec1c113072be32a841b4cc"
+  },
+  "fileName": "personal.mp4",
+  "path": "/videos/personal.mp4",
+  "url": "/videos/personal.mp4",
+  "fileSize": 42645454,
+  "created": {
+    "$date": "2026-04-25T01:42:41.363Z"
+  },
+  "description": "Personal Video",
+  "fileType": "Video",
+  "extension": "mp4",
+  "dimensions": {
+    "width": null,
+    "height": null
+  },
+  "lastModified": {
+    "$date": "2026-04-25T01:42:41.363Z"
+  },
+  "metadata": {
+    "directory": "video"
+  },
+  "createdAt": {
+    "$date": "2026-04-25T01:42:41.368Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-25T01:42:41.368Z"
+  },
+  "__v": 0
 }]

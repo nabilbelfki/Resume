@@ -8,6 +8,7 @@ import Calendar from "@/components/Calendar/Calendar";
 import Skills from "@/components/Skills/Skills";
 import ProjectsCarousel from "@/components/ProjectsCarousel/ProjectsCarousel";
 import { Experiences, Project, Skill } from "../lib/types";
+import FullPageTransition from "@/components/FullPageTransition/FullPageTransition";
 
 const Home = async () => {
   let projects: Project[] = [];
@@ -19,7 +20,7 @@ const Home = async () => {
     scheduleMeetings: true
   };
 
- // Define your local API base URL
+  // Define your local API base URL
   // It's good practice to use an environment variable for this
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
 
@@ -34,7 +35,7 @@ const Home = async () => {
       fetch(`${API_BASE_URL}/api/experiences?status=Active`, { // Use absolute URL
         next: { revalidate: 60 },
       }),
-      fetch(`${API_BASE_URL}/api/settings`, { 
+      fetch(`${API_BASE_URL}/api/settings`, {
         cache: 'no-store'
       }),
     ]);
@@ -72,195 +73,49 @@ const Home = async () => {
     console.error("Error fetching data:", error);
   }
 
-  // Intercept the entire application render if Maintenance mode is active
-  if (settings.siteMaintenance) {
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', backgroundColor: 'var(--background)', color: 'var(--text)' }}>
-        <h1 style={{ fontSize: '3rem', marginBottom: '1rem', letterSpacing: '-1px' }}>Site Under Maintenance</h1>
-        <p style={{ fontSize: '1.2rem', color: '#888' }}>We are currently applying updates. Check back shortly.</p>
-      </div>
-    );
-  }
-
   return (
-    <div>
-      <Biography/>
+    <FullPageTransition>
+      <Biography />
       <div id="experiences" className="experience-and-skills">
         <Timeline experiences={experiences} />
-        <div id="skills" className="skills-display">
-          <div className="skills-title-and-description unselected">
-            <div className="metal">
-              <Image src="/images/metal.jpg" alt="" width="200" height="300" />
-            </div>
-            <div className="skills-title">SKILLS</div>
-            <div className="skills-description">
-              These are the skills that I have accumulated over the years. They
-              have helped shaped me into an esteemed developer and contribute to
-              many companies success.
-            </div>
-            <div className="screw-one">
-              <svg
-                width="10"
-                height="10"
-                viewBox="0 0 4 4"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="2"
-                  cy="2"
-                  r="1.95"
-                  fill="#BDBDBD"
-                  stroke="#2E2E2E"
-                  strokeWidth="0.1"
-                />
-                <rect
-                  x="2.67175"
-                  y="1.25751"
-                  width="0.1"
-                  height="2"
-                  rx="0.05"
-                  transform="rotate(45 2.67175 1.25751)"
-                  fill="#2E2E2E"
-                />
-                <rect
-                  x="2.74243"
-                  y="2.67175"
-                  width="0.1"
-                  height="2"
-                  rx="0.05"
-                  transform="rotate(135 2.74243 2.67175)"
-                  fill="#2E2E2E"
-                />
-              </svg>
-            </div>
-            <div className="screw-two">
-              <svg
-                width="10"
-                height="10"
-                viewBox="0 0 4 4"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="2"
-                  cy="2"
-                  r="1.95"
-                  fill="#BDBDBD"
-                  stroke="#2E2E2E"
-                  strokeWidth="0.1"
-                />
-                <rect
-                  x="2.67175"
-                  y="1.25751"
-                  width="0.1"
-                  height="2"
-                  rx="0.05"
-                  transform="rotate(45 2.67175 1.25751)"
-                  fill="#2E2E2E"
-                />
-                <rect
-                  x="2.74243"
-                  y="2.67175"
-                  width="0.1"
-                  height="2"
-                  rx="0.05"
-                  transform="rotate(135 2.74243 2.67175)"
-                  fill="#2E2E2E"
-                />
-              </svg>
-            </div>
-            <div className="screw-three">
-              <svg
-                width="10"
-                height="10"
-                viewBox="0 0 4 4"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="2"
-                  cy="2"
-                  r="1.95"
-                  fill="#BDBDBD"
-                  stroke="#2E2E2E"
-                  strokeWidth="0.1"
-                />
-                <rect
-                  x="2.67175"
-                  y="1.25751"
-                  width="0.1"
-                  height="2"
-                  rx="0.05"
-                  transform="rotate(45 2.67175 1.25751)"
-                  fill="#2E2E2E"
-                />
-                <rect
-                  x="2.74243"
-                  y="2.67175"
-                  width="0.1"
-                  height="2"
-                  rx="0.05"
-                  transform="rotate(135 2.74243 2.67175)"
-                  fill="#2E2E2E"
-                />
-              </svg>
-            </div>
-            <div className="screw-four">
-              <svg
-                width="10"
-                height="10"
-                viewBox="0 0 4 4"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="2"
-                  cy="2"
-                  r="1.95"
-                  fill="#BDBDBD"
-                  stroke="#2E2E2E"
-                  strokeWidth="0.1"
-                />
-                <rect
-                  x="2.67175"
-                  y="1.25751"
-                  width="0.1"
-                  height="2"
-                  rx="0.05"
-                  transform="rotate(45 2.67175 1.25751)"
-                  fill="#2E2E2E"
-                />
-                <rect
-                  x="2.74243"
-                  y="2.67175"
-                  width="0.1"
-                  height="2"
-                  rx="0.05"
-                  transform="rotate(135 2.74243 2.67175)"
-                  fill="#2E2E2E"
-                />
-              </svg>
-            </div>
-          </div>
-          <Skills skills={skills} />
-        </div>
+      </div>
+      <div id="skills-section" className="skills-display">
+        <Skills skills={skills} />
       </div>
       <div id="projects" className="projects-display">
         <ProjectsCarousel projects={projects} />
       </div>
       {(settings.websiteMessaging || settings.scheduleMeetings) && (
         <div className="contact-and-schedule-meeting">
-          {settings.websiteMessaging && <ContactForm/>}
-          {settings.scheduleMeetings && (
-            <div id="meeting" className="title-and-calendar">
-              <div className="calendar-title">Schedule a Meeting</div>
-              <Calendar />
-            </div>
-          )}
+          <div className="contact-header">
+              <div className="profileWrapper">
+                  <Image
+                      src="/images/profile.png"
+                      alt="Nabil Belfki"
+                      width={225}
+                      height={225}
+                      className="profileImage"
+                  />
+              </div>
+              <div className="heroText">
+                  <h1>Get In Touch With Me</h1>
+                  <p>
+                      If you want to connect with me just schedule a meeting and let's talk about whatever your heart desires. Or just send me a message too and I usually respond quickly. Don't hesitate to reach out!
+                  </p>
+              </div>
+          </div>
+          <div className="contact-content-wrapper">
+            {settings.websiteMessaging && <ContactForm />}
+            {settings.scheduleMeetings && (
+              <div id="meeting" className="title-and-calendar">
+                <div className="calendar-title">Schedule a Meeting</div>
+                <Calendar />
+              </div>
+            )}
+          </div>
         </div>
       )}
-    </div>
+    </FullPageTransition>
   );
 };
 

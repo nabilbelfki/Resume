@@ -41,7 +41,7 @@ const Contact: React.FC<unknown> = () => {
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const recaptchaToken = await executeRecaptcha('contact_form');
     // setRecaptchaToken(await executeRecaptcha("contact_form"));
-    
+
 
     if (
       firstName !== "" &&
@@ -88,21 +88,21 @@ const Contact: React.FC<unknown> = () => {
     } else {
       setIsLoading(false);
       if (firstName == "")
-      setFirstNameStyles({ border: "solid 1px red" });
+        setFirstNameStyles({ border: "solid 1px red" });
       if (lastName == "")
-      setLastNameStyles({ border: "solid 1px red" });
+        setLastNameStyles({ border: "solid 1px red" });
       if (email == "" || !pattern.test(email))
-      setEmailStyles({ border: "solid 1px red" });
+        setEmailStyles({ border: "solid 1px red" });
       if (message == "")
-      setMessageStyles({ border: "solid 1px red" });
+        setMessageStyles({ border: "solid 1px red" });
     }
   };
 
   return (
     <div id="contact" className={styles["contact-form"]}>
-      <Loading isLoading={isLoading} zIndex={10}/>
+      <Loading isLoading={isLoading} zIndex={10} />
       <div className={styles["contact-form-title"]}>
-        Want to get in touch with me?
+        Send Message
       </div>
       <div className={styles["email-first-and-last-name"]}>
         <input
@@ -140,13 +140,7 @@ const Contact: React.FC<unknown> = () => {
         <Button
           text="Send"
           onClick={sendEmail}
-          style={{
-            bottom: 10,
-            right: 5,
-            position: "absolute",
-            fontWeight: 600,
-            fontSize: 16,
-          }}
+          className={styles["send-button"]}
         />
       </div>
     </div>

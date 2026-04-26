@@ -1,38 +1,78 @@
-[
-  {
-    "_id": { "$oid": "688bba8d881a0bb0763c0205" },
-    "firstName": "Eleonora",
-    "lastName": "Panjkovic",
-    "email": "nabilbelfki@gmail.com",
-    "message": "I'm in Croatia at a beach with Tamara right now and you're sitting in your room coding BAHAHA.",
-    "created": { "$date": "2025-07-31T18:48:45.299Z" },
-    "__v": 0
+[{
+  "_id": {
+    "$oid": "688bba8d881a0bb0763c0205"
   },
-  {
-    "_id": { "$oid": "688bca3d881a0bb0763c0216" },
-    "firstName": "Kristallia",
-    "lastName": "Belfki",
-    "email": "kristal.one@hotmail.com",
-    "message": "Hello my son.",
-    "created": { "$date": "2025-07-31T19:55:41.751Z" },
-    "__v": 0
+  "firstName": "Eleonora",
+  "lastName": "Panjkovic",
+  "email": "nabilbelfki@gmail.com",
+  "message": "I'm in Croatia at a beach with Tamara right now and you're sitting in your room coding BAHAHA.",
+  "created": {
+    "$date": "2025-07-31T18:48:45.299Z"
   },
-  {
-    "_id": { "$oid": "688efd488f263874b76d4b47" },
-    "firstName": "Nabil",
-    "lastName": "Belfki",
-    "email": "nabilbelfki@gmail.com",
-    "message": "Hello Clone",
-    "created": { "$date": "2025-08-03T06:10:16.556Z" },
-    "__v": 0
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688bca3d881a0bb0763c0216"
   },
-  {
-    "_id": { "$oid": "688efd598f263874b76d4b4b" },
-    "firstName": "Zak",
-    "lastName": "Belfki",
-    "email": "nabilbelfki@gmail.com",
-    "message": "This is my son.",
-    "created": { "$date": "2025-08-03T06:10:33.757Z" },
-    "__v": 0
-  }
-]
+  "firstName": "Kristallia",
+  "lastName": "Belfki",
+  "email": "kristal.one@hotmail.com",
+  "message": "Hello my son.",
+  "created": {
+    "$date": "2025-07-31T19:55:41.751Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688efd488f263874b76d4b47"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "message": "Hello Clone",
+  "created": {
+    "$date": "2025-08-03T06:10:16.556Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688efd598f263874b76d4b4b"
+  },
+  "firstName": "Zak",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "message": "This is my son.",
+  "created": {
+    "$date": "2025-08-03T06:10:33.757Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69a3695e2746556256ff815f"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "message": "Hellooooooo",
+  "created": {
+    "$date": "2026-02-28T22:17:02.580Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69a37327078196a60207c37b"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "message": "Hello there Nabil.",
+  "created": {
+    "$date": "2026-02-28T22:58:47.287Z"
+  },
+  "__v": 0
+}]

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import Skill from "@/components/Skill/Skill";
 import Scrubber from "@/components/Scrubber/Scrubber";
 import styles from "./Skills.module.css";
@@ -35,6 +35,23 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
   const [isMobile, setIsMobile] = useState(
     typeof window !== 'undefined' ? window.innerWidth <= 768 : false
   );
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.4 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   // State for expanded skills
   const [clickedMobileIndex, setMobileClickedIndex] = useState<number | null>(0);
@@ -106,7 +123,8 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
     skills: Skill[],
     clickedIndex: number | null,
     setClickedIndex: React.Dispatch<React.SetStateAction<number | null>>,
-    isMobile: boolean
+    isMobile: boolean,
+    isVisible: boolean
   ) => {
     const columns = isMobile ? 2 : 3;
 
@@ -159,55 +177,62 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
       return (
         <Skill
           key={index}
+          index={index}
           gridArea={gridArea}
           isMobile={isMobile}
           image={skill.image}
           name={skill.name}
           description={skill.description}
           showDescription={clickedIndex === index}
+          isVisible={isVisible}
           onClick={() => {
             setClickedIndex(clickedIndex === index ? null : index);
             setBackgroundColor(hexToRgba(skill.image.backgroundColor, 0.3));
           }}
-          className={`${styles.skill} ${clickedIndex === index ? styles.clicked : ""}`}
+          className={`${styles.skill} ${clickedIndex === index ? styles.clicked : ""} ${isVisible ? styles.revealed : ""}`}
         />
       );
     });
   };
 
   return (
-    <div className={styles.skills} style={{ backgroundColor }}>
-      {type === "mobile" && (
-        <div className={styles.mobile}>
-          {renderSkills(mobile, clickedMobileIndex, setMobileClickedIndex, isMobile)}
-        </div>
-      )}
-      {type === "frontend" && (
-        <div className={styles.frontend}>
-          {renderSkills(frontend, clickedFrontendIndex, setFrontendClickedIndex, isMobile)}
-        </div>
-      )}
-      {type === "backend" && (
-        <div className={styles.backend}>
-          {renderSkills(backend, clickedBackendIndex, setBackendClickedIndex, isMobile)}
-        </div>
-      )}
-      {type === "database" && (
-        <div className={styles.database}>
-          {renderSkills(database, clickedDatabaseIndex, setDatabaseClickedIndex, isMobile)}
-        </div>
-      )}
-      {type === "cloud" && (
-        <div className={styles.cloud}>
-          {renderSkills(cloud, clickedCloudIndex, setCloudClickedIndex, isMobile)}
-        </div>
-      )}
-      {type === "miscellaneous" && (
-        <div className={styles.miscellaneous}>
-          {renderSkills(miscellaneous, clickedMiscellaneousIndex, setMiscellaneousClickedIndex, isMobile)}
-        </div>
-      )}
-      <Scrubber type={type} setType={setType} />
+    <div 
+      ref={containerRef} 
+      className={`${styles.container} ${!isVisible ? styles.paused : ""}`}
+    >
+      <div className={styles.skills} style={{ backgroundColor }}>
+        {type === "mobile" && (
+          <div className={styles.mobile}>
+            {renderSkills(mobile, clickedMobileIndex, setMobileClickedIndex, isMobile, isVisible)}
+          </div>
+        )}
+        {type === "frontend" && (
+          <div className={styles.frontend}>
+            {renderSkills(frontend, clickedFrontendIndex, setFrontendClickedIndex, isMobile, isVisible)}
+          </div>
+        )}
+        {type === "backend" && (
+          <div className={styles.backend}>
+            {renderSkills(backend, clickedBackendIndex, setBackendClickedIndex, isMobile, isVisible)}
+          </div>
+        )}
+        {type === "database" && (
+          <div className={styles.database}>
+            {renderSkills(database, clickedDatabaseIndex, setDatabaseClickedIndex, isMobile, isVisible)}
+          </div>
+        )}
+        {type === "cloud" && (
+          <div className={styles.cloud}>
+            {renderSkills(cloud, clickedCloudIndex, setCloudClickedIndex, isMobile, isVisible)}
+          </div>
+        )}
+        {type === "miscellaneous" && (
+          <div className={styles.miscellaneous}>
+            {renderSkills(miscellaneous, clickedMiscellaneousIndex, setMiscellaneousClickedIndex, isMobile, isVisible)}
+          </div>
+        )}
+        <Scrubber type={type} setType={setType} />
+      </div>
     </div>
   );
 };

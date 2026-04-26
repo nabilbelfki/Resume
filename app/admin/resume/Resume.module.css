@@ -1,0 +1,153 @@
+.container {
+    margin-top: 90px;
+    margin-left: 60px;
+    width: calc(100% - 60px);
+    min-height: calc(100vh - 90px);
+    background-color: var(--background);
+    max-width: 1600px;
+    padding: 50px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+.titleArea {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.titleArea h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.breadcrumbs {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    display: flex;
+    gap: 4px;
+}
+
+.breadcrumbs span {
+    color: #c0c0c0;
+}
+
+.backButton {
+    border: 1px solid #e0e0e0;
+    background-color: #fff;
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    transition: background-color 0.2s;
+}
+
+.backButton:hover {
+    background-color: #f7f7f7;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90vw;
+}
+
+.uploadAreaDashed {
+    border: 2px dashed #d9d9d9;
+    border-radius: 8px;
+    background-color: #fafafa;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 20px;
+    width: 80%;
+    position: relative;
+    overflow: hidden;
+    flex: 1;
+}
+
+.uploadAreaDashed:hover {
+    border-color: #C0C0C0;
+    background-color: #f0f0f0;
+}
+
+.uploadIcon {
+    margin-bottom: 16px;
+}
+
+
+.uploadText {
+    color: #C0C0C0;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.hiddenInput {
+    display: none;
+}
+
+.loaderOverlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: #444;
+    z-index: 10;
+}
+
+.pdfWrapper {
+    width: 100%;
+    min-height: 800px;
+    background-color: #f1f1f1;
+    position: relative;
+    cursor: pointer;
+    /* Wrapper captures the click */
+}
+
+/* Clicking overlay for PDF */
+.pdfOverlay {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.pdfOverlay:hover {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.pdfFrame {
+    width: 100%;
+    height: 100%;
+    min-height: 800px;
+    border: none;
+    display: block;
+}

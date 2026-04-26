@@ -24,6 +24,8 @@ const Description: React.FC<DescriptionProps> = ({ text, url }) => {
           right: 5,
           padding: 0,
           height: 35,
+          backgroundColor: "#2571FF",
+          fontWeight: 600,
         }}
         onClick={() => window.open(url, "_blank")}
       />

@@ -18,7 +18,23 @@ const Timeline: React.FC<TimelineProps> = ({ experiences }) => {
   const [positions, setPositions] = useState<{ [key: string]: number }>({});
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const timelineRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.4 }
+    );
+
+    if (timelineRef.current) {
+      observer.observe(timelineRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const calculatePositions = (dir: "horizontal" | "vertical") => {
     if (timelineRef.current) {
@@ -99,7 +115,11 @@ const Timeline: React.FC<TimelineProps> = ({ experiences }) => {
         const monthYearClass = `${year}-${months[month].toLowerCase()}`;
         if (month === 0) {
           elements.push(
-            <div key={year} className={`${styles.year} ${monthYearClass}`}>
+            <div 
+              key={year} 
+              className={`${styles.year} ${monthYearClass} ${isVisible ? styles.animated : ""}`}
+              style={{ transitionDelay: `${elements.length * 5}ms` }}
+            >
               <div className={styles.indicator}></div>
               <div className={styles.text}>{year}</div>
             </div>
@@ -108,7 +128,8 @@ const Timeline: React.FC<TimelineProps> = ({ experiences }) => {
           elements.push(
             <div
               key={monthYearClass}
-              className={`${styles[months[month].toLowerCase()]} ${monthYearClass}`}
+              className={`${styles[months[month].toLowerCase()]} ${monthYearClass} ${isVisible ? styles.animated : ""}`}
+              style={{ transitionDelay: `${elements.length * 5}ms` }}
             >
               <div className={styles.indicator}></div>
             </div>
@@ -122,7 +143,7 @@ const Timeline: React.FC<TimelineProps> = ({ experiences }) => {
 
   return (
     <div
-      className={styles.timeline}
+      className={`${styles.timeline} ${isVisible ? styles.active : ""}`}
       ref={timelineRef}
       style={{
         display: "flex",
@@ -144,6 +165,8 @@ const Timeline: React.FC<TimelineProps> = ({ experiences }) => {
             direction={direction}
             hoveredIndex={hoveredIndex}
             setHoveredIndex={setHoveredIndex}
+            isVisible={isVisible}
+            totalExperienceCount={experiences.length}
           />
         ))}
     </div>

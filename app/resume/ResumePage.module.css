@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 60px);
+  background-color: #f1f1f1;
+}
+
+.resumeWrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pdfFrame {
+  margin-top: 90px;
+  width: 100%;
+  height: calc(100vh - 150px);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: white;
+}
+
+.errorState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+  margin-top: 100px;
+}
+
+.downloadButton {
+  padding: 12px 24px;
+  background-color: #011A49;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+}

@@ -10,7 +10,7 @@ interface CancelMeetingProps {
   dateTimeString: string;
 }
 
-const CancelMeeting: React.FC<CancelMeetingProps> = ({ disabled, firstName, lastName, dateTimeString}) => {
+const CancelMeeting: React.FC<CancelMeetingProps> = ({ disabled, firstName, lastName, dateTimeString }) => {
   const router = useRouter();
 
   const handleCancelMeeting = async () => {
@@ -52,9 +52,9 @@ const CancelMeeting: React.FC<CancelMeetingProps> = ({ disabled, firstName, last
       <div className={styles.title}>
         Something unexpected came up and you need to cancel? No worries, I understand just click the button below.
       </div>
-      <Button 
-        text="CANCEL MEETING" 
-        style={{width: 150, fontWeight: 600, minHeight: 50}} 
+      <Button
+        text="CANCEL MEETING"
+        style={{ width: 150, fontWeight: 600, minHeight: 50, backgroundColor: "#2571FF" }}
         onClick={handleCancelMeeting}
         disabled={disabled}
       />

@@ -10,6 +10,8 @@ interface ExperienceProps {
   index: number;
   hoveredIndex: number | null;
   setHoveredIndex: (index: number | null) => void;
+  isVisible: boolean;
+  totalExperienceCount: number;
 }
 
 const Experience: React.FC<ExperienceProps> = ({
@@ -19,6 +21,8 @@ const Experience: React.FC<ExperienceProps> = ({
   index,
   hoveredIndex,
   setHoveredIndex,
+  isVisible,
+  totalExperienceCount,
 }) => {
   const months = [
     "january",
@@ -69,119 +73,139 @@ const Experience: React.FC<ExperienceProps> = ({
         // top: `${top}px`,
         // left: `${endX}px`,
         // width: `${experience.level == 1 ? (experience.name == "American College of Thessaloniki" ? duration + 8 : duration + 12) : duration - 75}px`,
-        top: direction === "vertical" ? `${endX}px`: `${top}px`,
+        top: direction === "vertical" ? `${endX}px` : `${top}px`,
         height: `${experience.level == 1 ? (experience.name == "American College of Thessaloniki" ? duration + 8 : duration + 12) : duration - 75}px`,
         width: direction === "vertical" ? 8 : `${experience.level == 1 ? (experience.name == "American College of Thessaloniki" ? duration + 8 : duration + 12) : duration - 75}px`,
-        left: direction === "vertical" ?  (experience.name == "New Jersey Institute of Technology" ? 98 : 70): `${endX}px`
+        left: direction === "vertical" ? (experience.name == "New Jersey Institute of Technology" ? 98 : 70) : `${endX}px`
       }}
     >
-      <div className={index != hoveredIndex ? `${styles.information} ${styles[animationClass]}` : `${styles.information} ${styles[`information-additional-styles`]}` } style={{backgroundColor: experience.color.background, zIndex: zIndex, left: direction === "vertical"? (experience.name == "Cole Solutions LLC" ? 200 : 50) : "50%", top: informationTop, transform: translateX, width: index === hoveredIndex && screenWidth <= mobileWidth ? "90vw" : "unset", position: screenWidth <= mobileWidth && index === hoveredIndex ? "fixed" : "absolute"}}
-      onMouseEnter={() => setHoveredIndex(index)} // Set state to index on hover
-      onMouseLeave={() => setHoveredIndex(null)} // Set state to null when hover ends
+      <div className={`${styles.revealContainer} ${isVisible ? styles.revealed : ""}`}
+        style={{
+          left: direction === "vertical" ? (experience.name == "Cole Solutions LLC" ? 200 : 50) : "50%",
+          top: informationTop,
+          transform: translateX,
+          position: screenWidth <= mobileWidth && index === hoveredIndex ? "fixed" : "absolute",
+          transitionDelay: isVisible ? `${(totalExperienceCount - index) * 200 + 1000}ms` : "0ms",
+          zIndex: zIndex,
+        }}
       >
-        <div className={styles.header}>
-          <div className={styles.logo}>
+        <div className={index != hoveredIndex ? `${styles.information} ${styles[animationClass]}` : `${styles.information} ${styles[`information-additional-styles`]}`}
+          style={{
+            backgroundColor: experience.color.background,
+            width: index === hoveredIndex && screenWidth <= mobileWidth ? "90vw" : "unset",
+          }}
+          onMouseEnter={() => setHoveredIndex(index)} // Set state to index on hover
+          onMouseLeave={() => setHoveredIndex(null)} // Set state to null when hover ends
+        >
+          <div className={styles.header}>
+            <div className={styles.logo}>
+              {index == hoveredIndex && (
+                <div className={styles.opened}>
+                  <Image
+                    src={"/images/" + experience.logo.opened.name}
+                    alt={`${experience.name} Logo`}
+                    width={experience.logo.opened.width}
+                    height={experience.logo.opened.height}
+                  />
+                </div>
+              )}
+              {index != hoveredIndex && (
+                <div className={styles.closed}>
+                  <Image
+                    src={"/images/" + experience.logo.closed.name}
+                    alt={`${experience.name} Logo`}
+                    width={experience.logo.closed.width}
+                    height={experience.logo.closed.height}
+                  />
+                </div>
+              )}
+            </div>
             {index == hoveredIndex && (
-              <div className={styles.opened}>
-                <Image
-                  src={"/images/" + experience.logo.opened.name}
-                  alt={`${experience.name} Logo`}
-                  width={experience.logo.opened.width}
-                  height={experience.logo.opened.height}
-                />
-              </div>
-            )}
-            {index != hoveredIndex && (
-              <div className={styles.closed}>
-                <Image
-                  src={"/images/" + experience.logo.closed.name}
-                  alt={`${experience.name} Logo`}
-                  width={experience.logo.closed.width}
-                  height={experience.logo.closed.height}
-                />
+              <div className={styles["name-location-and-date"]}>
+                <div
+                  className={styles.name}
+                  style={{ color: experience.color.name }}
+                >
+                  {experience.name}
+                </div>
+                <div className={styles["location-and-date"]}>
+                  <div
+                    className={styles.location}
+                    style={{ color: experience.color.location }}
+                  >
+                    {experience.location}
+                  </div>
+                  <div
+                    className={styles.date}
+                    style={{ color: experience.color.date }}
+                  >
+                    {experience.period.title}
+                  </div>
+                </div>
               </div>
             )}
           </div>
           {index == hoveredIndex && (
-            <div className={styles["name-location-and-date"]}>
-              <div
-                className={styles.name}
-                style={{ color: experience.color.name }}
-              >
-                {experience.name}
+            <div
+              className={styles.details}
+              style={{ backgroundColor: experience.color.details }}
+            >
+              <div className={styles.subheader}>
+                <div className={styles["title-and-subtitle"]}>
+                  <span
+                    className={styles.title}
+                    style={{ color: experience.color.title }}
+                  >
+                    {experience.title}
+                  </span>
+                  {experience.subtitle && (
+                    <span
+                      className={styles.subtitle}
+                      style={{ color: experience.color.subtitle }}
+                    >
+                      {" " + experience.subtitle}
+                    </span>
+                  )}
+                </div>
+                <div
+                  className={styles.type}
+                  style={{ color: experience.color.type }}
+                >
+                  {experience.type}
+                </div>
               </div>
-              <div className={styles["location-and-date"]}>
-                <div
-                  className={styles.location}
-                  style={{ color: experience.color.location }}
-                >
-                  {experience.location}
-                </div>
-                <div
-                  className={styles.date}
-                  style={{ color: experience.color.date }}
-                >
-                  {experience.period.title}
-                </div>
+              <div
+                className={styles.description}
+                style={{
+                  backgroundColor: experience.color.description.background,
+                  color: experience.color.description.text,
+                }}
+              >
+                {experience.description}
               </div>
             </div>
           )}
         </div>
-        {index == hoveredIndex && (
-          <div
-            className={styles.details}
-            style={{ backgroundColor: experience.color.details }}
-          >
-            <div className={styles.subheader}>
-              <div className={styles["title-and-subtitle"]}>
-                <span
-                  className={styles.title}
-                  style={{ color: experience.color.title }}
-                >
-                  {experience.title}
-                </span>
-                {experience.subtitle && (
-                  <span
-                    className={styles.subtitle}
-                    style={{ color: experience.color.subtitle }}
-                  >
-                    {" " + experience.subtitle}
-                  </span>
-                )}
-              </div>
-              <div
-                className={styles.type}
-                style={{ color: experience.color.type }}
-              >
-                {experience.type}
-              </div>
-            </div>
-            <div
-              className={styles.description}
-              style={{
-                backgroundColor: experience.color.description.background,
-                color: experience.color.description.text,
-              }}
-            >
-              {experience.description}
-            </div>
-          </div>
-        )}
       </div>
-      <div className={styles.line} style={{
-          backgroundColor: experience.color.line,
-          height: direction === "vertical" ? "100%" : "7px"
-        }}
+      <div className={`${styles.line} ${isVisible ? styles.lineAnimated : ""}`} style={{
+        backgroundColor: experience.color.line,
+        height: direction === "vertical" ? "100%" : "7px",
+        transitionDelay: isVisible ? `${(totalExperienceCount - index) * 200 + 800}ms` : "0ms",
+        transform: isVisible ? 'scale(1)' : 'scale(0)',
+        transformOrigin: direction === "vertical" ? "center bottom" : "right center"
+      }}
       >
 
-        </div>
+      </div>
       {experience.level == 2 && (
-        <div className={styles.line} style={{
-          backgroundColor: experience.color.line, 
-          transform: direction === "vertical" ? 'rotate(110deg)' : 'rotate(30deg)', 
-          width: 82, 
-          marginLeft: direction === "vertical" ? "-50px" : duration - 82, 
-          marginTop: direction === "vertical" ? "33px" : 13
+        <div className={`${styles.line} ${isVisible ? styles.lineAnimated : ""}`} style={{
+          backgroundColor: experience.color.line,
+          transform: `${direction === "vertical" ? 'rotate(110deg)' : 'rotate(30deg)'} ${isVisible ? 'scale(1)' : 'scale(0)'}`,
+          width: 82,
+          marginLeft: direction === "vertical" ? "-50px" : duration - 82,
+          marginTop: direction === "vertical" ? "33px" : -8,
+          transitionDelay: isVisible ? `${(totalExperienceCount - index) * 200 + 800}ms` : "0ms",
+          transformOrigin: direction === "vertical" ? "center bottom" : "left center"
         }}>
         </div>
       )}

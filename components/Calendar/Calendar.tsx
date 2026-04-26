@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./Calendar.module.css";
 import moreStyles from "@/components/ScheduleMeeting/ScheduleMeeting.module.css";
 import { useReCaptcha } from "next-recaptcha-v3";
@@ -13,6 +14,7 @@ interface Bookings {
 }
 
 const Calendar: React.FC<unknown> = () => {
+  const router = useRouter();
   const today = new Date();
   const [meetings, setMeetings] = useState<Bookings[]>([]);
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -28,8 +30,9 @@ const Calendar: React.FC<unknown> = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { executeRecaptcha } = useReCaptcha();
   // const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
-  const [disablePreviousMonth, setDisablePreviousMonth] = useState(true);
-
+  const disablePreviousMonth =
+    currentDate.getFullYear() === today.getFullYear() &&
+    currentDate.getMonth() === today.getMonth();
   const [firstNamePlaceHolder, setFirstNamePlaceHolder] =
     useState("First Name...");
   const [lastNamePlaceHolder, setLastNamePlaceHolder] =
@@ -63,7 +66,7 @@ const Calendar: React.FC<unknown> = () => {
   const bookMeeting = async () => {
     if (page === "times") {
       if (selectedTime)
-      setPage("contact");
+        setPage("contact");
       else alert("Please choose a time");
     } else {
       setIsLoading(true);
@@ -128,8 +131,8 @@ const Calendar: React.FC<unknown> = () => {
             body: JSON.stringify(meetingData),
           });
 
-          const data = await response.json();
-          if (data.success) {
+          const bookingData = await response.json();
+          if (bookingData.success) {
             console.log("Meeting saved successfully");
 
             const emailToken = await executeRecaptcha("contact_form"); // Generate a fresh token for email
@@ -156,7 +159,7 @@ const Calendar: React.FC<unknown> = () => {
               .then((data) => {
                 if (data.success) {
                   console.log("Email sent successfully");
-
+                  router.push(`/email?ID=${bookingData.ID}`);
                   setIsLoading(false);
                 } else {
                   console.log("Failed to send email");
@@ -222,12 +225,6 @@ const Calendar: React.FC<unknown> = () => {
     );
 
     const today = new Date();
-    const isCurrentMonth =
-      newDate.getFullYear() === today.getFullYear() &&
-      newDate.getMonth() === today.getMonth();
-
-    // Disable the previous month button if the new date is the current month
-    setDisablePreviousMonth(isCurrentMonth);
 
     // Allow navigation to any month except those before the current month
     if (
@@ -323,9 +320,8 @@ const Calendar: React.FC<unknown> = () => {
       days.push(
         <div
           key={i}
-          className={`${styles["day"]} ${
-            isToday ? styles["current-day"] : ""
-          } ${isPast ? styles["past"] : ""}`}
+          className={`${styles["day"]} ${isToday ? styles["current-day"] : ""
+            } ${isPast ? styles["past"] : ""}`}
           onClick={() => handleDayClick(i)}
         >
           {i}
@@ -378,35 +374,18 @@ const Calendar: React.FC<unknown> = () => {
     <div className={styles["calendar"]}>
       <div className={styles["calendar-legend"]}>
         <div
-          className={`${styles["previous-month"]} ${
-            disablePreviousMonth ? styles["toggle-month-disabled"] : ""
-          }`}
+          className={`${styles["previous-month"]} ${disablePreviousMonth ? styles["toggle-month-disabled"] : ""
+            }`}
           onClick={handlePreviousMonth}
         >
-          <svg
-            height="15"
-            viewBox="0 0 17 4"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M0.858579 1.85858C0.780474 1.93668 0.780474 2.06332 0.858579 2.14142L2.13137 3.41421C2.20948 3.49232 2.33611 3.49232 2.41421 3.41421C2.49232 3.33611 2.49232 3.20947 2.41421 3.13137L1.28284 2L2.41421 0.868628C2.49232 0.790523 2.49232 0.66389 2.41421 0.585785C2.33611 0.50768 2.20948 0.50768 2.13137 0.585785L0.858579 1.85858ZM17 1.8L1 1.8L1 2.2L17 2.2L17 1.8Z"
-              fill="#79D2FF"
-            />
+          <svg height="14" viewBox="0 0 4 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3.39062 0.191895L0.390625 2.69189L3.39062 5.19189" stroke="#4C4C4C" strokeWidth="0.7" />
           </svg>
         </div>
         <div className={styles["current-month"]}>{monthAndYear}</div>
         <div className={styles["next-month"]} onClick={handleNextMonth}>
-          <svg
-            height="15"
-            viewBox="0 0 17 4"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M16.1414 1.85858C16.2195 1.93668 16.2195 2.06332 16.1414 2.14142L14.8686 3.41421C14.7905 3.49232 14.6639 3.49232 14.5858 3.41421C14.5077 3.33611 14.5077 3.20947 14.5858 3.13137L15.7172 2L14.5858 0.868628C14.5077 0.790523 14.5077 0.66389 14.5858 0.585785C14.6639 0.50768 14.7905 0.50768 14.8686 0.585785L16.1414 1.85858ZM-1.74846e-08 1.8L16 1.8L16 2.2L1.74846e-08 2.2L-1.74846e-08 1.8Z"
-              fill="#79D2FF"
-            />
+          <svg height="14" viewBox="0 0 4 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.160156 0.191895L3.16016 2.69189L0.160156 5.19189" stroke="#4C4C4C" strokeWidth="0.7" />
           </svg>
         </div>
       </div>
@@ -424,7 +403,7 @@ const Calendar: React.FC<unknown> = () => {
       </div>
       <Popup
         title="Schedule a Meeting"
-        style={{ width: 600 }}
+        style={{ width: 600, padding: 80 }}
         body={
           <>
             {page == "times" && (
@@ -503,9 +482,9 @@ const Calendar: React.FC<unknown> = () => {
         }
         actions={
           <>
-            <Button text="Book" onClick={bookMeeting} />
-            {page == "contact" && <Button text="Back" onClick={backToTimes} />}
-            {page == "times" && <Button text="Close" onClick={onClose} />}
+            <Button text={page == "times" ? "Next" : "Book"} onClick={bookMeeting} className={styles.buttonPrimary} />
+            {page == "contact" && <Button text="Back" onClick={backToTimes} className={styles.buttonSecondary} />}
+            {page == "times" && <Button text="Close" onClick={onClose} className={styles.buttonSecondary} />}
           </>
         }
         showing={showing}

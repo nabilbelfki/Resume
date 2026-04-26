@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import NavigationLink from "@/components/NavigationBar/NavigationLink/NavigationLink";
 import styles from "./NavigationBar.module.css";
@@ -19,6 +20,40 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ type = 'classic' }) => {
 
   const [dropdown, setDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMaintenance, setIsMaintenance] = useState(false);
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const res = await fetch('/api/settings');
+        if (res.ok) {
+          const data = await res.json();
+          setIsMaintenance(!!data?.data?.siteMaintenance);
+        }
+      } catch (e) {
+        console.error("Navigation failed identifying global maintenance locks.", e);
+      }
+    };
+    fetchSettings();
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Monitor crossing out of the 100vh Hero viewport naturally
+      if (window.scrollY > window.innerHeight - 90) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initialize
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const pathname = usePathname();
+  const isHero = !isScrolled && type === 'classic' && pathname === '/' && !isMaintenance;
 
   // Handle clicks outside the dropdown
   useEffect(() => {
@@ -50,7 +85,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ type = 'classic' }) => {
   if (type === "admin" && !user) return null;
 
   return (
-    <nav className={type === 'classic' ? styles.nav : styles['nav-admin']}>
+    <nav className={`${type === 'classic' ? styles.nav : styles['nav-admin']} ${isHero ? styles.heroNav : styles.boxShadow}`}>
       {type === 'admin' && user ? (<>
         <Link href="/">
           <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 0 16 16" fill="none">
@@ -72,7 +107,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ type = 'classic' }) => {
               {user.image ? (
                 <Image src={user.image} alt='A profile picture of the user' height={50} width={50} />
               ) : (
-                <span>{`${user.firstName.charAt(0)} ${user.lastName.charAt(0)}`}</span>
+                <span>{`${user.firstName.charAt(0)}${user.lastName.charAt(0)}`}</span>
               )}
             </div>
             {dropdown && (
@@ -86,13 +121,40 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ type = 'classic' }) => {
         </div>
       </>
       ) :
-        (<ul>
-          <NavigationLink href="/#biography" label="Biography" />
-          <NavigationLink href="/#experiences" label="Experience" />
-          <NavigationLink href="/#skills" label="Skills" />
-          <NavigationLink href="/#projects" label="Projects" />
-          <NavigationLink href="/#contact" label="Contact" />
-        </ul>)}
+        (<>
+          {isHero ? (
+            <Link href="/" className={styles.heroLogo}>
+              <svg height="35" viewBox="0 0 40 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.88386e-05 10.0801V7.77245e-05H2.78605L7.26605 8.90408L6.58005 9.07208V7.77245e-05H8.68005V10.0801H5.89405L1.41405 1.17608L2.10005 1.00808V10.0801H4.88386e-05ZM9.71222 10.0801L13.3242 7.77245e-05H15.1722L11.8542 10.0801H9.71222ZM17.1042 10.0801L13.8002 7.77245e-05H15.7322L19.3442 10.0801H17.1042ZM11.6162 6.17408H17.2722V7.85408H11.6162V6.17408ZM21.9711 10.0801V8.54008H24.5751C25.0417 8.54008 25.3917 8.41408 25.6251 8.16208C25.8677 7.90074 25.9891 7.54141 25.9891 7.08408C25.9891 6.61741 25.8584 6.24874 25.5971 5.97808C25.3451 5.70741 24.9811 5.57208 24.5051 5.57208H21.9711V4.03208H24.3931C24.8317 4.03208 25.1631 3.92941 25.3871 3.72408C25.6204 3.50941 25.7371 3.19674 25.7371 2.78608C25.7371 2.37541 25.6251 2.06741 25.4011 1.86208C25.1864 1.64741 24.8644 1.54008 24.4351 1.54008H21.9711V7.77245e-05H24.8971C25.7931 7.77245e-05 26.5164 0.228745 27.0671 0.686078C27.6177 1.14341 27.8931 1.76408 27.8931 2.54808C27.8931 3.04274 27.7764 3.46741 27.5431 3.82208C27.3097 4.17674 26.9971 4.44741 26.6051 4.63408C26.2131 4.82074 25.7744 4.91408 25.2891 4.91408L25.3591 4.62008C25.8817 4.62008 26.3531 4.73208 26.7731 4.95608C27.2024 5.18008 27.5431 5.49741 27.7951 5.90808C28.0471 6.30941 28.1731 6.78541 28.1731 7.33608C28.1731 7.88674 28.0424 8.37208 27.7811 8.79208C27.5291 9.20274 27.1697 9.52008 26.7031 9.74408C26.2457 9.96808 25.7044 10.0801 25.0791 10.0801H21.9711ZM20.2071 10.0801V7.77245e-05H22.3631V10.0801H20.2071ZM29.2989 10.0801V7.77245e-05H31.4549V10.0801H29.2989ZM32.8536 10.0801V7.77245e-05H35.0096V10.0801H32.8536ZM33.8616 10.0801V8.42808H39.8536V10.0801H33.8616Z" fill="url(#paint0_linear_1557_4563)" />
+                <defs>
+                  <linearGradient id="paint0_linear_1557_4563" x1="-1.14429" y1="-0.919922" x2="40.8557" y2="11.0801" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="white" />
+                    <stop offset="1" stopColor="#D8D8D8" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </Link>
+          ) : (
+            <Link href="/">
+              <svg height="35" viewBox="0 0 40 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M-0.000195302 10.0801V7.77245e-05H2.7858L7.2658 8.90408L6.57981 9.07208V7.77245e-05H8.6798V10.0801H5.8938L1.4138 1.17608L2.0998 1.00808V10.0801H-0.000195302ZM9.71198 10.0801L13.324 7.77245e-05H15.172L11.854 10.0801H9.71198ZM17.104 10.0801L13.8 7.77245e-05H15.732L19.344 10.0801H17.104ZM11.616 6.17408H17.272V7.85408H11.616V6.17408ZM21.9708 10.0801V8.54008H24.5748C25.0415 8.54008 25.3915 8.41408 25.6248 8.16208C25.8675 7.90074 25.9888 7.54141 25.9888 7.08408C25.9888 6.61741 25.8582 6.24874 25.5968 5.97808C25.3448 5.70741 24.9808 5.57208 24.5048 5.57208H21.9708V4.03208H24.3928C24.8315 4.03208 25.1628 3.92941 25.3868 3.72408C25.6202 3.50941 25.7368 3.19674 25.7368 2.78608C25.7368 2.37541 25.6248 2.06741 25.4008 1.86208C25.1862 1.64741 24.8642 1.54008 24.4348 1.54008H21.9708V7.77245e-05H24.8968C25.7928 7.77245e-05 26.5162 0.228745 27.0668 0.686078C27.6175 1.14341 27.8928 1.76408 27.8928 2.54808C27.8928 3.04274 27.7762 3.46741 27.5428 3.82208C27.3095 4.17674 26.9968 4.44741 26.6048 4.63408C26.2128 4.82074 25.7742 4.91408 25.2888 4.91408L25.3588 4.62008C25.8815 4.62008 26.3528 4.73208 26.7728 4.95608C27.2022 5.18008 27.5428 5.49741 27.7948 5.90808C28.0468 6.30941 28.1728 6.78541 28.1728 7.33608C28.1728 7.88674 28.0422 8.37208 27.7808 8.79208C27.5288 9.20274 27.1695 9.52008 26.7028 9.74408C26.2455 9.96808 25.7042 10.0801 25.0788 10.0801H21.9708ZM20.2068 10.0801V7.77245e-05H22.3628V10.0801H20.2068ZM29.2986 10.0801V7.77245e-05H31.4546V10.0801H29.2986ZM32.8533 10.0801V7.77245e-05H35.0093V10.0801H32.8533ZM33.8613 10.0801V8.42808H39.8533V10.0801H33.8613Z" fill="url(#paint0_linear_1558_4622)" />
+                <defs>
+                  <linearGradient id="paint0_linear_1558_4622" x1="-1.14453" y1="-1.28199" x2="41.3912" y2="10.6412" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="#636363" />
+                    <stop offset="1" stopColor="#1F1F1F" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </Link>
+          )}
+          <ul className={isHero ? styles.heroList : ""}>
+            <NavigationLink href="/" label="Portfolio" isHero={isHero} />
+            <NavigationLink href="/resume" label="Resume" isHero={isHero} />
+            <NavigationLink href="/blog" label="Blog" isHero={isHero} />
+            <NavigationLink href="/contact" label="Contact" isHero={isHero} />
+          </ul>
+        </>
+        )}
     </nav>
   );
 };

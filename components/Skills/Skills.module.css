@@ -2,23 +2,60 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  padding: 30px;
   border-radius: 20px;
-  height: 500px;
-  width: 750px;
+  height: 800px;
+  width: 1000px;
+  max-width: 100%;
   color: #000;
   z-index: 10;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.05);
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 100px 40px;
+  background: linear-gradient(-45deg, #e0f2f1, #fde4cf, #e6ccec, #f1f8e9, #e1f5fe);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.paused {
+  animation-play-state: paused;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .mobile, .frontend, .backend, .database, .cloud, .miscellaneous {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: min-content;
-  grid-gap: 10px;
+  grid-gap: 20px;
   overflow-y: auto;
   overflow-x: hidden;
   max-height: 100%;
-  width: 650px;
+  width: 850px;
+  max-width: calc(100% - 70px);
+  padding-right: 10px;
 }
 
 .skills-types {
@@ -27,25 +64,33 @@
   align-items: center;
   flex-direction: column;
   gap: 40px;
-  width: 50px;
+  width: 60px;
   height: 100%;
+  padding-left: 10px;
 }
 
 .skill {
   width: 100%;
   height: 100%;
-  min-height: 150px;
-  max-height: 150px;
-  border-radius: 10px;
-  box-shadow: 0 0 4px #ffffff40;
-  transition: all .3s;
+  min-height: 220px;
+  max-height: 220px;
+  border-radius: 12px;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+  transition: all .3s ease-out, opacity 0.5s ease-out, transform 0.5s ease-out;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   cursor: pointer;
   padding: 5%;
-  gap: 10px;
+  gap: 12px;
+  opacity: 0;
+  transform: translateY(30px) scale(0.9);
+}
+
+.skill.revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 .skill.clicked {

@@ -5,7 +5,7 @@ import { comment, Element as Block, ListItem, Checkbox } from "@/lib/types";
 import styles from "./Post.module.css";
 import Element from "@/components/Element/Element";
 import Comments from "@/components/Comments/Comments";
-import { useParams } from "next/navigation";
+import { useParams, notFound } from "next/navigation";
 import { formatDate } from '@/lib/utilities';
 
 interface Post {
@@ -53,7 +53,8 @@ const Post: React.FC = () => {
                 });
         
                 if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                    if (response.status === 404) notFound();
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
         
                 const post = await response.json();
@@ -70,7 +71,8 @@ const Post: React.FC = () => {
     }, [API_BASE_URL, id]);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.background}>
+      <div className={styles.container}>
         <Image src="/images/banner.jpg" alt="Post Banner Image" height={300} width={1200} />
         <div className={styles.post}>
             <h1 className={styles.title}>{post.title}</h1>
@@ -85,6 +87,7 @@ const Post: React.FC = () => {
             )}
         </div>
         <Comments post={id} comments={comments}/>
+      </div>
     </div>
   );
 };

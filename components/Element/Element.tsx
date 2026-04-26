@@ -16,10 +16,10 @@ const Element: React.FC<ElementProps> = ({ tag, text, items = [], checkboxes = [
   return (
     <>
         {tag === "p" && (
-            <p>{text}</p>
+            <p dangerouslySetInnerHTML={{ __html: text || "" }} />
         )}
         {tag === "h2" && (
-            <h2>{text}</h2>
+            <h2 dangerouslySetInnerHTML={{ __html: text || "" }} />
         )}
         {tag === "ul" && (
             <ul>

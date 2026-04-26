@@ -18,7 +18,7 @@ import styles from "./Application.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Project as ProjectType } from "../../../lib/types";
-import { useRouter } from 'next/navigation';
+import { useRouter, notFound } from 'next/navigation';
 
 interface ApplicationProps {
   params: Promise<{ id: string }>;
@@ -46,7 +46,7 @@ const Application: React.FC<ApplicationProps> = ({ params }) => {
 
           // Check if project status is not Active
           if (res.data.status !== 'Active') {
-            router.push('/404'); // Redirect to home
+            notFound();
             return; // Exit early to prevent setting state
           }
 
@@ -61,7 +61,11 @@ const Application: React.FC<ApplicationProps> = ({ params }) => {
   }, [id, router]);
 
   if (!project) {
-    return <div>Loading...</div>;
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: 'var(--background)' }}>
+        <h2 style={{ color: '#888', fontWeight: 300, fontSize: '24px' }}>Loading...</h2>
+      </div>
+    );
   }
 
   const startDate = new Date(project.startDate);
@@ -70,14 +74,13 @@ const Application: React.FC<ApplicationProps> = ({ params }) => {
   console.log("Project", project);
 
   return (
-    <>
-      {/* <Project name={project.name} videoPath={`/videos/${project.slug}.gif`} /> */}
-      <Video
-        name={project.name}
-        videoPath={`/videos/${project.slug}.mp4`}
-        thumbnail={project.thumbnail}
-      />
-      <div className={styles.background}>
+    <div className={styles.background}>
+      <div className={styles.container}>
+        <Video
+          name={project.name}
+          videoPath={`/videos/${project.slug}.mp4`}
+          thumbnail={project.thumbnail}
+        />
         <div className={styles["project-information"]}>
           <div className={styles["views-and-duration"]}>
             <Views views={project.views} />
@@ -120,7 +123,7 @@ const Application: React.FC<ApplicationProps> = ({ params }) => {
                 <Button
                   text="CONTACT ME"
                   onClick={() => console.log("Contact me")}
-                  style={{ fontWeight: 600, width: 130 }}
+                  style={{ fontWeight: 600, width: 130, backgroundColor: "#2571FF" }}
                 />
               </Link>
             </div>
@@ -128,7 +131,7 @@ const Application: React.FC<ApplicationProps> = ({ params }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

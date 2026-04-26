@@ -46,7 +46,7 @@ async function handlePutRequest(req, res) {
       return res.status(401).json({ error: "Not Configured / Unauthorized" });
     }
 
-    const { appearance, userRegistration, siteMaintenance, websiteMessaging, scheduleMeetings } = req.body;
+    const { appearance, userRegistration, siteMaintenance, websiteMessaging, scheduleMeetings, resumeUrl } = req.body;
 
     let setting = await Setting.findOne();
     if (!setting) {
@@ -58,6 +58,7 @@ async function handlePutRequest(req, res) {
     if (siteMaintenance !== undefined) setting.siteMaintenance = siteMaintenance;
     if (websiteMessaging !== undefined) setting.websiteMessaging = websiteMessaging;
     if (scheduleMeetings !== undefined) setting.scheduleMeetings = scheduleMeetings;
+    if (resumeUrl !== undefined) setting.resumeUrl = resumeUrl;
 
     await setting.save();
 

@@ -20,6 +20,10 @@ const SettingSchema = new mongoose.Schema({
     scheduleMeetings: {
         type: Boolean,
         default: true
+    },
+    resumeUrl: {
+        type: String,
+        default: ""
     }
 }, { timestamps: true });
 

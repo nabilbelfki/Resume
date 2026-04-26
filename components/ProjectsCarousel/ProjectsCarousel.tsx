@@ -24,16 +24,25 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({ projects }) => {
 
     const totalChunks = chunkedProjects.length;
 
-    // Automatic slideshow tick mapping
-    useEffect(() => {
-        if (totalChunks <= 1) return;
+    // Automatic slideshow disabled per user request
+    const isDragging = useRef(false);
 
-        const interval = setInterval(() => {
-            setCurrentIndex((prev) => (prev + 1) % totalChunks);
-        }, 6000); // 6 seconds slide
+    const handleMouseDown = (e: React.MouseEvent) => {
+        isDragging.current = true;
+        touchStartX.current = e.clientX;
+    };
 
-        return () => clearInterval(interval);
-    }, [totalChunks]);
+    const handleMouseMove = (e: React.MouseEvent) => {
+        if (!isDragging.current) return;
+        touchEndX.current = e.clientX;
+    };
+
+    const handleMouseUp = () => {
+        if (isDragging.current) {
+            handleSwipeAction();
+        }
+        isDragging.current = false;
+    };
 
     const handleTouchStart = (e: React.TouchEvent) => {
         touchStartX.current = e.touches[0].clientX;
@@ -44,9 +53,13 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({ projects }) => {
     };
 
     const handleTouchEnd = () => {
+        handleSwipeAction();
+    };
+
+    const handleSwipeAction = () => {
         if (touchStartX.current !== null && touchEndX.current !== null) {
             const distance = touchStartX.current - touchEndX.current;
-            const threshold = 50; 
+            const threshold = 50;
 
             if (distance > threshold) {
                 // Swiped Left - go Next
@@ -65,28 +78,44 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({ projects }) => {
 
     return (
         <div className={styles.carouselContainer}>
-            <div 
+            <div
                 className={styles.carouselTrack}
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseUp}
                 style={{
                     transform: `translateX(-${currentIndex * 100}%)`,
-                    transition: 'transform 0.5s ease-in-out'
+                    transition: 'transform 0.5s ease-in-out',
+                    cursor: isDragging.current ? 'grabbing' : 'grab'
                 }}
             >
                 {chunkedProjects.map((chunk, chunkIndex) => (
                     <div className={styles.carouselSlide} key={`chunk-${chunkIndex}`}>
                         <div className="projects">
-                            {chunk.map((project) => (
-                                <Link key={project._id} href={`/application/${project._id}`}>
-                                    <Video
-                                        name={project.name}
-                                        videoPath={`/videos/${project.slug}.mp4`}
-                                        thumbnail={project.thumbnail}
-                                    />
-                                </Link>
-                            ))}
+                            {chunk.map((project, index) => {
+                                const isLeft = index % 2 === 0;
+                                const animationClass = chunkIndex === 0 
+                                    ? (isLeft ? styles.animateLeft : styles.animateRight)
+                                    : "";
+                                
+                                return (
+                                    <Link 
+                                        key={project._id} 
+                                        href={`/application/${project._id}`}
+                                        className={`${styles.projectItem} ${animationClass}`}
+                                    >
+                                        <Video
+                                            name={project.name}
+                                            videoPath={`/videos/${project.slug}.mp4`}
+                                            thumbnail={project.thumbnail}
+                                        />
+                                    </Link>
+                                );
+                            })}
                         </div>
                     </div>
                 ))}
@@ -95,7 +124,7 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({ projects }) => {
             {totalChunks > 1 && (
                 <div className="project-pages">
                     {chunkedProjects.map((_, dotIndex) => (
-                        <div 
+                        <div
                             key={`dot-${dotIndex}`}
                             className={`project-page ${currentIndex === dotIndex ? 'selected-page' : ''}`}
                             onClick={() => setCurrentIndex(dotIndex)}

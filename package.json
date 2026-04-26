@@ -25,6 +25,7 @@
     "@editorjs/simple-image": "^1.6.0",
     "@editorjs/table": "^2.4.5",
     "@editorjs/warning": "^1.4.1",
+    "@next/third-parties": "^16.2.4",
     "@react-google-maps/api": "^2.20.8",
     "@types/react-syntax-highlighter": "^15.5.13",
     "axios": "^1.13.6",

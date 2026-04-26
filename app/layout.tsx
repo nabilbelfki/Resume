@@ -3,12 +3,14 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import React, { useState, useEffect } from "react";
 import Script from "next/script";
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { usePathname } from "next/navigation";
 import { ReCaptchaProvider } from "next-recaptcha-v3";
 import SideBar from '@/components/SideBar/SideBar'
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
 import Footer from "@/components/Footer/Footer";
 import LoadScriptWrapper from "../components/LoadScriptWrapper/LoadScriptWrapper";
+import MaintenanceView from "@/components/MaintenanceView/MaintenanceView";
 import styles from "./Layout.module.css";
 import { UserProvider } from '@/contexts/UserContext';
 import "./globals.css";
@@ -25,6 +27,7 @@ export default function RootLayout({
   const isSharePage = pathname === "/share";
   const [showFooter, setShowFooter] = useState(true);
   const [appearance, setAppearance] = useState('dark-mode'); // default fallback
+  const [isMaintenance, setIsMaintenance] = useState(false);
 
   useEffect(() => {
     const fetchAppearance = async () => {
@@ -35,18 +38,25 @@ export default function RootLayout({
           if (data?.data?.appearance) {
             setAppearance(data.data.appearance);
           }
+          if (data?.data?.siteMaintenance !== undefined) {
+            setIsMaintenance(data.data.siteMaintenance);
+          }
         }
       } catch (err) {
         console.error("Failed to fetch settings layout", err);
       }
     };
+
     fetchAppearance();
+
+    window.addEventListener('settings-updated', fetchAppearance);
+    return () => window.removeEventListener('settings-updated', fetchAppearance);
   }, []);
 
   const isSystemDark = typeof window !== 'undefined' ? window.matchMedia('(prefers-color-scheme: dark)').matches : true;
-  const darkMode = appearance === 'dark-mode' ? true : (appearance === 'light-mode' ? false : isSystemDark);
-
-  const background = isAdminPage ? (darkMode ? '2D2D2D' : '#FFFFFF') : 'linear-gradient(#011a49 0%, #113c8d 44% 60%, #011a49 85%)';
+  const darkModeEnabled = appearance === 'dark-mode' ? true : (appearance === 'light-mode' ? false : isSystemDark);
+  const background = (isAdminPage || isLoginPage) ? (darkModeEnabled ? '#2D2D2D' : '#FFFFFF') : '#FFFFFF';
+  const darkMode = darkModeEnabled;
 
   useEffect(() => {
     const handleResize = () => {
@@ -62,6 +72,8 @@ export default function RootLayout({
       window.removeEventListener("resize", handleResize);
     };
   }, [isSharePage]);
+
+  const effectiveDarkMode = (isAdminPage || isLoginPage) && darkMode;
 
   return (
     <html lang="en">
@@ -89,20 +101,11 @@ export default function RootLayout({
           sizes="16x16"
         />
         <link rel="icon" href="/images/favicon.png" type="image/png" />
-        <Script
-          strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=G-6FW0ZXSQCR`}
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-6FW0ZXSQCR');
-          `}
-        </Script>
       </head>
-      <body style={{ background }} className={darkMode ? 'dark-mode' : ''}>
+      <body style={{ background }} className={effectiveDarkMode ? 'dark-mode' : ''}>
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        )}
         <UserProvider>
           <ReCaptchaProvider
             reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY_V3}
@@ -112,7 +115,13 @@ export default function RootLayout({
                 <div className={isAdminPage ? styles[`admin-container`] : (isLoginPage ? styles['login-container'] : styles[`site-container`])}>
                   {!isLoginPage && (<NavigationBar type={isAdminPage ? 'admin' : 'classic'} />)}
                   {isAdminPage && (<SideBar />)}
-                  {children}
+
+                  {isMaintenance && !isAdminPage && !isLoginPage ? (
+                    <MaintenanceView />
+                  ) : (
+                    children
+                  )}
+
                   {(showFooter && !isLoginPage && !isAdminPage) && (<Footer />)}
                 </div>
               </DndProvider>

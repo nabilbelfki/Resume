@@ -35,6 +35,8 @@ interface SkillProps {
   description: Description;
   onClick: () => void;
   showDescription: boolean;
+  isVisible: boolean;
+  index: number;
 }
 
 const Skill: React.FC<SkillProps> = ({
@@ -46,17 +48,20 @@ const Skill: React.FC<SkillProps> = ({
   description,
   onClick,
   showDescription,
+  isVisible,
+  index,
 }) => {
   const mobileWidth = 640;
   const screenWidth = window.innerWidth;
 
-  const skillWidth = showDescription ? 420 : 200
-  const skillHeight = showDescription ? 310 : 150
+  const skillWidth = showDescription ? 560 : 270
+  const skillHeight = showDescription ? 486.66 : 233.33
 
   const skillStyle = {
     backgroundColor: image.backgroundColor,
     width: screenWidth > mobileWidth ? skillWidth : "100%",
-    height: screenWidth > mobileWidth ? skillHeight : skillHeight * 0.7
+    height: screenWidth > mobileWidth ? skillHeight : skillHeight * 0.7,
+    transitionDelay: isVisible ? `${index * 50}ms` : "0ms",
   };
 
   const logoStyle = {
@@ -105,11 +110,11 @@ const Skill: React.FC<SkillProps> = ({
           style={{
             height: showDescription ? "100%" : isMobile ? 50 : image.height,
             width: showDescription ? "auto" : isMobile ? 50 : image.width,
-            maxHeight: showDescription && image.width > 175 
-              ? 40 
-              : (name in mobileImageHeightOverflows 
-                  ? mobileImageHeightOverflows[name as keyof MobileImageHeightOverflows] 
-                  : "unset")
+            maxHeight: showDescription && image.width > 175
+              ? 40
+              : (name in mobileImageHeightOverflows
+                ? mobileImageHeightOverflows[name as keyof MobileImageHeightOverflows]
+                : "unset")
           }}
 
           alt="Logo"

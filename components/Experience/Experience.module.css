@@ -5,6 +5,19 @@
 
 .line {
   height: 7px;
+  transform: scale(0);
+  transform-origin: right center;
+  transition: transform 0.5s ease;
+}
+
+.lineAnimated {
+  opacity: 1;
+}
+
+@media (width <= 768px) {
+  .line {
+    transform-origin: center bottom;
+  }
 }
 
 @keyframes float {
@@ -47,6 +60,17 @@
   100% {
     transform: translateX(calc(100px - 50%))translateY(0);
   }
+}
+
+.revealContainer {
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.revealed {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .information {

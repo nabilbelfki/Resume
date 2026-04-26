@@ -1,54 +1,79 @@
 .biography {
-  background: radial-gradient(circle, #527cca 0%, #1f52b1 60%, #0d3785 85%, #062357 100%);
+  /* background: radial-gradient(circle, #527cca 0%, #1f52b1 60%, #0d3785 85%, #062357 100%); */
+  background: linear-gradient(to bottom, #1F1F1F, #4B4B4B);
   padding: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-size: cover;
   background-position: center;
-  height: 600px;
+  /* height: 600px; */
+  height: 100vh;
+  height: 100vh;
   position: relative;
+  overflow: hidden;
 }
 
-.languages {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.languages-image {
-  width: 107%;
-  height: 107%;
-}
-
-.paint-spackle {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-image: url("/images/languages.svg");
-  background-size: cover;
-  background-position: center;
-}
-
-.profile-description-and-socials {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.flipCard {
+  background-color: transparent;
+  width: 1100px;
+  height: 600px;
+  perspective: 1500px;
+  z-index: 5;
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 650px;
-  height: 330px;
   transform: translate(-50%, -50%);
-  /* padding: 20px; */
-  gap: 20px;
+}
+
+.flipCardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.flipCard:hover .flipCardInner {
+  transform: rotateY(180deg);
+}
+
+.profileDescriptionAndSocials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  padding: 50px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  box-sizing: border-box;
+}
+
+.flipCardFront {
+  z-index: 2;
+}
+
+.flipCardBack {
+  transform: rotateY(180deg);
+  z-index: 1;
+}
+
+.flipHint {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  font-style: italic;
+  pointer-events: none;
 }
 
 .profile {
@@ -57,79 +82,94 @@
   align-items: center;
   flex-direction: column;
   height: 100%;
-  border-radius: 5px;
-  box-shadow: 0 0 4px #00000040;
+  width: 380px;
+  border-radius: 8px;
+  gap: 20px;
+  /* box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4); */
+  background-color: transparent;
+  overflow: hidden;
 }
 
 .profile-image-area {
-  height: 100%;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  height: 75%;
+  width: 100%;
+  border-radius: 8px;
+  /* border-top-left-radius: 8px;
+  border-top-right-radius: 8px; */
+  overflow: hidden;
 }
 
 .profile-image {
-  background-color: #7090cd;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  background-color: rgba(174, 17, 17, 0.8);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .name-and-title {
-  height: 30%;
+  height: 25%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  /* background-color: rgba(255, 255, 255, 0.6); */
+  /* Light glass under the name */
+  /* backdrop-filter: blur(4px); */
 }
 
 .name {
-  font-size: 28px;
-  font-weight: 600;
+  font-size: 42px;
+  font-weight: 800;
+  color: #262323;
+}
+
+.title {
+  font-size: 24px;
+  color: #262323;
+  font-weight: 500;
 }
 
 .description-and-socials {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
   height: 100%;
-  width: 70%;
-  gap: 20px;
+  width: 60%;
+  gap: 15px;
 }
 
 .description {
-  box-shadow: inset 0 0 4px #00000040;
-  background-color: #d9d9d9;
-  border-radius: 5px;
-  font-size: 14px;
+  font-size: 24px;
   font-style: italic;
-  color: #2e2e2ecc;
-  height: 300px;
-  padding: 5px;
+  color: #E6E6E6;
+  font-weight: 400;
+  line-height: 1.4;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .socials {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 10px;
+  gap: 15px;
+  width: 100%;
 }
 
-@media (width <= 950px) {
+@media (width <=950px) {
   .paint-spackle-image {
     width: 90%;
   }
 
-  .profile-description-and-socials {
-    padding: 15px;
-    width: 58%;
-  }
-
-  .profile {
-    flex: 1;
+  .flipCard {
+    width: 90%;
+    height: 80%;
   }
 
   .description-and-socials {
     flex: 2;
+    width: 100%;
   }
 
   .profile-image-area {
@@ -148,7 +188,7 @@
   }
 }
 
-@media (width <= 640px) {
+@media (width <=640px) {
   .biography {
     padding: 0;
     width: 100%;
@@ -201,13 +241,41 @@
     height: unset;
   }
 
-  .profile-description-and-socials {
-    flex-direction: column;
+  .flipCard {
     position: static;
     transform: none;
     width: 100%;
-    padding: 0;
     height: 100%;
+    perspective: none;
+  }
+
+  .flipCardInner {
+    position: static;
+    transform: none !important;
+    transform-style: flat;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profileDescriptionAndSocials {
+    flex-direction: column;
+    position: static;
+    width: 100%;
+    padding: 0;
+    height: unset;
+    backface-visibility: visible;
+    background-color: transparent;
+    backdrop-filter: none;
+    border: none;
+    box-shadow: none;
+  }
+
+  .flipCardBack {
+    transform: none;
+  }
+
+  .flipHint {
+    display: none;
   }
 
   .description-and-socials {

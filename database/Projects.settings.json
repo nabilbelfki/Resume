@@ -1,0 +1,17 @@
+[{
+  "_id": {
+    "$oid": "69ec21519beb38c7b569791a"
+  },
+  "appearance": "light-mode",
+  "userRegistration": false,
+  "siteMaintenance": false,
+  "websiteMessaging": true,
+  "scheduleMeetings": true,
+  "createdAt": {
+    "$date": "2026-04-25T02:05:05.701Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-25T02:14:12.880Z"
+  },
+  "__v": 0
+}]

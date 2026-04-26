@@ -1,0 +1,48 @@
+.maintenanceWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 40px;
+    flex: 1;
+    min-height: calc(100vh - 60px);
+    background-color: var(--background);
+}
+
+.builderImage {
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    background-color: #7090CD;
+}
+
+.title {
+    font-size: 72px;
+    font-weight: 700;
+    color: #444;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+}
+
+.description {
+    font-size: 36px;
+    font-weight: 300;
+    font-style: italic;
+    color: #666;
+    max-width: 900px;
+    line-height: 1.4;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 42px;
+    }
+
+    .description {
+        font-size: 24px;
+        padding: 0 20px;
+    }
+}

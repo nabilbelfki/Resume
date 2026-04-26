@@ -86,6 +86,7 @@ const Settings: React.FC = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
+            window.dispatchEvent(new Event('settings-updated'));
         } catch (err) {
             console.error("Failed to persist setting", err);
         }
@@ -133,7 +134,7 @@ const Settings: React.FC = () => {
                 </div>
                 <div className={styles.setting}>
                     <label htmlFor="user-registration">User Registration</label>
-                    <p>This disables the registration page and ability to create new users. Enable this in the event where bots are constantly trying to create new users in your admin portal. In the event that this occurs, consider using ReCaptcha to mitigate this spam.</p>
+                    <p>This enables the registration page and ability to create new users. Enable this in the event where bots are constantly trying to create new users in your admin portal. In the event that this occurs, consider using ReCaptcha to mitigate this spam.</p>
                     <Toggle value={settings.userRegistration} identifier="userRegistration" toggle={setSetting} />
                 </div>
                 <div className={styles.setting}>
@@ -148,13 +149,13 @@ const Settings: React.FC = () => {
                 </div>
                 <div className={styles.setting}>
                     <label htmlFor="site-maintenance">Scheduling Meetings</label>
-                    <p>This disables the ability to schedule meetings. This could be used in the case on meeting spam, or to temporarily disable meetings due to vacation or some other reason.</p>
+                    <p>This enables the ability to schedule meetings. This could be used in the case on meeting spam, or to temporarily disable meetings due to vacation or some other reason.</p>
                     <Toggle value={settings.scheduleMeetings} identifier="scheduleMeetings" toggle={setSetting} />
                 </div>
                 <div className={styles.setting}>
                     <label htmlFor="site-maintenance">Cache</label>
                     <p>All endpoints are cached for quicker response times. In the event of not seeing new resources, it could be because the cached result is showing. Click below to clear the entire cache.</p>
-                    <button 
+                    <button
                         className={styles.cacheButton}
                         onClick={async () => {
                             try {

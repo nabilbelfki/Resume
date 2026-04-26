@@ -17,6 +17,30 @@
   height: 30px;
   width: 8px;
   background-color: #021c4d;
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: all 0.5s ease;
+}
+
+.animated .indicator {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.animated .text {
+  animation: popIn 0.5s forwards;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(90deg) scale(1);
+  }
 }
 
 .year .text {
@@ -33,6 +57,15 @@
   background-color: #021c4d;
   height: 10px;
   width: 2px;
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: all 0.5s ease;
+}
+
+.animated .indicator {
+  opacity: 1;
+  transform: scaleY(1);
 }
 
 .april .indicator, .july .indicator, .october .indicator {

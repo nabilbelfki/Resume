@@ -1,6 +1,12 @@
-.container {
-    min-height: 800px;
+.background {
     background-color: #FFFFFF;
+    min-height: calc(100vh - 60px);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 120px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -10,6 +16,8 @@
 
 .post {
     padding: 0 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .date-read-time-and-category {

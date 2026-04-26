@@ -1,0 +1,39 @@
+.codeBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  opacity: 1;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.codeChunkContainer {
+  flex: 1;
+  min-width: 0;
+  width: 16.66vw;
+  max-width: 16.66vw;
+  height: 100%;
+  margin: 0 -15px;
+  padding: 0 10px;
+  overflow: visible;
+}
+
+.codeChunk {
+  background: transparent !important;
+  line-height: 1.5;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.codeChunkContainer code,
+.codeChunkContainer pre,
+.codeChunkContainer span {
+  font-size: inherit !important;
+}

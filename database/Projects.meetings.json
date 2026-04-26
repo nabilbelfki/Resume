@@ -459,4 +459,34 @@
   "phone": "",
   "notes": "",
   "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69a3735f078196a60207c37f"
+  },
+  "dateTime": {
+    "$date": "2026-03-01T18:00:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "This is a test message to book a meeting.",
+  "canceled": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69b5dacb078196a6020822ef"
+  },
+  "dateTime": {
+    "$date": "2026-03-25T21:00:00.000Z"
+  },
+  "firstName": "Nabil",
+  "lastName": "Belfki",
+  "email": "nabilbelfki@gmail.com",
+  "phone": "9086663793",
+  "notes": "Hello Nabil,\nTesting your booking service.",
+  "canceled": false,
+  "__v": 0
 }]
