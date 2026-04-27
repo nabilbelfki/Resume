@@ -11,6 +11,8 @@ import styles from "./Email.module.css";
 
 const EmailContent: React.FC = () => {
   const searchParams = useSearchParams();
+  const screenWidth = window.innerWidth;
+  const isMobile = screenWidth <= 640;
 
   // Check if searchParams is null
   const ID = searchParams?.get("ID") || null;
@@ -117,7 +119,7 @@ const EmailContent: React.FC = () => {
         )}
         <div className={styles.content}>
           <div className={styles["add-calendar-and-cancel-meeting"]}>
-            <AddCalendar dateTime={new Date(meetingData.dateTime)} />
+            {!isMobile && (<AddCalendar dateTime={new Date(meetingData.dateTime)} />)}
             <CancelMeeting
               firstName={meetingData.firstName}
               lastName={meetingData.lastName}
