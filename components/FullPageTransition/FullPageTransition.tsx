@@ -32,6 +32,13 @@ const FullPageTransition: React.FC<{ children: React.ReactNode }> = ({ children 
 
     // Initial check for all target sections
     const targetSelectors = [
+      "#project-details",
+      "#project-description",
+      "#project-tools",
+      "#project-client",
+      "#project-client-image",
+      "#project-map",
+      "#project-contact",
       "#biography-hero",
       "#biography-text",
       "#biography", 

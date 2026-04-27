@@ -5,6 +5,7 @@
   border-radius: 10px;
   margin-left: 10px;
   margin-right: 10px;
+  margin-top: 10px;
   padding: 10px;
   font-weight: 300;
   font-size: 20px;
@@ -15,7 +16,7 @@
   padding-bottom: 30px;
 }
 
-@media (width <= 640px) {
+@media (width <=640px) {
   .description {
     background-color: #0000;
     height: unset;

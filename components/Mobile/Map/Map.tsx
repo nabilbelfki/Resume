@@ -5,8 +5,7 @@ import { Location } from "../../lib/types";
 
 const containerStyle = {
   width: "100%",
-  height: "550px",
-  borderRadius: "10px",
+  height: "100%",
 };
 
 const options = {

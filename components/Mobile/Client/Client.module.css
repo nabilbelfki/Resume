@@ -1,4 +1,3 @@
-
 .overlay {
   display: flex;
   justify-content: center;
@@ -51,15 +50,10 @@
   font-style: italic;
 }
 
-@media (width <= 640px) {
+@media (width <=640px) {
   .overlay {
     width: 100%;
-    width: 100vw;
     position: static;
     padding: 0;
-  }
-
-  .about-client {
-    padding-top: 50px;
   }
 }

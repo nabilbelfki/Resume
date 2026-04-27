@@ -21,9 +21,10 @@
   animation-play-state: paused;
 }
 
-@media (width <= 950px) {
+@media (width <=950px) {
   .container {
     /* display: none; */
     width: 100vw;
+    height: 45vh;
   }
 }

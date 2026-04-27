@@ -1,20 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import Slider from "@/components/Slider/Slider";
-import Languages from "@/components/Languages/Languages";
-import Views from "@/components/Views/Views";
-import Duration from "@/components/Duration/Duration";
-import Dates from "@/components/Dates/Dates";
-import PictureLink from "@/components/PictureLink/PictureLink";
-import Description from "@/components/Description/Description";
-import Calendar from "@/components/Calendar/Calendar";
-import Button from "@/components/Button/Button";
-// import Project from "../../components/Project";
-import Video from "@/components/Video/Video";
-import Map from "@/components/Map/Map";
-import Client from "@/components/Client/Client";
-import styles from "./Application.module.css";
+import ResponsiveApplication from "@/components/ResponsiveApplication/ResponsiveApplication";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Project as ProjectType } from "../../../lib/types";
@@ -73,66 +60,7 @@ const Application: React.FC<ApplicationProps> = ({ params }) => {
 
   console.log("Project", project);
 
-  return (
-    <div className={styles.background}>
-      <div className={styles.container}>
-        <Video
-          name={project.name}
-          videoPath={`/videos/${project.slug}.mp4`}
-          thumbnail={project.thumbnail}
-        />
-        <div className={styles["project-information"]}>
-          <div className={styles["views-and-duration"]}>
-            <Views views={project.views} />
-            <Duration duration={project.duration} />
-          </div>
-          <div className={styles["dates-and-links"]}>
-            <Dates start={startDate} end={endDate} />
-            <div className={styles["links"]}>
-              <PictureLink
-                image={"/images/github-logo.svg"}
-                shortLink={project.repository.shortUrl}
-                link={project.repository.url}
-                name={"Repository"}
-                color={"#2E2E2E"}
-              />
-              <PictureLink
-                image={"/images/docker.svg"}
-                shortLink={project.container.shortUrl}
-                link={project.container.url}
-                name={"Container"}
-                color={"#127EC0"}
-              />
-            </div>
-          </div>
-          <div className={styles.languages}>
-            <Languages languages={project.languages} />
-          </div>
-        </div>
-        <Description text={project.description} url={project.url} />
-        <Slider slides={project.tools} />
-        <div className={styles["client-info-and-contact"]}>
-          <div className={styles.client}>
-            <Client client={project.client} />
-            <Map location={project.client.location} />
-          </div>
-          <div className={styles["call-to-action-and-calendar"]}>
-            <div className={styles["call-to-action"]}>
-              <div className={styles.text}>Have Questions?</div>
-              <Link href={`/#contact`}>
-                <Button
-                  text="CONTACT ME"
-                  onClick={() => console.log("Contact me")}
-                  style={{ fontWeight: 600, width: 130, backgroundColor: "#2571FF" }}
-                />
-              </Link>
-            </div>
-            <Calendar />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  return <ResponsiveApplication project={project} />;
 };
 
 export default Application;

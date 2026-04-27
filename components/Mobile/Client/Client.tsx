@@ -30,7 +30,6 @@ const Client: React.FC<ClientProps> = ({ client }) => {
           </div>
         </div>
         <div className={styles["client-description"]}>{client.description}</div>
-        <Slideshow slides={client.slides} />
       </div>
     </div>
   );

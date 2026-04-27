@@ -57,14 +57,14 @@
   width: 7px;
 }
 
-@media (width <= 640px) {
+@media (width <=640px) {
   .languages {
-    width: 100vw;
+    /* width: 100vw; */
     border-radius: 0;
   }
 
   .legend {
-    font-size: 6px;
+    font-size: 10px;
     font-weight: 600;
   }
 }

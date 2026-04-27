@@ -1,0 +1,212 @@
+.application {
+  width: 100vw;
+  background-color: #fff;
+}
+
+.slide {
+  height: auto !important;
+  min-height: 100dvh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: #f3f3f3;
+  scroll-snap-stop: normal !important;
+}
+
+.graySlide {
+  background-color: #f0f0f0 !important;
+  justify-content: center;
+  align-items: center;
+  /* padding: 40px 20px; */
+}
+
+.stickyVideo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  pointer-events: none;
+  /* Allow swiping through the video */
+}
+
+.stickyVideo * {
+  pointer-events: auto;
+  /* Re-enable for the video itself if needed, but none is safer for scrolling */
+}
+
+.videoPlaceholder {
+  width: 100%;
+  height: 50vw;
+  /* Matches the height calculation in Video.tsx (elementWidth / 2) */
+  flex-shrink: 0;
+}
+
+.scrollContent {
+  flex: 1;
+  padding: 0px 0px 90px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.fullHeightSlide .scrollContent {
+  background-color: #fff;
+  padding: 30px 20px 150px 20px;
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.contactContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #FFF;
+  padding: 30px;
+  width: 100%;
+}
+
+.mediaSection {
+  margin: 0 -15px 15px -15px;
+  background-color: #fff;
+}
+
+.infoCard {
+  background-color: #fff;
+  border-radius: 12px;
+  /* padding: 20px; */
+  /* flex: 1; */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.viewsDurationRow {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.viewsDurationRow>div {
+  flex: 1;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.linksRow {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  padding: 0 20px;
+}
+
+.visitButtonContainer {
+  position: fixed;
+  bottom: 110px;
+  /* Above the bottom navigation */
+  left: 0;
+  width: 100%;
+  padding: 0 20px;
+  z-index: 20;
+}
+
+.fullImageSlide {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
+
+.fullImage {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.mapContainer {
+  height: 100vh;
+  width: 100%;
+}
+
+.contactSlide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.contactHeader {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #2e2e2e;
+}
+
+.fullHeightSlide {
+  height: 100dvh !important;
+  overflow: hidden;
+}
+
+.clientSlideHeader {
+  width: 100%;
+  height: 90px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-bottom: 1px solid #eee;
+  z-index: 10;
+}
+
+.clientSlideHeader img {
+  object-fit: contain;
+}
+
+.clientHeaderTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+}
+
+.slide5Card {
+  width: 100%;
+  /* max-width: 400px; */
+  background-color: #fff;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.slideshowSlide {
+  flex: 1;
+  width: 100%;
+  background-color: #fff;
+  /* White background for the image area inside the card */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirmationTitle {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  color: #bcbcbc;
+  font-size: 14px;
+  font-weight: 500;
+}
