@@ -3,8 +3,8 @@
   justify-content: center;
   align-items: center;
   padding: 10px;
-  height: 500px;
-  width: 750px;
+  height: 100vh;
+  /* width: 750px; */
   color: #000;
   z-index: 10;
 }

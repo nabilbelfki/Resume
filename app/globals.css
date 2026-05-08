@@ -437,7 +437,7 @@ body {
   width: 100%;
   font-size: 32px;
   color: #2e2e2e;
-  display: flex;
+  display: none;
   justify-content: flex-start;
   align-items: center;
   font-weight: 600;
@@ -503,13 +503,23 @@ body {
   width: 100%;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1030px) {
   .desktop-only {
     display: none;
   }
 
   .mobile-only {
     display: block;
+  }
+
+  .calendar-title {
+    justify-content: center;
+  }
+
+  .contact-content-wrapper {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    height: unset;
   }
 
   /* Snapping is now enabled globally */
@@ -549,7 +559,32 @@ body {
   }
 
   .contact-and-schedule-meeting {
-    padding: 40px;
+    padding: 0;
+  }
+
+  .contact-header {
+    padding: 20px 40px;
+  }
+
+  .contact-content-wrapper {
+    padding: 20px 40px;
+  }
+
+  .heroText h1 {
+    font-size: 56px;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+    letter-spacing: -0.5px;
+  }
+
+  .heroText p {
+    font-size: 32px;
+    font-weight: 300;
+    font-style: italic;
+    color: #555;
+    margin: 0;
+    line-height: 1.4;
   }
 }
 
@@ -584,6 +619,10 @@ body {
 }
 
 @media (width <=640px) {
+  .calendar-title {
+    display: flex;
+  }
+
   body {
     margin: 0;
     width: 100%;
@@ -613,6 +652,7 @@ body {
 
   .calendar-title {
     margin-top: 40px;
+    justify-content: center;
   }
 
   .contact-and-schedule-meeting {
@@ -628,6 +668,11 @@ body {
   #meeting {
     width: 100%;
     height: calc(100vh - 90px);
+  }
+
+  #contact {
+    background-color: #f3f3f3;
+    padding: 5px;
   }
 
 }

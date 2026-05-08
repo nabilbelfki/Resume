@@ -145,7 +145,7 @@ border-bottom: solid 1px #C6C6C6;
   background-color: #dbdbdb;
 }
 
-@media (width <= 640px) {
+@media (width <= 1030px) {
   .nav {
     display: none;
   }

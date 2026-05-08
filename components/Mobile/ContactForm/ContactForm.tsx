@@ -102,7 +102,7 @@ const Contact: React.FC<unknown> = () => {
     <div id="contact" className={styles["contact-form"]}>
       <Loading isLoading={isLoading} zIndex={10} />
       <div className={styles["contact-form-title"]}>
-        Send Message
+        Send Meeting
       </div>
       <form className={styles.form}>
         <div className={styles["email-first-and-last-name"]}>

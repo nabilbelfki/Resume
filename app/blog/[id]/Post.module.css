@@ -39,3 +39,25 @@
     color: #A1C2FF;
     font-size: 18px;
 }
+
+@media (max-width: 768px) {
+    .container {
+        padding-top: 80px;
+    }
+    
+    .post {
+        padding: 0 20px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    
+    .date-read-time-and-category {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .category {
+        margin-left: 0;
+    }
+}

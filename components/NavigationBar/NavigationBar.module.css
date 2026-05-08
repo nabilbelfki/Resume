@@ -178,7 +178,7 @@
   background-color: #dbdbdb;
 }
 
-@media (width <=640px) {
+@media (width <= 1030px) {
   .nav {
     display: none;
   }

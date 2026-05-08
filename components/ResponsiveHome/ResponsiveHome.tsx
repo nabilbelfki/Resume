@@ -42,7 +42,7 @@ const ResponsiveHome: React.FC<ResponsiveHomeProps> = ({
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 1024);
+      setIsMobile(window.innerWidth <= 1030);
     };
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -54,7 +54,7 @@ const ResponsiveHome: React.FC<ResponsiveHomeProps> = ({
 
   if (isMobile) {
     return (
-      <FullPageTransition>
+      <FullPageTransition key="mobile">
         {/* Biography Section - Dual Snap Points for Animation */}
         <div id="biography-hero" className="snap-section" style={{ height: '100dvh' }}></div>
         <div id="biography-text" className="snap-section" style={{ height: '100dvh' }}></div>
@@ -93,7 +93,7 @@ const ResponsiveHome: React.FC<ResponsiveHomeProps> = ({
   }
 
   return (
-    <FullPageTransition>
+    <FullPageTransition key="desktop">
       <Biography />
       <div id="experiences" className="experience-and-skills">
         <Timeline experiences={experiences} />

@@ -56,7 +56,7 @@
   }
 }
 
-@media (width <=640px) {
+@media (width <= 1030px) {
   .footer {
     position: fixed;
     bottom: 0;
