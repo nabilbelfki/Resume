@@ -25,3 +25,9 @@
     justify-content: flex-start;
     width: 100%;
 }
+
+@media (max-width: 1030px) {
+    .sidebar {
+        display: none;
+    }
+}

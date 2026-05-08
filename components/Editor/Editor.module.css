@@ -81,3 +81,21 @@
   background-color: var(--editor-background);
   border-bottom: var(--editor-background);
 }
+
+@media (max-width: 1030px) {
+  .top-bar {
+    height: auto;
+    flex-wrap: wrap;
+    padding: 10px;
+    gap: 12px;
+  }
+  .visual-or-text {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+}

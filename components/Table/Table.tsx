@@ -426,7 +426,8 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
                             className={styles.create}
                             onClick={() => window.location.href = window.location.pathname + '/create'}
                         >
-                            {`Create ${entity}`}
+                            <span className={styles['create-text']}>{`Create ${entity}`}</span>
+                            <span className={styles['create-icon']}>+</span>
                         </button>
                     )}
                     <div className={styles.search}>
@@ -450,6 +451,7 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
             ) : error ? (
                 <div className={styles.error}>{error}</div>
             ) : (
+                <div className={styles['table-wrapper']}>
                 <table className={styles.table}>
                     <thead>
                         <tr>
@@ -520,6 +522,7 @@ const Table: React.FC<TableProps> = ({ actions, columns, entity, showing: initia
                         })}
                     </tbody>
                 </table>
+                </div>
             )}
 
             <div className={styles.footer}>

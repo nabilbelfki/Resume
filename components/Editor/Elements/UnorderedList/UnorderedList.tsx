@@ -19,13 +19,15 @@ interface UnorderedListProps {
   onArrowDown?: () => void;
 }
 
-// Helper to parse content string to ListItem[]
 const parseContent = (content?: string): ListItem[] => {
-  console.log("Content", content)
   if (!content) return [{ id: Date.now(), content: "", level: 0 }];
   
   try {
-    return JSON.parse(content);
+    const parsed = JSON.parse(content);
+    return parsed.map((item: any, index: number) => ({
+      ...item,
+      id: item.id || Date.now() + index
+    }));
   } catch {
     return [{ id: Date.now(), content: "", level: 0 }];
   }

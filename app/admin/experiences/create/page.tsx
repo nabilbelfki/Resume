@@ -607,7 +607,7 @@ const Experience: React.FC = () => {
           </div>
         </div>
         <label className={styles.title}>Logo Constraints</label>
-        <div className={styles.grid} style={{gridTemplateColumns: '1fr 1fr'}}>
+        <div className={styles['grid-2']}>
           <div className={styles.input}>
             <label htmlFor="logoOpenedWidth">Opened Width</label>
             <input 

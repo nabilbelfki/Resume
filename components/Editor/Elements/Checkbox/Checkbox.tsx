@@ -25,14 +25,10 @@ const parseContent = (content?: string): CheckboxItem[] => {
   
   try {
     const parsed = JSON.parse(content);
-    if (Array.isArray(parsed) && parsed.every(item => 
-      typeof item.id === 'number' && 
-      typeof item.checked === 'boolean' && 
-      typeof item.content === 'string'
-    )) {
-      return parsed;
-    }
-    return [{ id: Date.now(), checked: false, content: "" }];
+    return parsed.map((item: any, index: number) => ({
+      ...item,
+      id: item.id || Date.now() + index
+    }));
   } catch {
     return [{ id: Date.now(), checked: false, content: "" }];
   }

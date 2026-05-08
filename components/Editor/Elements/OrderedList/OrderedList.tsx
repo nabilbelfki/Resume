@@ -21,19 +21,14 @@ interface OrderedListProps {
 
 // Helper to parse content string to ListItem[]
 const parseContent = (content?: string): ListItem[] => {
-  console.log("Content", content);
   if (!content) return [{ id: Date.now(), content: "", level: 0 }];
   
   try {
     const parsed = JSON.parse(content);
-    if (Array.isArray(parsed) && parsed.every(item => 
-      typeof item.id === 'number' && 
-      typeof item.content === 'string' &&
-      typeof item.level === 'number'
-    )) {
-      return parsed;
-    }
-    return [{ id: Date.now(), content: "", level: 0 }];
+    return parsed.map((item: any, index: number) => ({
+      ...item,
+      id: item.id || Date.now() + index
+    }));
   } catch {
     return [{ id: Date.now(), content: "", level: 0 }];
   }

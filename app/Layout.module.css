@@ -21,3 +21,10 @@
 .white {
   background: #FFFFFF;
 }
+
+@media (max-width: 1030px) {
+  .admin-container {
+    height: auto;
+    min-height: 100vh;
+  }
+}

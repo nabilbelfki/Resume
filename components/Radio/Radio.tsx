@@ -22,7 +22,7 @@ const Radio: React.FC<RadioProps> = ({ name, value, select, radios }) => {
                 onClick={() => handleClick(radio.value)}
                 className={styles.radio}
             >
-                <input type="radio" id={radio.ID} name={name} value={radio.value} checked={value == radio.value}/>
+                <input type="radio" id={radio.ID} name={name} value={radio.value} checked={value == radio.value} readOnly />
                 <label htmlFor={radio.ID}>{radio.label}</label>
             </div>)
         )}

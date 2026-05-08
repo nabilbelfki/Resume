@@ -13,3 +13,23 @@
     max-width: 1400px;
     gap: 50px;
 }
+
+@media (max-width: 1200px) {
+    .dashboard {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 1030px) {
+    .container {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+        padding-bottom: 80px;
+    }
+}

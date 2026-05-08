@@ -151,3 +151,11 @@
     border: none;
     display: block;
 }
+@media (max-width: 1030px) {
+    .container {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+        padding-bottom: 80px;
+    }
+}

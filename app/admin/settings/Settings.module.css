@@ -81,3 +81,25 @@
     height: 35px;
     font-size: 14px;
 }
+@media (max-width: 1030px) {
+    .actions {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin-top: 15px;
+        margin-bottom: 20px;
+        gap: 15px;
+    }
+    .back, .save, .delete {
+        height: 35px;
+        padding-left: 15px;
+        padding-right: 15px;
+        font-size: 14px;
+    }
+    .container {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+        padding-bottom: 80px;
+    }
+}

@@ -110,3 +110,34 @@
 .delete:not(:disabled):hover {
     background: linear-gradient(to right, rgba(185, 50, 53, 0.7) 0%, rgba(137, 29, 31, 0.7) 75%, rgba(105, 17, 18, 0.7) 100%);
 }
+
+@media (max-width: 1030px) {
+  .row {
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--form-border, #E8E8E8);
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+  }
+  
+  .fields.two-columns,
+  .fields.three-columns {
+      flex: 1;
+      grid-template-columns: 1fr;
+      grid-auto-rows: auto;
+      row-gap: 15px;
+  }
+
+  .fields.two-columns .media-field {
+      grid-row: auto;
+      height: 250px;
+  }
+
+  .actions, .actions.column-layout {
+      width: 100%;
+      flex-direction: row;
+      justify-content: flex-start;
+      margin-top: 10px;
+      padding-left: 36px;
+      gap: 15px;
+  }
+}
